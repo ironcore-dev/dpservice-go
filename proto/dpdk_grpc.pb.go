@@ -38,8 +38,9 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DPDKonmetalClient interface {
 	//// INITIALIZATION
-	// initialized indicates if the DPDK app has been initialized already.
-	Initialized(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BoolMsg, error)
+	// initialized indicates if the DPDK app has been initialized already, if so an UUID is returned.
+	// this UUID gets changed in case the dp-service gets restarted.
+	Initialized(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UUIDMsg, error)
 	// init will be called once for initial set up of the DPDK app.
 	// init returns an error if the DPDK app has been initialized already. So check if it got initialized before calling init.
 	Init(ctx context.Context, in *InitConfig, opts ...grpc.CallOption) (*Status, error)
@@ -58,14 +59,14 @@ type DPDKonmetalClient interface {
 	// listMachinePrefixes returns a list of prefixes, that will be routed to the machine by the DPDK app.
 	// For example this could be a node's Kubernetes Pod CIDR.
 	ListMachinePrefixes(ctx context.Context, in *MachineIDMsg, opts ...grpc.CallOption) (*PrefixesMsg, error)
-	AddMachinePrefix(ctx context.Context, in *MachinePrefixMsg, opts ...grpc.CallOption) (*Status, error)
+	AddMachinePrefix(ctx context.Context, in *MachinePrefixMsg, opts ...grpc.CallOption) (*ExtStatus, error)
 	DeleteMachinePrefix(ctx context.Context, in *MachinePrefixMsg, opts ...grpc.CallOption) (*Status, error)
 	// NAT related, add/get/del Virtual IP for a given Machine
-	AddMachineVIP(ctx context.Context, in *MachineVIPMsg, opts ...grpc.CallOption) (*Status, error)
+	AddMachineVIP(ctx context.Context, in *MachineVIPMsg, opts ...grpc.CallOption) (*ExtStatus, error)
 	GetMachineVIP(ctx context.Context, in *MachineIDMsg, opts ...grpc.CallOption) (*MachineVIPIP, error)
 	DelMachineVIP(ctx context.Context, in *MachineIDMsg, opts ...grpc.CallOption) (*Status, error)
 	// LB related, add/list/del backend IPs for a given LB IP
-	AddLBVIP(ctx context.Context, in *LBMsg, opts ...grpc.CallOption) (*Status, error)
+	AddLBVIP(ctx context.Context, in *LBMsg, opts ...grpc.CallOption) (*ExtStatus, error)
 	GetLBVIPBackends(ctx context.Context, in *LBQueryMsg, opts ...grpc.CallOption) (*LBBackendMsg, error)
 	DelLBVIP(ctx context.Context, in *LBMsg, opts ...grpc.CallOption) (*Status, error)
 	//// ROUTES
@@ -91,8 +92,8 @@ func NewDPDKonmetalClient(cc grpc.ClientConnInterface) DPDKonmetalClient {
 	return &dPDKonmetalClient{cc}
 }
 
-func (c *dPDKonmetalClient) Initialized(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BoolMsg, error) {
-	out := new(BoolMsg)
+func (c *dPDKonmetalClient) Initialized(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UUIDMsg, error) {
+	out := new(UUIDMsg)
 	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/initialized", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -154,8 +155,8 @@ func (c *dPDKonmetalClient) ListMachinePrefixes(ctx context.Context, in *Machine
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) AddMachinePrefix(ctx context.Context, in *MachinePrefixMsg, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
+func (c *dPDKonmetalClient) AddMachinePrefix(ctx context.Context, in *MachinePrefixMsg, opts ...grpc.CallOption) (*ExtStatus, error) {
+	out := new(ExtStatus)
 	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/addMachinePrefix", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -172,8 +173,8 @@ func (c *dPDKonmetalClient) DeleteMachinePrefix(ctx context.Context, in *Machine
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) AddMachineVIP(ctx context.Context, in *MachineVIPMsg, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
+func (c *dPDKonmetalClient) AddMachineVIP(ctx context.Context, in *MachineVIPMsg, opts ...grpc.CallOption) (*ExtStatus, error) {
+	out := new(ExtStatus)
 	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/addMachineVIP", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -199,8 +200,8 @@ func (c *dPDKonmetalClient) DelMachineVIP(ctx context.Context, in *MachineIDMsg,
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) AddLBVIP(ctx context.Context, in *LBMsg, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
+func (c *dPDKonmetalClient) AddLBVIP(ctx context.Context, in *LBMsg, opts ...grpc.CallOption) (*ExtStatus, error) {
+	out := new(ExtStatus)
 	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/addLBVIP", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -294,8 +295,9 @@ func (c *dPDKonmetalClient) QueryHelloWorld(ctx context.Context, in *Empty, opts
 // for forward compatibility
 type DPDKonmetalServer interface {
 	//// INITIALIZATION
-	// initialized indicates if the DPDK app has been initialized already.
-	Initialized(context.Context, *Empty) (*BoolMsg, error)
+	// initialized indicates if the DPDK app has been initialized already, if so an UUID is returned.
+	// this UUID gets changed in case the dp-service gets restarted.
+	Initialized(context.Context, *Empty) (*UUIDMsg, error)
 	// init will be called once for initial set up of the DPDK app.
 	// init returns an error if the DPDK app has been initialized already. So check if it got initialized before calling init.
 	Init(context.Context, *InitConfig) (*Status, error)
@@ -314,14 +316,14 @@ type DPDKonmetalServer interface {
 	// listMachinePrefixes returns a list of prefixes, that will be routed to the machine by the DPDK app.
 	// For example this could be a node's Kubernetes Pod CIDR.
 	ListMachinePrefixes(context.Context, *MachineIDMsg) (*PrefixesMsg, error)
-	AddMachinePrefix(context.Context, *MachinePrefixMsg) (*Status, error)
+	AddMachinePrefix(context.Context, *MachinePrefixMsg) (*ExtStatus, error)
 	DeleteMachinePrefix(context.Context, *MachinePrefixMsg) (*Status, error)
 	// NAT related, add/get/del Virtual IP for a given Machine
-	AddMachineVIP(context.Context, *MachineVIPMsg) (*Status, error)
+	AddMachineVIP(context.Context, *MachineVIPMsg) (*ExtStatus, error)
 	GetMachineVIP(context.Context, *MachineIDMsg) (*MachineVIPIP, error)
 	DelMachineVIP(context.Context, *MachineIDMsg) (*Status, error)
 	// LB related, add/list/del backend IPs for a given LB IP
-	AddLBVIP(context.Context, *LBMsg) (*Status, error)
+	AddLBVIP(context.Context, *LBMsg) (*ExtStatus, error)
 	GetLBVIPBackends(context.Context, *LBQueryMsg) (*LBBackendMsg, error)
 	DelLBVIP(context.Context, *LBMsg) (*Status, error)
 	//// ROUTES
@@ -344,7 +346,7 @@ type DPDKonmetalServer interface {
 type UnimplementedDPDKonmetalServer struct {
 }
 
-func (UnimplementedDPDKonmetalServer) Initialized(context.Context, *Empty) (*BoolMsg, error) {
+func (UnimplementedDPDKonmetalServer) Initialized(context.Context, *Empty) (*UUIDMsg, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Initialized not implemented")
 }
 func (UnimplementedDPDKonmetalServer) Init(context.Context, *InitConfig) (*Status, error) {
@@ -365,13 +367,13 @@ func (UnimplementedDPDKonmetalServer) UpdateThrottlingConfig(context.Context, *T
 func (UnimplementedDPDKonmetalServer) ListMachinePrefixes(context.Context, *MachineIDMsg) (*PrefixesMsg, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMachinePrefixes not implemented")
 }
-func (UnimplementedDPDKonmetalServer) AddMachinePrefix(context.Context, *MachinePrefixMsg) (*Status, error) {
+func (UnimplementedDPDKonmetalServer) AddMachinePrefix(context.Context, *MachinePrefixMsg) (*ExtStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddMachinePrefix not implemented")
 }
 func (UnimplementedDPDKonmetalServer) DeleteMachinePrefix(context.Context, *MachinePrefixMsg) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMachinePrefix not implemented")
 }
-func (UnimplementedDPDKonmetalServer) AddMachineVIP(context.Context, *MachineVIPMsg) (*Status, error) {
+func (UnimplementedDPDKonmetalServer) AddMachineVIP(context.Context, *MachineVIPMsg) (*ExtStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddMachineVIP not implemented")
 }
 func (UnimplementedDPDKonmetalServer) GetMachineVIP(context.Context, *MachineIDMsg) (*MachineVIPIP, error) {
@@ -380,7 +382,7 @@ func (UnimplementedDPDKonmetalServer) GetMachineVIP(context.Context, *MachineIDM
 func (UnimplementedDPDKonmetalServer) DelMachineVIP(context.Context, *MachineIDMsg) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DelMachineVIP not implemented")
 }
-func (UnimplementedDPDKonmetalServer) AddLBVIP(context.Context, *LBMsg) (*Status, error) {
+func (UnimplementedDPDKonmetalServer) AddLBVIP(context.Context, *LBMsg) (*ExtStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddLBVIP not implemented")
 }
 func (UnimplementedDPDKonmetalServer) GetLBVIPBackends(context.Context, *LBQueryMsg) (*LBBackendMsg, error) {
