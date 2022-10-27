@@ -78,8 +78,9 @@ type DPDKonmetalClient interface {
 	AddLoadBalancerTarget(ctx context.Context, in *AddLoadBalancerTargetRequest, opts ...grpc.CallOption) (*Status, error)
 	GetLoadBalancerTargets(ctx context.Context, in *GetLoadBalancerTargetsRequest, opts ...grpc.CallOption) (*GetLoadBalancerTargetsResponse, error)
 	DeleteLoadBalancerTarget(ctx context.Context, in *DeleteLoadBalancerTargetRequest, opts ...grpc.CallOption) (*Status, error)
-	// Network-NAT related, add/del a NAT for an interface
+	// Network-NAT related, add/del/get a NAT for an interface
 	AddNAT(ctx context.Context, in *AddNATRequest, opts ...grpc.CallOption) (*AddNATResponse, error)
+	GetNAT(ctx context.Context, in *GetNATRequest, opts ...grpc.CallOption) (*GetNATResponse, error)
 	DeleteNAT(ctx context.Context, in *DeleteNATRequest, opts ...grpc.CallOption) (*Status, error)
 	AddNeighborNAT(ctx context.Context, in *AddNeighborNATRequest, opts ...grpc.CallOption) (*Status, error)
 	DeleteNeighborNAT(ctx context.Context, in *DeleteNeighborNATRequest, opts ...grpc.CallOption) (*Status, error)
@@ -313,6 +314,15 @@ func (c *dPDKonmetalClient) AddNAT(ctx context.Context, in *AddNATRequest, opts 
 	return out, nil
 }
 
+func (c *dPDKonmetalClient) GetNAT(ctx context.Context, in *GetNATRequest, opts ...grpc.CallOption) (*GetNATResponse, error) {
+	out := new(GetNATResponse)
+	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/getNAT", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dPDKonmetalClient) DeleteNAT(ctx context.Context, in *DeleteNATRequest, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
 	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/deleteNAT", in, out, opts...)
@@ -448,8 +458,9 @@ type DPDKonmetalServer interface {
 	AddLoadBalancerTarget(context.Context, *AddLoadBalancerTargetRequest) (*Status, error)
 	GetLoadBalancerTargets(context.Context, *GetLoadBalancerTargetsRequest) (*GetLoadBalancerTargetsResponse, error)
 	DeleteLoadBalancerTarget(context.Context, *DeleteLoadBalancerTargetRequest) (*Status, error)
-	// Network-NAT related, add/del a NAT for an interface
+	// Network-NAT related, add/del/get a NAT for an interface
 	AddNAT(context.Context, *AddNATRequest) (*AddNATResponse, error)
+	GetNAT(context.Context, *GetNATRequest) (*GetNATResponse, error)
 	DeleteNAT(context.Context, *DeleteNATRequest) (*Status, error)
 	AddNeighborNAT(context.Context, *AddNeighborNATRequest) (*Status, error)
 	DeleteNeighborNAT(context.Context, *DeleteNeighborNATRequest) (*Status, error)
@@ -541,6 +552,9 @@ func (UnimplementedDPDKonmetalServer) DeleteLoadBalancerTarget(context.Context, 
 }
 func (UnimplementedDPDKonmetalServer) AddNAT(context.Context, *AddNATRequest) (*AddNATResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddNAT not implemented")
+}
+func (UnimplementedDPDKonmetalServer) GetNAT(context.Context, *GetNATRequest) (*GetNATResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNAT not implemented")
 }
 func (UnimplementedDPDKonmetalServer) DeleteNAT(context.Context, *DeleteNATRequest) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteNAT not implemented")
@@ -999,6 +1013,24 @@ func _DPDKonmetal_AddNAT_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DPDKonmetal_GetNAT_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNATRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DPDKonmetalServer).GetNAT(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dpdkonmetal.DPDKonmetal/getNAT",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DPDKonmetalServer).GetNAT(ctx, req.(*GetNATRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DPDKonmetal_DeleteNAT_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteNATRequest)
 	if err := dec(in); err != nil {
@@ -1277,6 +1309,10 @@ var DPDKonmetal_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "addNAT",
 			Handler:    _DPDKonmetal_AddNAT_Handler,
+		},
+		{
+			MethodName: "getNAT",
+			Handler:    _DPDKonmetal_GetNAT_Handler,
 		},
 		{
 			MethodName: "deleteNAT",
