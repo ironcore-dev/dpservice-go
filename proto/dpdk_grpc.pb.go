@@ -94,9 +94,10 @@ type DPDKonmetalClient interface {
 	// If the route does not exist, an error will be returned.
 	DeleteRoute(ctx context.Context, in *VNIRouteMsg, opts ...grpc.CallOption) (*Status, error)
 	//// FIREWALL
-	ListFirewallRules(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*FirewallRulesMsg, error)
-	AddFirewallRule(ctx context.Context, in *FirewallRuleMsg, opts ...grpc.CallOption) (*Status, error)
-	DeleteFirewallRule(ctx context.Context, in *RuleIDMsg, opts ...grpc.CallOption) (*Status, error)
+	ListFirewallRules(ctx context.Context, in *ListFirewallRulesRequest, opts ...grpc.CallOption) (*ListFirewallRulesResponse, error)
+	AddFirewallRule(ctx context.Context, in *AddFirewallRuleRequest, opts ...grpc.CallOption) (*AddFirewallRuleResponse, error)
+	GetFirewallRule(ctx context.Context, in *GetFirewallRuleRequest, opts ...grpc.CallOption) (*GetFirewallRuleResponse, error)
+	DeleteFirewallRule(ctx context.Context, in *DeleteFirewallRuleRequest, opts ...grpc.CallOption) (*Status, error)
 }
 
 type dPDKonmetalClient struct {
@@ -386,8 +387,8 @@ func (c *dPDKonmetalClient) DeleteRoute(ctx context.Context, in *VNIRouteMsg, op
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListFirewallRules(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*FirewallRulesMsg, error) {
-	out := new(FirewallRulesMsg)
+func (c *dPDKonmetalClient) ListFirewallRules(ctx context.Context, in *ListFirewallRulesRequest, opts ...grpc.CallOption) (*ListFirewallRulesResponse, error) {
+	out := new(ListFirewallRulesResponse)
 	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/listFirewallRules", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -395,8 +396,8 @@ func (c *dPDKonmetalClient) ListFirewallRules(ctx context.Context, in *Interface
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) AddFirewallRule(ctx context.Context, in *FirewallRuleMsg, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
+func (c *dPDKonmetalClient) AddFirewallRule(ctx context.Context, in *AddFirewallRuleRequest, opts ...grpc.CallOption) (*AddFirewallRuleResponse, error) {
+	out := new(AddFirewallRuleResponse)
 	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/addFirewallRule", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -404,7 +405,16 @@ func (c *dPDKonmetalClient) AddFirewallRule(ctx context.Context, in *FirewallRul
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteFirewallRule(ctx context.Context, in *RuleIDMsg, opts ...grpc.CallOption) (*Status, error) {
+func (c *dPDKonmetalClient) GetFirewallRule(ctx context.Context, in *GetFirewallRuleRequest, opts ...grpc.CallOption) (*GetFirewallRuleResponse, error) {
+	out := new(GetFirewallRuleResponse)
+	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/getFirewallRule", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dPDKonmetalClient) DeleteFirewallRule(ctx context.Context, in *DeleteFirewallRuleRequest, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
 	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/deleteFirewallRule", in, out, opts...)
 	if err != nil {
@@ -474,9 +484,10 @@ type DPDKonmetalServer interface {
 	// If the route does not exist, an error will be returned.
 	DeleteRoute(context.Context, *VNIRouteMsg) (*Status, error)
 	//// FIREWALL
-	ListFirewallRules(context.Context, *InterfaceIDMsg) (*FirewallRulesMsg, error)
-	AddFirewallRule(context.Context, *FirewallRuleMsg) (*Status, error)
-	DeleteFirewallRule(context.Context, *RuleIDMsg) (*Status, error)
+	ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error)
+	AddFirewallRule(context.Context, *AddFirewallRuleRequest) (*AddFirewallRuleResponse, error)
+	GetFirewallRule(context.Context, *GetFirewallRuleRequest) (*GetFirewallRuleResponse, error)
+	DeleteFirewallRule(context.Context, *DeleteFirewallRuleRequest) (*Status, error)
 	mustEmbedUnimplementedDPDKonmetalServer()
 }
 
@@ -577,13 +588,16 @@ func (UnimplementedDPDKonmetalServer) AddRoute(context.Context, *VNIRouteMsg) (*
 func (UnimplementedDPDKonmetalServer) DeleteRoute(context.Context, *VNIRouteMsg) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRoute not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListFirewallRules(context.Context, *InterfaceIDMsg) (*FirewallRulesMsg, error) {
+func (UnimplementedDPDKonmetalServer) ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListFirewallRules not implemented")
 }
-func (UnimplementedDPDKonmetalServer) AddFirewallRule(context.Context, *FirewallRuleMsg) (*Status, error) {
+func (UnimplementedDPDKonmetalServer) AddFirewallRule(context.Context, *AddFirewallRuleRequest) (*AddFirewallRuleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddFirewallRule not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteFirewallRule(context.Context, *RuleIDMsg) (*Status, error) {
+func (UnimplementedDPDKonmetalServer) GetFirewallRule(context.Context, *GetFirewallRuleRequest) (*GetFirewallRuleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFirewallRule not implemented")
+}
+func (UnimplementedDPDKonmetalServer) DeleteFirewallRule(context.Context, *DeleteFirewallRuleRequest) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFirewallRule not implemented")
 }
 func (UnimplementedDPDKonmetalServer) mustEmbedUnimplementedDPDKonmetalServer() {}
@@ -1158,7 +1172,7 @@ func _DPDKonmetal_DeleteRoute_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _DPDKonmetal_ListFirewallRules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InterfaceIDMsg)
+	in := new(ListFirewallRulesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1170,13 +1184,13 @@ func _DPDKonmetal_ListFirewallRules_Handler(srv interface{}, ctx context.Context
 		FullMethod: "/dpdkonmetal.DPDKonmetal/listFirewallRules",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListFirewallRules(ctx, req.(*InterfaceIDMsg))
+		return srv.(DPDKonmetalServer).ListFirewallRules(ctx, req.(*ListFirewallRulesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DPDKonmetal_AddFirewallRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FirewallRuleMsg)
+	in := new(AddFirewallRuleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1188,13 +1202,31 @@ func _DPDKonmetal_AddFirewallRule_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: "/dpdkonmetal.DPDKonmetal/addFirewallRule",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).AddFirewallRule(ctx, req.(*FirewallRuleMsg))
+		return srv.(DPDKonmetalServer).AddFirewallRule(ctx, req.(*AddFirewallRuleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DPDKonmetal_GetFirewallRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFirewallRuleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DPDKonmetalServer).GetFirewallRule(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dpdkonmetal.DPDKonmetal/getFirewallRule",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DPDKonmetalServer).GetFirewallRule(ctx, req.(*GetFirewallRuleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DPDKonmetal_DeleteFirewallRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RuleIDMsg)
+	in := new(DeleteFirewallRuleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1206,7 +1238,7 @@ func _DPDKonmetal_DeleteFirewallRule_Handler(srv interface{}, ctx context.Contex
 		FullMethod: "/dpdkonmetal.DPDKonmetal/deleteFirewallRule",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteFirewallRule(ctx, req.(*RuleIDMsg))
+		return srv.(DPDKonmetalServer).DeleteFirewallRule(ctx, req.(*DeleteFirewallRuleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1349,6 +1381,10 @@ var DPDKonmetal_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "addFirewallRule",
 			Handler:    _DPDKonmetal_AddFirewallRule_Handler,
+		},
+		{
+			MethodName: "getFirewallRule",
+			Handler:    _DPDKonmetal_GetFirewallRule_Handler,
 		},
 		{
 			MethodName: "deleteFirewallRule",
