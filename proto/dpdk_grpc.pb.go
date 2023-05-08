@@ -95,7 +95,7 @@ type DPDKonmetalClient interface {
 	DeleteRoute(ctx context.Context, in *VNIRouteMsg, opts ...grpc.CallOption) (*Status, error)
 	// VNI internal state information
 	// VNI can be in use by interfaces and by loadbalancer. So get information
-	// whether one of them (or both) is/are using the VNI in question.
+	// whether the VNI in question is in use or not.
 	IsVniInUse(ctx context.Context, in *IsVniInUseRequest, opts ...grpc.CallOption) (*IsVniInUseResponse, error)
 	//// FIREWALL
 	ListFirewallRules(ctx context.Context, in *ListFirewallRulesRequest, opts ...grpc.CallOption) (*ListFirewallRulesResponse, error)
@@ -498,7 +498,7 @@ type DPDKonmetalServer interface {
 	DeleteRoute(context.Context, *VNIRouteMsg) (*Status, error)
 	// VNI internal state information
 	// VNI can be in use by interfaces and by loadbalancer. So get information
-	// whether one of them (or both) is/are using the VNI in question.
+	// whether the VNI in question is in use or not.
 	IsVniInUse(context.Context, *IsVniInUseRequest) (*IsVniInUseResponse, error)
 	//// FIREWALL
 	ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error)
