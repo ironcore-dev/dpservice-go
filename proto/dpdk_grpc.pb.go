@@ -93,6 +93,10 @@ type DPDKonmetalClient interface {
 	// deleteRoute removes a route from a VNet.
 	// If the route does not exist, an error will be returned.
 	DeleteRoute(ctx context.Context, in *VNIRouteMsg, opts ...grpc.CallOption) (*Status, error)
+	// VNI internal state information
+	// VNI can be in use by interfaces and by loadbalancer. So get information
+	// whether the VNI in question is in use or not.
+	IsVniInUse(ctx context.Context, in *IsVniInUseRequest, opts ...grpc.CallOption) (*IsVniInUseResponse, error)
 	//// FIREWALL
 	ListFirewallRules(ctx context.Context, in *ListFirewallRulesRequest, opts ...grpc.CallOption) (*ListFirewallRulesResponse, error)
 	AddFirewallRule(ctx context.Context, in *AddFirewallRuleRequest, opts ...grpc.CallOption) (*AddFirewallRuleResponse, error)
@@ -387,6 +391,15 @@ func (c *dPDKonmetalClient) DeleteRoute(ctx context.Context, in *VNIRouteMsg, op
 	return out, nil
 }
 
+func (c *dPDKonmetalClient) IsVniInUse(ctx context.Context, in *IsVniInUseRequest, opts ...grpc.CallOption) (*IsVniInUseResponse, error) {
+	out := new(IsVniInUseResponse)
+	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/isVniInUse", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dPDKonmetalClient) ListFirewallRules(ctx context.Context, in *ListFirewallRulesRequest, opts ...grpc.CallOption) (*ListFirewallRulesResponse, error) {
 	out := new(ListFirewallRulesResponse)
 	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/listFirewallRules", in, out, opts...)
@@ -483,6 +496,10 @@ type DPDKonmetalServer interface {
 	// deleteRoute removes a route from a VNet.
 	// If the route does not exist, an error will be returned.
 	DeleteRoute(context.Context, *VNIRouteMsg) (*Status, error)
+	// VNI internal state information
+	// VNI can be in use by interfaces and by loadbalancer. So get information
+	// whether the VNI in question is in use or not.
+	IsVniInUse(context.Context, *IsVniInUseRequest) (*IsVniInUseResponse, error)
 	//// FIREWALL
 	ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error)
 	AddFirewallRule(context.Context, *AddFirewallRuleRequest) (*AddFirewallRuleResponse, error)
@@ -587,6 +604,9 @@ func (UnimplementedDPDKonmetalServer) AddRoute(context.Context, *VNIRouteMsg) (*
 }
 func (UnimplementedDPDKonmetalServer) DeleteRoute(context.Context, *VNIRouteMsg) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRoute not implemented")
+}
+func (UnimplementedDPDKonmetalServer) IsVniInUse(context.Context, *IsVniInUseRequest) (*IsVniInUseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsVniInUse not implemented")
 }
 func (UnimplementedDPDKonmetalServer) ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListFirewallRules not implemented")
@@ -1171,6 +1191,24 @@ func _DPDKonmetal_DeleteRoute_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DPDKonmetal_IsVniInUse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IsVniInUseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DPDKonmetalServer).IsVniInUse(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dpdkonmetal.DPDKonmetal/isVniInUse",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DPDKonmetalServer).IsVniInUse(ctx, req.(*IsVniInUseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DPDKonmetal_ListFirewallRules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListFirewallRulesRequest)
 	if err := dec(in); err != nil {
@@ -1373,6 +1411,10 @@ var DPDKonmetal_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteRoute",
 			Handler:    _DPDKonmetal_DeleteRoute_Handler,
+		},
+		{
+			MethodName: "isVniInUse",
+			Handler:    _DPDKonmetal_IsVniInUse_Handler,
 		},
 		{
 			MethodName: "listFirewallRules",
