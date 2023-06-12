@@ -97,6 +97,7 @@ type DPDKonmetalClient interface {
 	// VNI can be in use by interfaces and by loadbalancer. So get information
 	// whether the VNI in question is in use or not.
 	IsVniInUse(ctx context.Context, in *IsVniInUseRequest, opts ...grpc.CallOption) (*IsVniInUseResponse, error)
+	ResetVni(ctx context.Context, in *ResetVniRequest, opts ...grpc.CallOption) (*Status, error)
 	//// FIREWALL
 	ListFirewallRules(ctx context.Context, in *ListFirewallRulesRequest, opts ...grpc.CallOption) (*ListFirewallRulesResponse, error)
 	AddFirewallRule(ctx context.Context, in *AddFirewallRuleRequest, opts ...grpc.CallOption) (*AddFirewallRuleResponse, error)
@@ -400,6 +401,15 @@ func (c *dPDKonmetalClient) IsVniInUse(ctx context.Context, in *IsVniInUseReques
 	return out, nil
 }
 
+func (c *dPDKonmetalClient) ResetVni(ctx context.Context, in *ResetVniRequest, opts ...grpc.CallOption) (*Status, error) {
+	out := new(Status)
+	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/resetVni", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dPDKonmetalClient) ListFirewallRules(ctx context.Context, in *ListFirewallRulesRequest, opts ...grpc.CallOption) (*ListFirewallRulesResponse, error) {
 	out := new(ListFirewallRulesResponse)
 	err := c.cc.Invoke(ctx, "/dpdkonmetal.DPDKonmetal/listFirewallRules", in, out, opts...)
@@ -500,6 +510,7 @@ type DPDKonmetalServer interface {
 	// VNI can be in use by interfaces and by loadbalancer. So get information
 	// whether the VNI in question is in use or not.
 	IsVniInUse(context.Context, *IsVniInUseRequest) (*IsVniInUseResponse, error)
+	ResetVni(context.Context, *ResetVniRequest) (*Status, error)
 	//// FIREWALL
 	ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error)
 	AddFirewallRule(context.Context, *AddFirewallRuleRequest) (*AddFirewallRuleResponse, error)
@@ -607,6 +618,9 @@ func (UnimplementedDPDKonmetalServer) DeleteRoute(context.Context, *VNIRouteMsg)
 }
 func (UnimplementedDPDKonmetalServer) IsVniInUse(context.Context, *IsVniInUseRequest) (*IsVniInUseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IsVniInUse not implemented")
+}
+func (UnimplementedDPDKonmetalServer) ResetVni(context.Context, *ResetVniRequest) (*Status, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ResetVni not implemented")
 }
 func (UnimplementedDPDKonmetalServer) ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListFirewallRules not implemented")
@@ -1209,6 +1223,24 @@ func _DPDKonmetal_IsVniInUse_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DPDKonmetal_ResetVni_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ResetVniRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DPDKonmetalServer).ResetVni(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dpdkonmetal.DPDKonmetal/resetVni",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DPDKonmetalServer).ResetVni(ctx, req.(*ResetVniRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DPDKonmetal_ListFirewallRules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListFirewallRulesRequest)
 	if err := dec(in); err != nil {
@@ -1415,6 +1447,10 @@ var DPDKonmetal_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "isVniInUse",
 			Handler:    _DPDKonmetal_IsVniInUse_Handler,
+		},
+		{
+			MethodName: "resetVni",
+			Handler:    _DPDKonmetal_ResetVni_Handler,
 		},
 		{
 			MethodName: "listFirewallRules",
