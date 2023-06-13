@@ -790,11 +790,7 @@ func (c *client) GetNATInfo(ctx context.Context, natVIPIP netip.Addr, natType st
 				return nil, fmt.Errorf("error parsing underlay route: %w", err)
 			}
 			nat.Spec.UnderlayRoute = &underlayRoute
-			vipIP, err = netip.ParseAddr(string(res.NatVIPIP.Address))
-			if err != nil {
-				return nil, fmt.Errorf("error parsing vip ip: %w", err)
-			}
-			nat.Spec.NatVIPIP = &vipIP
+			nat.Spec.NatVIPIP = nil
 		} else if natInfoEntry.Address != nil {
 			vipIP, err = netip.ParseAddr(string(natInfoEntry.GetAddress()))
 			if err != nil {
