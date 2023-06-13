@@ -795,8 +795,12 @@ func (c *client) GetNATInfo(ctx context.Context, natVIPIP netip.Addr, natType st
 				return nil, fmt.Errorf("error parsing vip ip: %w", err)
 			}
 			nat.Spec.NatVIPIP = &vipIP
-		} else {
-			nat.Spec.NatVIPIP = nil
+		} else if natInfoEntry.Address != nil {
+			vipIP, err = netip.ParseAddr(string(natInfoEntry.GetAddress()))
+			if err != nil {
+				return nil, fmt.Errorf("error parsing vip ip: %w", err)
+			}
+			nat.Spec.NatVIPIP = &vipIP
 		}
 		nat.Kind = api.NatKind
 		nat.Spec.MinPort = natInfoEntry.MinPort
