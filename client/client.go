@@ -466,6 +466,7 @@ func (c *client) DeleteVirtualIP(ctx context.Context, interfaceID string) (*api.
 	retVirtualIP := &api.VirtualIP{
 		TypeMeta:      api.TypeMeta{Kind: api.VirtualIPKind},
 		VirtualIPMeta: api.VirtualIPMeta{InterfaceID: interfaceID},
+		Status:        api.ProtoStatusToStatus(res),
 	}
 	if errorCode := res.GetError(); errorCode != 0 {
 		return retVirtualIP, errors.ErrServerError
