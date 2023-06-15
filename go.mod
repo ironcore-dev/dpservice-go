@@ -1,6 +1,6 @@
 module github.com/onmetal/net-dpservice-go
 
-go 1.18
+go 1.19
 
 require (
 	github.com/golang/protobuf v1.5.2
