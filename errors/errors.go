@@ -17,6 +17,8 @@ package errors
 import (
 	"errors"
 	"fmt"
+
+	dpdkproto "github.com/onmetal/net-dpservice-go/proto"
 )
 
 const (
@@ -59,9 +61,13 @@ const (
 	// os.Exit value
 	CLIENT_ERROR = 1
 	SERVER_ERROR = 2
+
+	StatusErrorString = "error code"
 )
 
-var ErrServerError = fmt.Errorf("server error")
+type IgnoredErrors struct {
+	Codes []int32
+}
 
 type StatusError struct {
 	errorCode int32
@@ -90,6 +96,20 @@ func NewStatusError(errorCode int32, message string) *StatusError {
 	}
 }
 
+func GetError(status *dpdkproto.Status, ignoredErrors []IgnoredErrors) error {
+	if status.Error == 0 {
+		return nil
+	}
+	if len(ignoredErrors) > 0 {
+		for _, ignoredError := range ignoredErrors[0].Codes {
+			if status.Error == ignoredError {
+				return nil
+			}
+		}
+	}
+	return NewStatusError(status.Error, status.Message)
+}
+
 func IsStatusErrorCode(err error, errorCodes ...int32) bool {
 	statusError := &StatusError{}
 	if !errors.As(err, &statusError) {
@@ -104,8 +124,8 @@ func IsStatusErrorCode(err error, errorCodes ...int32) bool {
 	return false
 }
 
-func IgnoreStatusErrorCode(err error, errorCode int32) error {
-	if IsStatusErrorCode(err, errorCode) {
+func IgnoreStatusErrorCode(err error, errorCodes ...int32) error {
+	if IsStatusErrorCode(err, errorCodes...) {
 		return nil
 	}
 	return err
