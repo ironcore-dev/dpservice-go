@@ -70,7 +70,7 @@ type Client interface {
 	DeleteFirewallRule(ctx context.Context, interfaceID string, ruleID string, ignoredErrors ...errors.IgnoredErrors) (*api.FirewallRule, error)
 
 	Initialized(ctx context.Context) (string, error)
-	Init(ctx context.Context, initConfig dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error)
+	Init(ctx context.Context, initConfig *dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error)
 	GetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...errors.IgnoredErrors) (*api.Vni, error)
 	ResetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...errors.IgnoredErrors) (*api.Vni, error)
 }
@@ -159,7 +159,7 @@ func (c *client) ListLoadBalancerPrefixes(ctx context.Context, interfaceID strin
 
 	prefixes := make([]api.Prefix, len(res.GetPrefixes()))
 	for i, dpdkPrefix := range res.GetPrefixes() {
-		prefix, err := api.ProtoPrefixToPrefix(interfaceID, api.ProtoLBPrefixToProtoPrefix(*dpdkPrefix))
+		prefix, err := api.ProtoPrefixToPrefix(interfaceID, api.ProtoLBPrefixToProtoPrefix(dpdkPrefix))
 		if err != nil {
 			return nil, err
 		}
@@ -251,7 +251,7 @@ func (c *client) GetLoadBalancerTargets(ctx context.Context, loadBalancerID stri
 	for i, dpdkLBtarget := range res.GetTargetIPs() {
 		var lbtarget api.LoadBalancerTarget
 		lbtarget.TypeMeta.Kind = api.LoadBalancerTargetKind
-		lbtarget.Spec.TargetIP = api.ProtoLbipToLbip(*dpdkLBtarget)
+		lbtarget.Spec.TargetIP = api.ProtoLbipToLbip(dpdkLBtarget)
 		lbtarget.LoadBalancerTargetMeta.LoadbalancerID = loadBalancerID
 
 		lbtargets[i] = lbtarget
@@ -802,6 +802,7 @@ func (c *client) GetNATInfo(ctx context.Context, natVIPIP netip.Addr, natType st
 		nat.Kind = api.NatKind
 		nat.Spec.MinPort = natInfoEntry.MinPort
 		nat.Spec.MaxPort = natInfoEntry.MaxPort
+		nat.Spec.Vni = natInfoEntry.Vni
 		nats[i] = nat
 	}
 	return &api.NatList{
@@ -980,8 +981,9 @@ func (c *client) Initialized(ctx context.Context) (string, error) {
 	return res.Uuid, nil
 }
 
-func (c *client) Init(ctx context.Context, initConfig dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error) {
-	res, err := c.DPDKonmetalClient.Init(ctx, &initConfig)
+func (c *client) Init(ctx context.Context, initConfig *dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error) {
+	res, err := c.DPDKonmetalClient.Init(ctx, initConfig)
+
 	if err != nil {
 		return &api.Init{}, err
 	}

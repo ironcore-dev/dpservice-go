@@ -360,6 +360,7 @@ type NatSpec struct {
 	MinPort       uint32      `json:"minPort,omitempty"`
 	MaxPort       uint32      `json:"maxPort,omitempty"`
 	UnderlayRoute *netip.Addr `json:"underlayRoute,omitempty"`
+	Vni           uint32      `json:"vni,omitempty"`
 }
 
 type NatList struct {
