@@ -252,7 +252,6 @@ func (c *client) GetLoadBalancerTargets(ctx context.Context, loadBalancerID stri
 		var lbtarget api.LoadBalancerTarget
 		lbtarget.TypeMeta.Kind = api.LoadBalancerTargetKind
 		lbtarget.Spec.TargetIP = api.ProtoLbipToLbip(dpdkLBtarget)
-		lbtarget.Spec.TargetIP = api.ProtoLbipToLbip(dpdkLBtarget)
 		lbtarget.LoadBalancerTargetMeta.LoadbalancerID = loadBalancerID
 
 		lbtargets[i] = lbtarget
@@ -803,7 +802,6 @@ func (c *client) GetNATInfo(ctx context.Context, natVIPIP netip.Addr, natType st
 		nat.Kind = api.NatKind
 		nat.Spec.MinPort = natInfoEntry.MinPort
 		nat.Spec.MaxPort = natInfoEntry.MaxPort
-		nat.Spec.Vni = natInfoEntry.Vni
 		nat.Spec.Vni = natInfoEntry.Vni
 		nats[i] = nat
 	}
