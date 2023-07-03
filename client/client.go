@@ -70,7 +70,7 @@ type Client interface {
 	DeleteFirewallRule(ctx context.Context, interfaceID string, ruleID string, ignoredErrors ...errors.IgnoredErrors) (*api.FirewallRule, error)
 
 	Initialized(ctx context.Context) (string, error)
-	Init(ctx context.Context, initConfig **dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error)
+	Init(ctx context.Context, initConfig *dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error)
 	GetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...errors.IgnoredErrors) (*api.Vni, error)
 	ResetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...errors.IgnoredErrors) (*api.Vni, error)
 }
