@@ -70,9 +70,10 @@ type Client interface {
 	DeleteFirewallRule(ctx context.Context, interfaceID string, ruleID string, ignoredErrors ...errors.IgnoredErrors) (*api.FirewallRule, error)
 
 	Initialized(ctx context.Context) (string, error)
-	Init(ctx context.Context, initConfig dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error)
+	Init(ctx context.Context, initConfig *dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error)
 	GetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...errors.IgnoredErrors) (*api.Vni, error)
 	ResetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...errors.IgnoredErrors) (*api.Vni, error)
+	GetVersion(ctx context.Context, version *api.Version, ignoredErrors ...errors.IgnoredErrors) (*api.Version, error)
 }
 
 type client struct {
@@ -159,7 +160,7 @@ func (c *client) ListLoadBalancerPrefixes(ctx context.Context, interfaceID strin
 
 	prefixes := make([]api.Prefix, len(res.GetPrefixes()))
 	for i, dpdkPrefix := range res.GetPrefixes() {
-		prefix, err := api.ProtoPrefixToPrefix(interfaceID, api.ProtoLBPrefixToProtoPrefix(*dpdkPrefix))
+		prefix, err := api.ProtoPrefixToPrefix(interfaceID, api.ProtoLBPrefixToProtoPrefix(dpdkPrefix))
 		if err != nil {
 			return nil, err
 		}
@@ -251,7 +252,7 @@ func (c *client) GetLoadBalancerTargets(ctx context.Context, loadBalancerID stri
 	for i, dpdkLBtarget := range res.GetTargetIPs() {
 		var lbtarget api.LoadBalancerTarget
 		lbtarget.TypeMeta.Kind = api.LoadBalancerTargetKind
-		lbtarget.Spec.TargetIP = api.ProtoLbipToLbip(*dpdkLBtarget)
+		lbtarget.Spec.TargetIP = api.ProtoLbipToLbip(dpdkLBtarget)
 		lbtarget.LoadBalancerTargetMeta.LoadbalancerID = loadBalancerID
 
 		lbtargets[i] = lbtarget
@@ -980,8 +981,8 @@ func (c *client) Initialized(ctx context.Context) (string, error) {
 	return res.Uuid, nil
 }
 
-func (c *client) Init(ctx context.Context, initConfig dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error) {
-	res, err := c.DPDKonmetalClient.Init(ctx, &initConfig)
+func (c *client) Init(ctx context.Context, initConfig *dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error) {
+	res, err := c.DPDKonmetalClient.Init(ctx, initConfig)
 	if err != nil {
 		return &api.Init{}, err
 	}
@@ -1028,4 +1029,23 @@ func (c *client) ResetVni(ctx context.Context, vni uint32, vniType uint8, ignore
 		return retVni, errors.GetError(res, ignoredErrors)
 	}
 	return retVni, nil
+}
+
+func (c *client) GetVersion(ctx context.Context, version *api.Version, ignoredErrors ...errors.IgnoredErrors) (*api.Version, error) {
+	version.ClientProto = strings.Split(dpdkproto.DPDKonmetal_ServiceDesc.ServiceName, ".")[1]
+	res, err := c.DPDKonmetalClient.GetVersion(ctx, &dpdkproto.GetVersionRequest{
+		ClientProto: version.ClientProto,
+		ClientName:  version.ClientName,
+		ClientVer:   version.ClientVer,
+	})
+	if err != nil {
+		return &api.Version{}, err
+	}
+	if res.Status.GetError() != 0 {
+		return version, errors.GetError(res.Status, ignoredErrors)
+	}
+	version.Spec.SvcProto = res.SvcProto
+	version.Spec.SvcVer = res.SvcVer
+	version.Status = api.ProtoStatusToStatus(res.Status)
+	return version, nil
 }

@@ -73,7 +73,7 @@ func LbipToProtoLbip(lbip netip.Addr) *proto.LBIP {
 	return &proto.LBIP{IpVersion: NetIPAddrToProtoIPVersion(lbip), Address: []byte(lbip.String())}
 }
 
-func ProtoLbipToLbip(protolbip proto.LBIP) *netip.Addr {
+func ProtoLbipToLbip(protolbip *proto.LBIP) *netip.Addr {
 	var ip netip.Addr
 	if lbipString := string(protolbip.Address); lbipString != "" {
 		var err error
@@ -253,7 +253,7 @@ func ProtoRouteToRoute(vni uint32, dpdkRoute *proto.Route) (*Route, error) {
 	}, nil
 }
 
-func ProtoLBPrefixToProtoPrefix(lbprefix proto.LBPrefix) *proto.Prefix {
+func ProtoLBPrefixToProtoPrefix(lbprefix *proto.LBPrefix) *proto.Prefix {
 	return &proto.Prefix{
 		IpVersion:     lbprefix.IpVersion,
 		Address:       lbprefix.Address,

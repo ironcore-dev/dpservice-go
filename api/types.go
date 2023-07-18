@@ -525,6 +525,32 @@ func (m *Vni) GetStatus() Status {
 	return m.Status
 }
 
+type Version struct {
+	TypeMeta    `json:",inline"`
+	VersionMeta `json:"metadata"`
+	Spec        VersionSpec `json:"spec"`
+	Status      Status      `json:"status"`
+}
+
+type VersionMeta struct {
+	ClientProto string `json:"clientProto"`
+	ClientName  string `json:"clientName"`
+	ClientVer   string `json:"clientVer"`
+}
+
+type VersionSpec struct {
+	SvcProto string `json:"svcProto"`
+	SvcVer   string `json:"svcVer"`
+}
+
+func (m *VersionMeta) GetName() string {
+	return fmt.Sprintf("%s-%s", m.ClientName, m.ClientProto)
+}
+
+func (m *Version) GetStatus() Status {
+	return m.Status
+}
+
 var (
 	InterfaceKind              = reflect.TypeOf(Interface{}).Name()
 	InterfaceListKind          = reflect.TypeOf(InterfaceList{}).Name()
@@ -543,4 +569,5 @@ var (
 	FirewallRuleKind           = reflect.TypeOf(FirewallRule{}).Name()
 	FirewallRuleListKind       = reflect.TypeOf(FirewallRuleList{}).Name()
 	VniKind                    = reflect.TypeOf(Vni{}).Name()
+	VersionKind                = reflect.TypeOf(Version{}).Name()
 )
