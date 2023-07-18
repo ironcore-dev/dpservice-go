@@ -803,6 +803,7 @@ func (c *client) GetNATInfo(ctx context.Context, natVIPIP netip.Addr, natType st
 		nat.Kind = api.NatKind
 		nat.Spec.MinPort = natInfoEntry.MinPort
 		nat.Spec.MaxPort = natInfoEntry.MaxPort
+		nat.Spec.Vni = natInfoEntry.Vni
 		nats[i] = nat
 	}
 	return &api.NatList{
