@@ -987,8 +987,8 @@ func (c *client) Initialized(ctx context.Context) (string, error) {
 	return res.Uuid, nil
 }
 
-func (c *client) Init(ctx context.Context, initConfig dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error) {
-	res, err := c.DPDKonmetalClient.Init(ctx, &initConfig)
+func (c *client) Init(ctx context.Context, initConfig *dpdkproto.InitConfig, ignoredErrors ...errors.IgnoredErrors) (*api.Init, error) {
+	res, err := c.DPDKonmetalClient.Init(ctx, initConfig)
 	if err != nil {
 		return &api.Init{}, err
 	}
