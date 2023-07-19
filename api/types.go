@@ -30,6 +30,7 @@ type Object interface {
 
 type List interface {
 	GetItems() []Object
+	GetStatus() Status
 }
 
 type TypeMeta struct {
@@ -69,6 +70,10 @@ func (l *RouteList) GetItems() []Object {
 		res[i] = &l.Items[i]
 	}
 	return res
+}
+
+func (m *RouteList) GetStatus() Status {
+	return m.Status
 }
 
 type Route struct {
@@ -117,6 +122,10 @@ func (l *PrefixList) GetItems() []Object {
 		res[i] = &l.Items[i]
 	}
 	return res
+}
+
+func (m *PrefixList) GetStatus() Status {
+	return m.Status
 }
 
 type Prefix struct {
@@ -241,6 +250,10 @@ func (l *LoadBalancerTargetList) GetItems() []Object {
 	return res
 }
 
+func (m *LoadBalancerTargetList) GetStatus() Status {
+	return m.Status
+}
+
 type LoadBalancerPrefix struct {
 	TypeMeta               `json:",inline"`
 	LoadBalancerPrefixMeta `json:"metadata"`
@@ -331,6 +344,10 @@ func (l *InterfaceList) GetItems() []Object {
 	return res
 }
 
+func (m *InterfaceList) GetStatus() Status {
+	return m.Status
+}
+
 // NAT section
 type Nat struct {
 	TypeMeta `json:",inline"`
@@ -381,6 +398,10 @@ func (l *NatList) GetItems() []Object {
 		res[i] = &l.Items[i]
 	}
 	return res
+}
+
+func (m *NatList) GetStatus() Status {
+	return m.Status
 }
 
 type NeighborNat struct {
@@ -457,6 +478,10 @@ func (l *FirewallRuleList) GetItems() []Object {
 		res[i] = &l.Items[i]
 	}
 	return res
+}
+
+func (m *FirewallRuleList) GetStatus() Status {
+	return m.Status
 }
 
 type Init struct {

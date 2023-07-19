@@ -173,6 +173,7 @@ func (c *client) ListLoadBalancerPrefixes(ctx context.Context, interfaceID strin
 		TypeMeta:       api.TypeMeta{Kind: "LoadBalancerPrefixList"},
 		PrefixListMeta: api.PrefixListMeta{InterfaceID: interfaceID},
 		Items:          prefixes,
+		Status:         api.ProtoStatusToStatus(res.Status),
 	}, nil
 }
 
@@ -262,8 +263,7 @@ func (c *client) GetLoadBalancerTargets(ctx context.Context, loadBalancerID stri
 		TypeMeta:                   api.TypeMeta{Kind: api.LoadBalancerTargetListKind},
 		LoadBalancerTargetListMeta: api.LoadBalancerTargetListMeta{LoadBalancerID: loadBalancerID},
 		Items:                      lbtargets,
-		// TODO server is not returning correct status
-		//Status:   api.ProtoStatusToStatus(res.Status),
+		Status:                     api.ProtoStatusToStatus(res.Status),
 	}, nil
 }
 
@@ -339,6 +339,7 @@ func (c *client) ListInterfaces(ctx context.Context) (*api.InterfaceList, error)
 	return &api.InterfaceList{
 		TypeMeta: api.TypeMeta{Kind: api.InterfaceListKind},
 		Items:    ifaces,
+		Status:   api.ProtoStatusToStatus(res.Status),
 	}, nil
 }
 
@@ -497,6 +498,7 @@ func (c *client) ListPrefixes(ctx context.Context, interfaceID string) (*api.Pre
 		TypeMeta:       api.TypeMeta{Kind: api.PrefixListKind},
 		PrefixListMeta: api.PrefixListMeta{InterfaceID: interfaceID},
 		Items:          prefixes,
+		Status:         api.ProtoStatusToStatus(res.Status),
 	}, nil
 }
 
@@ -644,6 +646,7 @@ func (c *client) ListRoutes(ctx context.Context, vni uint32) (*api.RouteList, er
 		TypeMeta:      api.TypeMeta{Kind: api.RouteListKind},
 		RouteListMeta: api.RouteListMeta{VNI: vni},
 		Items:         routes,
+		Status:        api.ProtoStatusToStatus(res.Status),
 	}, nil
 }
 
@@ -810,6 +813,7 @@ func (c *client) GetNATInfo(ctx context.Context, natVIPIP netip.Addr, natType st
 		TypeMeta:    api.TypeMeta{Kind: api.NatListKind},
 		NatListMeta: api.NatListMeta{NatIP: &natVIPIP, NatInfoType: natType},
 		Items:       nats,
+		Status:      api.ProtoStatusToStatus(res.Status),
 	}, nil
 }
 
@@ -858,6 +862,7 @@ func (c *client) ListFirewallRules(ctx context.Context, interfaceID string) (*ap
 		TypeMeta:             api.TypeMeta{Kind: api.FirewallRuleListKind},
 		FirewallRuleListMeta: api.FirewallRuleListMeta{InterfaceID: interfaceID},
 		Items:                fwRules,
+		Status:               api.ProtoStatusToStatus(res.Status),
 	}, nil
 }
 

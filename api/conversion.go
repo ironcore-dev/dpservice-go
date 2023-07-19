@@ -347,6 +347,12 @@ func ProtoFwRuleToFwRule(dpdkFwRule *proto.FirewallRule, interfaceID string) (*F
 }
 
 func ProtoStatusToStatus(dpdkStatus *proto.Status) Status {
+	if dpdkStatus == nil {
+		return Status{
+			Error:   0,
+			Message: "",
+		}
+	}
 	return Status{
 		Error:   dpdkStatus.Error,
 		Message: dpdkStatus.Message,
