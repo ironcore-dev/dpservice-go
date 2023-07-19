@@ -1038,7 +1038,7 @@ func (c *client) ResetVni(ctx context.Context, vni uint32, vniType uint8, ignore
 }
 
 func (c *client) GetVersion(ctx context.Context, version *api.Version, ignoredErrors ...errors.IgnoredErrors) (*api.Version, error) {
-	version.ClientProto = strings.Split(dpdkproto.DPDKonmetal_ServiceDesc.ServiceName, ".")[1]
+	version.ClientProto = strings.TrimSpace(dpdkproto.GeneratedFrom)
 	res, err := c.DPDKonmetalClient.GetVersion(ctx, &dpdkproto.GetVersionRequest{
 		ClientProto: version.ClientProto,
 		ClientName:  version.ClientName,
