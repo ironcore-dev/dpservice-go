@@ -21,7 +21,10 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	DPDKonmetal_Initialized_FullMethodName                       = "/dpdkonmetal.DPDKonmetal/initialized"
 	DPDKonmetal_Init_FullMethodName                              = "/dpdkonmetal.DPDKonmetal/init"
+<<<<<<< HEAD
 	DPDKonmetal_GetVersion_FullMethodName                        = "/dpdkonmetal.DPDKonmetal/getVersion"
+=======
+>>>>>>> main
 	DPDKonmetal_ListInterfaces_FullMethodName                    = "/dpdkonmetal.DPDKonmetal/listInterfaces"
 	DPDKonmetal_GetInterface_FullMethodName                      = "/dpdkonmetal.DPDKonmetal/getInterface"
 	DPDKonmetal_CreateInterface_FullMethodName                   = "/dpdkonmetal.DPDKonmetal/createInterface"
@@ -70,9 +73,12 @@ type DPDKonmetalClient interface {
 	// init will be called once for initial set up of the DPDK app.
 	// init returns an error if the DPDK app has been initialized already. So check if it got initialized before calling init.
 	Init(ctx context.Context, in *InitConfig, opts ...grpc.CallOption) (*Status, error)
+<<<<<<< HEAD
 	// // VERSIONING
 	// Exchange protocol/app versions to establish communication
 	GetVersion(ctx context.Context, in *GetVersionRequest, opts ...grpc.CallOption) (*GetVersionResponse, error)
+=======
+>>>>>>> main
 	// // INTERFACES
 	ListInterfaces(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*InterfacesMsg, error)
 	GetInterface(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*GetInterfaceResponse, error)
@@ -154,6 +160,7 @@ func (c *dPDKonmetalClient) Initialized(ctx context.Context, in *Empty, opts ...
 func (c *dPDKonmetalClient) Init(ctx context.Context, in *InitConfig, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
 	err := c.cc.Invoke(ctx, DPDKonmetal_Init_FullMethodName, in, out, opts...)
+<<<<<<< HEAD
 	if err != nil {
 		return nil, err
 	}
@@ -163,6 +170,8 @@ func (c *dPDKonmetalClient) Init(ctx context.Context, in *InitConfig, opts ...gr
 func (c *dPDKonmetalClient) GetVersion(ctx context.Context, in *GetVersionRequest, opts ...grpc.CallOption) (*GetVersionResponse, error) {
 	out := new(GetVersionResponse)
 	err := c.cc.Invoke(ctx, DPDKonmetal_GetVersion_FullMethodName, in, out, opts...)
+=======
+>>>>>>> main
 	if err != nil {
 		return nil, err
 	}
@@ -495,9 +504,12 @@ type DPDKonmetalServer interface {
 	// init will be called once for initial set up of the DPDK app.
 	// init returns an error if the DPDK app has been initialized already. So check if it got initialized before calling init.
 	Init(context.Context, *InitConfig) (*Status, error)
+<<<<<<< HEAD
 	// // VERSIONING
 	// Exchange protocol/app versions to establish communication
 	GetVersion(context.Context, *GetVersionRequest) (*GetVersionResponse, error)
+=======
+>>>>>>> main
 	// // INTERFACES
 	ListInterfaces(context.Context, *Empty) (*InterfacesMsg, error)
 	GetInterface(context.Context, *InterfaceIDMsg) (*GetInterfaceResponse, error)
