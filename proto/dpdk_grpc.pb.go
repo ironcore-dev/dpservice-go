@@ -34,44 +34,44 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	DPDKonmetal_Initialized_FullMethodName                       = "/dpdkonmetal.DPDKonmetal/initialized"
-	DPDKonmetal_Init_FullMethodName                              = "/dpdkonmetal.DPDKonmetal/init"
-	DPDKonmetal_GetVersion_FullMethodName                        = "/dpdkonmetal.DPDKonmetal/getVersion"
-	DPDKonmetal_ListInterfaces_FullMethodName                    = "/dpdkonmetal.DPDKonmetal/listInterfaces"
-	DPDKonmetal_GetInterface_FullMethodName                      = "/dpdkonmetal.DPDKonmetal/getInterface"
-	DPDKonmetal_CreateInterface_FullMethodName                   = "/dpdkonmetal.DPDKonmetal/createInterface"
-	DPDKonmetal_DeleteInterface_FullMethodName                   = "/dpdkonmetal.DPDKonmetal/deleteInterface"
-	DPDKonmetal_UpdateThrottlingConfig_FullMethodName            = "/dpdkonmetal.DPDKonmetal/updateThrottlingConfig"
-	DPDKonmetal_ListInterfacePrefixes_FullMethodName             = "/dpdkonmetal.DPDKonmetal/listInterfacePrefixes"
-	DPDKonmetal_AddInterfacePrefix_FullMethodName                = "/dpdkonmetal.DPDKonmetal/addInterfacePrefix"
-	DPDKonmetal_DeleteInterfacePrefix_FullMethodName             = "/dpdkonmetal.DPDKonmetal/deleteInterfacePrefix"
-	DPDKonmetal_ListInterfaceLoadBalancerPrefixes_FullMethodName = "/dpdkonmetal.DPDKonmetal/listInterfaceLoadBalancerPrefixes"
-	DPDKonmetal_CreateInterfaceLoadBalancerPrefix_FullMethodName = "/dpdkonmetal.DPDKonmetal/createInterfaceLoadBalancerPrefix"
-	DPDKonmetal_DeleteInterfaceLoadBalancerPrefix_FullMethodName = "/dpdkonmetal.DPDKonmetal/deleteInterfaceLoadBalancerPrefix"
-	DPDKonmetal_AddInterfaceVIP_FullMethodName                   = "/dpdkonmetal.DPDKonmetal/addInterfaceVIP"
-	DPDKonmetal_GetInterfaceVIP_FullMethodName                   = "/dpdkonmetal.DPDKonmetal/getInterfaceVIP"
-	DPDKonmetal_DeleteInterfaceVIP_FullMethodName                = "/dpdkonmetal.DPDKonmetal/deleteInterfaceVIP"
-	DPDKonmetal_CreateLoadBalancer_FullMethodName                = "/dpdkonmetal.DPDKonmetal/createLoadBalancer"
-	DPDKonmetal_GetLoadBalancer_FullMethodName                   = "/dpdkonmetal.DPDKonmetal/getLoadBalancer"
-	DPDKonmetal_DeleteLoadBalancer_FullMethodName                = "/dpdkonmetal.DPDKonmetal/deleteLoadBalancer"
-	DPDKonmetal_AddLoadBalancerTarget_FullMethodName             = "/dpdkonmetal.DPDKonmetal/addLoadBalancerTarget"
-	DPDKonmetal_GetLoadBalancerTargets_FullMethodName            = "/dpdkonmetal.DPDKonmetal/getLoadBalancerTargets"
-	DPDKonmetal_DeleteLoadBalancerTarget_FullMethodName          = "/dpdkonmetal.DPDKonmetal/deleteLoadBalancerTarget"
-	DPDKonmetal_AddNAT_FullMethodName                            = "/dpdkonmetal.DPDKonmetal/addNAT"
-	DPDKonmetal_GetNAT_FullMethodName                            = "/dpdkonmetal.DPDKonmetal/getNAT"
-	DPDKonmetal_DeleteNAT_FullMethodName                         = "/dpdkonmetal.DPDKonmetal/deleteNAT"
-	DPDKonmetal_AddNeighborNAT_FullMethodName                    = "/dpdkonmetal.DPDKonmetal/addNeighborNAT"
-	DPDKonmetal_DeleteNeighborNAT_FullMethodName                 = "/dpdkonmetal.DPDKonmetal/deleteNeighborNAT"
-	DPDKonmetal_GetNATInfo_FullMethodName                        = "/dpdkonmetal.DPDKonmetal/getNATInfo"
-	DPDKonmetal_ListRoutes_FullMethodName                        = "/dpdkonmetal.DPDKonmetal/listRoutes"
-	DPDKonmetal_AddRoute_FullMethodName                          = "/dpdkonmetal.DPDKonmetal/addRoute"
-	DPDKonmetal_DeleteRoute_FullMethodName                       = "/dpdkonmetal.DPDKonmetal/deleteRoute"
-	DPDKonmetal_IsVniInUse_FullMethodName                        = "/dpdkonmetal.DPDKonmetal/isVniInUse"
-	DPDKonmetal_ResetVni_FullMethodName                          = "/dpdkonmetal.DPDKonmetal/resetVni"
-	DPDKonmetal_ListFirewallRules_FullMethodName                 = "/dpdkonmetal.DPDKonmetal/listFirewallRules"
-	DPDKonmetal_AddFirewallRule_FullMethodName                   = "/dpdkonmetal.DPDKonmetal/addFirewallRule"
-	DPDKonmetal_GetFirewallRule_FullMethodName                   = "/dpdkonmetal.DPDKonmetal/getFirewallRule"
-	DPDKonmetal_DeleteFirewallRule_FullMethodName                = "/dpdkonmetal.DPDKonmetal/deleteFirewallRule"
+	DPDKonmetal_CheckInitialized_FullMethodName         = "/dpdkonmetal.v1.DPDKonmetal/CheckInitialized"
+	DPDKonmetal_Initialize_FullMethodName               = "/dpdkonmetal.v1.DPDKonmetal/Initialize"
+	DPDKonmetal_GetVersion_FullMethodName               = "/dpdkonmetal.v1.DPDKonmetal/GetVersion"
+	DPDKonmetal_ListInterfaces_FullMethodName           = "/dpdkonmetal.v1.DPDKonmetal/ListInterfaces"
+	DPDKonmetal_GetInterface_FullMethodName             = "/dpdkonmetal.v1.DPDKonmetal/GetInterface"
+	DPDKonmetal_CreateInterface_FullMethodName          = "/dpdkonmetal.v1.DPDKonmetal/CreateInterface"
+	DPDKonmetal_DeleteInterface_FullMethodName          = "/dpdkonmetal.v1.DPDKonmetal/DeleteInterface"
+	DPDKonmetal_ListPrefixes_FullMethodName             = "/dpdkonmetal.v1.DPDKonmetal/ListPrefixes"
+	DPDKonmetal_CreatePrefix_FullMethodName             = "/dpdkonmetal.v1.DPDKonmetal/CreatePrefix"
+	DPDKonmetal_DeletePrefix_FullMethodName             = "/dpdkonmetal.v1.DPDKonmetal/DeletePrefix"
+	DPDKonmetal_ListLoadBalancerPrefixes_FullMethodName = "/dpdkonmetal.v1.DPDKonmetal/ListLoadBalancerPrefixes"
+	DPDKonmetal_CreateLoadBalancerPrefix_FullMethodName = "/dpdkonmetal.v1.DPDKonmetal/CreateLoadBalancerPrefix"
+	DPDKonmetal_DeleteLoadBalancerPrefix_FullMethodName = "/dpdkonmetal.v1.DPDKonmetal/DeleteLoadBalancerPrefix"
+	DPDKonmetal_CreateVip_FullMethodName                = "/dpdkonmetal.v1.DPDKonmetal/CreateVip"
+	DPDKonmetal_GetVip_FullMethodName                   = "/dpdkonmetal.v1.DPDKonmetal/GetVip"
+	DPDKonmetal_DeleteVip_FullMethodName                = "/dpdkonmetal.v1.DPDKonmetal/DeleteVip"
+	DPDKonmetal_CreateLoadBalancer_FullMethodName       = "/dpdkonmetal.v1.DPDKonmetal/CreateLoadBalancer"
+	DPDKonmetal_GetLoadBalancer_FullMethodName          = "/dpdkonmetal.v1.DPDKonmetal/GetLoadBalancer"
+	DPDKonmetal_DeleteLoadBalancer_FullMethodName       = "/dpdkonmetal.v1.DPDKonmetal/DeleteLoadBalancer"
+	DPDKonmetal_CreateLoadBalancerTarget_FullMethodName = "/dpdkonmetal.v1.DPDKonmetal/CreateLoadBalancerTarget"
+	DPDKonmetal_ListLoadBalancerTargets_FullMethodName  = "/dpdkonmetal.v1.DPDKonmetal/ListLoadBalancerTargets"
+	DPDKonmetal_DeleteLoadBalancerTarget_FullMethodName = "/dpdkonmetal.v1.DPDKonmetal/DeleteLoadBalancerTarget"
+	DPDKonmetal_CreateNat_FullMethodName                = "/dpdkonmetal.v1.DPDKonmetal/CreateNat"
+	DPDKonmetal_GetNat_FullMethodName                   = "/dpdkonmetal.v1.DPDKonmetal/GetNat"
+	DPDKonmetal_DeleteNat_FullMethodName                = "/dpdkonmetal.v1.DPDKonmetal/DeleteNat"
+	DPDKonmetal_ListLocalNats_FullMethodName            = "/dpdkonmetal.v1.DPDKonmetal/ListLocalNats"
+	DPDKonmetal_CreateNeighborNat_FullMethodName        = "/dpdkonmetal.v1.DPDKonmetal/CreateNeighborNat"
+	DPDKonmetal_DeleteNeighborNat_FullMethodName        = "/dpdkonmetal.v1.DPDKonmetal/DeleteNeighborNat"
+	DPDKonmetal_ListNeighborNats_FullMethodName         = "/dpdkonmetal.v1.DPDKonmetal/ListNeighborNats"
+	DPDKonmetal_ListRoutes_FullMethodName               = "/dpdkonmetal.v1.DPDKonmetal/ListRoutes"
+	DPDKonmetal_CreateRoute_FullMethodName              = "/dpdkonmetal.v1.DPDKonmetal/CreateRoute"
+	DPDKonmetal_DeleteRoute_FullMethodName              = "/dpdkonmetal.v1.DPDKonmetal/DeleteRoute"
+	DPDKonmetal_CheckVniInUse_FullMethodName            = "/dpdkonmetal.v1.DPDKonmetal/CheckVniInUse"
+	DPDKonmetal_ResetVni_FullMethodName                 = "/dpdkonmetal.v1.DPDKonmetal/ResetVni"
+	DPDKonmetal_ListFirewallRules_FullMethodName        = "/dpdkonmetal.v1.DPDKonmetal/ListFirewallRules"
+	DPDKonmetal_CreateFirewallRule_FullMethodName       = "/dpdkonmetal.v1.DPDKonmetal/CreateFirewallRule"
+	DPDKonmetal_GetFirewallRule_FullMethodName          = "/dpdkonmetal.v1.DPDKonmetal/GetFirewallRule"
+	DPDKonmetal_DeleteFirewallRule_FullMethodName       = "/dpdkonmetal.v1.DPDKonmetal/DeleteFirewallRule"
 )
 
 // DPDKonmetalClient is the client API for DPDKonmetal service.
@@ -81,72 +81,71 @@ type DPDKonmetalClient interface {
 	// // INITIALIZATION
 	// initialized indicates if the DPDK app has been initialized already, if so an UUID is returned.
 	// this UUID gets changed in case the dp-service gets restarted.
-	Initialized(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UUIDMsg, error)
+	CheckInitialized(ctx context.Context, in *CheckInitializedRequest, opts ...grpc.CallOption) (*CheckInitializedResponse, error)
 	// init will be called once for initial set up of the DPDK app.
 	// init returns an error if the DPDK app has been initialized already. So check if it got initialized before calling init.
-	Init(ctx context.Context, in *InitConfig, opts ...grpc.CallOption) (*Status, error)
+	Initialize(ctx context.Context, in *InitializeRequest, opts ...grpc.CallOption) (*InitializeResponse, error)
 	// // VERSIONING
 	// Exchange protocol/app versions to establish communication
 	GetVersion(ctx context.Context, in *GetVersionRequest, opts ...grpc.CallOption) (*GetVersionResponse, error)
 	// // INTERFACES
-	ListInterfaces(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*InterfacesMsg, error)
-	GetInterface(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*GetInterfaceResponse, error)
-	// createInterface creates and configures a VF (hypervisor case) or PF (bare metal) for the new interface.
+	ListInterfaces(ctx context.Context, in *ListInterfacesRequest, opts ...grpc.CallOption) (*ListInterfacesResponse, error)
+	GetInterface(ctx context.Context, in *GetInterfaceRequest, opts ...grpc.CallOption) (*GetInterfaceResponse, error)
+	// CreateInterface creates and configures a VF (hypervisor case) or PF (bare metal) for the new interface.
 	// If the interface's VNet is not known to the DPDK app yet, the VNet and its routing table will be intialized.
-	// After calling createInterface() the Client has to make sure that the routing table of the corresponding VNet is filled (use listRoutes and addRoute as required).
+	// After calling CreateInterface() the Client has to make sure that the routing table of the corresponding VNet is filled (use ListRoutes and AddRoute as required).
 	CreateInterface(ctx context.Context, in *CreateInterfaceRequest, opts ...grpc.CallOption) (*CreateInterfaceResponse, error)
-	// deleteInterface removes all networking configuration of a interface from the DPDK app.
+	// DeleteInterface removes all networking configuration of a interface from the DPDK app.
 	// The VF will be released and can be reused for other VMs.
 	// If the interface was the last interface of a VNet on this hypervisor, the VNet and its routes will be freed from the DPDK app.
-	DeleteInterface(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*Status, error)
-	// updateThrottlingConfig changes a interface's throttling configuration during runtime.
-	UpdateThrottlingConfig(ctx context.Context, in *ThrottlingConfigMsg, opts ...grpc.CallOption) (*Status, error)
-	// listInterfacePrefixes returns a list of prefixes, that will be routed to the interface by the DPDK app.
+	DeleteInterface(ctx context.Context, in *DeleteInterfaceRequest, opts ...grpc.CallOption) (*DeleteInterfaceResponse, error)
+	// ListPrefixes returns a list of prefixes, that will be routed to the interface by the DPDK app.
 	// For example this could be a node's Kubernetes Pod CIDR.
-	ListInterfacePrefixes(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*PrefixesMsg, error)
-	AddInterfacePrefix(ctx context.Context, in *InterfacePrefixMsg, opts ...grpc.CallOption) (*IpAdditionResponse, error)
-	DeleteInterfacePrefix(ctx context.Context, in *InterfacePrefixMsg, opts ...grpc.CallOption) (*Status, error)
+	ListPrefixes(ctx context.Context, in *ListPrefixesRequest, opts ...grpc.CallOption) (*ListPrefixesResponse, error)
+	CreatePrefix(ctx context.Context, in *CreatePrefixRequest, opts ...grpc.CallOption) (*CreatePrefixResponse, error)
+	DeletePrefix(ctx context.Context, in *DeletePrefixRequest, opts ...grpc.CallOption) (*DeletePrefixResponse, error)
 	// LoadBalancerTargetPrefix(es) are similar to Prefixes but used for LoadBalancing purposes
-	ListInterfaceLoadBalancerPrefixes(ctx context.Context, in *ListInterfaceLoadBalancerPrefixesRequest, opts ...grpc.CallOption) (*ListInterfaceLoadBalancerPrefixesResponse, error)
-	CreateInterfaceLoadBalancerPrefix(ctx context.Context, in *CreateInterfaceLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*CreateInterfaceLoadBalancerPrefixResponse, error)
-	DeleteInterfaceLoadBalancerPrefix(ctx context.Context, in *DeleteInterfaceLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*Status, error)
-	// NAT related, add/get/del Virtual IP for a given Interface
-	AddInterfaceVIP(ctx context.Context, in *InterfaceVIPMsg, opts ...grpc.CallOption) (*IpAdditionResponse, error)
-	GetInterfaceVIP(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*InterfaceVIPIP, error)
-	DeleteInterfaceVIP(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*Status, error)
+	ListLoadBalancerPrefixes(ctx context.Context, in *ListLoadBalancerPrefixesRequest, opts ...grpc.CallOption) (*ListLoadBalancerPrefixesResponse, error)
+	CreateLoadBalancerPrefix(ctx context.Context, in *CreateLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*CreateLoadBalancerPrefixResponse, error)
+	DeleteLoadBalancerPrefix(ctx context.Context, in *DeleteLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerPrefixResponse, error)
+	// Nat related, add/get/del Virtual IP for a given Interface
+	CreateVip(ctx context.Context, in *CreateVipRequest, opts ...grpc.CallOption) (*CreateVipResponse, error)
+	GetVip(ctx context.Context, in *GetVipRequest, opts ...grpc.CallOption) (*GetVipResponse, error)
+	DeleteVip(ctx context.Context, in *DeleteVipRequest, opts ...grpc.CallOption) (*DeleteVipResponse, error)
 	// create/list/del Loadbalancer for a given IP to be loadbalanced
 	CreateLoadBalancer(ctx context.Context, in *CreateLoadBalancerRequest, opts ...grpc.CallOption) (*CreateLoadBalancerResponse, error)
 	GetLoadBalancer(ctx context.Context, in *GetLoadBalancerRequest, opts ...grpc.CallOption) (*GetLoadBalancerResponse, error)
-	DeleteLoadBalancer(ctx context.Context, in *DeleteLoadBalancerRequest, opts ...grpc.CallOption) (*Status, error)
+	DeleteLoadBalancer(ctx context.Context, in *DeleteLoadBalancerRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerResponse, error)
 	// create/list/del Loadbalancer Targets for a given Loadbalancer ID
-	AddLoadBalancerTarget(ctx context.Context, in *AddLoadBalancerTargetRequest, opts ...grpc.CallOption) (*Status, error)
-	GetLoadBalancerTargets(ctx context.Context, in *GetLoadBalancerTargetsRequest, opts ...grpc.CallOption) (*GetLoadBalancerTargetsResponse, error)
-	DeleteLoadBalancerTarget(ctx context.Context, in *DeleteLoadBalancerTargetRequest, opts ...grpc.CallOption) (*Status, error)
-	// Network-NAT related, add/del/get a NAT for an interface
-	AddNAT(ctx context.Context, in *AddNATRequest, opts ...grpc.CallOption) (*AddNATResponse, error)
-	GetNAT(ctx context.Context, in *GetNATRequest, opts ...grpc.CallOption) (*GetNATResponse, error)
-	DeleteNAT(ctx context.Context, in *DeleteNATRequest, opts ...grpc.CallOption) (*Status, error)
-	AddNeighborNAT(ctx context.Context, in *AddNeighborNATRequest, opts ...grpc.CallOption) (*Status, error)
-	DeleteNeighborNAT(ctx context.Context, in *DeleteNeighborNATRequest, opts ...grpc.CallOption) (*Status, error)
-	GetNATInfo(ctx context.Context, in *GetNATInfoRequest, opts ...grpc.CallOption) (*GetNATInfoResponse, error)
+	CreateLoadBalancerTarget(ctx context.Context, in *CreateLoadBalancerTargetRequest, opts ...grpc.CallOption) (*CreateLoadBalancerTargetResponse, error)
+	ListLoadBalancerTargets(ctx context.Context, in *ListLoadBalancerTargetsRequest, opts ...grpc.CallOption) (*ListLoadBalancerTargetsResponse, error)
+	DeleteLoadBalancerTarget(ctx context.Context, in *DeleteLoadBalancerTargetRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerTargetResponse, error)
+	// Network-Nat related, add/del/get a Nat for an interface
+	CreateNat(ctx context.Context, in *CreateNatRequest, opts ...grpc.CallOption) (*CreateNatResponse, error)
+	GetNat(ctx context.Context, in *GetNatRequest, opts ...grpc.CallOption) (*GetNatResponse, error)
+	DeleteNat(ctx context.Context, in *DeleteNatRequest, opts ...grpc.CallOption) (*DeleteNatResponse, error)
+	ListLocalNats(ctx context.Context, in *ListLocalNatsRequest, opts ...grpc.CallOption) (*ListLocalNatsResponse, error)
+	CreateNeighborNat(ctx context.Context, in *CreateNeighborNatRequest, opts ...grpc.CallOption) (*CreateNeighborNatResponse, error)
+	DeleteNeighborNat(ctx context.Context, in *DeleteNeighborNatRequest, opts ...grpc.CallOption) (*DeleteNeighborNatResponse, error)
+	ListNeighborNats(ctx context.Context, in *ListNeighborNatsRequest, opts ...grpc.CallOption) (*ListNeighborNatsResponse, error)
 	// // ROUTES
-	ListRoutes(ctx context.Context, in *VNIMsg, opts ...grpc.CallOption) (*RoutesMsg, error)
-	// addRoutes adds a new route to a VNet's routing table (identified by VNI).
+	ListRoutes(ctx context.Context, in *ListRoutesRequest, opts ...grpc.CallOption) (*ListRoutesResponse, error)
+	// CreateRoute adds a new route to a VNet's routing table (identified by VNI).
 	// If the DPDK application does not hold any interface in the specified VNet, an error will be returned.
-	AddRoute(ctx context.Context, in *VNIRouteMsg, opts ...grpc.CallOption) (*Status, error)
-	// deleteRoute removes a route from a VNet.
+	CreateRoute(ctx context.Context, in *CreateRouteRequest, opts ...grpc.CallOption) (*CreateRouteResponse, error)
+	// DeleteRoute removes a route from a VNet.
 	// If the route does not exist, an error will be returned.
-	DeleteRoute(ctx context.Context, in *VNIRouteMsg, opts ...grpc.CallOption) (*Status, error)
+	DeleteRoute(ctx context.Context, in *DeleteRouteRequest, opts ...grpc.CallOption) (*DeleteRouteResponse, error)
 	// VNI internal state information
 	// VNI can be in use by interfaces and by loadbalancer. So get information
 	// whether the VNI in question is in use or not.
-	IsVniInUse(ctx context.Context, in *IsVniInUseRequest, opts ...grpc.CallOption) (*IsVniInUseResponse, error)
-	ResetVni(ctx context.Context, in *ResetVniRequest, opts ...grpc.CallOption) (*Status, error)
+	CheckVniInUse(ctx context.Context, in *CheckVniInUseRequest, opts ...grpc.CallOption) (*CheckVniInUseResponse, error)
+	ResetVni(ctx context.Context, in *ResetVniRequest, opts ...grpc.CallOption) (*ResetVniResponse, error)
 	// // FIREWALL
 	ListFirewallRules(ctx context.Context, in *ListFirewallRulesRequest, opts ...grpc.CallOption) (*ListFirewallRulesResponse, error)
-	AddFirewallRule(ctx context.Context, in *AddFirewallRuleRequest, opts ...grpc.CallOption) (*AddFirewallRuleResponse, error)
+	CreateFirewallRule(ctx context.Context, in *CreateFirewallRuleRequest, opts ...grpc.CallOption) (*CreateFirewallRuleResponse, error)
 	GetFirewallRule(ctx context.Context, in *GetFirewallRuleRequest, opts ...grpc.CallOption) (*GetFirewallRuleResponse, error)
-	DeleteFirewallRule(ctx context.Context, in *DeleteFirewallRuleRequest, opts ...grpc.CallOption) (*Status, error)
+	DeleteFirewallRule(ctx context.Context, in *DeleteFirewallRuleRequest, opts ...grpc.CallOption) (*DeleteFirewallRuleResponse, error)
 }
 
 type dPDKonmetalClient struct {
@@ -157,18 +156,18 @@ func NewDPDKonmetalClient(cc grpc.ClientConnInterface) DPDKonmetalClient {
 	return &dPDKonmetalClient{cc}
 }
 
-func (c *dPDKonmetalClient) Initialized(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*UUIDMsg, error) {
-	out := new(UUIDMsg)
-	err := c.cc.Invoke(ctx, DPDKonmetal_Initialized_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) CheckInitialized(ctx context.Context, in *CheckInitializedRequest, opts ...grpc.CallOption) (*CheckInitializedResponse, error) {
+	out := new(CheckInitializedResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_CheckInitialized_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) Init(ctx context.Context, in *InitConfig, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
-	err := c.cc.Invoke(ctx, DPDKonmetal_Init_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) Initialize(ctx context.Context, in *InitializeRequest, opts ...grpc.CallOption) (*InitializeResponse, error) {
+	out := new(InitializeResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_Initialize_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -184,8 +183,8 @@ func (c *dPDKonmetalClient) GetVersion(ctx context.Context, in *GetVersionReques
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListInterfaces(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*InterfacesMsg, error) {
-	out := new(InterfacesMsg)
+func (c *dPDKonmetalClient) ListInterfaces(ctx context.Context, in *ListInterfacesRequest, opts ...grpc.CallOption) (*ListInterfacesResponse, error) {
+	out := new(ListInterfacesResponse)
 	err := c.cc.Invoke(ctx, DPDKonmetal_ListInterfaces_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -193,7 +192,7 @@ func (c *dPDKonmetalClient) ListInterfaces(ctx context.Context, in *Empty, opts 
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) GetInterface(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*GetInterfaceResponse, error) {
+func (c *dPDKonmetalClient) GetInterface(ctx context.Context, in *GetInterfaceRequest, opts ...grpc.CallOption) (*GetInterfaceResponse, error) {
 	out := new(GetInterfaceResponse)
 	err := c.cc.Invoke(ctx, DPDKonmetal_GetInterface_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -211,8 +210,8 @@ func (c *dPDKonmetalClient) CreateInterface(ctx context.Context, in *CreateInter
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteInterface(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
+func (c *dPDKonmetalClient) DeleteInterface(ctx context.Context, in *DeleteInterfaceRequest, opts ...grpc.CallOption) (*DeleteInterfaceResponse, error) {
+	out := new(DeleteInterfaceResponse)
 	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteInterface_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -220,90 +219,81 @@ func (c *dPDKonmetalClient) DeleteInterface(ctx context.Context, in *InterfaceID
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) UpdateThrottlingConfig(ctx context.Context, in *ThrottlingConfigMsg, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
-	err := c.cc.Invoke(ctx, DPDKonmetal_UpdateThrottlingConfig_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) ListPrefixes(ctx context.Context, in *ListPrefixesRequest, opts ...grpc.CallOption) (*ListPrefixesResponse, error) {
+	out := new(ListPrefixesResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_ListPrefixes_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListInterfacePrefixes(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*PrefixesMsg, error) {
-	out := new(PrefixesMsg)
-	err := c.cc.Invoke(ctx, DPDKonmetal_ListInterfacePrefixes_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) CreatePrefix(ctx context.Context, in *CreatePrefixRequest, opts ...grpc.CallOption) (*CreatePrefixResponse, error) {
+	out := new(CreatePrefixResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_CreatePrefix_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) AddInterfacePrefix(ctx context.Context, in *InterfacePrefixMsg, opts ...grpc.CallOption) (*IpAdditionResponse, error) {
-	out := new(IpAdditionResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_AddInterfacePrefix_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) DeletePrefix(ctx context.Context, in *DeletePrefixRequest, opts ...grpc.CallOption) (*DeletePrefixResponse, error) {
+	out := new(DeletePrefixResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_DeletePrefix_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteInterfacePrefix(ctx context.Context, in *InterfacePrefixMsg, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteInterfacePrefix_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) ListLoadBalancerPrefixes(ctx context.Context, in *ListLoadBalancerPrefixesRequest, opts ...grpc.CallOption) (*ListLoadBalancerPrefixesResponse, error) {
+	out := new(ListLoadBalancerPrefixesResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_ListLoadBalancerPrefixes_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListInterfaceLoadBalancerPrefixes(ctx context.Context, in *ListInterfaceLoadBalancerPrefixesRequest, opts ...grpc.CallOption) (*ListInterfaceLoadBalancerPrefixesResponse, error) {
-	out := new(ListInterfaceLoadBalancerPrefixesResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_ListInterfaceLoadBalancerPrefixes_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) CreateLoadBalancerPrefix(ctx context.Context, in *CreateLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*CreateLoadBalancerPrefixResponse, error) {
+	out := new(CreateLoadBalancerPrefixResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_CreateLoadBalancerPrefix_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CreateInterfaceLoadBalancerPrefix(ctx context.Context, in *CreateInterfaceLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*CreateInterfaceLoadBalancerPrefixResponse, error) {
-	out := new(CreateInterfaceLoadBalancerPrefixResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CreateInterfaceLoadBalancerPrefix_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) DeleteLoadBalancerPrefix(ctx context.Context, in *DeleteLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerPrefixResponse, error) {
+	out := new(DeleteLoadBalancerPrefixResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteLoadBalancerPrefix_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteInterfaceLoadBalancerPrefix(ctx context.Context, in *DeleteInterfaceLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteInterfaceLoadBalancerPrefix_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) CreateVip(ctx context.Context, in *CreateVipRequest, opts ...grpc.CallOption) (*CreateVipResponse, error) {
+	out := new(CreateVipResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_CreateVip_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) AddInterfaceVIP(ctx context.Context, in *InterfaceVIPMsg, opts ...grpc.CallOption) (*IpAdditionResponse, error) {
-	out := new(IpAdditionResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_AddInterfaceVIP_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) GetVip(ctx context.Context, in *GetVipRequest, opts ...grpc.CallOption) (*GetVipResponse, error) {
+	out := new(GetVipResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_GetVip_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) GetInterfaceVIP(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*InterfaceVIPIP, error) {
-	out := new(InterfaceVIPIP)
-	err := c.cc.Invoke(ctx, DPDKonmetal_GetInterfaceVIP_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *dPDKonmetalClient) DeleteInterfaceVIP(ctx context.Context, in *InterfaceIDMsg, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteInterfaceVIP_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) DeleteVip(ctx context.Context, in *DeleteVipRequest, opts ...grpc.CallOption) (*DeleteVipResponse, error) {
+	out := new(DeleteVipResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteVip_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -328,8 +318,8 @@ func (c *dPDKonmetalClient) GetLoadBalancer(ctx context.Context, in *GetLoadBala
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteLoadBalancer(ctx context.Context, in *DeleteLoadBalancerRequest, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
+func (c *dPDKonmetalClient) DeleteLoadBalancer(ctx context.Context, in *DeleteLoadBalancerRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerResponse, error) {
+	out := new(DeleteLoadBalancerResponse)
 	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteLoadBalancer_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -337,26 +327,26 @@ func (c *dPDKonmetalClient) DeleteLoadBalancer(ctx context.Context, in *DeleteLo
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) AddLoadBalancerTarget(ctx context.Context, in *AddLoadBalancerTargetRequest, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
-	err := c.cc.Invoke(ctx, DPDKonmetal_AddLoadBalancerTarget_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) CreateLoadBalancerTarget(ctx context.Context, in *CreateLoadBalancerTargetRequest, opts ...grpc.CallOption) (*CreateLoadBalancerTargetResponse, error) {
+	out := new(CreateLoadBalancerTargetResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_CreateLoadBalancerTarget_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) GetLoadBalancerTargets(ctx context.Context, in *GetLoadBalancerTargetsRequest, opts ...grpc.CallOption) (*GetLoadBalancerTargetsResponse, error) {
-	out := new(GetLoadBalancerTargetsResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_GetLoadBalancerTargets_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) ListLoadBalancerTargets(ctx context.Context, in *ListLoadBalancerTargetsRequest, opts ...grpc.CallOption) (*ListLoadBalancerTargetsResponse, error) {
+	out := new(ListLoadBalancerTargetsResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_ListLoadBalancerTargets_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteLoadBalancerTarget(ctx context.Context, in *DeleteLoadBalancerTargetRequest, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
+func (c *dPDKonmetalClient) DeleteLoadBalancerTarget(ctx context.Context, in *DeleteLoadBalancerTargetRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerTargetResponse, error) {
+	out := new(DeleteLoadBalancerTargetResponse)
 	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteLoadBalancerTarget_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -364,62 +354,71 @@ func (c *dPDKonmetalClient) DeleteLoadBalancerTarget(ctx context.Context, in *De
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) AddNAT(ctx context.Context, in *AddNATRequest, opts ...grpc.CallOption) (*AddNATResponse, error) {
-	out := new(AddNATResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_AddNAT_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) CreateNat(ctx context.Context, in *CreateNatRequest, opts ...grpc.CallOption) (*CreateNatResponse, error) {
+	out := new(CreateNatResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_CreateNat_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) GetNAT(ctx context.Context, in *GetNATRequest, opts ...grpc.CallOption) (*GetNATResponse, error) {
-	out := new(GetNATResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_GetNAT_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) GetNat(ctx context.Context, in *GetNatRequest, opts ...grpc.CallOption) (*GetNatResponse, error) {
+	out := new(GetNatResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_GetNat_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteNAT(ctx context.Context, in *DeleteNATRequest, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteNAT_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) DeleteNat(ctx context.Context, in *DeleteNatRequest, opts ...grpc.CallOption) (*DeleteNatResponse, error) {
+	out := new(DeleteNatResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteNat_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) AddNeighborNAT(ctx context.Context, in *AddNeighborNATRequest, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
-	err := c.cc.Invoke(ctx, DPDKonmetal_AddNeighborNAT_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) ListLocalNats(ctx context.Context, in *ListLocalNatsRequest, opts ...grpc.CallOption) (*ListLocalNatsResponse, error) {
+	out := new(ListLocalNatsResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_ListLocalNats_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteNeighborNAT(ctx context.Context, in *DeleteNeighborNATRequest, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteNeighborNAT_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) CreateNeighborNat(ctx context.Context, in *CreateNeighborNatRequest, opts ...grpc.CallOption) (*CreateNeighborNatResponse, error) {
+	out := new(CreateNeighborNatResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_CreateNeighborNat_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) GetNATInfo(ctx context.Context, in *GetNATInfoRequest, opts ...grpc.CallOption) (*GetNATInfoResponse, error) {
-	out := new(GetNATInfoResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_GetNATInfo_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) DeleteNeighborNat(ctx context.Context, in *DeleteNeighborNatRequest, opts ...grpc.CallOption) (*DeleteNeighborNatResponse, error) {
+	out := new(DeleteNeighborNatResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteNeighborNat_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListRoutes(ctx context.Context, in *VNIMsg, opts ...grpc.CallOption) (*RoutesMsg, error) {
-	out := new(RoutesMsg)
+func (c *dPDKonmetalClient) ListNeighborNats(ctx context.Context, in *ListNeighborNatsRequest, opts ...grpc.CallOption) (*ListNeighborNatsResponse, error) {
+	out := new(ListNeighborNatsResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_ListNeighborNats_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dPDKonmetalClient) ListRoutes(ctx context.Context, in *ListRoutesRequest, opts ...grpc.CallOption) (*ListRoutesResponse, error) {
+	out := new(ListRoutesResponse)
 	err := c.cc.Invoke(ctx, DPDKonmetal_ListRoutes_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -427,17 +426,17 @@ func (c *dPDKonmetalClient) ListRoutes(ctx context.Context, in *VNIMsg, opts ...
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) AddRoute(ctx context.Context, in *VNIRouteMsg, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
-	err := c.cc.Invoke(ctx, DPDKonmetal_AddRoute_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) CreateRoute(ctx context.Context, in *CreateRouteRequest, opts ...grpc.CallOption) (*CreateRouteResponse, error) {
+	out := new(CreateRouteResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_CreateRoute_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteRoute(ctx context.Context, in *VNIRouteMsg, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
+func (c *dPDKonmetalClient) DeleteRoute(ctx context.Context, in *DeleteRouteRequest, opts ...grpc.CallOption) (*DeleteRouteResponse, error) {
+	out := new(DeleteRouteResponse)
 	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteRoute_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -445,17 +444,17 @@ func (c *dPDKonmetalClient) DeleteRoute(ctx context.Context, in *VNIRouteMsg, op
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) IsVniInUse(ctx context.Context, in *IsVniInUseRequest, opts ...grpc.CallOption) (*IsVniInUseResponse, error) {
-	out := new(IsVniInUseResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_IsVniInUse_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) CheckVniInUse(ctx context.Context, in *CheckVniInUseRequest, opts ...grpc.CallOption) (*CheckVniInUseResponse, error) {
+	out := new(CheckVniInUseResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_CheckVniInUse_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ResetVni(ctx context.Context, in *ResetVniRequest, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
+func (c *dPDKonmetalClient) ResetVni(ctx context.Context, in *ResetVniRequest, opts ...grpc.CallOption) (*ResetVniResponse, error) {
+	out := new(ResetVniResponse)
 	err := c.cc.Invoke(ctx, DPDKonmetal_ResetVni_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -472,9 +471,9 @@ func (c *dPDKonmetalClient) ListFirewallRules(ctx context.Context, in *ListFirew
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) AddFirewallRule(ctx context.Context, in *AddFirewallRuleRequest, opts ...grpc.CallOption) (*AddFirewallRuleResponse, error) {
-	out := new(AddFirewallRuleResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_AddFirewallRule_FullMethodName, in, out, opts...)
+func (c *dPDKonmetalClient) CreateFirewallRule(ctx context.Context, in *CreateFirewallRuleRequest, opts ...grpc.CallOption) (*CreateFirewallRuleResponse, error) {
+	out := new(CreateFirewallRuleResponse)
+	err := c.cc.Invoke(ctx, DPDKonmetal_CreateFirewallRule_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -490,8 +489,8 @@ func (c *dPDKonmetalClient) GetFirewallRule(ctx context.Context, in *GetFirewall
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteFirewallRule(ctx context.Context, in *DeleteFirewallRuleRequest, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
+func (c *dPDKonmetalClient) DeleteFirewallRule(ctx context.Context, in *DeleteFirewallRuleRequest, opts ...grpc.CallOption) (*DeleteFirewallRuleResponse, error) {
+	out := new(DeleteFirewallRuleResponse)
 	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteFirewallRule_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -506,72 +505,71 @@ type DPDKonmetalServer interface {
 	// // INITIALIZATION
 	// initialized indicates if the DPDK app has been initialized already, if so an UUID is returned.
 	// this UUID gets changed in case the dp-service gets restarted.
-	Initialized(context.Context, *Empty) (*UUIDMsg, error)
+	CheckInitialized(context.Context, *CheckInitializedRequest) (*CheckInitializedResponse, error)
 	// init will be called once for initial set up of the DPDK app.
 	// init returns an error if the DPDK app has been initialized already. So check if it got initialized before calling init.
-	Init(context.Context, *InitConfig) (*Status, error)
+	Initialize(context.Context, *InitializeRequest) (*InitializeResponse, error)
 	// // VERSIONING
 	// Exchange protocol/app versions to establish communication
 	GetVersion(context.Context, *GetVersionRequest) (*GetVersionResponse, error)
 	// // INTERFACES
-	ListInterfaces(context.Context, *Empty) (*InterfacesMsg, error)
-	GetInterface(context.Context, *InterfaceIDMsg) (*GetInterfaceResponse, error)
-	// createInterface creates and configures a VF (hypervisor case) or PF (bare metal) for the new interface.
+	ListInterfaces(context.Context, *ListInterfacesRequest) (*ListInterfacesResponse, error)
+	GetInterface(context.Context, *GetInterfaceRequest) (*GetInterfaceResponse, error)
+	// CreateInterface creates and configures a VF (hypervisor case) or PF (bare metal) for the new interface.
 	// If the interface's VNet is not known to the DPDK app yet, the VNet and its routing table will be intialized.
-	// After calling createInterface() the Client has to make sure that the routing table of the corresponding VNet is filled (use listRoutes and addRoute as required).
+	// After calling CreateInterface() the Client has to make sure that the routing table of the corresponding VNet is filled (use ListRoutes and AddRoute as required).
 	CreateInterface(context.Context, *CreateInterfaceRequest) (*CreateInterfaceResponse, error)
-	// deleteInterface removes all networking configuration of a interface from the DPDK app.
+	// DeleteInterface removes all networking configuration of a interface from the DPDK app.
 	// The VF will be released and can be reused for other VMs.
 	// If the interface was the last interface of a VNet on this hypervisor, the VNet and its routes will be freed from the DPDK app.
-	DeleteInterface(context.Context, *InterfaceIDMsg) (*Status, error)
-	// updateThrottlingConfig changes a interface's throttling configuration during runtime.
-	UpdateThrottlingConfig(context.Context, *ThrottlingConfigMsg) (*Status, error)
-	// listInterfacePrefixes returns a list of prefixes, that will be routed to the interface by the DPDK app.
+	DeleteInterface(context.Context, *DeleteInterfaceRequest) (*DeleteInterfaceResponse, error)
+	// ListPrefixes returns a list of prefixes, that will be routed to the interface by the DPDK app.
 	// For example this could be a node's Kubernetes Pod CIDR.
-	ListInterfacePrefixes(context.Context, *InterfaceIDMsg) (*PrefixesMsg, error)
-	AddInterfacePrefix(context.Context, *InterfacePrefixMsg) (*IpAdditionResponse, error)
-	DeleteInterfacePrefix(context.Context, *InterfacePrefixMsg) (*Status, error)
+	ListPrefixes(context.Context, *ListPrefixesRequest) (*ListPrefixesResponse, error)
+	CreatePrefix(context.Context, *CreatePrefixRequest) (*CreatePrefixResponse, error)
+	DeletePrefix(context.Context, *DeletePrefixRequest) (*DeletePrefixResponse, error)
 	// LoadBalancerTargetPrefix(es) are similar to Prefixes but used for LoadBalancing purposes
-	ListInterfaceLoadBalancerPrefixes(context.Context, *ListInterfaceLoadBalancerPrefixesRequest) (*ListInterfaceLoadBalancerPrefixesResponse, error)
-	CreateInterfaceLoadBalancerPrefix(context.Context, *CreateInterfaceLoadBalancerPrefixRequest) (*CreateInterfaceLoadBalancerPrefixResponse, error)
-	DeleteInterfaceLoadBalancerPrefix(context.Context, *DeleteInterfaceLoadBalancerPrefixRequest) (*Status, error)
-	// NAT related, add/get/del Virtual IP for a given Interface
-	AddInterfaceVIP(context.Context, *InterfaceVIPMsg) (*IpAdditionResponse, error)
-	GetInterfaceVIP(context.Context, *InterfaceIDMsg) (*InterfaceVIPIP, error)
-	DeleteInterfaceVIP(context.Context, *InterfaceIDMsg) (*Status, error)
+	ListLoadBalancerPrefixes(context.Context, *ListLoadBalancerPrefixesRequest) (*ListLoadBalancerPrefixesResponse, error)
+	CreateLoadBalancerPrefix(context.Context, *CreateLoadBalancerPrefixRequest) (*CreateLoadBalancerPrefixResponse, error)
+	DeleteLoadBalancerPrefix(context.Context, *DeleteLoadBalancerPrefixRequest) (*DeleteLoadBalancerPrefixResponse, error)
+	// Nat related, add/get/del Virtual IP for a given Interface
+	CreateVip(context.Context, *CreateVipRequest) (*CreateVipResponse, error)
+	GetVip(context.Context, *GetVipRequest) (*GetVipResponse, error)
+	DeleteVip(context.Context, *DeleteVipRequest) (*DeleteVipResponse, error)
 	// create/list/del Loadbalancer for a given IP to be loadbalanced
 	CreateLoadBalancer(context.Context, *CreateLoadBalancerRequest) (*CreateLoadBalancerResponse, error)
 	GetLoadBalancer(context.Context, *GetLoadBalancerRequest) (*GetLoadBalancerResponse, error)
-	DeleteLoadBalancer(context.Context, *DeleteLoadBalancerRequest) (*Status, error)
+	DeleteLoadBalancer(context.Context, *DeleteLoadBalancerRequest) (*DeleteLoadBalancerResponse, error)
 	// create/list/del Loadbalancer Targets for a given Loadbalancer ID
-	AddLoadBalancerTarget(context.Context, *AddLoadBalancerTargetRequest) (*Status, error)
-	GetLoadBalancerTargets(context.Context, *GetLoadBalancerTargetsRequest) (*GetLoadBalancerTargetsResponse, error)
-	DeleteLoadBalancerTarget(context.Context, *DeleteLoadBalancerTargetRequest) (*Status, error)
-	// Network-NAT related, add/del/get a NAT for an interface
-	AddNAT(context.Context, *AddNATRequest) (*AddNATResponse, error)
-	GetNAT(context.Context, *GetNATRequest) (*GetNATResponse, error)
-	DeleteNAT(context.Context, *DeleteNATRequest) (*Status, error)
-	AddNeighborNAT(context.Context, *AddNeighborNATRequest) (*Status, error)
-	DeleteNeighborNAT(context.Context, *DeleteNeighborNATRequest) (*Status, error)
-	GetNATInfo(context.Context, *GetNATInfoRequest) (*GetNATInfoResponse, error)
+	CreateLoadBalancerTarget(context.Context, *CreateLoadBalancerTargetRequest) (*CreateLoadBalancerTargetResponse, error)
+	ListLoadBalancerTargets(context.Context, *ListLoadBalancerTargetsRequest) (*ListLoadBalancerTargetsResponse, error)
+	DeleteLoadBalancerTarget(context.Context, *DeleteLoadBalancerTargetRequest) (*DeleteLoadBalancerTargetResponse, error)
+	// Network-Nat related, add/del/get a Nat for an interface
+	CreateNat(context.Context, *CreateNatRequest) (*CreateNatResponse, error)
+	GetNat(context.Context, *GetNatRequest) (*GetNatResponse, error)
+	DeleteNat(context.Context, *DeleteNatRequest) (*DeleteNatResponse, error)
+	ListLocalNats(context.Context, *ListLocalNatsRequest) (*ListLocalNatsResponse, error)
+	CreateNeighborNat(context.Context, *CreateNeighborNatRequest) (*CreateNeighborNatResponse, error)
+	DeleteNeighborNat(context.Context, *DeleteNeighborNatRequest) (*DeleteNeighborNatResponse, error)
+	ListNeighborNats(context.Context, *ListNeighborNatsRequest) (*ListNeighborNatsResponse, error)
 	// // ROUTES
-	ListRoutes(context.Context, *VNIMsg) (*RoutesMsg, error)
-	// addRoutes adds a new route to a VNet's routing table (identified by VNI).
+	ListRoutes(context.Context, *ListRoutesRequest) (*ListRoutesResponse, error)
+	// CreateRoute adds a new route to a VNet's routing table (identified by VNI).
 	// If the DPDK application does not hold any interface in the specified VNet, an error will be returned.
-	AddRoute(context.Context, *VNIRouteMsg) (*Status, error)
-	// deleteRoute removes a route from a VNet.
+	CreateRoute(context.Context, *CreateRouteRequest) (*CreateRouteResponse, error)
+	// DeleteRoute removes a route from a VNet.
 	// If the route does not exist, an error will be returned.
-	DeleteRoute(context.Context, *VNIRouteMsg) (*Status, error)
+	DeleteRoute(context.Context, *DeleteRouteRequest) (*DeleteRouteResponse, error)
 	// VNI internal state information
 	// VNI can be in use by interfaces and by loadbalancer. So get information
 	// whether the VNI in question is in use or not.
-	IsVniInUse(context.Context, *IsVniInUseRequest) (*IsVniInUseResponse, error)
-	ResetVni(context.Context, *ResetVniRequest) (*Status, error)
+	CheckVniInUse(context.Context, *CheckVniInUseRequest) (*CheckVniInUseResponse, error)
+	ResetVni(context.Context, *ResetVniRequest) (*ResetVniResponse, error)
 	// // FIREWALL
 	ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error)
-	AddFirewallRule(context.Context, *AddFirewallRuleRequest) (*AddFirewallRuleResponse, error)
+	CreateFirewallRule(context.Context, *CreateFirewallRuleRequest) (*CreateFirewallRuleResponse, error)
 	GetFirewallRule(context.Context, *GetFirewallRuleRequest) (*GetFirewallRuleResponse, error)
-	DeleteFirewallRule(context.Context, *DeleteFirewallRuleRequest) (*Status, error)
+	DeleteFirewallRule(context.Context, *DeleteFirewallRuleRequest) (*DeleteFirewallRuleResponse, error)
 	mustEmbedUnimplementedDPDKonmetalServer()
 }
 
@@ -579,56 +577,53 @@ type DPDKonmetalServer interface {
 type UnimplementedDPDKonmetalServer struct {
 }
 
-func (UnimplementedDPDKonmetalServer) Initialized(context.Context, *Empty) (*UUIDMsg, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Initialized not implemented")
+func (UnimplementedDPDKonmetalServer) CheckInitialized(context.Context, *CheckInitializedRequest) (*CheckInitializedResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckInitialized not implemented")
 }
-func (UnimplementedDPDKonmetalServer) Init(context.Context, *InitConfig) (*Status, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Init not implemented")
+func (UnimplementedDPDKonmetalServer) Initialize(context.Context, *InitializeRequest) (*InitializeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Initialize not implemented")
 }
 func (UnimplementedDPDKonmetalServer) GetVersion(context.Context, *GetVersionRequest) (*GetVersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetVersion not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListInterfaces(context.Context, *Empty) (*InterfacesMsg, error) {
+func (UnimplementedDPDKonmetalServer) ListInterfaces(context.Context, *ListInterfacesRequest) (*ListInterfacesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListInterfaces not implemented")
 }
-func (UnimplementedDPDKonmetalServer) GetInterface(context.Context, *InterfaceIDMsg) (*GetInterfaceResponse, error) {
+func (UnimplementedDPDKonmetalServer) GetInterface(context.Context, *GetInterfaceRequest) (*GetInterfaceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetInterface not implemented")
 }
 func (UnimplementedDPDKonmetalServer) CreateInterface(context.Context, *CreateInterfaceRequest) (*CreateInterfaceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateInterface not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteInterface(context.Context, *InterfaceIDMsg) (*Status, error) {
+func (UnimplementedDPDKonmetalServer) DeleteInterface(context.Context, *DeleteInterfaceRequest) (*DeleteInterfaceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteInterface not implemented")
 }
-func (UnimplementedDPDKonmetalServer) UpdateThrottlingConfig(context.Context, *ThrottlingConfigMsg) (*Status, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateThrottlingConfig not implemented")
+func (UnimplementedDPDKonmetalServer) ListPrefixes(context.Context, *ListPrefixesRequest) (*ListPrefixesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPrefixes not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListInterfacePrefixes(context.Context, *InterfaceIDMsg) (*PrefixesMsg, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListInterfacePrefixes not implemented")
+func (UnimplementedDPDKonmetalServer) CreatePrefix(context.Context, *CreatePrefixRequest) (*CreatePrefixResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePrefix not implemented")
 }
-func (UnimplementedDPDKonmetalServer) AddInterfacePrefix(context.Context, *InterfacePrefixMsg) (*IpAdditionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddInterfacePrefix not implemented")
+func (UnimplementedDPDKonmetalServer) DeletePrefix(context.Context, *DeletePrefixRequest) (*DeletePrefixResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePrefix not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteInterfacePrefix(context.Context, *InterfacePrefixMsg) (*Status, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteInterfacePrefix not implemented")
+func (UnimplementedDPDKonmetalServer) ListLoadBalancerPrefixes(context.Context, *ListLoadBalancerPrefixesRequest) (*ListLoadBalancerPrefixesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListLoadBalancerPrefixes not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListInterfaceLoadBalancerPrefixes(context.Context, *ListInterfaceLoadBalancerPrefixesRequest) (*ListInterfaceLoadBalancerPrefixesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListInterfaceLoadBalancerPrefixes not implemented")
+func (UnimplementedDPDKonmetalServer) CreateLoadBalancerPrefix(context.Context, *CreateLoadBalancerPrefixRequest) (*CreateLoadBalancerPrefixResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLoadBalancerPrefix not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CreateInterfaceLoadBalancerPrefix(context.Context, *CreateInterfaceLoadBalancerPrefixRequest) (*CreateInterfaceLoadBalancerPrefixResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateInterfaceLoadBalancerPrefix not implemented")
+func (UnimplementedDPDKonmetalServer) DeleteLoadBalancerPrefix(context.Context, *DeleteLoadBalancerPrefixRequest) (*DeleteLoadBalancerPrefixResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLoadBalancerPrefix not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteInterfaceLoadBalancerPrefix(context.Context, *DeleteInterfaceLoadBalancerPrefixRequest) (*Status, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteInterfaceLoadBalancerPrefix not implemented")
+func (UnimplementedDPDKonmetalServer) CreateVip(context.Context, *CreateVipRequest) (*CreateVipResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateVip not implemented")
 }
-func (UnimplementedDPDKonmetalServer) AddInterfaceVIP(context.Context, *InterfaceVIPMsg) (*IpAdditionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddInterfaceVIP not implemented")
+func (UnimplementedDPDKonmetalServer) GetVip(context.Context, *GetVipRequest) (*GetVipResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetVip not implemented")
 }
-func (UnimplementedDPDKonmetalServer) GetInterfaceVIP(context.Context, *InterfaceIDMsg) (*InterfaceVIPIP, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetInterfaceVIP not implemented")
-}
-func (UnimplementedDPDKonmetalServer) DeleteInterfaceVIP(context.Context, *InterfaceIDMsg) (*Status, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteInterfaceVIP not implemented")
+func (UnimplementedDPDKonmetalServer) DeleteVip(context.Context, *DeleteVipRequest) (*DeleteVipResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteVip not implemented")
 }
 func (UnimplementedDPDKonmetalServer) CreateLoadBalancer(context.Context, *CreateLoadBalancerRequest) (*CreateLoadBalancerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLoadBalancer not implemented")
@@ -636,61 +631,64 @@ func (UnimplementedDPDKonmetalServer) CreateLoadBalancer(context.Context, *Creat
 func (UnimplementedDPDKonmetalServer) GetLoadBalancer(context.Context, *GetLoadBalancerRequest) (*GetLoadBalancerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLoadBalancer not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteLoadBalancer(context.Context, *DeleteLoadBalancerRequest) (*Status, error) {
+func (UnimplementedDPDKonmetalServer) DeleteLoadBalancer(context.Context, *DeleteLoadBalancerRequest) (*DeleteLoadBalancerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLoadBalancer not implemented")
 }
-func (UnimplementedDPDKonmetalServer) AddLoadBalancerTarget(context.Context, *AddLoadBalancerTargetRequest) (*Status, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddLoadBalancerTarget not implemented")
+func (UnimplementedDPDKonmetalServer) CreateLoadBalancerTarget(context.Context, *CreateLoadBalancerTargetRequest) (*CreateLoadBalancerTargetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLoadBalancerTarget not implemented")
 }
-func (UnimplementedDPDKonmetalServer) GetLoadBalancerTargets(context.Context, *GetLoadBalancerTargetsRequest) (*GetLoadBalancerTargetsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetLoadBalancerTargets not implemented")
+func (UnimplementedDPDKonmetalServer) ListLoadBalancerTargets(context.Context, *ListLoadBalancerTargetsRequest) (*ListLoadBalancerTargetsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListLoadBalancerTargets not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteLoadBalancerTarget(context.Context, *DeleteLoadBalancerTargetRequest) (*Status, error) {
+func (UnimplementedDPDKonmetalServer) DeleteLoadBalancerTarget(context.Context, *DeleteLoadBalancerTargetRequest) (*DeleteLoadBalancerTargetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLoadBalancerTarget not implemented")
 }
-func (UnimplementedDPDKonmetalServer) AddNAT(context.Context, *AddNATRequest) (*AddNATResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddNAT not implemented")
+func (UnimplementedDPDKonmetalServer) CreateNat(context.Context, *CreateNatRequest) (*CreateNatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateNat not implemented")
 }
-func (UnimplementedDPDKonmetalServer) GetNAT(context.Context, *GetNATRequest) (*GetNATResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetNAT not implemented")
+func (UnimplementedDPDKonmetalServer) GetNat(context.Context, *GetNatRequest) (*GetNatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNat not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteNAT(context.Context, *DeleteNATRequest) (*Status, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteNAT not implemented")
+func (UnimplementedDPDKonmetalServer) DeleteNat(context.Context, *DeleteNatRequest) (*DeleteNatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteNat not implemented")
 }
-func (UnimplementedDPDKonmetalServer) AddNeighborNAT(context.Context, *AddNeighborNATRequest) (*Status, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddNeighborNAT not implemented")
+func (UnimplementedDPDKonmetalServer) ListLocalNats(context.Context, *ListLocalNatsRequest) (*ListLocalNatsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListLocalNats not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteNeighborNAT(context.Context, *DeleteNeighborNATRequest) (*Status, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteNeighborNAT not implemented")
+func (UnimplementedDPDKonmetalServer) CreateNeighborNat(context.Context, *CreateNeighborNatRequest) (*CreateNeighborNatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateNeighborNat not implemented")
 }
-func (UnimplementedDPDKonmetalServer) GetNATInfo(context.Context, *GetNATInfoRequest) (*GetNATInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetNATInfo not implemented")
+func (UnimplementedDPDKonmetalServer) DeleteNeighborNat(context.Context, *DeleteNeighborNatRequest) (*DeleteNeighborNatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteNeighborNat not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListRoutes(context.Context, *VNIMsg) (*RoutesMsg, error) {
+func (UnimplementedDPDKonmetalServer) ListNeighborNats(context.Context, *ListNeighborNatsRequest) (*ListNeighborNatsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListNeighborNats not implemented")
+}
+func (UnimplementedDPDKonmetalServer) ListRoutes(context.Context, *ListRoutesRequest) (*ListRoutesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRoutes not implemented")
 }
-func (UnimplementedDPDKonmetalServer) AddRoute(context.Context, *VNIRouteMsg) (*Status, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddRoute not implemented")
+func (UnimplementedDPDKonmetalServer) CreateRoute(context.Context, *CreateRouteRequest) (*CreateRouteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRoute not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteRoute(context.Context, *VNIRouteMsg) (*Status, error) {
+func (UnimplementedDPDKonmetalServer) DeleteRoute(context.Context, *DeleteRouteRequest) (*DeleteRouteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRoute not implemented")
 }
-func (UnimplementedDPDKonmetalServer) IsVniInUse(context.Context, *IsVniInUseRequest) (*IsVniInUseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method IsVniInUse not implemented")
+func (UnimplementedDPDKonmetalServer) CheckVniInUse(context.Context, *CheckVniInUseRequest) (*CheckVniInUseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckVniInUse not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ResetVni(context.Context, *ResetVniRequest) (*Status, error) {
+func (UnimplementedDPDKonmetalServer) ResetVni(context.Context, *ResetVniRequest) (*ResetVniResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResetVni not implemented")
 }
 func (UnimplementedDPDKonmetalServer) ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListFirewallRules not implemented")
 }
-func (UnimplementedDPDKonmetalServer) AddFirewallRule(context.Context, *AddFirewallRuleRequest) (*AddFirewallRuleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddFirewallRule not implemented")
+func (UnimplementedDPDKonmetalServer) CreateFirewallRule(context.Context, *CreateFirewallRuleRequest) (*CreateFirewallRuleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateFirewallRule not implemented")
 }
 func (UnimplementedDPDKonmetalServer) GetFirewallRule(context.Context, *GetFirewallRuleRequest) (*GetFirewallRuleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFirewallRule not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteFirewallRule(context.Context, *DeleteFirewallRuleRequest) (*Status, error) {
+func (UnimplementedDPDKonmetalServer) DeleteFirewallRule(context.Context, *DeleteFirewallRuleRequest) (*DeleteFirewallRuleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFirewallRule not implemented")
 }
 func (UnimplementedDPDKonmetalServer) mustEmbedUnimplementedDPDKonmetalServer() {}
@@ -706,38 +704,38 @@ func RegisterDPDKonmetalServer(s grpc.ServiceRegistrar, srv DPDKonmetalServer) {
 	s.RegisterService(&DPDKonmetal_ServiceDesc, srv)
 }
 
-func _DPDKonmetal_Initialized_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
+func _DPDKonmetal_CheckInitialized_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckInitializedRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).Initialized(ctx, in)
+		return srv.(DPDKonmetalServer).CheckInitialized(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_Initialized_FullMethodName,
+		FullMethod: DPDKonmetal_CheckInitialized_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).Initialized(ctx, req.(*Empty))
+		return srv.(DPDKonmetalServer).CheckInitialized(ctx, req.(*CheckInitializedRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_Init_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InitConfig)
+func _DPDKonmetal_Initialize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InitializeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).Init(ctx, in)
+		return srv.(DPDKonmetalServer).Initialize(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_Init_FullMethodName,
+		FullMethod: DPDKonmetal_Initialize_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).Init(ctx, req.(*InitConfig))
+		return srv.(DPDKonmetalServer).Initialize(ctx, req.(*InitializeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -761,7 +759,7 @@ func _DPDKonmetal_GetVersion_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 func _DPDKonmetal_ListInterfaces_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
+	in := new(ListInterfacesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -773,13 +771,13 @@ func _DPDKonmetal_ListInterfaces_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: DPDKonmetal_ListInterfaces_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListInterfaces(ctx, req.(*Empty))
+		return srv.(DPDKonmetalServer).ListInterfaces(ctx, req.(*ListInterfacesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DPDKonmetal_GetInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InterfaceIDMsg)
+	in := new(GetInterfaceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -791,7 +789,7 @@ func _DPDKonmetal_GetInterface_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: DPDKonmetal_GetInterface_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).GetInterface(ctx, req.(*InterfaceIDMsg))
+		return srv.(DPDKonmetalServer).GetInterface(ctx, req.(*GetInterfaceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -815,7 +813,7 @@ func _DPDKonmetal_CreateInterface_Handler(srv interface{}, ctx context.Context, 
 }
 
 func _DPDKonmetal_DeleteInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InterfaceIDMsg)
+	in := new(DeleteInterfaceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -827,187 +825,169 @@ func _DPDKonmetal_DeleteInterface_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: DPDKonmetal_DeleteInterface_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteInterface(ctx, req.(*InterfaceIDMsg))
+		return srv.(DPDKonmetalServer).DeleteInterface(ctx, req.(*DeleteInterfaceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_UpdateThrottlingConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ThrottlingConfigMsg)
+func _DPDKonmetal_ListPrefixes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListPrefixesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).UpdateThrottlingConfig(ctx, in)
+		return srv.(DPDKonmetalServer).ListPrefixes(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_UpdateThrottlingConfig_FullMethodName,
+		FullMethod: DPDKonmetal_ListPrefixes_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).UpdateThrottlingConfig(ctx, req.(*ThrottlingConfigMsg))
+		return srv.(DPDKonmetalServer).ListPrefixes(ctx, req.(*ListPrefixesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_ListInterfacePrefixes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InterfaceIDMsg)
+func _DPDKonmetal_CreatePrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePrefixRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).ListInterfacePrefixes(ctx, in)
+		return srv.(DPDKonmetalServer).CreatePrefix(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_ListInterfacePrefixes_FullMethodName,
+		FullMethod: DPDKonmetal_CreatePrefix_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListInterfacePrefixes(ctx, req.(*InterfaceIDMsg))
+		return srv.(DPDKonmetalServer).CreatePrefix(ctx, req.(*CreatePrefixRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_AddInterfacePrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InterfacePrefixMsg)
+func _DPDKonmetal_DeletePrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeletePrefixRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).AddInterfacePrefix(ctx, in)
+		return srv.(DPDKonmetalServer).DeletePrefix(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_AddInterfacePrefix_FullMethodName,
+		FullMethod: DPDKonmetal_DeletePrefix_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).AddInterfacePrefix(ctx, req.(*InterfacePrefixMsg))
+		return srv.(DPDKonmetalServer).DeletePrefix(ctx, req.(*DeletePrefixRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteInterfacePrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InterfacePrefixMsg)
+func _DPDKonmetal_ListLoadBalancerPrefixes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListLoadBalancerPrefixesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteInterfacePrefix(ctx, in)
+		return srv.(DPDKonmetalServer).ListLoadBalancerPrefixes(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteInterfacePrefix_FullMethodName,
+		FullMethod: DPDKonmetal_ListLoadBalancerPrefixes_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteInterfacePrefix(ctx, req.(*InterfacePrefixMsg))
+		return srv.(DPDKonmetalServer).ListLoadBalancerPrefixes(ctx, req.(*ListLoadBalancerPrefixesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_ListInterfaceLoadBalancerPrefixes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListInterfaceLoadBalancerPrefixesRequest)
+func _DPDKonmetal_CreateLoadBalancerPrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLoadBalancerPrefixRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).ListInterfaceLoadBalancerPrefixes(ctx, in)
+		return srv.(DPDKonmetalServer).CreateLoadBalancerPrefix(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_ListInterfaceLoadBalancerPrefixes_FullMethodName,
+		FullMethod: DPDKonmetal_CreateLoadBalancerPrefix_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListInterfaceLoadBalancerPrefixes(ctx, req.(*ListInterfaceLoadBalancerPrefixesRequest))
+		return srv.(DPDKonmetalServer).CreateLoadBalancerPrefix(ctx, req.(*CreateLoadBalancerPrefixRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CreateInterfaceLoadBalancerPrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateInterfaceLoadBalancerPrefixRequest)
+func _DPDKonmetal_DeleteLoadBalancerPrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLoadBalancerPrefixRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CreateInterfaceLoadBalancerPrefix(ctx, in)
+		return srv.(DPDKonmetalServer).DeleteLoadBalancerPrefix(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CreateInterfaceLoadBalancerPrefix_FullMethodName,
+		FullMethod: DPDKonmetal_DeleteLoadBalancerPrefix_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CreateInterfaceLoadBalancerPrefix(ctx, req.(*CreateInterfaceLoadBalancerPrefixRequest))
+		return srv.(DPDKonmetalServer).DeleteLoadBalancerPrefix(ctx, req.(*DeleteLoadBalancerPrefixRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteInterfaceLoadBalancerPrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteInterfaceLoadBalancerPrefixRequest)
+func _DPDKonmetal_CreateVip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateVipRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteInterfaceLoadBalancerPrefix(ctx, in)
+		return srv.(DPDKonmetalServer).CreateVip(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteInterfaceLoadBalancerPrefix_FullMethodName,
+		FullMethod: DPDKonmetal_CreateVip_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteInterfaceLoadBalancerPrefix(ctx, req.(*DeleteInterfaceLoadBalancerPrefixRequest))
+		return srv.(DPDKonmetalServer).CreateVip(ctx, req.(*CreateVipRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_AddInterfaceVIP_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InterfaceVIPMsg)
+func _DPDKonmetal_GetVip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetVipRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).AddInterfaceVIP(ctx, in)
+		return srv.(DPDKonmetalServer).GetVip(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_AddInterfaceVIP_FullMethodName,
+		FullMethod: DPDKonmetal_GetVip_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).AddInterfaceVIP(ctx, req.(*InterfaceVIPMsg))
+		return srv.(DPDKonmetalServer).GetVip(ctx, req.(*GetVipRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_GetInterfaceVIP_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InterfaceIDMsg)
+func _DPDKonmetal_DeleteVip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteVipRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).GetInterfaceVIP(ctx, in)
+		return srv.(DPDKonmetalServer).DeleteVip(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_GetInterfaceVIP_FullMethodName,
+		FullMethod: DPDKonmetal_DeleteVip_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).GetInterfaceVIP(ctx, req.(*InterfaceIDMsg))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DPDKonmetal_DeleteInterfaceVIP_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InterfaceIDMsg)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteInterfaceVIP(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteInterfaceVIP_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteInterfaceVIP(ctx, req.(*InterfaceIDMsg))
+		return srv.(DPDKonmetalServer).DeleteVip(ctx, req.(*DeleteVipRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1066,38 +1046,38 @@ func _DPDKonmetal_DeleteLoadBalancer_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_AddLoadBalancerTarget_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddLoadBalancerTargetRequest)
+func _DPDKonmetal_CreateLoadBalancerTarget_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLoadBalancerTargetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).AddLoadBalancerTarget(ctx, in)
+		return srv.(DPDKonmetalServer).CreateLoadBalancerTarget(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_AddLoadBalancerTarget_FullMethodName,
+		FullMethod: DPDKonmetal_CreateLoadBalancerTarget_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).AddLoadBalancerTarget(ctx, req.(*AddLoadBalancerTargetRequest))
+		return srv.(DPDKonmetalServer).CreateLoadBalancerTarget(ctx, req.(*CreateLoadBalancerTargetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_GetLoadBalancerTargets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetLoadBalancerTargetsRequest)
+func _DPDKonmetal_ListLoadBalancerTargets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListLoadBalancerTargetsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).GetLoadBalancerTargets(ctx, in)
+		return srv.(DPDKonmetalServer).ListLoadBalancerTargets(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_GetLoadBalancerTargets_FullMethodName,
+		FullMethod: DPDKonmetal_ListLoadBalancerTargets_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).GetLoadBalancerTargets(ctx, req.(*GetLoadBalancerTargetsRequest))
+		return srv.(DPDKonmetalServer).ListLoadBalancerTargets(ctx, req.(*ListLoadBalancerTargetsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1120,116 +1100,134 @@ func _DPDKonmetal_DeleteLoadBalancerTarget_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_AddNAT_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddNATRequest)
+func _DPDKonmetal_CreateNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateNatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).AddNAT(ctx, in)
+		return srv.(DPDKonmetalServer).CreateNat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_AddNAT_FullMethodName,
+		FullMethod: DPDKonmetal_CreateNat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).AddNAT(ctx, req.(*AddNATRequest))
+		return srv.(DPDKonmetalServer).CreateNat(ctx, req.(*CreateNatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_GetNAT_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetNATRequest)
+func _DPDKonmetal_GetNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).GetNAT(ctx, in)
+		return srv.(DPDKonmetalServer).GetNat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_GetNAT_FullMethodName,
+		FullMethod: DPDKonmetal_GetNat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).GetNAT(ctx, req.(*GetNATRequest))
+		return srv.(DPDKonmetalServer).GetNat(ctx, req.(*GetNatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteNAT_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteNATRequest)
+func _DPDKonmetal_DeleteNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteNatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteNAT(ctx, in)
+		return srv.(DPDKonmetalServer).DeleteNat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteNAT_FullMethodName,
+		FullMethod: DPDKonmetal_DeleteNat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteNAT(ctx, req.(*DeleteNATRequest))
+		return srv.(DPDKonmetalServer).DeleteNat(ctx, req.(*DeleteNatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_AddNeighborNAT_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddNeighborNATRequest)
+func _DPDKonmetal_ListLocalNats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListLocalNatsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).AddNeighborNAT(ctx, in)
+		return srv.(DPDKonmetalServer).ListLocalNats(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_AddNeighborNAT_FullMethodName,
+		FullMethod: DPDKonmetal_ListLocalNats_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).AddNeighborNAT(ctx, req.(*AddNeighborNATRequest))
+		return srv.(DPDKonmetalServer).ListLocalNats(ctx, req.(*ListLocalNatsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteNeighborNAT_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteNeighborNATRequest)
+func _DPDKonmetal_CreateNeighborNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateNeighborNatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteNeighborNAT(ctx, in)
+		return srv.(DPDKonmetalServer).CreateNeighborNat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteNeighborNAT_FullMethodName,
+		FullMethod: DPDKonmetal_CreateNeighborNat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteNeighborNAT(ctx, req.(*DeleteNeighborNATRequest))
+		return srv.(DPDKonmetalServer).CreateNeighborNat(ctx, req.(*CreateNeighborNatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_GetNATInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetNATInfoRequest)
+func _DPDKonmetal_DeleteNeighborNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteNeighborNatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).GetNATInfo(ctx, in)
+		return srv.(DPDKonmetalServer).DeleteNeighborNat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_GetNATInfo_FullMethodName,
+		FullMethod: DPDKonmetal_DeleteNeighborNat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).GetNATInfo(ctx, req.(*GetNATInfoRequest))
+		return srv.(DPDKonmetalServer).DeleteNeighborNat(ctx, req.(*DeleteNeighborNatRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DPDKonmetal_ListNeighborNats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListNeighborNatsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DPDKonmetalServer).ListNeighborNats(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DPDKonmetal_ListNeighborNats_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DPDKonmetalServer).ListNeighborNats(ctx, req.(*ListNeighborNatsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DPDKonmetal_ListRoutes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(VNIMsg)
+	in := new(ListRoutesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1241,31 +1239,31 @@ func _DPDKonmetal_ListRoutes_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: DPDKonmetal_ListRoutes_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListRoutes(ctx, req.(*VNIMsg))
+		return srv.(DPDKonmetalServer).ListRoutes(ctx, req.(*ListRoutesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_AddRoute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(VNIRouteMsg)
+func _DPDKonmetal_CreateRoute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRouteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).AddRoute(ctx, in)
+		return srv.(DPDKonmetalServer).CreateRoute(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_AddRoute_FullMethodName,
+		FullMethod: DPDKonmetal_CreateRoute_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).AddRoute(ctx, req.(*VNIRouteMsg))
+		return srv.(DPDKonmetalServer).CreateRoute(ctx, req.(*CreateRouteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DPDKonmetal_DeleteRoute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(VNIRouteMsg)
+	in := new(DeleteRouteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1277,25 +1275,25 @@ func _DPDKonmetal_DeleteRoute_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: DPDKonmetal_DeleteRoute_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteRoute(ctx, req.(*VNIRouteMsg))
+		return srv.(DPDKonmetalServer).DeleteRoute(ctx, req.(*DeleteRouteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_IsVniInUse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IsVniInUseRequest)
+func _DPDKonmetal_CheckVniInUse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckVniInUseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).IsVniInUse(ctx, in)
+		return srv.(DPDKonmetalServer).CheckVniInUse(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_IsVniInUse_FullMethodName,
+		FullMethod: DPDKonmetal_CheckVniInUse_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).IsVniInUse(ctx, req.(*IsVniInUseRequest))
+		return srv.(DPDKonmetalServer).CheckVniInUse(ctx, req.(*CheckVniInUseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1336,20 +1334,20 @@ func _DPDKonmetal_ListFirewallRules_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_AddFirewallRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddFirewallRuleRequest)
+func _DPDKonmetal_CreateFirewallRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateFirewallRuleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).AddFirewallRule(ctx, in)
+		return srv.(DPDKonmetalServer).CreateFirewallRule(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_AddFirewallRule_FullMethodName,
+		FullMethod: DPDKonmetal_CreateFirewallRule_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).AddFirewallRule(ctx, req.(*AddFirewallRuleRequest))
+		return srv.(DPDKonmetalServer).CreateFirewallRule(ctx, req.(*CreateFirewallRuleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1394,159 +1392,159 @@ func _DPDKonmetal_DeleteFirewallRule_Handler(srv interface{}, ctx context.Contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var DPDKonmetal_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "dpdkonmetal.DPDKonmetal",
+	ServiceName: "dpdkonmetal.v1.DPDKonmetal",
 	HandlerType: (*DPDKonmetalServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "initialized",
-			Handler:    _DPDKonmetal_Initialized_Handler,
+			MethodName: "CheckInitialized",
+			Handler:    _DPDKonmetal_CheckInitialized_Handler,
 		},
 		{
-			MethodName: "init",
-			Handler:    _DPDKonmetal_Init_Handler,
+			MethodName: "Initialize",
+			Handler:    _DPDKonmetal_Initialize_Handler,
 		},
 		{
-			MethodName: "getVersion",
+			MethodName: "GetVersion",
 			Handler:    _DPDKonmetal_GetVersion_Handler,
 		},
 		{
-			MethodName: "listInterfaces",
+			MethodName: "ListInterfaces",
 			Handler:    _DPDKonmetal_ListInterfaces_Handler,
 		},
 		{
-			MethodName: "getInterface",
+			MethodName: "GetInterface",
 			Handler:    _DPDKonmetal_GetInterface_Handler,
 		},
 		{
-			MethodName: "createInterface",
+			MethodName: "CreateInterface",
 			Handler:    _DPDKonmetal_CreateInterface_Handler,
 		},
 		{
-			MethodName: "deleteInterface",
+			MethodName: "DeleteInterface",
 			Handler:    _DPDKonmetal_DeleteInterface_Handler,
 		},
 		{
-			MethodName: "updateThrottlingConfig",
-			Handler:    _DPDKonmetal_UpdateThrottlingConfig_Handler,
+			MethodName: "ListPrefixes",
+			Handler:    _DPDKonmetal_ListPrefixes_Handler,
 		},
 		{
-			MethodName: "listInterfacePrefixes",
-			Handler:    _DPDKonmetal_ListInterfacePrefixes_Handler,
+			MethodName: "CreatePrefix",
+			Handler:    _DPDKonmetal_CreatePrefix_Handler,
 		},
 		{
-			MethodName: "addInterfacePrefix",
-			Handler:    _DPDKonmetal_AddInterfacePrefix_Handler,
+			MethodName: "DeletePrefix",
+			Handler:    _DPDKonmetal_DeletePrefix_Handler,
 		},
 		{
-			MethodName: "deleteInterfacePrefix",
-			Handler:    _DPDKonmetal_DeleteInterfacePrefix_Handler,
+			MethodName: "ListLoadBalancerPrefixes",
+			Handler:    _DPDKonmetal_ListLoadBalancerPrefixes_Handler,
 		},
 		{
-			MethodName: "listInterfaceLoadBalancerPrefixes",
-			Handler:    _DPDKonmetal_ListInterfaceLoadBalancerPrefixes_Handler,
+			MethodName: "CreateLoadBalancerPrefix",
+			Handler:    _DPDKonmetal_CreateLoadBalancerPrefix_Handler,
 		},
 		{
-			MethodName: "createInterfaceLoadBalancerPrefix",
-			Handler:    _DPDKonmetal_CreateInterfaceLoadBalancerPrefix_Handler,
+			MethodName: "DeleteLoadBalancerPrefix",
+			Handler:    _DPDKonmetal_DeleteLoadBalancerPrefix_Handler,
 		},
 		{
-			MethodName: "deleteInterfaceLoadBalancerPrefix",
-			Handler:    _DPDKonmetal_DeleteInterfaceLoadBalancerPrefix_Handler,
+			MethodName: "CreateVip",
+			Handler:    _DPDKonmetal_CreateVip_Handler,
 		},
 		{
-			MethodName: "addInterfaceVIP",
-			Handler:    _DPDKonmetal_AddInterfaceVIP_Handler,
+			MethodName: "GetVip",
+			Handler:    _DPDKonmetal_GetVip_Handler,
 		},
 		{
-			MethodName: "getInterfaceVIP",
-			Handler:    _DPDKonmetal_GetInterfaceVIP_Handler,
+			MethodName: "DeleteVip",
+			Handler:    _DPDKonmetal_DeleteVip_Handler,
 		},
 		{
-			MethodName: "deleteInterfaceVIP",
-			Handler:    _DPDKonmetal_DeleteInterfaceVIP_Handler,
-		},
-		{
-			MethodName: "createLoadBalancer",
+			MethodName: "CreateLoadBalancer",
 			Handler:    _DPDKonmetal_CreateLoadBalancer_Handler,
 		},
 		{
-			MethodName: "getLoadBalancer",
+			MethodName: "GetLoadBalancer",
 			Handler:    _DPDKonmetal_GetLoadBalancer_Handler,
 		},
 		{
-			MethodName: "deleteLoadBalancer",
+			MethodName: "DeleteLoadBalancer",
 			Handler:    _DPDKonmetal_DeleteLoadBalancer_Handler,
 		},
 		{
-			MethodName: "addLoadBalancerTarget",
-			Handler:    _DPDKonmetal_AddLoadBalancerTarget_Handler,
+			MethodName: "CreateLoadBalancerTarget",
+			Handler:    _DPDKonmetal_CreateLoadBalancerTarget_Handler,
 		},
 		{
-			MethodName: "getLoadBalancerTargets",
-			Handler:    _DPDKonmetal_GetLoadBalancerTargets_Handler,
+			MethodName: "ListLoadBalancerTargets",
+			Handler:    _DPDKonmetal_ListLoadBalancerTargets_Handler,
 		},
 		{
-			MethodName: "deleteLoadBalancerTarget",
+			MethodName: "DeleteLoadBalancerTarget",
 			Handler:    _DPDKonmetal_DeleteLoadBalancerTarget_Handler,
 		},
 		{
-			MethodName: "addNAT",
-			Handler:    _DPDKonmetal_AddNAT_Handler,
+			MethodName: "CreateNat",
+			Handler:    _DPDKonmetal_CreateNat_Handler,
 		},
 		{
-			MethodName: "getNAT",
-			Handler:    _DPDKonmetal_GetNAT_Handler,
+			MethodName: "GetNat",
+			Handler:    _DPDKonmetal_GetNat_Handler,
 		},
 		{
-			MethodName: "deleteNAT",
-			Handler:    _DPDKonmetal_DeleteNAT_Handler,
+			MethodName: "DeleteNat",
+			Handler:    _DPDKonmetal_DeleteNat_Handler,
 		},
 		{
-			MethodName: "addNeighborNAT",
-			Handler:    _DPDKonmetal_AddNeighborNAT_Handler,
+			MethodName: "ListLocalNats",
+			Handler:    _DPDKonmetal_ListLocalNats_Handler,
 		},
 		{
-			MethodName: "deleteNeighborNAT",
-			Handler:    _DPDKonmetal_DeleteNeighborNAT_Handler,
+			MethodName: "CreateNeighborNat",
+			Handler:    _DPDKonmetal_CreateNeighborNat_Handler,
 		},
 		{
-			MethodName: "getNATInfo",
-			Handler:    _DPDKonmetal_GetNATInfo_Handler,
+			MethodName: "DeleteNeighborNat",
+			Handler:    _DPDKonmetal_DeleteNeighborNat_Handler,
 		},
 		{
-			MethodName: "listRoutes",
+			MethodName: "ListNeighborNats",
+			Handler:    _DPDKonmetal_ListNeighborNats_Handler,
+		},
+		{
+			MethodName: "ListRoutes",
 			Handler:    _DPDKonmetal_ListRoutes_Handler,
 		},
 		{
-			MethodName: "addRoute",
-			Handler:    _DPDKonmetal_AddRoute_Handler,
+			MethodName: "CreateRoute",
+			Handler:    _DPDKonmetal_CreateRoute_Handler,
 		},
 		{
-			MethodName: "deleteRoute",
+			MethodName: "DeleteRoute",
 			Handler:    _DPDKonmetal_DeleteRoute_Handler,
 		},
 		{
-			MethodName: "isVniInUse",
-			Handler:    _DPDKonmetal_IsVniInUse_Handler,
+			MethodName: "CheckVniInUse",
+			Handler:    _DPDKonmetal_CheckVniInUse_Handler,
 		},
 		{
-			MethodName: "resetVni",
+			MethodName: "ResetVni",
 			Handler:    _DPDKonmetal_ResetVni_Handler,
 		},
 		{
-			MethodName: "listFirewallRules",
+			MethodName: "ListFirewallRules",
 			Handler:    _DPDKonmetal_ListFirewallRules_Handler,
 		},
 		{
-			MethodName: "addFirewallRule",
-			Handler:    _DPDKonmetal_AddFirewallRule_Handler,
+			MethodName: "CreateFirewallRule",
+			Handler:    _DPDKonmetal_CreateFirewallRule_Handler,
 		},
 		{
-			MethodName: "getFirewallRule",
+			MethodName: "GetFirewallRule",
 			Handler:    _DPDKonmetal_GetFirewallRule_Handler,
 		},
 		{
-			MethodName: "deleteFirewallRule",
+			MethodName: "DeleteFirewallRule",
 			Handler:    _DPDKonmetal_DeleteFirewallRule_Handler,
 		},
 	},

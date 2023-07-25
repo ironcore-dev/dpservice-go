@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-NET_DPSERVICE_REVISION="main"
+NET_DPSERVICE_REVISION="feature/grpc_versioning"
 
 set -e
 

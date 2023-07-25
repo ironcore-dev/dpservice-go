@@ -42,17 +42,18 @@ func (m *TypeMeta) GetKind() string {
 }
 
 type Status struct {
-	Error   int32  `json:"error"`
+	Code    int32  `json:"code"`
 	Message string `json:"message"`
 }
 
 func (status *Status) String() string {
-	if status.Error == 0 {
+	if status.Code == 0 {
 		return status.Message
 	}
-	return fmt.Sprintf("Error: %d, Message: %s", status.Error, status.Message)
+	return fmt.Sprintf("Code: %d, Message: %s", status.Code, status.Message)
 }
 
+// Route section
 type RouteList struct {
 	TypeMeta      `json:",inline"`
 	RouteListMeta `json:"metadata"`
@@ -105,6 +106,7 @@ type RouteNextHop struct {
 	IP  *netip.Addr `json:"ip,omitempty"`
 }
 
+// Prefix section
 type PrefixList struct {
 	TypeMeta       `json:",inline"`
 	PrefixListMeta `json:"metadata"`
@@ -152,6 +154,7 @@ type PrefixSpec struct {
 	UnderlayRoute *netip.Addr  `json:"underlayRoute,omitempty"`
 }
 
+// VirtualIP section
 type VirtualIP struct {
 	TypeMeta      `json:",inline"`
 	VirtualIPMeta `json:"metadata"`
@@ -172,7 +175,7 @@ func (m *VirtualIP) GetStatus() Status {
 }
 
 type VirtualIPSpec struct {
-	IP            netip.Addr  `json:"ip"`
+	IP            *netip.Addr `json:"ip"`
 	UnderlayRoute *netip.Addr `json:"underlayRoute,omitempty"`
 }
 
@@ -369,11 +372,11 @@ func (m *Nat) GetStatus() Status {
 }
 
 func (m *Nat) String() string {
-	return fmt.Sprintf("%s <%d, %d>", m.Spec.NatVIPIP, m.Spec.MinPort, m.Spec.MaxPort)
+	return fmt.Sprintf("%s <%d, %d>", m.Spec.NatIP, m.Spec.MinPort, m.Spec.MaxPort)
 }
 
 type NatSpec struct {
-	NatVIPIP      *netip.Addr `json:"natVIPIP,omitempty"`
+	NatIP         *netip.Addr `json:"natVIPIP,omitempty"`
 	MinPort       uint32      `json:"minPort,omitempty"`
 	MaxPort       uint32      `json:"maxPort,omitempty"`
 	UnderlayRoute *netip.Addr `json:"underlayRoute,omitempty"`
@@ -388,8 +391,8 @@ type NatList struct {
 }
 
 type NatListMeta struct {
-	NatIP       *netip.Addr `json:"natIp,omitempty"`
-	NatInfoType string      `json:"infoType,omitempty"`
+	NatIP   *netip.Addr `json:"natIp,omitempty"`
+	NatType string      `json:"natType,omitempty"`
 }
 
 func (l *NatList) GetItems() []Object {
@@ -412,11 +415,11 @@ type NeighborNat struct {
 }
 
 type NeighborNatMeta struct {
-	NatVIPIP *netip.Addr `json:"natVIPIP"`
+	NatIP *netip.Addr `json:"natVIPIP"`
 }
 
 func (m *NeighborNatMeta) GetName() string {
-	return m.NatVIPIP.String()
+	return m.NatIP.String()
 }
 
 func (m *NeighborNat) GetStatus() Status {
@@ -455,7 +458,6 @@ type FirewallRuleSpec struct {
 	TrafficDirection  string                `json:"trafficDirection,omitempty"`
 	FirewallAction    string                `json:"firewallAction,omitempty"`
 	Priority          uint32                `json:"priority,omitempty"`
-	IpVersion         string                `json:"ipVersion,omitempty"`
 	SourcePrefix      *netip.Prefix         `json:"sourcePrefix,omitempty"`
 	DestinationPrefix *netip.Prefix         `json:"destinationPrefix,omitempty"`
 	ProtocolFilter    *proto.ProtocolFilter `json:"protocolFilter,omitempty"`
@@ -484,27 +486,7 @@ func (m *FirewallRuleList) GetStatus() Status {
 	return m.Status
 }
 
-type Init struct {
-	TypeMeta `json:",inline"`
-	InitMeta `json:"metadata"`
-	Spec     InitSpec `json:"spec"`
-	Status   Status   `json:"status"`
-}
-
-type InitMeta struct {
-}
-
-type InitSpec struct {
-}
-
-func (m *InitMeta) GetName() string {
-	return "init"
-}
-
-func (m *Init) GetStatus() Status {
-	return m.Status
-}
-
+// Initialized section
 type Initialized struct {
 	TypeMeta        `json:",inline"`
 	InitializedMeta `json:"metadata"`
@@ -516,7 +498,7 @@ type InitializedMeta struct {
 }
 
 type InitializedSpec struct {
-	UUID string `json:"uuid"`
+	UUID string `json:"uuid,omitempty"`
 }
 
 func (m *InitializedMeta) GetName() string {
@@ -527,6 +509,7 @@ func (m *Initialized) GetStatus() Status {
 	return Status{}
 }
 
+// VNI section
 type Vni struct {
 	TypeMeta `json:",inline"`
 	VniMeta  `json:"metadata"`
@@ -551,6 +534,7 @@ func (m *Vni) GetStatus() Status {
 	return m.Status
 }
 
+// Version section
 type Version struct {
 	TypeMeta    `json:",inline"`
 	VersionMeta `json:"metadata"`
@@ -559,18 +543,18 @@ type Version struct {
 }
 
 type VersionMeta struct {
-	ClientProto string `json:"clientProto"`
-	ClientName  string `json:"clientName"`
-	ClientVer   string `json:"clientVer"`
+	ClientProtocol string `json:"clientProto"`
+	ClientName     string `json:"clientName"`
+	ClientVersion  string `json:"clientVer"`
 }
 
 type VersionSpec struct {
-	SvcProto string `json:"svcProto"`
-	SvcVer   string `json:"svcVer"`
+	ServiceProtocol string `json:"svcProto"`
+	ServiceVersion  string `json:"svcVer"`
 }
 
 func (m *VersionMeta) GetName() string {
-	return fmt.Sprintf("%s-%s", m.ClientName, m.ClientProto)
+	return fmt.Sprintf("%s-%s", m.ClientName, m.ClientProtocol)
 }
 
 func (m *Version) GetStatus() Status {
@@ -594,6 +578,7 @@ var (
 	NeighborNatKind            = reflect.TypeOf(NeighborNat{}).Name()
 	FirewallRuleKind           = reflect.TypeOf(FirewallRule{}).Name()
 	FirewallRuleListKind       = reflect.TypeOf(FirewallRuleList{}).Name()
+	InitializedKind            = reflect.TypeOf(Initialized{}).Name()
 	VniKind                    = reflect.TypeOf(Vni{}).Name()
 	VersionKind                = reflect.TypeOf(Version{}).Name()
 )

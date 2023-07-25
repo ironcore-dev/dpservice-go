@@ -62,7 +62,7 @@ const (
 	CLIENT_ERROR = 1
 	SERVER_ERROR = 2
 
-	StatusErrorString = "error code"
+	StatusErrorString = "rpc error"
 )
 
 type IgnoredErrors struct {
@@ -97,17 +97,17 @@ func NewStatusError(errorCode int32, message string) *StatusError {
 }
 
 func GetError(status *dpdkproto.Status, ignoredErrors []IgnoredErrors) error {
-	if status.Error == 0 {
+	if status.Code == 0 {
 		return nil
 	}
 	if len(ignoredErrors) > 0 {
 		for _, ignoredError := range ignoredErrors[0].Codes {
-			if status.Error == ignoredError {
+			if status.Code == ignoredError {
 				return nil
 			}
 		}
 	}
-	return NewStatusError(status.Error, status.Message)
+	return NewStatusError(status.Code, status.Message)
 }
 
 func IsStatusErrorCode(err error, errorCodes ...int32) bool {
