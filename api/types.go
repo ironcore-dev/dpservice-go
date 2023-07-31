@@ -309,7 +309,8 @@ func (m *Interface) GetStatus() Status {
 type InterfaceSpec struct {
 	VNI             uint32           `json:"vni,omitempty"`
 	Device          string           `json:"device,omitempty"`
-	IPs             []netip.Addr     `json:"ips,omitempty"`
+	IPv4            *netip.Addr      `json:"primary_ipv4,omitempty"`
+	IPv6            *netip.Addr      `json:"primary_ipv6,omitempty"`
 	UnderlayRoute   *netip.Addr      `json:"underlay_route,omitempty"`
 	VirtualFunction *VirtualFunction `json:"virtual_function,omitempty"`
 	PXE             *PXE             `json:"pxe,omitempty"`

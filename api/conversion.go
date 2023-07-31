@@ -89,26 +89,6 @@ func StringLbportToLbport(lbport string) (LBPort, error) {
 }
 
 func ProtoInterfaceToInterface(dpdkIface *proto.Interface) (*Interface, error) {
-	var ips []netip.Addr
-
-	if ipv4String := string(dpdkIface.GetPrimaryIpv4()); ipv4String != "" {
-		ip, err := netip.ParseAddr(ipv4String)
-		if err != nil {
-			return nil, fmt.Errorf("error parsing primary ipv4: %w", err)
-		}
-
-		ips = append(ips, ip)
-	}
-
-	if ipv6String := string(dpdkIface.GetPrimaryIpv6()); ipv6String != "" {
-		ip, err := netip.ParseAddr(ipv6String)
-		if err != nil {
-			return nil, fmt.Errorf("error parsing primary ipv6: %w", err)
-		}
-
-		ips = append(ips, ip)
-	}
-
 	var underlayRoute netip.Addr
 	if underlayRouteString := string(dpdkIface.GetUnderlayRoute()); underlayRouteString != "" {
 		var err error
@@ -116,6 +96,16 @@ func ProtoInterfaceToInterface(dpdkIface *proto.Interface) (*Interface, error) {
 		if err != nil {
 			return nil, fmt.Errorf("error parsing underlay ip: %w", err)
 		}
+	}
+
+	primaryIpv4, err := netip.ParseAddr(string(dpdkIface.GetPrimaryIpv4()))
+	if err != nil {
+		return nil, fmt.Errorf("error parsing primary ipv4: %w", err)
+	}
+
+	primaryIpv6, err := netip.ParseAddr(string(dpdkIface.GetPrimaryIpv6()))
+	if err != nil {
+		return nil, fmt.Errorf("error parsing primary ipv6: %w", err)
 	}
 
 	return &Interface{
@@ -128,7 +118,8 @@ func ProtoInterfaceToInterface(dpdkIface *proto.Interface) (*Interface, error) {
 		Spec: InterfaceSpec{
 			VNI:           dpdkIface.GetVni(),
 			Device:        dpdkIface.GetPciName(),
-			IPs:           ips,
+			IPv4:          &primaryIpv4,
+			IPv6:          &primaryIpv6,
 			UnderlayRoute: &underlayRoute,
 		},
 	}, nil

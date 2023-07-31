@@ -22,7 +22,6 @@ import (
 
 	"github.com/onmetal/net-dpservice-go/api"
 	"github.com/onmetal/net-dpservice-go/errors"
-	"github.com/onmetal/net-dpservice-go/netiputil"
 	dpdkproto "github.com/onmetal/net-dpservice-go/proto"
 )
 
@@ -353,8 +352,8 @@ func (c *client) CreateInterface(ctx context.Context, iface *api.Interface, igno
 		InterfaceType: dpdkproto.InterfaceType_VIRTUAL,
 		InterfaceId:   []byte(iface.ID),
 		Vni:           iface.Spec.VNI,
-		Ipv4Config:    api.NetIPAddrToProtoIPConfig(netiputil.FindIPv4(iface.Spec.IPs)),
-		Ipv6Config:    api.NetIPAddrToProtoIPConfig(netiputil.FindIPv6(iface.Spec.IPs)),
+		Ipv4Config:    api.NetIPAddrToProtoIPConfig(*iface.Spec.IPv4),
+		Ipv6Config:    api.NetIPAddrToProtoIPConfig(*iface.Spec.IPv6),
 		DeviceName:    iface.Spec.Device,
 	}
 	if iface.Spec.PXE.FileName != "" && iface.Spec.PXE.Server != "" {
@@ -385,7 +384,8 @@ func (c *client) CreateInterface(ctx context.Context, iface *api.Interface, igno
 		Spec: api.InterfaceSpec{
 			VNI:           iface.Spec.VNI,
 			Device:        iface.Spec.Device,
-			IPs:           iface.Spec.IPs,
+			IPv4:          iface.Spec.IPv4,
+			IPv6:          iface.Spec.IPv6,
 			UnderlayRoute: &underlayRoute,
 			VirtualFunction: &api.VirtualFunction{
 				Name:     res.Vf.Name,
