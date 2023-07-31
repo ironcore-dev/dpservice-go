@@ -56,6 +56,7 @@ const (
 	VNF_INSERT      = 401
 	VM_HANDLE       = 402
 	NO_BACKIP       = 421
+	NO_LB           = 422
 	NO_DROP_SUPPORT = 441
 
 	// os.Exit value

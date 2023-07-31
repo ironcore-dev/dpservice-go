@@ -98,12 +98,12 @@ func (m *Route) GetStatus() Status {
 
 type RouteSpec struct {
 	Prefix  *netip.Prefix `json:"prefix,omitempty"`
-	NextHop *RouteNextHop `json:"nextHop,omitempty"`
+	NextHop *RouteNextHop `json:"next_hop,omitempty"`
 }
 
 type RouteNextHop struct {
 	VNI uint32      `json:"vni"`
-	IP  *netip.Addr `json:"ip,omitempty"`
+	IP  *netip.Addr `json:"address,omitempty"`
 }
 
 // Prefix section
@@ -115,7 +115,7 @@ type PrefixList struct {
 }
 
 type PrefixListMeta struct {
-	InterfaceID string `json:"interfaceID"`
+	InterfaceID string `json:"interface_id"`
 }
 
 func (l *PrefixList) GetItems() []Object {
@@ -138,7 +138,7 @@ type Prefix struct {
 }
 
 type PrefixMeta struct {
-	InterfaceID string `json:"interfaceID"`
+	InterfaceID string `json:"interface_id"`
 }
 
 func (m *Prefix) GetName() string {
@@ -151,7 +151,7 @@ func (m *Prefix) GetStatus() Status {
 
 type PrefixSpec struct {
 	Prefix        netip.Prefix `json:"prefix"`
-	UnderlayRoute *netip.Addr  `json:"underlayRoute,omitempty"`
+	UnderlayRoute *netip.Addr  `json:"underlay_route,omitempty"`
 }
 
 // VirtualIP section
@@ -163,7 +163,7 @@ type VirtualIP struct {
 }
 
 type VirtualIPMeta struct {
-	InterfaceID string `json:"interfaceID"`
+	InterfaceID string `json:"interface_id"`
 }
 
 func (m *VirtualIP) GetName() string {
@@ -175,8 +175,8 @@ func (m *VirtualIP) GetStatus() Status {
 }
 
 type VirtualIPSpec struct {
-	IP            *netip.Addr `json:"ip"`
-	UnderlayRoute *netip.Addr `json:"underlayRoute,omitempty"`
+	IP            *netip.Addr `json:"vip_ip"`
+	UnderlayRoute *netip.Addr `json:"underlay_route,omitempty"`
 }
 
 // LoadBalancer section
@@ -201,9 +201,9 @@ func (m *LoadBalancer) GetStatus() Status {
 
 type LoadBalancerSpec struct {
 	VNI           uint32      `json:"vni,omitempty"`
-	LbVipIP       *netip.Addr `json:"lbVipIP,omitempty"`
-	Lbports       []LBPort    `json:"lbports,omitempty"`
-	UnderlayRoute *netip.Addr `json:"underlayRoute,omitempty"`
+	LbVipIP       *netip.Addr `json:"loadbalanced_ip,omitempty"`
+	Lbports       []LBPort    `json:"loadbalanced_ports,omitempty"`
+	UnderlayRoute *netip.Addr `json:"underlay_route,omitempty"`
 }
 
 type LBPort struct {
@@ -219,7 +219,7 @@ type LoadBalancerTarget struct {
 }
 
 type LoadBalancerTargetMeta struct {
-	LoadbalancerID string `json:"loadbalancerId"`
+	LoadbalancerID string `json:"loadbalancer_id"`
 }
 
 func (m *LoadBalancerTarget) GetName() string {
@@ -231,7 +231,7 @@ func (m *LoadBalancerTarget) GetStatus() Status {
 }
 
 type LoadBalancerTargetSpec struct {
-	TargetIP *netip.Addr `json:"targetIP,omitempty"`
+	TargetIP *netip.Addr `json:"target_ip,omitempty"`
 }
 
 type LoadBalancerTargetList struct {
@@ -242,7 +242,7 @@ type LoadBalancerTargetList struct {
 }
 
 type LoadBalancerTargetListMeta struct {
-	LoadBalancerID string `json:"loadbalancerID"`
+	LoadBalancerID string `json:"loadbalancer_id"`
 }
 
 func (l *LoadBalancerTargetList) GetItems() []Object {
@@ -265,7 +265,7 @@ type LoadBalancerPrefix struct {
 }
 
 type LoadBalancerPrefixMeta struct {
-	InterfaceID string `json:"interfaceID"`
+	InterfaceID string `json:"interface_id"`
 }
 
 func (m *LoadBalancerPrefix) GetName() string {
@@ -278,7 +278,7 @@ func (m *LoadBalancerPrefix) GetStatus() Status {
 
 type LoadBalancerPrefixSpec struct {
 	Prefix        netip.Prefix `json:"prefix"`
-	UnderlayRoute *netip.Addr  `json:"underlayRoute,omitempty"`
+	UnderlayRoute *netip.Addr  `json:"underlay_route,omitempty"`
 }
 
 // Interface section
@@ -294,8 +294,8 @@ type InterfaceMeta struct {
 }
 
 type PXE struct {
-	Server   string `json:"server,omitempty"`
-	FileName string `json:"fileName,omitempty"`
+	Server   string `json:"next_server,omitempty"`
+	FileName string `json:"boot_filename,omitempty"`
 }
 
 func (m *InterfaceMeta) GetName() string {
@@ -310,19 +310,19 @@ type InterfaceSpec struct {
 	VNI             uint32           `json:"vni,omitempty"`
 	Device          string           `json:"device,omitempty"`
 	IPs             []netip.Addr     `json:"ips,omitempty"`
-	UnderlayRoute   *netip.Addr      `json:"underlayRoute,omitempty"`
-	VirtualFunction *VirtualFunction `json:"virtualFunction,omitempty"`
+	UnderlayRoute   *netip.Addr      `json:"underlay_route,omitempty"`
+	VirtualFunction *VirtualFunction `json:"virtual_function,omitempty"`
 	PXE             *PXE             `json:"pxe,omitempty"`
 	Nat             *Nat             `json:"-"`
 	VIP             *VirtualIP       `json:"-"`
 }
 
 type VirtualFunction struct {
-	Name     string `json:"vfName,omitempty"`
-	Domain   uint32 `json:"vfDomain,omitempty"`
-	Bus      uint32 `json:"vfBus,omitempty"`
-	Slot     uint32 `json:"vfSlot,omitempty"`
-	Function uint32 `json:"vfFunction,omitempty"`
+	Name     string `json:"name,omitempty"`
+	Domain   uint32 `json:"domain,omitempty"`
+	Bus      uint32 `json:"bus,omitempty"`
+	Slot     uint32 `json:"slot,omitempty"`
+	Function uint32 `json:"function,omitempty"`
 }
 
 func (vf *VirtualFunction) String() string {
@@ -360,7 +360,7 @@ type Nat struct {
 }
 
 type NatMeta struct {
-	InterfaceID string `json:"interfaceID,omitempty"`
+	InterfaceID string `json:"interface_id,omitempty"`
 }
 
 func (m *NatMeta) GetName() string {
@@ -376,10 +376,10 @@ func (m *Nat) String() string {
 }
 
 type NatSpec struct {
-	NatIP         *netip.Addr `json:"natVIPIP,omitempty"`
-	MinPort       uint32      `json:"minPort,omitempty"`
-	MaxPort       uint32      `json:"maxPort,omitempty"`
-	UnderlayRoute *netip.Addr `json:"underlayRoute,omitempty"`
+	NatIP         *netip.Addr `json:"nat_ip,omitempty"`
+	MinPort       uint32      `json:"min_port,omitempty"`
+	MaxPort       uint32      `json:"max_port,omitempty"`
+	UnderlayRoute *netip.Addr `json:"underlay_route,omitempty"`
 	Vni           uint32      `json:"vni,omitempty"`
 }
 
@@ -391,8 +391,8 @@ type NatList struct {
 }
 
 type NatListMeta struct {
-	NatIP   *netip.Addr `json:"natIp,omitempty"`
-	NatType string      `json:"natType,omitempty"`
+	NatIP   *netip.Addr `json:"nat_ip,omitempty"`
+	NatType string      `json:"nat_type,omitempty"`
 }
 
 func (l *NatList) GetItems() []Object {
@@ -415,7 +415,7 @@ type NeighborNat struct {
 }
 
 type NeighborNatMeta struct {
-	NatIP *netip.Addr `json:"natVIPIP"`
+	NatIP *netip.Addr `json:"nat_ip"`
 }
 
 func (m *NeighborNatMeta) GetName() string {
@@ -428,9 +428,9 @@ func (m *NeighborNat) GetStatus() Status {
 
 type NeighborNatSpec struct {
 	Vni           uint32      `json:"vni,omitempty"`
-	MinPort       uint32      `json:"minPort,omitempty"`
-	MaxPort       uint32      `json:"maxPort,omitempty"`
-	UnderlayRoute *netip.Addr `json:"underlayRoute,omitempty"`
+	MinPort       uint32      `json:"min_port,omitempty"`
+	MaxPort       uint32      `json:"max_port,omitempty"`
+	UnderlayRoute *netip.Addr `json:"underlay_route,omitempty"`
 }
 
 // FirewallRule section
@@ -442,7 +442,7 @@ type FirewallRule struct {
 }
 
 type FirewallRuleMeta struct {
-	InterfaceID string `json:"interfaceID"`
+	InterfaceID string `json:"interface_id"`
 }
 
 func (m *FirewallRule) GetName() string {
@@ -454,13 +454,13 @@ func (m *FirewallRule) GetStatus() Status {
 }
 
 type FirewallRuleSpec struct {
-	RuleID            string                `json:"ruleID"`
-	TrafficDirection  string                `json:"trafficDirection,omitempty"`
-	FirewallAction    string                `json:"firewallAction,omitempty"`
+	RuleID            string                `json:"id"`
+	TrafficDirection  string                `json:"direction,omitempty"`
+	FirewallAction    string                `json:"action,omitempty"`
 	Priority          uint32                `json:"priority,omitempty"`
-	SourcePrefix      *netip.Prefix         `json:"sourcePrefix,omitempty"`
-	DestinationPrefix *netip.Prefix         `json:"destinationPrefix,omitempty"`
-	ProtocolFilter    *proto.ProtocolFilter `json:"protocolFilter,omitempty"`
+	SourcePrefix      *netip.Prefix         `json:"source_prefix,omitempty"`
+	DestinationPrefix *netip.Prefix         `json:"destination_prefix,omitempty"`
+	ProtocolFilter    *proto.ProtocolFilter `json:"protocol_filter,omitempty"`
 }
 
 type FirewallRuleList struct {
@@ -471,7 +471,7 @@ type FirewallRuleList struct {
 }
 
 type FirewallRuleListMeta struct {
-	InterfaceID string `json:"interfaceID"`
+	InterfaceID string `json:"interface_id"`
 }
 
 func (l *FirewallRuleList) GetItems() []Object {
@@ -506,7 +506,7 @@ func (m *InitializedMeta) GetName() string {
 }
 
 func (m *Initialized) GetStatus() Status {
-	return Status{}
+	return m.Status
 }
 
 // VNI section
@@ -519,11 +519,11 @@ type Vni struct {
 
 type VniMeta struct {
 	VNI     uint32 `json:"vni"`
-	VniType uint8  `json:"vniType"`
+	VniType uint8  `json:"vni_type"`
 }
 
 type VniSpec struct {
-	InUse bool `json:"inUse"`
+	InUse bool `json:"in_use"`
 }
 
 func (m *VniMeta) GetName() string {
@@ -543,14 +543,14 @@ type Version struct {
 }
 
 type VersionMeta struct {
-	ClientProtocol string `json:"clientProto"`
-	ClientName     string `json:"clientName"`
-	ClientVersion  string `json:"clientVer"`
+	ClientProtocol string `json:"client_protocol"`
+	ClientName     string `json:"client_name"`
+	ClientVersion  string `json:"client_version"`
 }
 
 type VersionSpec struct {
-	ServiceProtocol string `json:"svcProto"`
-	ServiceVersion  string `json:"svcVer"`
+	ServiceProtocol string `json:"service_protocol"`
+	ServiceVersion  string `json:"service_version"`
 }
 
 func (m *VersionMeta) GetName() string {

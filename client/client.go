@@ -989,6 +989,7 @@ func (c *client) Initialize(ctx context.Context, ignoredErrors ...errors.Ignored
 	if res.GetStatus().GetCode() != 0 {
 		return retInit, errors.GetError(res.Status, ignoredErrors)
 	}
+	retInit.Spec.UUID = res.Uuid
 	return retInit, nil
 }
 
