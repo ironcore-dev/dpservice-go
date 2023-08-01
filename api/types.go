@@ -200,15 +200,15 @@ func (m *LoadBalancer) GetStatus() Status {
 }
 
 type LoadBalancerSpec struct {
-	VNI           uint32      `json:"vni,omitempty"`
+	VNI           uint32      `json:"vni"`
 	LbVipIP       *netip.Addr `json:"loadbalanced_ip,omitempty"`
 	Lbports       []LBPort    `json:"loadbalanced_ports,omitempty"`
 	UnderlayRoute *netip.Addr `json:"underlay_route,omitempty"`
 }
 
 type LBPort struct {
-	Protocol uint32 `json:"protocol,omitempty"`
-	Port     uint32 `json:"port,omitempty"`
+	Protocol uint32 `json:"protocol"`
+	Port     uint32 `json:"port"`
 }
 
 type LoadBalancerTarget struct {
@@ -307,7 +307,7 @@ func (m *Interface) GetStatus() Status {
 }
 
 type InterfaceSpec struct {
-	VNI             uint32           `json:"vni,omitempty"`
+	VNI             uint32           `json:"vni"`
 	Device          string           `json:"device,omitempty"`
 	IPv4            *netip.Addr      `json:"primary_ipv4,omitempty"`
 	IPv6            *netip.Addr      `json:"primary_ipv6,omitempty"`
@@ -319,11 +319,11 @@ type InterfaceSpec struct {
 }
 
 type VirtualFunction struct {
-	Name     string `json:"name,omitempty"`
-	Domain   uint32 `json:"domain,omitempty"`
-	Bus      uint32 `json:"bus,omitempty"`
-	Slot     uint32 `json:"slot,omitempty"`
-	Function uint32 `json:"function,omitempty"`
+	Name     string `json:"name"`
+	Domain   uint32 `json:"domain"`
+	Bus      uint32 `json:"bus"`
+	Slot     uint32 `json:"slot"`
+	Function uint32 `json:"function"`
 }
 
 func (vf *VirtualFunction) String() string {
@@ -378,10 +378,10 @@ func (m *Nat) String() string {
 
 type NatSpec struct {
 	NatIP         *netip.Addr `json:"nat_ip,omitempty"`
-	MinPort       uint32      `json:"min_port,omitempty"`
-	MaxPort       uint32      `json:"max_port,omitempty"`
+	MinPort       uint32      `json:"min_port"`
+	MaxPort       uint32      `json:"max_port"`
 	UnderlayRoute *netip.Addr `json:"underlay_route,omitempty"`
-	Vni           uint32      `json:"vni,omitempty"`
+	Vni           uint32      `json:"vni"`
 }
 
 type NatList struct {
@@ -428,9 +428,9 @@ func (m *NeighborNat) GetStatus() Status {
 }
 
 type NeighborNatSpec struct {
-	Vni           uint32      `json:"vni,omitempty"`
-	MinPort       uint32      `json:"min_port,omitempty"`
-	MaxPort       uint32      `json:"max_port,omitempty"`
+	Vni           uint32      `json:"vni"`
+	MinPort       uint32      `json:"min_port"`
+	MaxPort       uint32      `json:"max_port"`
 	UnderlayRoute *netip.Addr `json:"underlay_route,omitempty"`
 }
 
@@ -458,7 +458,7 @@ type FirewallRuleSpec struct {
 	RuleID            string                `json:"id"`
 	TrafficDirection  string                `json:"direction,omitempty"`
 	FirewallAction    string                `json:"action,omitempty"`
-	Priority          uint32                `json:"priority,omitempty"`
+	Priority          uint32                `json:"priority"`
 	SourcePrefix      *netip.Prefix         `json:"source_prefix,omitempty"`
 	DestinationPrefix *netip.Prefix         `json:"destination_prefix,omitempty"`
 	ProtocolFilter    *proto.ProtocolFilter `json:"protocol_filter,omitempty"`
@@ -499,7 +499,7 @@ type InitializedMeta struct {
 }
 
 type InitializedSpec struct {
-	UUID string `json:"uuid,omitempty"`
+	UUID string `json:"uuid"`
 }
 
 func (m *InitializedMeta) GetName() string {
