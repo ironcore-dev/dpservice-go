@@ -379,27 +379,17 @@ func (c *client) CreateInterface(ctx context.Context, iface *api.Interface, igno
 	if err != nil {
 		return retInterface, fmt.Errorf("error parsing underlay route: %w", err)
 	}
+	retInterface.Spec = iface.Spec
+	retInterface.Spec.UnderlayRoute = &underlayRoute
+	retInterface.Spec.VirtualFunction = &api.VirtualFunction{
+		Name:     res.Vf.Name,
+		Domain:   res.Vf.Domain,
+		Bus:      res.Vf.Bus,
+		Slot:     res.Vf.Slot,
+		Function: res.Vf.Function,
+	}
 
-	return &api.Interface{
-		TypeMeta:      api.TypeMeta{Kind: api.InterfaceKind},
-		InterfaceMeta: iface.InterfaceMeta,
-		Spec: api.InterfaceSpec{
-			VNI:           iface.Spec.VNI,
-			Device:        iface.Spec.Device,
-			IPv4:          iface.Spec.IPv4,
-			IPv6:          iface.Spec.IPv6,
-			UnderlayRoute: &underlayRoute,
-			VirtualFunction: &api.VirtualFunction{
-				Name:     res.Vf.Name,
-				Domain:   res.Vf.Domain,
-				Bus:      res.Vf.Bus,
-				Slot:     res.Vf.Slot,
-				Function: res.Vf.Function,
-			},
-			PXE: &api.PXE{Server: iface.Spec.PXE.Server, FileName: iface.Spec.PXE.FileName},
-		},
-		Status: api.ProtoStatusToStatus(res.Status),
-	}, nil
+	return retInterface, nil
 }
 
 func (c *client) DeleteInterface(ctx context.Context, id string, ignoredErrors ...errors.IgnoredErrors) (*api.Interface, error) {
