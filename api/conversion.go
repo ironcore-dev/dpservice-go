@@ -34,16 +34,16 @@ func ProtoLoadBalancerToLoadBalancer(dpdkLB *proto.GetLoadBalancerResponse, lbID
 		}
 	}
 	var lbip netip.Addr
-	if lbipString := string(dpdkLB.GetLbVipIP().Address); lbipString != "" {
+	if lbipString := string(dpdkLB.GetLoadbalancedIp().GetAddress()); lbipString != "" {
 		var err error
-		lbip, err = netip.ParseAddr(string(dpdkLB.GetLbVipIP().Address))
+		lbip, err = netip.ParseAddr(string(dpdkLB.GetLoadbalancedIp().GetAddress()))
 		if err != nil {
 			return nil, fmt.Errorf("error parsing lb ip: %w", err)
 		}
 	}
-	var lbports = make([]LBPort, 0, len(dpdkLB.Lbports))
+	var lbports = make([]LBPort, 0, len(dpdkLB.LoadbalancedPorts))
 	var p LBPort
-	for _, lbport := range dpdkLB.Lbports {
+	for _, lbport := range dpdkLB.LoadbalancedPorts {
 		p.Protocol = uint32(lbport.Protocol)
 		p.Port = lbport.Port
 		lbports = append(lbports, p)
@@ -63,26 +63,10 @@ func ProtoLoadBalancerToLoadBalancer(dpdkLB *proto.GetLoadBalancerResponse, lbID
 			UnderlayRoute: &underlayRoute,
 		},
 		Status: Status{
-			Error:   dpdkLB.Status.Error,
+			Code:    dpdkLB.Status.Code,
 			Message: dpdkLB.Status.Message,
 		},
 	}, nil
-}
-
-func LbipToProtoLbip(lbip netip.Addr) *proto.LBIP {
-	return &proto.LBIP{IpVersion: NetIPAddrToProtoIPVersion(lbip), Address: []byte(lbip.String())}
-}
-
-func ProtoLbipToLbip(protolbip *proto.LBIP) *netip.Addr {
-	var ip netip.Addr
-	if lbipString := string(protolbip.Address); lbipString != "" {
-		var err error
-		ip, err = netip.ParseAddr(string(protolbip.Address))
-		if err != nil {
-			return nil
-		}
-	}
-	return &ip
 }
 
 func StringLbportToLbport(lbport string) (LBPort, error) {
@@ -105,26 +89,6 @@ func StringLbportToLbport(lbport string) (LBPort, error) {
 }
 
 func ProtoInterfaceToInterface(dpdkIface *proto.Interface) (*Interface, error) {
-	var ips []netip.Addr
-
-	if ipv4String := string(dpdkIface.GetPrimaryIPv4Address()); ipv4String != "" {
-		ip, err := netip.ParseAddr(ipv4String)
-		if err != nil {
-			return nil, fmt.Errorf("error parsing primary ipv4: %w", err)
-		}
-
-		ips = append(ips, ip)
-	}
-
-	if ipv6String := string(dpdkIface.GetPrimaryIPv6Address()); ipv6String != "" {
-		ip, err := netip.ParseAddr(ipv6String)
-		if err != nil {
-			return nil, fmt.Errorf("error parsing primary ipv6: %w", err)
-		}
-
-		ips = append(ips, ip)
-	}
-
 	var underlayRoute netip.Addr
 	if underlayRouteString := string(dpdkIface.GetUnderlayRoute()); underlayRouteString != "" {
 		var err error
@@ -134,51 +98,83 @@ func ProtoInterfaceToInterface(dpdkIface *proto.Interface) (*Interface, error) {
 		}
 	}
 
+	primaryIpv4, err := netip.ParseAddr(string(dpdkIface.GetPrimaryIpv4()))
+	if err != nil {
+		return nil, fmt.Errorf("error parsing primary ipv4: %w", err)
+	}
+
+	primaryIpv6, err := netip.ParseAddr(string(dpdkIface.GetPrimaryIpv6()))
+	if err != nil {
+		return nil, fmt.Errorf("error parsing primary ipv6: %w", err)
+	}
+
 	return &Interface{
 		TypeMeta: TypeMeta{
 			Kind: InterfaceKind,
 		},
 		InterfaceMeta: InterfaceMeta{
-			ID: string(dpdkIface.InterfaceID),
+			ID: string(dpdkIface.Id),
 		},
 		Spec: InterfaceSpec{
 			VNI:           dpdkIface.GetVni(),
-			Device:        dpdkIface.GetPciDpName(),
-			IPs:           ips,
+			Device:        dpdkIface.GetPciName(),
+			IPv4:          &primaryIpv4,
+			IPv6:          &primaryIpv6,
 			UnderlayRoute: &underlayRoute,
 		},
 	}, nil
 }
 
-func NetIPAddrToProtoIPVersion(addr netip.Addr) proto.IPVersion {
+func NetIPAddrToProtoIpAddress(addr netip.Addr) *proto.IpAddress {
+	var ipver uint8
 	switch {
 	case addr.Is4():
-		return proto.IPVersion_IPv4
+		ipver = 0
 	case addr.Is6():
-		return proto.IPVersion_IPv6
+		ipver = 1
+	}
+	return &proto.IpAddress{
+		Ipver:   proto.IpVersion(ipver),
+		Address: []byte(addr.String()),
+	}
+}
+
+func ProtoIpAddressToNetIPAddr(protoIP *proto.IpAddress) (*netip.Addr, error) {
+	ip, err := netip.ParseAddr(string(protoIP.GetAddress()))
+	if err != nil {
+		return nil, fmt.Errorf("error parsing IP address: %w", err)
+	}
+	return &ip, nil
+}
+
+func NetIPAddrToProtoIPVersion(addr *netip.Addr) proto.IpVersion {
+	switch {
+	case addr.Is4():
+		return proto.IpVersion_IPV4
+	case addr.Is6():
+		return proto.IpVersion_IPV6
 	default:
 		return 0
 	}
 }
 
-func NetIPAddrToProtoIPConfig(addr netip.Addr) *proto.IPConfig {
+func NetIPAddrToProtoIPConfig(addr netip.Addr) *proto.IpConfig {
 	if !addr.IsValid() {
 		return nil
 	}
 
-	return &proto.IPConfig{
-		IpVersion:      NetIPAddrToProtoIPVersion(addr),
+	return &proto.IpConfig{
 		PrimaryAddress: []byte(addr.String()),
 	}
 }
 
-func ProtoVirtualIPToVirtualIP(interfaceID string, dpdkVIP *proto.InterfaceVIPIP) (*VirtualIP, error) {
-	ip, err := netip.ParseAddr(string(dpdkVIP.GetAddress()))
+func ProtoVirtualIPToVirtualIP(interfaceID string, dpdkVIP *proto.GetVipResponse) (*VirtualIP, error) {
+	ip, err := netip.ParseAddr(string(dpdkVIP.GetVipIp().GetAddress()))
 	if err != nil {
 		return nil, fmt.Errorf("error parsing virtual ip address: %w", err)
 	}
 
-	underlayRoute, err := netip.ParseAddr(string(dpdkVIP.UnderlayRoute))
+	underlayRoute, err := netip.ParseAddr(string(dpdkVIP.GetUnderlayRoute()))
 	if err != nil {
 		return nil, fmt.Errorf("error parsing underlay route: %w", err)
 	}
@@ -191,7 +187,7 @@ func ProtoVirtualIPToVirtualIP(interfaceID string, dpdkVIP *proto.InterfaceVIPIP
 			InterfaceID: interfaceID,
 		},
 		Spec: VirtualIPSpec{
-			IP:            ip,
+			IP:            &ip,
 			UnderlayRoute: &underlayRoute,
 		},
 		Status: ProtoStatusToStatus(dpdkVIP.Status),
@@ -199,12 +195,12 @@ func ProtoVirtualIPToVirtualIP(interfaceID string, dpdkVIP *proto.InterfaceVIPIP
 }
 
 func ProtoPrefixToPrefix(interfaceID string, dpdkPrefix *proto.Prefix) (*Prefix, error) {
-	addr, err := netip.ParseAddr(string(dpdkPrefix.GetAddress()))
+	addr, err := netip.ParseAddr(string(dpdkPrefix.GetIp().Address))
 	if err != nil {
 		return nil, fmt.Errorf("error parsing dpdk prefix address: %w", err)
 	}
 
-	prefix := netip.PrefixFrom(addr, int(dpdkPrefix.GetPrefixLength()))
+	prefix := netip.PrefixFrom(addr, int(dpdkPrefix.GetLength()))
 
 	underlayRoute, err := netip.ParseAddr(string(dpdkPrefix.UnderlayRoute))
 	if err != nil {
@@ -226,14 +222,14 @@ func ProtoPrefixToPrefix(interfaceID string, dpdkPrefix *proto.Prefix) (*Prefix,
 }
 
 func ProtoRouteToRoute(vni uint32, dpdkRoute *proto.Route) (*Route, error) {
-	prefixAddr, err := netip.ParseAddr(string(dpdkRoute.GetPrefix().GetAddress()))
+	prefixAddr, err := netip.ParseAddr(string(dpdkRoute.GetPrefix().Ip.GetAddress()))
 	if err != nil {
 		return nil, fmt.Errorf("error parsing prefix address: %w", err)
 	}
 
-	prefix := netip.PrefixFrom(prefixAddr, int(dpdkRoute.GetPrefix().GetPrefixLength()))
+	prefix := netip.PrefixFrom(prefixAddr, int(dpdkRoute.GetPrefix().GetLength()))
 
-	nextHopIP, err := netip.ParseAddr(string(dpdkRoute.GetNexthopAddress()))
+	nextHopIP, err := netip.ParseAddr(string(dpdkRoute.NexthopAddress.GetAddress()))
 	if err != nil {
 		return nil, fmt.Errorf("error parsing netxt hop address: %w", err)
 	}
@@ -247,22 +243,21 @@ func ProtoRouteToRoute(vni uint32, dpdkRoute *proto.Route) (*Route, error) {
 		},
 		Spec: RouteSpec{Prefix: &prefix,
 			NextHop: &RouteNextHop{
-				VNI: dpdkRoute.GetNexthopVNI(),
+				VNI: dpdkRoute.GetNexthopVni(),
 				IP:  &nextHopIP,
 			}},
 	}, nil
 }
 
-func ProtoLBPrefixToProtoPrefix(lbprefix *proto.LBPrefix) *proto.Prefix {
+func ProtoLBPrefixToProtoPrefix(lbprefix *proto.Prefix) *proto.Prefix {
 	return &proto.Prefix{
-		IpVersion:     lbprefix.IpVersion,
-		Address:       lbprefix.Address,
-		PrefixLength:  lbprefix.PrefixLength,
+		Ip:            lbprefix.Ip,
+		Length:        lbprefix.Length,
 		UnderlayRoute: lbprefix.UnderlayRoute,
 	}
 }
 
-func ProtoNatToNat(dpdkNat *proto.GetNATResponse, interfaceID string) (*Nat, error) {
+func ProtoNatToNat(dpdkNat *proto.GetNatResponse, interfaceID string) (*Nat, error) {
 	var underlayRoute netip.Addr
 	if underlayRouteString := string(dpdkNat.GetUnderlayRoute()); underlayRouteString != "" {
 		var err error
@@ -271,10 +266,10 @@ func ProtoNatToNat(dpdkNat *proto.GetNATResponse, interfaceID string) (*Nat, err
 			return nil, fmt.Errorf("error parsing underlay ip: %w", err)
 		}
 	}
-	var natvipip netip.Addr
-	if natvipipString := string(dpdkNat.GetNatVIPIP().Address); natvipipString != "" {
+	var natip netip.Addr
+	if natvipipString := string(dpdkNat.GetNatIp().GetAddress()); natvipipString != "" {
 		var err error
-		natvipip, err = netip.ParseAddr(string(dpdkNat.GetNatVIPIP().Address))
+		natip, err = netip.ParseAddr(string(dpdkNat.GetNatIp().GetAddress()))
 		if err != nil {
 			return nil, fmt.Errorf("error parsing nat ip: %w", err)
 		}
@@ -288,13 +283,13 @@ func ProtoNatToNat(dpdkNat *proto.GetNATResponse, interfaceID string) (*Nat, err
 			InterfaceID: interfaceID,
 		},
 		Spec: NatSpec{
-			NatVIPIP:      &natvipip,
+			NatIP:         &natip,
 			MinPort:       dpdkNat.MinPort,
 			MaxPort:       dpdkNat.MaxPort,
 			UnderlayRoute: &underlayRoute,
 		},
 		Status: Status{
-			Error:   dpdkNat.Status.Error,
+			Code:    dpdkNat.Status.Code,
 			Message: dpdkNat.Status.Message,
 		},
 	}, nil
@@ -302,16 +297,16 @@ func ProtoNatToNat(dpdkNat *proto.GetNATResponse, interfaceID string) (*Nat, err
 
 func ProtoFwRuleToFwRule(dpdkFwRule *proto.FirewallRule, interfaceID string) (*FirewallRule, error) {
 
-	srcPrefix, err := netip.ParsePrefix(string(dpdkFwRule.SourcePrefix.Address) + "/" + strconv.Itoa(int(dpdkFwRule.SourcePrefix.PrefixLength)))
+	srcPrefix, err := netip.ParsePrefix(string(dpdkFwRule.GetSourcePrefix().GetIp().GetAddress()) + "/" + strconv.Itoa(int(dpdkFwRule.SourcePrefix.Length)))
 	if err != nil {
 		return nil, fmt.Errorf("error converting prefix: %w", err)
 	}
 
-	dstPrefix, err := netip.ParsePrefix(string(dpdkFwRule.DestinationPrefix.Address) + "/" + strconv.Itoa(int(dpdkFwRule.DestinationPrefix.PrefixLength)))
+	dstPrefix, err := netip.ParsePrefix(string(dpdkFwRule.GetDestinationPrefix().GetIp().GetAddress()) + "/" + strconv.Itoa(int(dpdkFwRule.DestinationPrefix.Length)))
 	if err != nil {
 		return nil, fmt.Errorf("error converting prefix: %w", err)
 	}
-	var direction, action, ipv string
+	var direction, action string
 	if dpdkFwRule.Direction == 0 {
 		direction = "Ingress"
 	} else {
@@ -322,11 +317,6 @@ func ProtoFwRuleToFwRule(dpdkFwRule *proto.FirewallRule, interfaceID string) (*F
 	} else {
 		action = "Accept"
 	}
-	if dpdkFwRule.IpVersion == 0 {
-		ipv = "IPv4"
-	} else {
-		ipv = "IPv6"
-	}
 
 	return &FirewallRule{
 		TypeMeta: TypeMeta{Kind: FirewallRuleKind},
@@ -334,11 +324,10 @@ func ProtoFwRuleToFwRule(dpdkFwRule *proto.FirewallRule, interfaceID string) (*F
 			InterfaceID: interfaceID,
 		},
 		Spec: FirewallRuleSpec{
-			RuleID:            string(dpdkFwRule.RuleID),
+			RuleID:            string(dpdkFwRule.Id),
 			TrafficDirection:  direction,
 			FirewallAction:    action,
 			Priority:          dpdkFwRule.Priority,
-			IpVersion:         ipv,
 			SourcePrefix:      &srcPrefix,
 			DestinationPrefix: &dstPrefix,
 			ProtocolFilter:    dpdkFwRule.ProtocolFilter,
@@ -347,8 +336,14 @@ func ProtoFwRuleToFwRule(dpdkFwRule *proto.FirewallRule, interfaceID string) (*F
 }
 
 func ProtoStatusToStatus(dpdkStatus *proto.Status) Status {
+	if dpdkStatus == nil {
+		return Status{
+			Code:    0,
+			Message: "",
+		}
+	}
 	return Status{
-		Error:   dpdkStatus.Error,
+		Code:    dpdkStatus.Code,
 		Message: dpdkStatus.Message,
 	}
 }

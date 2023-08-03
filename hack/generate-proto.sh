@@ -15,6 +15,8 @@ function clone() {
   git remote add origin git@github.com:onmetal/net-dpservice.git
   git fetch origin "$NET_DPSERVICE_REVISION" --depth=1
   git reset --hard FETCH_HEAD
+  git fetch --prune --unshallow
+  git describe --tags > version.txt
 }
 
 echo "Cloning repository"
@@ -22,6 +24,8 @@ if ! err="$(clone 2>&1)"; then
   echo "Error cloning repository:"
   echo "$err"
 fi
+
+cp $NET_DPSERVICE_DIR/version.txt ./proto/generated_from.txt
 
 echo "Generating protobuf"
 protoc --proto_path="$NET_DPSERVICE_DIR" \
