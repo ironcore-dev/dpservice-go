@@ -66,10 +66,6 @@ const (
 	StatusErrorString = "rpc error"
 )
 
-type IgnoredErrors struct {
-	Codes []int32
-}
-
 type StatusError struct {
 	errorCode int32
 	message   string
@@ -97,12 +93,13 @@ func NewStatusError(errorCode int32, message string) *StatusError {
 	}
 }
 
-func GetError(status *dpdkproto.Status, ignoredErrors []IgnoredErrors) error {
+// Ignore requested status errors
+func GetError(status *dpdkproto.Status, ignoredErrors []int32) error {
 	if status.Code == 0 {
 		return nil
 	}
 	if len(ignoredErrors) > 0 {
-		for _, ignoredError := range ignoredErrors[0].Codes {
+		for _, ignoredError := range ignoredErrors {
 			if status.Code == ignoredError {
 				return nil
 			}
@@ -130,4 +127,12 @@ func IgnoreStatusErrorCode(err error, errorCodes ...int32) error {
 		return nil
 	}
 	return err
+}
+
+// Create array of status error codes to be ignored
+func Ignore(errorCodes ...int32) []int32 {
+	arr := make([]int32, 0, len(errorCodes))
+	arr = append(arr, errorCodes...)
+
+	return arr
 }

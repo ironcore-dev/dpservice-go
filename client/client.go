@@ -26,55 +26,55 @@ import (
 )
 
 type Client interface {
-	GetLoadBalancer(ctx context.Context, id string, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancer, error)
-	CreateLoadBalancer(ctx context.Context, lb *api.LoadBalancer, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancer, error)
-	DeleteLoadBalancer(ctx context.Context, id string, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancer, error)
+	GetLoadBalancer(ctx context.Context, id string, ignoredErrors ...[]int32) (*api.LoadBalancer, error)
+	CreateLoadBalancer(ctx context.Context, lb *api.LoadBalancer, ignoredErrors ...[]int32) (*api.LoadBalancer, error)
+	DeleteLoadBalancer(ctx context.Context, id string, ignoredErrors ...[]int32) (*api.LoadBalancer, error)
 
-	ListLoadBalancerPrefixes(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.PrefixList, error)
-	CreateLoadBalancerPrefix(ctx context.Context, prefix *api.LoadBalancerPrefix, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancerPrefix, error)
-	DeleteLoadBalancerPrefix(ctx context.Context, interfaceID string, prefix *netip.Prefix, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancerPrefix, error)
+	ListLoadBalancerPrefixes(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.PrefixList, error)
+	CreateLoadBalancerPrefix(ctx context.Context, prefix *api.LoadBalancerPrefix, ignoredErrors ...[]int32) (*api.LoadBalancerPrefix, error)
+	DeleteLoadBalancerPrefix(ctx context.Context, interfaceID string, prefix *netip.Prefix, ignoredErrors ...[]int32) (*api.LoadBalancerPrefix, error)
 
-	ListLoadBalancerTargets(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancerTargetList, error)
-	CreateLoadBalancerTarget(ctx context.Context, lbtarget *api.LoadBalancerTarget, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancerTarget, error)
-	DeleteLoadBalancerTarget(ctx context.Context, id string, targetIP *netip.Addr, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancerTarget, error)
+	ListLoadBalancerTargets(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.LoadBalancerTargetList, error)
+	CreateLoadBalancerTarget(ctx context.Context, lbtarget *api.LoadBalancerTarget, ignoredErrors ...[]int32) (*api.LoadBalancerTarget, error)
+	DeleteLoadBalancerTarget(ctx context.Context, id string, targetIP *netip.Addr, ignoredErrors ...[]int32) (*api.LoadBalancerTarget, error)
 
-	GetInterface(ctx context.Context, id string, ignoredErrors ...errors.IgnoredErrors) (*api.Interface, error)
-	ListInterfaces(ctx context.Context, ignoredErrors ...errors.IgnoredErrors) (*api.InterfaceList, error)
-	CreateInterface(ctx context.Context, iface *api.Interface, ignoredErrors ...errors.IgnoredErrors) (*api.Interface, error)
-	DeleteInterface(ctx context.Context, id string, ignoredErrors ...errors.IgnoredErrors) (*api.Interface, error)
+	GetInterface(ctx context.Context, id string, ignoredErrors ...[]int32) (*api.Interface, error)
+	ListInterfaces(ctx context.Context, ignoredErrors ...[]int32) (*api.InterfaceList, error)
+	CreateInterface(ctx context.Context, iface *api.Interface, ignoredErrors ...[]int32) (*api.Interface, error)
+	DeleteInterface(ctx context.Context, id string, ignoredErrors ...[]int32) (*api.Interface, error)
 
-	GetVirtualIP(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.VirtualIP, error)
-	CreateVirtualIP(ctx context.Context, virtualIP *api.VirtualIP, ignoredErrors ...errors.IgnoredErrors) (*api.VirtualIP, error)
-	DeleteVirtualIP(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.VirtualIP, error)
+	GetVirtualIP(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.VirtualIP, error)
+	CreateVirtualIP(ctx context.Context, virtualIP *api.VirtualIP, ignoredErrors ...[]int32) (*api.VirtualIP, error)
+	DeleteVirtualIP(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.VirtualIP, error)
 
-	ListPrefixes(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.PrefixList, error)
-	CreatePrefix(ctx context.Context, prefix *api.Prefix, ignoredErrors ...errors.IgnoredErrors) (*api.Prefix, error)
-	DeletePrefix(ctx context.Context, interfaceID string, prefix *netip.Prefix, ignoredErrors ...errors.IgnoredErrors) (*api.Prefix, error)
+	ListPrefixes(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.PrefixList, error)
+	CreatePrefix(ctx context.Context, prefix *api.Prefix, ignoredErrors ...[]int32) (*api.Prefix, error)
+	DeletePrefix(ctx context.Context, interfaceID string, prefix *netip.Prefix, ignoredErrors ...[]int32) (*api.Prefix, error)
 
-	ListRoutes(ctx context.Context, vni uint32, ignoredErrors ...errors.IgnoredErrors) (*api.RouteList, error)
-	CreateRoute(ctx context.Context, route *api.Route, ignoredErrors ...errors.IgnoredErrors) (*api.Route, error)
-	DeleteRoute(ctx context.Context, vni uint32, prefix *netip.Prefix, ignoredErrors ...errors.IgnoredErrors) (*api.Route, error)
+	ListRoutes(ctx context.Context, vni uint32, ignoredErrors ...[]int32) (*api.RouteList, error)
+	CreateRoute(ctx context.Context, route *api.Route, ignoredErrors ...[]int32) (*api.Route, error)
+	DeleteRoute(ctx context.Context, vni uint32, prefix *netip.Prefix, ignoredErrors ...[]int32) (*api.Route, error)
 
-	GetNat(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.Nat, error)
-	CreateNat(ctx context.Context, nat *api.Nat, ignoredErrors ...errors.IgnoredErrors) (*api.Nat, error)
-	DeleteNat(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.Nat, error)
-	ListLocalNats(ctx context.Context, natIP *netip.Addr, ignoredErrors ...errors.IgnoredErrors) (*api.NatList, error)
+	GetNat(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.Nat, error)
+	CreateNat(ctx context.Context, nat *api.Nat, ignoredErrors ...[]int32) (*api.Nat, error)
+	DeleteNat(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.Nat, error)
+	ListLocalNats(ctx context.Context, natIP *netip.Addr, ignoredErrors ...[]int32) (*api.NatList, error)
 
-	CreateNeighborNat(ctx context.Context, nat *api.NeighborNat, ignoredErrors ...errors.IgnoredErrors) (*api.NeighborNat, error)
-	ListNats(ctx context.Context, natIP *netip.Addr, natType string, ignoredErrors ...errors.IgnoredErrors) (*api.NatList, error)
-	DeleteNeighborNat(ctx context.Context, neigbhorNat *api.NeighborNat, ignoredErrors ...errors.IgnoredErrors) (*api.NeighborNat, error)
-	ListNeighborNats(ctx context.Context, natIP *netip.Addr, ignoredErrors ...errors.IgnoredErrors) (*api.NatList, error)
+	CreateNeighborNat(ctx context.Context, nat *api.NeighborNat, ignoredErrors ...[]int32) (*api.NeighborNat, error)
+	ListNats(ctx context.Context, natIP *netip.Addr, natType string, ignoredErrors ...[]int32) (*api.NatList, error)
+	DeleteNeighborNat(ctx context.Context, neigbhorNat *api.NeighborNat, ignoredErrors ...[]int32) (*api.NeighborNat, error)
+	ListNeighborNats(ctx context.Context, natIP *netip.Addr, ignoredErrors ...[]int32) (*api.NatList, error)
 
-	ListFirewallRules(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.FirewallRuleList, error)
-	CreateFirewallRule(ctx context.Context, fwRule *api.FirewallRule, ignoredErrors ...errors.IgnoredErrors) (*api.FirewallRule, error)
-	GetFirewallRule(ctx context.Context, interfaceID string, ruleID string, ignoredErrors ...errors.IgnoredErrors) (*api.FirewallRule, error)
-	DeleteFirewallRule(ctx context.Context, interfaceID string, ruleID string, ignoredErrors ...errors.IgnoredErrors) (*api.FirewallRule, error)
+	ListFirewallRules(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.FirewallRuleList, error)
+	CreateFirewallRule(ctx context.Context, fwRule *api.FirewallRule, ignoredErrors ...[]int32) (*api.FirewallRule, error)
+	GetFirewallRule(ctx context.Context, interfaceID string, ruleID string, ignoredErrors ...[]int32) (*api.FirewallRule, error)
+	DeleteFirewallRule(ctx context.Context, interfaceID string, ruleID string, ignoredErrors ...[]int32) (*api.FirewallRule, error)
 
-	CheckInitialized(ctx context.Context, ignoredErrors ...errors.IgnoredErrors) (*api.Initialized, error)
-	Initialize(ctx context.Context, ignoredErrors ...errors.IgnoredErrors) (*api.Initialized, error)
-	GetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...errors.IgnoredErrors) (*api.Vni, error)
-	ResetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...errors.IgnoredErrors) (*api.Vni, error)
-	GetVersion(ctx context.Context, version *api.Version, ignoredErrors ...errors.IgnoredErrors) (*api.Version, error)
+	CheckInitialized(ctx context.Context, ignoredErrors ...[]int32) (*api.Initialized, error)
+	Initialize(ctx context.Context, ignoredErrors ...[]int32) (*api.Initialized, error)
+	GetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...[]int32) (*api.Vni, error)
+	ResetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...[]int32) (*api.Vni, error)
+	GetVersion(ctx context.Context, version *api.Version, ignoredErrors ...[]int32) (*api.Version, error)
 }
 
 type client struct {
@@ -85,7 +85,7 @@ func NewClient(protoClient dpdkproto.DPDKonmetalClient) Client {
 	return &client{protoClient}
 }
 
-func (c *client) GetLoadBalancer(ctx context.Context, id string, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancer, error) {
+func (c *client) GetLoadBalancer(ctx context.Context, id string, ignoredErrors ...[]int32) (*api.LoadBalancer, error) {
 	res, err := c.DPDKonmetalClient.GetLoadBalancer(ctx, &dpdkproto.GetLoadBalancerRequest{
 		LoadbalancerId: []byte(id),
 	})
@@ -98,12 +98,12 @@ func (c *client) GetLoadBalancer(ctx context.Context, id string, ignoredErrors .
 		Status:           api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors)
+		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return api.ProtoLoadBalancerToLoadBalancer(res, id)
 }
 
-func (c *client) CreateLoadBalancer(ctx context.Context, lb *api.LoadBalancer, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancer, error) {
+func (c *client) CreateLoadBalancer(ctx context.Context, lb *api.LoadBalancer, ignoredErrors ...[]int32) (*api.LoadBalancer, error) {
 	var lbPorts = make([]*dpdkproto.LbPort, 0, len(lb.Spec.Lbports))
 	for _, p := range lb.Spec.Lbports {
 		lbPort := &dpdkproto.LbPort{Port: p.Port, Protocol: dpdkproto.Protocol(p.Protocol)}
@@ -124,7 +124,7 @@ func (c *client) CreateLoadBalancer(ctx context.Context, lb *api.LoadBalancer, i
 		Status:           api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors)
+		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors[0])
 	}
 
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
@@ -137,7 +137,7 @@ func (c *client) CreateLoadBalancer(ctx context.Context, lb *api.LoadBalancer, i
 	return retLoadBalancer, nil
 }
 
-func (c *client) DeleteLoadBalancer(ctx context.Context, id string, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancer, error) {
+func (c *client) DeleteLoadBalancer(ctx context.Context, id string, ignoredErrors ...[]int32) (*api.LoadBalancer, error) {
 	res, err := c.DPDKonmetalClient.DeleteLoadBalancer(ctx, &dpdkproto.DeleteLoadBalancerRequest{
 		LoadbalancerId: []byte(id),
 	})
@@ -150,12 +150,12 @@ func (c *client) DeleteLoadBalancer(ctx context.Context, id string, ignoredError
 		Status:           api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors)
+		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return retLoadBalancer, nil
 }
 
-func (c *client) ListLoadBalancerPrefixes(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.PrefixList, error) {
+func (c *client) ListLoadBalancerPrefixes(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.PrefixList, error) {
 	res, err := c.DPDKonmetalClient.ListLoadBalancerPrefixes(ctx, &dpdkproto.ListLoadBalancerPrefixesRequest{
 		InterfaceId: []byte(interfaceID),
 	})
@@ -182,7 +182,7 @@ func (c *client) ListLoadBalancerPrefixes(ctx context.Context, interfaceID strin
 	}, nil
 }
 
-func (c *client) CreateLoadBalancerPrefix(ctx context.Context, lbprefix *api.LoadBalancerPrefix, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancerPrefix, error) {
+func (c *client) CreateLoadBalancerPrefix(ctx context.Context, lbprefix *api.LoadBalancerPrefix, ignoredErrors ...[]int32) (*api.LoadBalancerPrefix, error) {
 	res, err := c.DPDKonmetalClient.CreateLoadBalancerPrefix(ctx, &dpdkproto.CreateLoadBalancerPrefixRequest{
 		InterfaceId: []byte(lbprefix.InterfaceID),
 		Prefix: &dpdkproto.Prefix{
@@ -202,7 +202,7 @@ func (c *client) CreateLoadBalancerPrefix(ctx context.Context, lbprefix *api.Loa
 		Status: api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLBPrefix, errors.GetError(res.Status, ignoredErrors)
+		return retLBPrefix, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
 	if err != nil {
@@ -212,7 +212,7 @@ func (c *client) CreateLoadBalancerPrefix(ctx context.Context, lbprefix *api.Loa
 	return retLBPrefix, nil
 }
 
-func (c *client) DeleteLoadBalancerPrefix(ctx context.Context, interfaceID string, prefix *netip.Prefix, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancerPrefix, error) {
+func (c *client) DeleteLoadBalancerPrefix(ctx context.Context, interfaceID string, prefix *netip.Prefix, ignoredErrors ...[]int32) (*api.LoadBalancerPrefix, error) {
 	res, err := c.DPDKonmetalClient.DeleteLoadBalancerPrefix(ctx, &dpdkproto.DeleteLoadBalancerPrefixRequest{
 		InterfaceId: []byte(interfaceID),
 		Prefix: &dpdkproto.Prefix{
@@ -230,12 +230,12 @@ func (c *client) DeleteLoadBalancerPrefix(ctx context.Context, interfaceID strin
 		Status:                 api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLBPrefix, errors.GetError(res.Status, ignoredErrors)
+		return retLBPrefix, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return retLBPrefix, nil
 }
 
-func (c *client) ListLoadBalancerTargets(ctx context.Context, loadBalancerID string, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancerTargetList, error) {
+func (c *client) ListLoadBalancerTargets(ctx context.Context, loadBalancerID string, ignoredErrors ...[]int32) (*api.LoadBalancerTargetList, error) {
 	res, err := c.DPDKonmetalClient.ListLoadBalancerTargets(ctx, &dpdkproto.ListLoadBalancerTargetsRequest{
 		LoadbalancerId: []byte(loadBalancerID),
 	})
@@ -245,7 +245,7 @@ func (c *client) ListLoadBalancerTargets(ctx context.Context, loadBalancerID str
 	if res.GetStatus().GetCode() != 0 {
 		return &api.LoadBalancerTargetList{
 			TypeMeta: api.TypeMeta{Kind: api.LoadBalancerTargetListKind},
-			Status:   api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors)
+			Status:   api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors[0])
 	}
 
 	lbtargets := make([]api.LoadBalancerTarget, len(res.GetTargetIps()))
@@ -269,7 +269,7 @@ func (c *client) ListLoadBalancerTargets(ctx context.Context, loadBalancerID str
 	}, nil
 }
 
-func (c *client) CreateLoadBalancerTarget(ctx context.Context, lbtarget *api.LoadBalancerTarget, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancerTarget, error) {
+func (c *client) CreateLoadBalancerTarget(ctx context.Context, lbtarget *api.LoadBalancerTarget, ignoredErrors ...[]int32) (*api.LoadBalancerTarget, error) {
 	res, err := c.DPDKonmetalClient.CreateLoadBalancerTarget(ctx, &dpdkproto.CreateLoadBalancerTargetRequest{
 		LoadbalancerId: []byte(lbtarget.LoadBalancerTargetMeta.LoadbalancerID),
 		TargetIp:       api.NetIPAddrToProtoIpAddress(*lbtarget.Spec.TargetIP),
@@ -283,13 +283,13 @@ func (c *client) CreateLoadBalancerTarget(ctx context.Context, lbtarget *api.Loa
 		Status:                 api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLBTarget, errors.GetError(res.Status, ignoredErrors)
+		return retLBTarget, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	retLBTarget.Spec = lbtarget.Spec
 	return retLBTarget, nil
 }
 
-func (c *client) DeleteLoadBalancerTarget(ctx context.Context, lbid string, targetIP *netip.Addr, ignoredErrors ...errors.IgnoredErrors) (*api.LoadBalancerTarget, error) {
+func (c *client) DeleteLoadBalancerTarget(ctx context.Context, lbid string, targetIP *netip.Addr, ignoredErrors ...[]int32) (*api.LoadBalancerTarget, error) {
 	res, err := c.DPDKonmetalClient.DeleteLoadBalancerTarget(ctx, &dpdkproto.DeleteLoadBalancerTargetRequest{
 		LoadbalancerId: []byte(lbid),
 		TargetIp:       api.NetIPAddrToProtoIpAddress(*targetIP),
@@ -303,12 +303,12 @@ func (c *client) DeleteLoadBalancerTarget(ctx context.Context, lbid string, targ
 		Status:                 api.ProtoStatusToStatus(res.Status),
 	}
 	if res.Status.GetCode() != 0 {
-		return retLBTarget, errors.GetError(res.Status, ignoredErrors)
+		return retLBTarget, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return retLBTarget, nil
 }
 
-func (c *client) GetInterface(ctx context.Context, id string, ignoredErrors ...errors.IgnoredErrors) (*api.Interface, error) {
+func (c *client) GetInterface(ctx context.Context, id string, ignoredErrors ...[]int32) (*api.Interface, error) {
 	res, err := c.DPDKonmetalClient.GetInterface(ctx, &dpdkproto.GetInterfaceRequest{
 		InterfaceId: []byte(id),
 	})
@@ -319,12 +319,12 @@ func (c *client) GetInterface(ctx context.Context, id string, ignoredErrors ...e
 		return &api.Interface{
 			TypeMeta:      api.TypeMeta{Kind: api.InterfaceKind},
 			InterfaceMeta: api.InterfaceMeta{ID: id},
-			Status:        api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors)
+			Status:        api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return api.ProtoInterfaceToInterface(res.GetInterface())
 }
 
-func (c *client) ListInterfaces(ctx context.Context, ignoredErrors ...errors.IgnoredErrors) (*api.InterfaceList, error) {
+func (c *client) ListInterfaces(ctx context.Context, ignoredErrors ...[]int32) (*api.InterfaceList, error) {
 	res, err := c.DPDKonmetalClient.ListInterfaces(ctx, &dpdkproto.ListInterfacesRequest{})
 	if err != nil {
 		return nil, err
@@ -347,7 +347,7 @@ func (c *client) ListInterfaces(ctx context.Context, ignoredErrors ...errors.Ign
 	}, nil
 }
 
-func (c *client) CreateInterface(ctx context.Context, iface *api.Interface, ignoredErrors ...errors.IgnoredErrors) (*api.Interface, error) {
+func (c *client) CreateInterface(ctx context.Context, iface *api.Interface, ignoredErrors ...[]int32) (*api.Interface, error) {
 	req := dpdkproto.CreateInterfaceRequest{
 		InterfaceType: dpdkproto.InterfaceType_VIRTUAL,
 		InterfaceId:   []byte(iface.ID),
@@ -372,7 +372,7 @@ func (c *client) CreateInterface(ctx context.Context, iface *api.Interface, igno
 		Status:        api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retInterface, errors.GetError(res.Status, ignoredErrors)
+		return retInterface, errors.GetError(res.Status, ignoredErrors[0])
 	}
 
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
@@ -392,7 +392,7 @@ func (c *client) CreateInterface(ctx context.Context, iface *api.Interface, igno
 	return retInterface, nil
 }
 
-func (c *client) DeleteInterface(ctx context.Context, id string, ignoredErrors ...errors.IgnoredErrors) (*api.Interface, error) {
+func (c *client) DeleteInterface(ctx context.Context, id string, ignoredErrors ...[]int32) (*api.Interface, error) {
 	res, err := c.DPDKonmetalClient.DeleteInterface(ctx, &dpdkproto.DeleteInterfaceRequest{
 		InterfaceId: []byte(id),
 	})
@@ -405,12 +405,12 @@ func (c *client) DeleteInterface(ctx context.Context, id string, ignoredErrors .
 		Status:        api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retInterface, errors.GetError(res.Status, ignoredErrors)
+		return retInterface, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return retInterface, nil
 }
 
-func (c *client) GetVirtualIP(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.VirtualIP, error) {
+func (c *client) GetVirtualIP(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.VirtualIP, error) {
 	res, err := c.DPDKonmetalClient.GetVip(ctx, &dpdkproto.GetVipRequest{
 		InterfaceId: []byte(interfaceID),
 	})
@@ -421,12 +421,12 @@ func (c *client) GetVirtualIP(ctx context.Context, interfaceID string, ignoredEr
 		return &api.VirtualIP{
 			TypeMeta:      api.TypeMeta{Kind: api.VirtualIPKind},
 			VirtualIPMeta: api.VirtualIPMeta{InterfaceID: interfaceID},
-			Status:        api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors)
+			Status:        api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return api.ProtoVirtualIPToVirtualIP(interfaceID, res)
 }
 
-func (c *client) CreateVirtualIP(ctx context.Context, virtualIP *api.VirtualIP, ignoredErrors ...errors.IgnoredErrors) (*api.VirtualIP, error) {
+func (c *client) CreateVirtualIP(ctx context.Context, virtualIP *api.VirtualIP, ignoredErrors ...[]int32) (*api.VirtualIP, error) {
 	res, err := c.DPDKonmetalClient.CreateVip(ctx, &dpdkproto.CreateVipRequest{
 		InterfaceId: []byte(virtualIP.InterfaceID),
 		VipIp:       api.NetIPAddrToProtoIpAddress(*virtualIP.Spec.IP),
@@ -443,7 +443,7 @@ func (c *client) CreateVirtualIP(ctx context.Context, virtualIP *api.VirtualIP, 
 		Status: api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retVirtualIP, errors.GetError(res.Status, ignoredErrors)
+		return retVirtualIP, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
 	if err != nil {
@@ -453,7 +453,7 @@ func (c *client) CreateVirtualIP(ctx context.Context, virtualIP *api.VirtualIP, 
 	return retVirtualIP, nil
 }
 
-func (c *client) DeleteVirtualIP(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.VirtualIP, error) {
+func (c *client) DeleteVirtualIP(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.VirtualIP, error) {
 	res, err := c.DPDKonmetalClient.DeleteVip(ctx, &dpdkproto.DeleteVipRequest{
 		InterfaceId: []byte(interfaceID),
 	})
@@ -466,12 +466,12 @@ func (c *client) DeleteVirtualIP(ctx context.Context, interfaceID string, ignore
 		Status:        api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retVirtualIP, errors.GetError(res.Status, ignoredErrors)
+		return retVirtualIP, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return retVirtualIP, nil
 }
 
-func (c *client) ListPrefixes(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.PrefixList, error) {
+func (c *client) ListPrefixes(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.PrefixList, error) {
 	res, err := c.DPDKonmetalClient.ListPrefixes(ctx, &dpdkproto.ListPrefixesRequest{
 		InterfaceId: []byte(interfaceID),
 	})
@@ -497,7 +497,7 @@ func (c *client) ListPrefixes(ctx context.Context, interfaceID string, ignoredEr
 	}, nil
 }
 
-func (c *client) CreatePrefix(ctx context.Context, prefix *api.Prefix, ignoredErrors ...errors.IgnoredErrors) (*api.Prefix, error) {
+func (c *client) CreatePrefix(ctx context.Context, prefix *api.Prefix, ignoredErrors ...[]int32) (*api.Prefix, error) {
 	res, err := c.DPDKonmetalClient.CreatePrefix(ctx, &dpdkproto.CreatePrefixRequest{
 		InterfaceId: []byte(prefix.InterfaceID),
 		Prefix: &dpdkproto.Prefix{
@@ -516,7 +516,7 @@ func (c *client) CreatePrefix(ctx context.Context, prefix *api.Prefix, ignoredEr
 	}
 
 	if res.GetStatus().GetCode() != 0 {
-		return retPrefix, errors.GetError(res.Status, ignoredErrors)
+		return retPrefix, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
 	if err != nil {
@@ -526,7 +526,7 @@ func (c *client) CreatePrefix(ctx context.Context, prefix *api.Prefix, ignoredEr
 	return retPrefix, nil
 }
 
-func (c *client) DeletePrefix(ctx context.Context, interfaceID string, prefix *netip.Prefix, ignoredErrors ...errors.IgnoredErrors) (*api.Prefix, error) {
+func (c *client) DeletePrefix(ctx context.Context, interfaceID string, prefix *netip.Prefix, ignoredErrors ...[]int32) (*api.Prefix, error) {
 	res, err := c.DPDKonmetalClient.DeletePrefix(ctx, &dpdkproto.DeletePrefixRequest{
 		InterfaceId: []byte(interfaceID),
 		Prefix: &dpdkproto.Prefix{
@@ -544,12 +544,12 @@ func (c *client) DeletePrefix(ctx context.Context, interfaceID string, prefix *n
 		Status:     api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retPrefix, errors.GetError(res.Status, ignoredErrors)
+		return retPrefix, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return retPrefix, nil
 }
 
-func (c *client) CreateRoute(ctx context.Context, route *api.Route, ignoredErrors ...errors.IgnoredErrors) (*api.Route, error) {
+func (c *client) CreateRoute(ctx context.Context, route *api.Route, ignoredErrors ...[]int32) (*api.Route, error) {
 	res, err := c.DPDKonmetalClient.CreateRoute(ctx, &dpdkproto.CreateRouteRequest{
 		Vni: route.VNI,
 		Route: &dpdkproto.Route{
@@ -574,13 +574,13 @@ func (c *client) CreateRoute(ctx context.Context, route *api.Route, ignoredError
 		Status: api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retRoute, errors.GetError(res.Status, ignoredErrors)
+		return retRoute, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	retRoute.Spec = route.Spec
 	return retRoute, nil
 }
 
-func (c *client) DeleteRoute(ctx context.Context, vni uint32, prefix *netip.Prefix, ignoredErrors ...errors.IgnoredErrors) (*api.Route, error) {
+func (c *client) DeleteRoute(ctx context.Context, vni uint32, prefix *netip.Prefix, ignoredErrors ...[]int32) (*api.Route, error) {
 	res, err := c.DPDKonmetalClient.DeleteRoute(ctx, &dpdkproto.DeleteRouteRequest{
 		Vni: vni,
 		Route: &dpdkproto.Route{
@@ -604,12 +604,12 @@ func (c *client) DeleteRoute(ctx context.Context, vni uint32, prefix *netip.Pref
 		Status: api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retRoute, errors.GetError(res.Status, ignoredErrors)
+		return retRoute, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return retRoute, nil
 }
 
-func (c *client) ListRoutes(ctx context.Context, vni uint32, ignoredErrors ...errors.IgnoredErrors) (*api.RouteList, error) {
+func (c *client) ListRoutes(ctx context.Context, vni uint32, ignoredErrors ...[]int32) (*api.RouteList, error) {
 	res, err := c.DPDKonmetalClient.ListRoutes(ctx, &dpdkproto.ListRoutesRequest{
 		Vni: vni,
 	})
@@ -635,7 +635,7 @@ func (c *client) ListRoutes(ctx context.Context, vni uint32, ignoredErrors ...er
 	}, nil
 }
 
-func (c *client) GetNat(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.Nat, error) {
+func (c *client) GetNat(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.Nat, error) {
 	res, err := c.DPDKonmetalClient.GetNat(ctx, &dpdkproto.GetNatRequest{InterfaceId: []byte(interfaceID)})
 	if err != nil {
 		return &api.Nat{}, err
@@ -644,12 +644,12 @@ func (c *client) GetNat(ctx context.Context, interfaceID string, ignoredErrors .
 		return &api.Nat{
 			TypeMeta: api.TypeMeta{Kind: api.NatKind},
 			NatMeta:  api.NatMeta{InterfaceID: interfaceID},
-			Status:   api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors)
+			Status:   api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return api.ProtoNatToNat(res, interfaceID)
 }
 
-func (c *client) CreateNat(ctx context.Context, nat *api.Nat, ignoredErrors ...errors.IgnoredErrors) (*api.Nat, error) {
+func (c *client) CreateNat(ctx context.Context, nat *api.Nat, ignoredErrors ...[]int32) (*api.Nat, error) {
 	res, err := c.DPDKonmetalClient.CreateNat(ctx, &dpdkproto.CreateNatRequest{
 		InterfaceId: []byte(nat.NatMeta.InterfaceID),
 		NatIp:       api.NetIPAddrToProtoIpAddress(*nat.Spec.NatIP),
@@ -665,7 +665,7 @@ func (c *client) CreateNat(ctx context.Context, nat *api.Nat, ignoredErrors ...e
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retNat, errors.GetError(res.Status, ignoredErrors)
+		return retNat, errors.GetError(res.Status, ignoredErrors[0])
 	}
 
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
@@ -678,7 +678,7 @@ func (c *client) CreateNat(ctx context.Context, nat *api.Nat, ignoredErrors ...e
 	return retNat, nil
 }
 
-func (c *client) DeleteNat(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.Nat, error) {
+func (c *client) DeleteNat(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.Nat, error) {
 	res, err := c.DPDKonmetalClient.DeleteNat(ctx, &dpdkproto.DeleteNatRequest{
 		InterfaceId: []byte(interfaceID),
 	})
@@ -691,16 +691,16 @@ func (c *client) DeleteNat(ctx context.Context, interfaceID string, ignoredError
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.Status.GetCode() != 0 {
-		return retNat, errors.GetError(res.Status, ignoredErrors)
+		return retNat, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return retNat, nil
 }
 
-func (c *client) ListLocalNats(ctx context.Context, natIP *netip.Addr, ignoredErrors ...errors.IgnoredErrors) (*api.NatList, error) {
+func (c *client) ListLocalNats(ctx context.Context, natIP *netip.Addr, ignoredErrors ...[]int32) (*api.NatList, error) {
 	return c.ListNats(ctx, natIP, "local", ignoredErrors...)
 }
 
-func (c *client) CreateNeighborNat(ctx context.Context, nNat *api.NeighborNat, ignoredErrors ...errors.IgnoredErrors) (*api.NeighborNat, error) {
+func (c *client) CreateNeighborNat(ctx context.Context, nNat *api.NeighborNat, ignoredErrors ...[]int32) (*api.NeighborNat, error) {
 
 	res, err := c.DPDKonmetalClient.CreateNeighborNat(ctx, &dpdkproto.CreateNeighborNatRequest{
 		NatIp:         api.NetIPAddrToProtoIpAddress(*nNat.NatIP),
@@ -718,13 +718,13 @@ func (c *client) CreateNeighborNat(ctx context.Context, nNat *api.NeighborNat, i
 		Status:          api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retnNat, errors.GetError(res.Status, ignoredErrors)
+		return retnNat, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	retnNat.Spec = nNat.Spec
 	return retnNat, nil
 }
 
-func (c *client) ListNats(ctx context.Context, natIP *netip.Addr, natType string, ignoredErrors ...errors.IgnoredErrors) (*api.NatList, error) {
+func (c *client) ListNats(ctx context.Context, natIP *netip.Addr, natType string, ignoredErrors ...[]int32) (*api.NatList, error) {
 	var nType int32
 	switch strings.ToLower(natType) {
 	case "local", "1":
@@ -803,7 +803,7 @@ func (c *client) ListNats(ctx context.Context, natIP *netip.Addr, natType string
 	}, nil
 }
 
-func (c *client) DeleteNeighborNat(ctx context.Context, neigbhorNat *api.NeighborNat, ignoredErrors ...errors.IgnoredErrors) (*api.NeighborNat, error) {
+func (c *client) DeleteNeighborNat(ctx context.Context, neigbhorNat *api.NeighborNat, ignoredErrors ...[]int32) (*api.NeighborNat, error) {
 	res, err := c.DPDKonmetalClient.DeleteNeighborNat(ctx, &dpdkproto.DeleteNeighborNatRequest{
 		NatIp:   api.NetIPAddrToProtoIpAddress(*neigbhorNat.NatIP),
 		Vni:     neigbhorNat.Spec.Vni,
@@ -819,16 +819,16 @@ func (c *client) DeleteNeighborNat(ctx context.Context, neigbhorNat *api.Neighbo
 		Status:          api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return nnat, errors.GetError(res.Status, ignoredErrors)
+		return nnat, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return nnat, nil
 }
 
-func (c *client) ListNeighborNats(ctx context.Context, natIP *netip.Addr, ignoredErrors ...errors.IgnoredErrors) (*api.NatList, error) {
+func (c *client) ListNeighborNats(ctx context.Context, natIP *netip.Addr, ignoredErrors ...[]int32) (*api.NatList, error) {
 	return c.ListNats(ctx, natIP, "neigh", ignoredErrors...)
 }
 
-func (c *client) ListFirewallRules(ctx context.Context, interfaceID string, ignoredErrors ...errors.IgnoredErrors) (*api.FirewallRuleList, error) {
+func (c *client) ListFirewallRules(ctx context.Context, interfaceID string, ignoredErrors ...[]int32) (*api.FirewallRuleList, error) {
 	res, err := c.DPDKonmetalClient.ListFirewallRules(ctx, &dpdkproto.ListFirewallRulesRequest{
 		InterfaceId: []byte(interfaceID),
 	})
@@ -853,7 +853,7 @@ func (c *client) ListFirewallRules(ctx context.Context, interfaceID string, igno
 	}, nil
 }
 
-func (c *client) CreateFirewallRule(ctx context.Context, fwRule *api.FirewallRule, ignoredErrors ...errors.IgnoredErrors) (*api.FirewallRule, error) {
+func (c *client) CreateFirewallRule(ctx context.Context, fwRule *api.FirewallRule, ignoredErrors ...[]int32) (*api.FirewallRule, error) {
 	var action, direction uint8
 
 	switch strings.ToLower(fwRule.Spec.FirewallAction) {
@@ -907,7 +907,7 @@ func (c *client) CreateFirewallRule(ctx context.Context, fwRule *api.FirewallRul
 		Spec:             api.FirewallRuleSpec{RuleID: fwRule.Spec.RuleID},
 		Status:           api.ProtoStatusToStatus(res.Status)}
 	if res.GetStatus().GetCode() != 0 {
-		return retFwrule, errors.GetError(res.Status, ignoredErrors)
+		return retFwrule, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	retFwrule.Spec = fwRule.Spec
 	return retFwrule, nil
@@ -927,13 +927,13 @@ func (c *client) GetFirewallRule(ctx context.Context, interfaceID string, ruleID
 			FirewallRuleMeta: api.FirewallRuleMeta{InterfaceID: interfaceID},
 			Spec:             api.FirewallRuleSpec{RuleID: ruleID},
 			Status:           api.ProtoStatusToStatus(res.Status),
-		}, errors.GetError(res.Status, ignoredErrors)
+		}, errors.GetError(res.Status, ignoredErrors[0])
 	}
 
 	return api.ProtoFwRuleToFwRule(res.Rule, interfaceID)
 }
 
-func (c *client) DeleteFirewallRule(ctx context.Context, interfaceID string, ruleID string, ignoredErrors ...errors.IgnoredErrors) (*api.FirewallRule, error) {
+func (c *client) DeleteFirewallRule(ctx context.Context, interfaceID string, ruleID string, ignoredErrors ...[]int32) (*api.FirewallRule, error) {
 	res, err := c.DPDKonmetalClient.DeleteFirewallRule(ctx, &dpdkproto.DeleteFirewallRuleRequest{
 		InterfaceId: []byte(interfaceID),
 		RuleId:      []byte(ruleID),
@@ -948,12 +948,12 @@ func (c *client) DeleteFirewallRule(ctx context.Context, interfaceID string, rul
 		Status:           api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retFwrule, errors.GetError(res.Status, ignoredErrors)
+		return retFwrule, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return retFwrule, nil
 }
 
-func (c *client) CheckInitialized(ctx context.Context, ignoredErrors ...errors.IgnoredErrors) (*api.Initialized, error) {
+func (c *client) CheckInitialized(ctx context.Context, ignoredErrors ...[]int32) (*api.Initialized, error) {
 	res, err := c.DPDKonmetalClient.CheckInitialized(ctx, &dpdkproto.CheckInitializedRequest{})
 	if err != nil {
 		return &api.Initialized{}, err
@@ -963,13 +963,13 @@ func (c *client) CheckInitialized(ctx context.Context, ignoredErrors ...errors.I
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retInitialized, errors.GetError(res.Status, ignoredErrors)
+		return retInitialized, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	retInitialized.Spec.UUID = res.Uuid
 	return retInitialized, nil
 }
 
-func (c *client) Initialize(ctx context.Context, ignoredErrors ...errors.IgnoredErrors) (*api.Initialized, error) {
+func (c *client) Initialize(ctx context.Context, ignoredErrors ...[]int32) (*api.Initialized, error) {
 	res, err := c.DPDKonmetalClient.Initialize(ctx, &dpdkproto.InitializeRequest{})
 	if err != nil {
 		return &api.Initialized{}, err
@@ -979,13 +979,13 @@ func (c *client) Initialize(ctx context.Context, ignoredErrors ...errors.Ignored
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retInit, errors.GetError(res.Status, ignoredErrors)
+		return retInit, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	retInit.Spec.UUID = res.Uuid
 	return retInit, nil
 }
 
-func (c *client) GetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...errors.IgnoredErrors) (*api.Vni, error) {
+func (c *client) GetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...[]int32) (*api.Vni, error) {
 	res, err := c.DPDKonmetalClient.CheckVniInUse(ctx, &dpdkproto.CheckVniInUseRequest{
 		Vni:  vni,
 		Type: dpdkproto.VniType(vniType),
@@ -999,13 +999,13 @@ func (c *client) GetVni(ctx context.Context, vni uint32, vniType uint8, ignoredE
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retVni, errors.GetError(res.Status, ignoredErrors)
+		return retVni, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	retVni.Spec.InUse = res.InUse
 	return retVni, nil
 }
 
-func (c *client) ResetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...errors.IgnoredErrors) (*api.Vni, error) {
+func (c *client) ResetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...[]int32) (*api.Vni, error) {
 	res, err := c.DPDKonmetalClient.ResetVni(ctx, &dpdkproto.ResetVniRequest{
 		Vni:  vni,
 		Type: dpdkproto.VniType(vniType),
@@ -1019,12 +1019,12 @@ func (c *client) ResetVni(ctx context.Context, vni uint32, vniType uint8, ignore
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retVni, errors.GetError(res.Status, ignoredErrors)
+		return retVni, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	return retVni, nil
 }
 
-func (c *client) GetVersion(ctx context.Context, version *api.Version, ignoredErrors ...errors.IgnoredErrors) (*api.Version, error) {
+func (c *client) GetVersion(ctx context.Context, version *api.Version, ignoredErrors ...[]int32) (*api.Version, error) {
 	version.ClientProtocol = strings.TrimSpace(dpdkproto.GeneratedFrom)
 	res, err := c.DPDKonmetalClient.GetVersion(ctx, &dpdkproto.GetVersionRequest{
 		ClientProtocol: version.ClientProtocol,
@@ -1036,7 +1036,7 @@ func (c *client) GetVersion(ctx context.Context, version *api.Version, ignoredEr
 	}
 	version.Status = api.ProtoStatusToStatus(res.Status)
 	if res.GetStatus().GetCode() != 0 {
-		return version, errors.GetError(res.Status, ignoredErrors)
+		return version, errors.GetError(res.Status, ignoredErrors[0])
 	}
 	version.Spec.ServiceProtocol = res.ServiceProtocol
 	version.Spec.ServiceVersion = res.ServiceVersion
