@@ -98,7 +98,7 @@ func (c *client) GetLoadBalancer(ctx context.Context, id string, ignoredErrors .
 		Status:           api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors[0])
+		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors)
 	}
 	return api.ProtoLoadBalancerToLoadBalancer(res, id)
 }
@@ -124,7 +124,7 @@ func (c *client) CreateLoadBalancer(ctx context.Context, lb *api.LoadBalancer, i
 		Status:           api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors[0])
+		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors)
 	}
 
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
@@ -150,7 +150,7 @@ func (c *client) DeleteLoadBalancer(ctx context.Context, id string, ignoredError
 		Status:           api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors[0])
+		return retLoadBalancer, errors.GetError(res.Status, ignoredErrors)
 	}
 	return retLoadBalancer, nil
 }
@@ -202,7 +202,7 @@ func (c *client) CreateLoadBalancerPrefix(ctx context.Context, lbprefix *api.Loa
 		Status: api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLBPrefix, errors.GetError(res.Status, ignoredErrors[0])
+		return retLBPrefix, errors.GetError(res.Status, ignoredErrors)
 	}
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
 	if err != nil {
@@ -230,7 +230,7 @@ func (c *client) DeleteLoadBalancerPrefix(ctx context.Context, interfaceID strin
 		Status:                 api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLBPrefix, errors.GetError(res.Status, ignoredErrors[0])
+		return retLBPrefix, errors.GetError(res.Status, ignoredErrors)
 	}
 	return retLBPrefix, nil
 }
@@ -245,7 +245,7 @@ func (c *client) ListLoadBalancerTargets(ctx context.Context, loadBalancerID str
 	if res.GetStatus().GetCode() != 0 {
 		return &api.LoadBalancerTargetList{
 			TypeMeta: api.TypeMeta{Kind: api.LoadBalancerTargetListKind},
-			Status:   api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors[0])
+			Status:   api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors)
 	}
 
 	lbtargets := make([]api.LoadBalancerTarget, len(res.GetTargetIps()))
@@ -283,7 +283,7 @@ func (c *client) CreateLoadBalancerTarget(ctx context.Context, lbtarget *api.Loa
 		Status:                 api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retLBTarget, errors.GetError(res.Status, ignoredErrors[0])
+		return retLBTarget, errors.GetError(res.Status, ignoredErrors)
 	}
 	retLBTarget.Spec = lbtarget.Spec
 	return retLBTarget, nil
@@ -303,7 +303,7 @@ func (c *client) DeleteLoadBalancerTarget(ctx context.Context, lbid string, targ
 		Status:                 api.ProtoStatusToStatus(res.Status),
 	}
 	if res.Status.GetCode() != 0 {
-		return retLBTarget, errors.GetError(res.Status, ignoredErrors[0])
+		return retLBTarget, errors.GetError(res.Status, ignoredErrors)
 	}
 	return retLBTarget, nil
 }
@@ -319,7 +319,7 @@ func (c *client) GetInterface(ctx context.Context, id string, ignoredErrors ...[
 		return &api.Interface{
 			TypeMeta:      api.TypeMeta{Kind: api.InterfaceKind},
 			InterfaceMeta: api.InterfaceMeta{ID: id},
-			Status:        api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors[0])
+			Status:        api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors)
 	}
 	return api.ProtoInterfaceToInterface(res.GetInterface())
 }
@@ -372,7 +372,7 @@ func (c *client) CreateInterface(ctx context.Context, iface *api.Interface, igno
 		Status:        api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retInterface, errors.GetError(res.Status, ignoredErrors[0])
+		return retInterface, errors.GetError(res.Status, ignoredErrors)
 	}
 
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
@@ -405,7 +405,7 @@ func (c *client) DeleteInterface(ctx context.Context, id string, ignoredErrors .
 		Status:        api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retInterface, errors.GetError(res.Status, ignoredErrors[0])
+		return retInterface, errors.GetError(res.Status, ignoredErrors)
 	}
 	return retInterface, nil
 }
@@ -421,7 +421,7 @@ func (c *client) GetVirtualIP(ctx context.Context, interfaceID string, ignoredEr
 		return &api.VirtualIP{
 			TypeMeta:      api.TypeMeta{Kind: api.VirtualIPKind},
 			VirtualIPMeta: api.VirtualIPMeta{InterfaceID: interfaceID},
-			Status:        api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors[0])
+			Status:        api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors)
 	}
 	return api.ProtoVirtualIPToVirtualIP(interfaceID, res)
 }
@@ -443,7 +443,7 @@ func (c *client) CreateVirtualIP(ctx context.Context, virtualIP *api.VirtualIP, 
 		Status: api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retVirtualIP, errors.GetError(res.Status, ignoredErrors[0])
+		return retVirtualIP, errors.GetError(res.Status, ignoredErrors)
 	}
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
 	if err != nil {
@@ -466,7 +466,7 @@ func (c *client) DeleteVirtualIP(ctx context.Context, interfaceID string, ignore
 		Status:        api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retVirtualIP, errors.GetError(res.Status, ignoredErrors[0])
+		return retVirtualIP, errors.GetError(res.Status, ignoredErrors)
 	}
 	return retVirtualIP, nil
 }
@@ -516,7 +516,7 @@ func (c *client) CreatePrefix(ctx context.Context, prefix *api.Prefix, ignoredEr
 	}
 
 	if res.GetStatus().GetCode() != 0 {
-		return retPrefix, errors.GetError(res.Status, ignoredErrors[0])
+		return retPrefix, errors.GetError(res.Status, ignoredErrors)
 	}
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
 	if err != nil {
@@ -544,7 +544,7 @@ func (c *client) DeletePrefix(ctx context.Context, interfaceID string, prefix *n
 		Status:     api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retPrefix, errors.GetError(res.Status, ignoredErrors[0])
+		return retPrefix, errors.GetError(res.Status, ignoredErrors)
 	}
 	return retPrefix, nil
 }
@@ -574,7 +574,7 @@ func (c *client) CreateRoute(ctx context.Context, route *api.Route, ignoredError
 		Status: api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retRoute, errors.GetError(res.Status, ignoredErrors[0])
+		return retRoute, errors.GetError(res.Status, ignoredErrors)
 	}
 	retRoute.Spec = route.Spec
 	return retRoute, nil
@@ -604,7 +604,7 @@ func (c *client) DeleteRoute(ctx context.Context, vni uint32, prefix *netip.Pref
 		Status: api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retRoute, errors.GetError(res.Status, ignoredErrors[0])
+		return retRoute, errors.GetError(res.Status, ignoredErrors)
 	}
 	return retRoute, nil
 }
@@ -644,7 +644,7 @@ func (c *client) GetNat(ctx context.Context, interfaceID string, ignoredErrors .
 		return &api.Nat{
 			TypeMeta: api.TypeMeta{Kind: api.NatKind},
 			NatMeta:  api.NatMeta{InterfaceID: interfaceID},
-			Status:   api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors[0])
+			Status:   api.ProtoStatusToStatus(res.Status)}, errors.GetError(res.Status, ignoredErrors)
 	}
 	return api.ProtoNatToNat(res, interfaceID)
 }
@@ -665,7 +665,7 @@ func (c *client) CreateNat(ctx context.Context, nat *api.Nat, ignoredErrors ...[
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retNat, errors.GetError(res.Status, ignoredErrors[0])
+		return retNat, errors.GetError(res.Status, ignoredErrors)
 	}
 
 	underlayRoute, err := netip.ParseAddr(string(res.GetUnderlayRoute()))
@@ -691,7 +691,7 @@ func (c *client) DeleteNat(ctx context.Context, interfaceID string, ignoredError
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.Status.GetCode() != 0 {
-		return retNat, errors.GetError(res.Status, ignoredErrors[0])
+		return retNat, errors.GetError(res.Status, ignoredErrors)
 	}
 	return retNat, nil
 }
@@ -718,7 +718,7 @@ func (c *client) CreateNeighborNat(ctx context.Context, nNat *api.NeighborNat, i
 		Status:          api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retnNat, errors.GetError(res.Status, ignoredErrors[0])
+		return retnNat, errors.GetError(res.Status, ignoredErrors)
 	}
 	retnNat.Spec = nNat.Spec
 	return retnNat, nil
@@ -819,7 +819,7 @@ func (c *client) DeleteNeighborNat(ctx context.Context, neigbhorNat *api.Neighbo
 		Status:          api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return nnat, errors.GetError(res.Status, ignoredErrors[0])
+		return nnat, errors.GetError(res.Status, ignoredErrors)
 	}
 	return nnat, nil
 }
@@ -907,7 +907,7 @@ func (c *client) CreateFirewallRule(ctx context.Context, fwRule *api.FirewallRul
 		Spec:             api.FirewallRuleSpec{RuleID: fwRule.Spec.RuleID},
 		Status:           api.ProtoStatusToStatus(res.Status)}
 	if res.GetStatus().GetCode() != 0 {
-		return retFwrule, errors.GetError(res.Status, ignoredErrors[0])
+		return retFwrule, errors.GetError(res.Status, ignoredErrors)
 	}
 	retFwrule.Spec = fwRule.Spec
 	return retFwrule, nil
@@ -927,7 +927,7 @@ func (c *client) GetFirewallRule(ctx context.Context, ruleID string, interfaceID
 			FirewallRuleMeta: api.FirewallRuleMeta{InterfaceID: interfaceID},
 			Spec:             api.FirewallRuleSpec{RuleID: ruleID},
 			Status:           api.ProtoStatusToStatus(res.Status),
-		}, errors.GetError(res.Status, ignoredErrors[0])
+		}, errors.GetError(res.Status, ignoredErrors)
 	}
 
 	return api.ProtoFwRuleToFwRule(res.Rule, interfaceID)
@@ -948,7 +948,7 @@ func (c *client) DeleteFirewallRule(ctx context.Context, interfaceID string, rul
 		Status:           api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retFwrule, errors.GetError(res.Status, ignoredErrors[0])
+		return retFwrule, errors.GetError(res.Status, ignoredErrors)
 	}
 	return retFwrule, nil
 }
@@ -963,7 +963,7 @@ func (c *client) CheckInitialized(ctx context.Context, ignoredErrors ...[]int32)
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retInitialized, errors.GetError(res.Status, ignoredErrors[0])
+		return retInitialized, errors.GetError(res.Status, ignoredErrors)
 	}
 	retInitialized.Spec.UUID = res.Uuid
 	return retInitialized, nil
@@ -979,7 +979,7 @@ func (c *client) Initialize(ctx context.Context, ignoredErrors ...[]int32) (*api
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retInit, errors.GetError(res.Status, ignoredErrors[0])
+		return retInit, errors.GetError(res.Status, ignoredErrors)
 	}
 	retInit.Spec.UUID = res.Uuid
 	return retInit, nil
@@ -999,7 +999,7 @@ func (c *client) GetVni(ctx context.Context, vni uint32, vniType uint8, ignoredE
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retVni, errors.GetError(res.Status, ignoredErrors[0])
+		return retVni, errors.GetError(res.Status, ignoredErrors)
 	}
 	retVni.Spec.InUse = res.InUse
 	return retVni, nil
@@ -1019,7 +1019,7 @@ func (c *client) ResetVni(ctx context.Context, vni uint32, vniType uint8, ignore
 		Status:   api.ProtoStatusToStatus(res.Status),
 	}
 	if res.GetStatus().GetCode() != 0 {
-		return retVni, errors.GetError(res.Status, ignoredErrors[0])
+		return retVni, errors.GetError(res.Status, ignoredErrors)
 	}
 	return retVni, nil
 }
@@ -1036,7 +1036,7 @@ func (c *client) GetVersion(ctx context.Context, version *api.Version, ignoredEr
 	}
 	version.Status = api.ProtoStatusToStatus(res.Status)
 	if res.GetStatus().GetCode() != 0 {
-		return version, errors.GetError(res.Status, ignoredErrors[0])
+		return version, errors.GetError(res.Status, ignoredErrors)
 	}
 	version.Spec.ServiceProtocol = res.ServiceProtocol
 	version.Spec.ServiceVersion = res.ServiceVersion
