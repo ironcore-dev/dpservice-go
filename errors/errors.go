@@ -94,12 +94,12 @@ func NewStatusError(errorCode int32, message string) *StatusError {
 }
 
 // Ignore requested status errors
-func GetError(status *dpdkproto.Status, ignoredErrors []int32) error {
+func GetError(status *dpdkproto.Status, ignoredErrors [][]int32) error {
 	if status.Code == 0 {
 		return nil
 	}
 	if len(ignoredErrors) > 0 {
-		for _, ignoredError := range ignoredErrors {
+		for _, ignoredError := range ignoredErrors[0] {
 			if status.Code == ignoredError {
 				return nil
 			}
