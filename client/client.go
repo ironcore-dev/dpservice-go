@@ -913,7 +913,7 @@ func (c *client) CreateFirewallRule(ctx context.Context, fwRule *api.FirewallRul
 	return retFwrule, nil
 }
 
-func (c *client) GetFirewallRule(ctx context.Context, interfaceID string, ruleID string, ignoredErrors ...errors.IgnoredErrors) (*api.FirewallRule, error) {
+func (c *client) GetFirewallRule(ctx context.Context, interfaceID string, ruleID string, ignoredErrors ...[]int32) (*api.FirewallRule, error) {
 	res, err := c.DPDKonmetalClient.GetFirewallRule(ctx, &dpdkproto.GetFirewallRuleRequest{
 		InterfaceId: []byte(interfaceID),
 		RuleId:      []byte(ruleID),
