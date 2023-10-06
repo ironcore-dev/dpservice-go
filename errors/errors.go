@@ -130,8 +130,8 @@ func IgnoreStatusErrorCode(err error, errorCodes ...uint32) error {
 }
 
 // Create array of status error codes to be ignored
-func Ignore(errorCodes ...int32) []int32 {
-	arr := make([]int32, 0, len(errorCodes))
+func Ignore(errorCodes ...uint32) []uint32 {
+	arr := make([]uint32, 0, len(errorCodes))
 	arr = append(arr, errorCodes...)
 
 	return arr
