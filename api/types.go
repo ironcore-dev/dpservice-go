@@ -42,7 +42,7 @@ func (m *TypeMeta) GetKind() string {
 }
 
 type Status struct {
-	Code    int32  `json:"code"`
+	Code    uint32  `json:"code"`
 	Message string `json:"message"`
 }
 

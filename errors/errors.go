@@ -67,7 +67,7 @@ const (
 )
 
 type StatusError struct {
-	errorCode int32
+	errorCode uint32
 	message   string
 }
 
@@ -75,7 +75,7 @@ func (s *StatusError) Message() string {
 	return s.message
 }
 
-func (s *StatusError) ErrorCode() int32 {
+func (s *StatusError) ErrorCode() uint32 {
 	return s.errorCode
 }
 
@@ -86,7 +86,7 @@ func (s *StatusError) Error() string {
 	return fmt.Sprintf("error code %d", s.errorCode)
 }
 
-func NewStatusError(errorCode int32, message string) *StatusError {
+func NewStatusError(errorCode uint32, message string) *StatusError {
 	return &StatusError{
 		errorCode: errorCode,
 		message:   message,
@@ -94,7 +94,7 @@ func NewStatusError(errorCode int32, message string) *StatusError {
 }
 
 // Ignore requested status errors
-func GetError(status *dpdkproto.Status, ignoredErrors [][]int32) error {
+func GetError(status *dpdkproto.Status, ignoredErrors [][]uint32) error {
 	if status.Code == 0 {
 		return nil
 	}
@@ -108,7 +108,7 @@ func GetError(status *dpdkproto.Status, ignoredErrors [][]int32) error {
 	return NewStatusError(status.Code, status.Message)
 }
 
-func IsStatusErrorCode(err error, errorCodes ...int32) bool {
+func IsStatusErrorCode(err error, errorCodes ...uint32) bool {
 	statusError := &StatusError{}
 	if !errors.As(err, &statusError) {
 		return false
@@ -122,7 +122,7 @@ func IsStatusErrorCode(err error, errorCodes ...int32) bool {
 	return false
 }
 
-func IgnoreStatusErrorCode(err error, errorCodes ...int32) error {
+func IgnoreStatusErrorCode(err error, errorCodes ...uint32) error {
 	if IsStatusErrorCode(err, errorCodes...) {
 		return nil
 	}
@@ -130,8 +130,8 @@ func IgnoreStatusErrorCode(err error, errorCodes ...int32) error {
 }
 
 // Create array of status error codes to be ignored
-func Ignore(errorCodes ...int32) []int32 {
-	arr := make([]int32, 0, len(errorCodes))
+func Ignore(errorCodes ...uint32) []uint32 {
+	arr := make([]uint32, 0, len(errorCodes))
 	arr = append(arr, errorCodes...)
 
 	return arr
