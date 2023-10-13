@@ -75,6 +75,10 @@ type Client interface {
 	GetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...[]uint32) (*api.Vni, error)
 	ResetVni(ctx context.Context, vni uint32, vniType uint8, ignoredErrors ...[]uint32) (*api.Vni, error)
 	GetVersion(ctx context.Context, version *api.Version, ignoredErrors ...[]uint32) (*api.Version, error)
+
+	CaptureStart(ctx context.Context, capture *api.CaptureStart, ignoredErrors ...[]uint32) (*api.CaptureStart, error)
+	CaptureStop(ctx context.Context, ignoredErrors ...[]uint32) (*api.CaptureStop, error)
+	CaptureStatus(ctx context.Context, ignoredErrors ...[]uint32) (*api.CaptureStatus, error)
 }
 
 type client struct {
@@ -1041,4 +1045,117 @@ func (c *client) GetVersion(ctx context.Context, version *api.Version, ignoredEr
 	version.Spec.ServiceProtocol = res.ServiceProtocol
 	version.Spec.ServiceVersion = res.ServiceVersion
 	return version, nil
+}
+
+func (c *client) CaptureStart(ctx context.Context, capture *api.CaptureStart, ignoredErrors ...[]uint32) (*api.CaptureStart, error) {
+	var interfaces = make([]*dpdkproto.CapturedInterface, 0, len(capture.Spec.Interfaces))
+
+	for _, iface := range capture.Spec.Interfaces {
+		protoInterface := &dpdkproto.CapturedInterface{}
+
+		captureIfacetype, err := api.CaptureIfaceTypeToProtoIfaceType(iface.InterfaceType)
+		if err != nil {
+			fmt.Printf("error converting interface type for interface %s\n", iface.InterfaceInfo)
+			continue
+		}
+
+		protoInterface.InterfaceType = captureIfacetype
+		err = api.FillCaptureIfaceInfo(iface.InterfaceInfo, protoInterface)
+		if err != nil {
+			fmt.Printf("error filling interface info for interface %s\n", iface.InterfaceInfo)
+			continue
+		}
+
+		interfaces = append(interfaces, protoInterface)
+	}
+
+	res, err := c.DPDKonmetalClient.CaptureStart(ctx, &dpdkproto.CaptureStartRequest{
+		CaptureConfig: &dpdkproto.CaptureConfig{
+			SinkNodeIp: api.NetIPAddrToProtoIpAddress(*capture.CaptureStartMeta.Config.SinkNodeIP),
+			UdpSrcPort: capture.CaptureStartMeta.Config.UdpSrcPort,
+			UdpDstPort: capture.CaptureStartMeta.Config.UdpDstPort,
+			Interfaces: interfaces,
+		},
+	})
+
+	if err != nil {
+		return &api.CaptureStart{}, err
+	}
+	capture.Status = api.ProtoStatusToStatus(res.Status)
+	if res.GetStatus().GetCode() != 0 {
+		return capture, errors.GetError(res.Status, ignoredErrors)
+	}
+
+	return capture, nil
+}
+
+func (c *client) CaptureStop(ctx context.Context, ignoredErrors ...[]uint32) (*api.CaptureStop, error) {
+	res, err := c.DPDKonmetalClient.CaptureStop(ctx, &dpdkproto.CaptureStopRequest{})
+	if err != nil {
+		return &api.CaptureStop{}, err
+	}
+	if res.GetStatus().GetCode() != 0 {
+		return &api.CaptureStop{}, errors.GetError(res.Status, ignoredErrors)
+	}
+
+	capture := &api.CaptureStop{
+		Spec: api.CaptureStopSpec{
+			InterfaceCount: res.StoppedInterfaceCnt,
+		},
+		Status: api.ProtoStatusToStatus(res.Status),
+	}
+
+	return capture, nil
+}
+
+func (c *client) CaptureStatus(ctx context.Context, ignoredErrors ...[]uint32) (*api.CaptureStatus, error) {
+	res, err := c.DPDKonmetalClient.CaptureStatus(ctx, &dpdkproto.CaptureStatusRequest{})
+	if err != nil {
+		return &api.CaptureStatus{}, err
+	}
+	if res.GetStatus().GetCode() != 0 {
+		return &api.CaptureStatus{}, errors.GetError(res.Status, ignoredErrors)
+	}
+
+	if !res.IsActive {
+		capture := &api.CaptureStatus{
+			Spec: api.CaptureGetStatusSpec{
+				OperationStatus: false,
+			},
+			Status: api.ProtoStatusToStatus(res.Status),
+		}
+		return capture, nil
+	}
+
+	capture_interfaces := make([]api.CaptureInterface, len(res.CaptureConfig.Interfaces))
+	for i, cap_iface := range res.CaptureConfig.Interfaces {
+		capture_interfaces[i].InterfaceType, err = api.ProtoIfaceTypeToCaptureIfaceType(cap_iface.InterfaceType)
+		if err != nil {
+			return &api.CaptureStatus{}, err
+		}
+		capture_interfaces[i].InterfaceInfo, err = api.ProtoIfaceInfoToCaptureIfaceInfo(cap_iface)
+		if err != nil {
+			return &api.CaptureStatus{}, err
+		}
+	}
+
+	sink_ip, err := api.ProtoIpAddressToNetIPAddr(res.CaptureConfig.SinkNodeIp)
+	if err != nil {
+		return &api.CaptureStatus{}, err
+	}
+
+	capture := &api.CaptureStatus{
+		Spec: api.CaptureGetStatusSpec{
+			OperationStatus: true,
+			Config: api.CaptureConfig{
+				SinkNodeIP: sink_ip,
+				UdpSrcPort: res.CaptureConfig.UdpSrcPort,
+				UdpDstPort: res.CaptureConfig.UdpDstPort,
+			},
+			Interfaces: capture_interfaces,
+		},
+		Status: api.ProtoStatusToStatus(res.Status),
+	}
+
+	return capture, nil
 }
