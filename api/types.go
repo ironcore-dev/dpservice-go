@@ -42,7 +42,7 @@ func (m *TypeMeta) GetKind() string {
 }
 
 type Status struct {
-	Code    uint32  `json:"code"`
+	Code    uint32 `json:"code"`
 	Message string `json:"message"`
 }
 
@@ -562,6 +562,86 @@ func (m *Version) GetStatus() Status {
 	return m.Status
 }
 
+type CaptureConfig struct {
+	SinkNodeIP *netip.Addr `json:"sink_node_ipv6,omitempty"`
+	UdpSrcPort uint32      `json:"udp_src_port,omitempty"`
+	UdpDstPort uint32      `json:"udp_dst_port,omitempty"`
+}
+
+type CaptureStart struct {
+	TypeMeta         `json:",inline"`
+	CaptureStartMeta `json:"metadata"`
+	Spec             CaptureStartSpec `json:"spec"`
+	Status           Status           `json:"status"`
+}
+
+type CaptureStartMeta struct {
+	Config *CaptureConfig `json:"capture_config"`
+}
+
+type CaptureStartSpec struct {
+	Interfaces []CaptureInterface `json:"interfaces,omitempty"`
+}
+
+func (m *CaptureStartMeta) GetName() string {
+	return m.Config.SinkNodeIP.String()
+}
+
+func (m *CaptureStart) GetStatus() Status {
+	return m.Status
+}
+
+type CaptureInterface struct {
+	InterfaceType string `json:"interface_type"`
+	InterfaceInfo string `json:"interface_info"`
+}
+
+type CaptureStop struct {
+	TypeMeta        `json:",inline"`
+	CaptureStopMeta `json:"metadata"`
+	Spec            CaptureStopSpec `json:"spec"`
+	Status          Status          `json:"status"`
+}
+
+type CaptureStopMeta struct {
+}
+
+type CaptureStopSpec struct {
+	InterfaceCount uint32 `json:"iface_cnt"`
+}
+
+func (m *CaptureStopMeta) GetName() string {
+	return "capture stopped"
+}
+
+func (m *CaptureStop) GetStatus() Status {
+	return m.Status
+}
+
+type CaptureStatus struct {
+	TypeMeta          `json:",inline"`
+	CaptureStatusMeta `json:"metadata"`
+	Spec              CaptureGetStatusSpec `json:"spec"`
+	Status            Status               `json:"status"`
+}
+
+type CaptureStatusMeta struct {
+}
+
+func (m *CaptureStatusMeta) GetName() string {
+	return "get capture status"
+}
+
+func (m *CaptureStatus) GetStatus() Status {
+	return m.Status
+}
+
+type CaptureGetStatusSpec struct {
+	OperationStatus bool               `json:"operation_status"`
+	Config          CaptureConfig      `json:"capture_config"`
+	Interfaces      []CaptureInterface `json:"interfaces,omitempty"`
+}
+
 var (
 	InterfaceKind              = reflect.TypeOf(Interface{}).Name()
 	InterfaceListKind          = reflect.TypeOf(InterfaceList{}).Name()
@@ -582,4 +662,7 @@ var (
 	InitializedKind            = reflect.TypeOf(Initialized{}).Name()
 	VniKind                    = reflect.TypeOf(Vni{}).Name()
 	VersionKind                = reflect.TypeOf(Version{}).Name()
+	CaptureStartKind           = reflect.TypeOf(CaptureStart{}).Name()
+	CaptureStopKind            = reflect.TypeOf(CaptureStop{}).Name()
+	CaptureStatusKind          = reflect.TypeOf(CaptureStatus{}).Name()
 )

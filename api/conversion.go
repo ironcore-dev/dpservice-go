@@ -347,3 +347,50 @@ func ProtoStatusToStatus(dpdkStatus *proto.Status) Status {
 		Message: dpdkStatus.Message,
 	}
 }
+
+func CaptureIfaceTypeToProtoIfaceType(interfaceType string) (proto.CaptureInterfaceType, error) {
+	switch interfaceType {
+	case "pf":
+		return proto.CaptureInterfaceType_SINGLE_PF, nil
+	case "vf":
+		return proto.CaptureInterfaceType_SINGLE_VF, nil
+	default:
+		return 0, fmt.Errorf("unsupported interface type")
+	}
+}
+
+func ProtoIfaceTypeToCaptureIfaceType(interfaceType proto.CaptureInterfaceType) (string, error) {
+	switch interfaceType {
+	case proto.CaptureInterfaceType_SINGLE_PF:
+		return "pf", nil
+	case proto.CaptureInterfaceType_SINGLE_VF:
+		return "vf", nil
+	default:
+		return "", fmt.Errorf("unsupported interface type")
+	}
+}
+
+func FillCaptureIfaceInfo(interfaceInfo string, request *proto.CapturedInterface) error {
+	switch request.InterfaceType {
+	case proto.CaptureInterfaceType_SINGLE_PF:
+		pf_index, err := strconv.Atoi(interfaceInfo)
+		if err != nil {
+			return fmt.Errorf("error parsing pf index: %w", err)
+		}
+		request.Spec = &proto.CapturedInterface_PfIndex{PfIndex: uint32(pf_index)}
+	case proto.CaptureInterfaceType_SINGLE_VF:
+		request.Spec = &proto.CapturedInterface_VfName{VfName: []byte(interfaceInfo)}
+	}
+	return nil
+}
+
+func ProtoIfaceInfoToCaptureIfaceInfo(request *proto.CapturedInterface) (string, error) {
+	switch request.InterfaceType {
+	case proto.CaptureInterfaceType_SINGLE_PF:
+		return strconv.Itoa(int(request.GetPfIndex())), nil
+	case proto.CaptureInterfaceType_SINGLE_VF:
+		return string(request.GetVfName()), nil
+	default:
+		return "", fmt.Errorf("unsupported interface type")
+	}
+}
