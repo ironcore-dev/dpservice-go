@@ -55,7 +55,7 @@ var _ = Describe("interface", Label("interface"), func() {
 		})
 
 		It("should not be created when already existing", func() {
-			res, err = dpdkClient.CreateInterface(ctx, res)
+			res, err := dpdkClient.CreateInterface(ctx, res)
 			Expect(err).To(HaveOccurred())
 
 			Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
@@ -88,7 +88,7 @@ var _ = Describe("interface", Label("interface"), func() {
 	})
 })
 
-var _ = Describe("interface related", Label("prefix", "lbprefix", "vip"), func() {
+var _ = Describe("interface related", func() {
 	ctx := context.TODO()
 
 	// Creates the network interface object
@@ -117,7 +117,7 @@ var _ = Describe("interface related", Label("prefix", "lbprefix", "vip"), func()
 		})
 	})
 
-	Context("When using prefix functions", Ordered, func() {
+	Context("When using prefix functions", Label("prefix"), Ordered, func() {
 		var res *api.Prefix
 		var err error
 
@@ -139,7 +139,7 @@ var _ = Describe("interface related", Label("prefix", "lbprefix", "vip"), func()
 		})
 
 		It("should not be created when already existing", func() {
-			res, err = dpdkClient.CreatePrefix(ctx, res)
+			res, err := dpdkClient.CreatePrefix(ctx, res)
 			Expect(err).To(HaveOccurred())
 
 			Expect(res.Status.Code).To(Equal(uint32(errors.ROUTE_EXISTS)))
@@ -163,7 +163,7 @@ var _ = Describe("interface related", Label("prefix", "lbprefix", "vip"), func()
 		})
 	})
 
-	Context("When using lbprefix functions", Ordered, func() {
+	Context("When using lbprefix functions", Label("lbprefix"), Ordered, func() {
 		var res *api.LoadBalancerPrefix
 		var err error
 
@@ -185,7 +185,7 @@ var _ = Describe("interface related", Label("prefix", "lbprefix", "vip"), func()
 		})
 
 		It("should not be created when already existing", func() {
-			res, err = dpdkClient.CreateLoadBalancerPrefix(ctx, res)
+			res, err := dpdkClient.CreateLoadBalancerPrefix(ctx, res)
 			Expect(err).To(HaveOccurred())
 
 			Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
@@ -209,7 +209,7 @@ var _ = Describe("interface related", Label("prefix", "lbprefix", "vip"), func()
 		})
 	})
 
-	Context("When using virtualIP functions", Ordered, func() {
+	Context("When using virtualIP functions", Label("vip"), Ordered, func() {
 		var res *api.VirtualIP
 		var err error
 
@@ -232,7 +232,7 @@ var _ = Describe("interface related", Label("prefix", "lbprefix", "vip"), func()
 		})
 
 		It("should not be created when already existing", func() {
-			res, err = dpdkClient.CreateVirtualIP(ctx, res)
+			res, err := dpdkClient.CreateVirtualIP(ctx, res)
 			Expect(err).To(HaveOccurred())
 
 			Expect(res.Status.Code).To(Equal(uint32(errors.SNAT_EXISTS)))
@@ -254,12 +254,114 @@ var _ = Describe("interface related", Label("prefix", "lbprefix", "vip"), func()
 			Expect(err).To(HaveOccurred())
 		})
 	})
+
+	Context("When using nat functions", Label("nat"), Ordered, func() {
+		var res *api.Nat
+		var err error
+
+		It("should create successfully", func() {
+			ip := netip.MustParseAddr("10.20.30.40")
+			nat := api.Nat{
+				NatMeta: api.NatMeta{
+					InterfaceID: "vm4",
+				},
+				Spec: api.NatSpec{
+					NatIP:   &ip,
+					MinPort: 30000,
+					MaxPort: 30100,
+				},
+			}
+
+			res, err = dpdkClient.CreateNat(ctx, &nat)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(res.InterfaceID).To(Equal("vm4"))
+			Expect(res.Spec.NatIP.String()).To(Equal("10.20.30.40"))
+		})
+
+		It("should not be created when already existing", func() {
+			res, err := dpdkClient.CreateNat(ctx, res)
+			Expect(err).To(HaveOccurred())
+
+			Expect(res.Status.Code).To(Equal(uint32(errors.SNAT_EXISTS)))
+		})
+
+		It("should get successfully", func() {
+			res, err = dpdkClient.GetNat(ctx, "vm4")
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(res.InterfaceID).To(Equal("vm4"))
+			Expect(res.Spec.UnderlayRoute).ToNot(BeNil())
+			Expect(res.Spec.MinPort).To(Equal(uint32(30000)))
+		})
+
+		It("should delete successfully", func() {
+			res, err = dpdkClient.DeleteNat(ctx, res.InterfaceID)
+			Expect(err).ToNot(HaveOccurred())
+
+			res, err = dpdkClient.GetNat(ctx, "vm4")
+			Expect(err).To(HaveOccurred())
+		})
+	})
+
+	Context("When using neighbor nat functions", Label("neighbornat"), Ordered, func() {
+		var res *api.NeighborNat
+		var err error
+
+		It("should create successfully", func() {
+			natIp := netip.MustParseAddr("10.20.30.40")
+			underlayRoute := netip.MustParseAddr("ff80::1")
+			neighborNat := api.NeighborNat{
+				NeighborNatMeta: api.NeighborNatMeta{
+					NatIP: &natIp,
+				},
+				Spec: api.NeighborNatSpec{
+					Vni:           100,
+					MinPort:       30000,
+					MaxPort:       30100,
+					UnderlayRoute: &underlayRoute,
+				},
+			}
+
+			res, err = dpdkClient.CreateNeighborNat(ctx, &neighborNat)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(res.NatIP.String()).To(Equal("10.20.30.40"))
+			Expect(res.Spec.Vni).To(Equal(uint32(100)))
+		})
+
+		It("should not be created when already existing", func() {
+			res, err := dpdkClient.CreateNeighborNat(ctx, res)
+			Expect(err).To(HaveOccurred())
+
+			Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
+		})
+
+		It("should list successfully", func() {
+			neighborNats, err := dpdkClient.ListNeighborNats(ctx, res.NatIP)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(len(neighborNats.Items)).To(Equal(1))
+			// TODO: items kind should be NeighborNat
+			Expect(neighborNats.Items[0].Kind).To(Equal(api.NatKind))
+			Expect(neighborNats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
+		})
+
+		It("should delete successfully", func() {
+			res, err = dpdkClient.DeleteNeighborNat(ctx, res)
+			Expect(err).ToNot(HaveOccurred())
+
+			neighborNats, err := dpdkClient.ListNeighborNats(ctx, res.NatIP)
+			Expect(err).ToNot(HaveOccurred())
+			Expect(len(neighborNats.Items)).To(Equal(0))
+		})
+	})
 })
 
-var _ = Describe("loadbalancer", Label("loadbalancer"), func() {
+var _ = Describe("loadbalancer related", func() {
 	ctx := context.TODO()
 
-	Context("When using loadbalancer functions", Ordered, func() {
+	Context("When using loadbalancer functions", Label("loadbalancer"), Ordered, func() {
 		var res *api.LoadBalancer
 		var err error
 
@@ -293,7 +395,7 @@ var _ = Describe("loadbalancer", Label("loadbalancer"), func() {
 		})
 
 		It("should not be created when already existing", func() {
-			res, err = dpdkClient.CreateLoadBalancer(ctx, res)
+			res, err := dpdkClient.CreateLoadBalancer(ctx, res)
 			Expect(err).To(HaveOccurred())
 
 			Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
@@ -314,6 +416,82 @@ var _ = Describe("loadbalancer", Label("loadbalancer"), func() {
 			res, err = dpdkClient.GetLoadBalancer(ctx, "lb1")
 			Expect(err).To(HaveOccurred())
 			Expect(res.Status.Code).To(Equal(uint32(errors.NOT_FOUND)))
+		})
+	})
+
+	Context("When using loadbalancer target functions", Label("lbtarget"), Ordered, func() {
+		var res *api.LoadBalancerTarget
+		var lb api.LoadBalancer
+		var err error
+
+		It("should create successfully", func() {
+			var lbVipIp = netip.MustParseAddr("10.20.30.40")
+			lb = api.LoadBalancer{
+				LoadBalancerMeta: api.LoadBalancerMeta{
+					ID: "lb2",
+				},
+				Spec: api.LoadBalancerSpec{
+					VNI:     200,
+					LbVipIP: &lbVipIp,
+					Lbports: []api.LBPort{
+						{
+							Protocol: 6,
+							Port:     443,
+						},
+						{
+							Protocol: 17,
+							Port:     53,
+						},
+					},
+				},
+			}
+
+			_, err = dpdkClient.CreateLoadBalancer(ctx, &lb)
+			Expect(err).ToNot(HaveOccurred())
+
+			targetIp := netip.MustParseAddr("ff80::5")
+			lbtarget := api.LoadBalancerTarget{
+				LoadBalancerTargetMeta: api.LoadBalancerTargetMeta{
+					LoadbalancerID: "lb2",
+				},
+				Spec: api.LoadBalancerTargetSpec{
+					TargetIP: &targetIp,
+				},
+			}
+
+			res, err = dpdkClient.CreateLoadBalancerTarget(ctx, &lbtarget)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(res.LoadbalancerID).To(Equal("lb2"))
+			Expect(res.Spec.TargetIP.String()).To(Equal("ff80::5"))
+		})
+
+		It("should not be created when already existing", func() {
+			res, err := dpdkClient.CreateLoadBalancerTarget(ctx, res)
+			Expect(err).To(HaveOccurred())
+
+			Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
+		})
+
+		It("should list successfully", func() {
+			lbtargets, err := dpdkClient.ListLoadBalancerTargets(ctx, res.LoadbalancerID)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(lbtargets.Items[0].LoadbalancerID).To(Equal("lb2"))
+			Expect(len(lbtargets.Items)).To(Equal(1))
+			Expect(lbtargets.Items[0].Kind).To(Equal("LoadBalancerTarget"))
+		})
+
+		It("should delete successfully", func() {
+			res, err = dpdkClient.DeleteLoadBalancerTarget(ctx, res.LoadbalancerID, res.Spec.TargetIP)
+			Expect(err).ToNot(HaveOccurred())
+
+			lbtargets, err := dpdkClient.ListLoadBalancerTargets(ctx, "lb2")
+			Expect(err).ToNot(HaveOccurred())
+			Expect(len(lbtargets.Items)).To(Equal(0))
+
+			_, err = dpdkClient.DeleteLoadBalancer(ctx, "lb2")
+			Expect(err).ToNot(HaveOccurred())
 		})
 	})
 })
