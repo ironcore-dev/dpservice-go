@@ -66,4 +66,4 @@ check: generate addlicense lint test # Generate manifests, code, lint, add licen
 
 .PHONY: test
 test: ## Tests the code in this repository.
-	go test -v ./...
+	go test -v ./... -coverprofile cover.out -ginkgo.v -ginkgo.label-filter=$(labels) -ginkgo.randomize-all
