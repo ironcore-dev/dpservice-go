@@ -22,6 +22,7 @@ import (
 
 	"github.com/onmetal/net-dpservice-go/api"
 	"github.com/onmetal/net-dpservice-go/errors"
+	dpdkproto "github.com/onmetal/net-dpservice-go/proto"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
@@ -47,11 +48,22 @@ var _ = Describe("interface", Label("interface"), func() {
 					Device: "net_tap5",
 				},
 			}
+
+			vni, err := dpdkClient.GetVni(ctx, 200, 0)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(vni.Spec.InUse).To(BeFalse())
+
 			res, err = dpdkClient.CreateInterface(ctx, &iface)
 			Expect(err).ToNot(HaveOccurred())
 
 			Expect(res.ID).To(Equal("vm4"))
 			Expect(res.Spec.VNI).To(Equal(uint32(200)))
+
+			vni, err = dpdkClient.GetVni(ctx, 200, 0)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(vni.Spec.InUse).To(BeTrue())
 		})
 
 		It("should not be created when already existing", func() {
@@ -354,6 +366,129 @@ var _ = Describe("interface related", func() {
 			neighborNats, err := dpdkClient.ListNeighborNats(ctx, res.NatIP)
 			Expect(err).ToNot(HaveOccurred())
 			Expect(len(neighborNats.Items)).To(Equal(0))
+		})
+	})
+
+	Context("When using route functions", Label("route"), Ordered, func() {
+		var res *api.Route
+		var err error
+
+		It("should create successfully", func() {
+			prefix := netip.MustParsePrefix("10.100.3.0/24")
+			nextHopIp := netip.MustParseAddr("fc00:2::64:0:1")
+			route := api.Route{
+				RouteMeta: api.RouteMeta{
+					VNI: 200,
+				},
+				Spec: api.RouteSpec{
+					Prefix: &prefix,
+					NextHop: &api.RouteNextHop{
+						VNI: 0,
+						IP:  &nextHopIp,
+					},
+				},
+			}
+			res, err = dpdkClient.CreateRoute(ctx, &route)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(res.VNI).To(Equal(uint32(200)))
+			Expect(res.Spec.Prefix.String()).To(Equal("10.100.3.0/24"))
+		})
+
+		It("should not be created when already existing", func() {
+			res, err := dpdkClient.CreateRoute(ctx, res)
+			Expect(err).To(HaveOccurred())
+
+			Expect(res.Status.Code).To(Equal(uint32(errors.ROUTE_EXISTS)))
+		})
+
+		It("should list successfully", func() {
+			routes, err := dpdkClient.ListRoutes(ctx, 200)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(len(routes.Items)).To(Equal(1))
+			Expect(routes.Items[0].Kind).To(Equal(api.RouteKind))
+		})
+
+		It("should delete successfully", func() {
+			res, err = dpdkClient.DeleteRoute(ctx, res.VNI, res.Spec.Prefix)
+			Expect(err).ToNot(HaveOccurred())
+
+			routes, err := dpdkClient.ListRoutes(ctx, 200)
+			Expect(err).ToNot(HaveOccurred())
+			Expect(len(routes.Items)).To(Equal(0))
+		})
+	})
+
+	Context("When using firewall rule functions", Label("fwrule"), Ordered, func() {
+		var res *api.FirewallRule
+		var err error
+
+		It("should create successfully", func() {
+			src := netip.MustParsePrefix("1.1.1.1/32")
+			dst := netip.MustParsePrefix("5.5.5.0/24")
+			fwRule := api.FirewallRule{
+				FirewallRuleMeta: api.FirewallRuleMeta{
+					InterfaceID: "vm4",
+				},
+				Spec: api.FirewallRuleSpec{
+					RuleID:            "Rule1",
+					TrafficDirection:  "ingress",
+					FirewallAction:    "accept",
+					Priority:          1000,
+					SourcePrefix:      &src,
+					DestinationPrefix: &dst,
+					ProtocolFilter: &dpdkproto.ProtocolFilter{
+						Filter: &dpdkproto.ProtocolFilter_Tcp{
+							Tcp: &dpdkproto.TcpFilter{
+								SrcPortLower: 1,
+								SrcPortUpper: 65535,
+								DstPortLower: 500,
+								DstPortUpper: 600,
+							},
+						},
+					},
+				},
+			}
+
+			res, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(res.InterfaceID).To(Equal("vm4"))
+			Expect(res.Spec.RuleID).To(Equal("Rule1"))
+		})
+
+		It("should not be created when already existing", func() {
+			res, err := dpdkClient.CreateFirewallRule(ctx, res)
+			Expect(err).To(HaveOccurred())
+
+			Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
+		})
+
+		It("should get successfully", func() {
+			res, err = dpdkClient.GetFirewallRule(ctx, res.InterfaceID, "Rule1")
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(res.Spec.TrafficDirection).To(Equal("Ingress"))
+			Expect(res.Spec.SourcePrefix.String()).To(Equal("1.1.1.1/32"))
+		})
+
+		It("should list successfully", func() {
+			fwRules, err := dpdkClient.ListFirewallRules(ctx, res.InterfaceID)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(len(fwRules.Items)).To(Equal(1))
+			Expect(fwRules.Items[0].Kind).To(Equal(api.FirewallRuleKind))
+			Expect(fwRules.Items[0].Spec.Priority).To(Equal(uint32(1000)))
+		})
+
+		It("should delete successfully", func() {
+			res, err = dpdkClient.DeleteFirewallRule(ctx, res.InterfaceID, "Rule1")
+			Expect(err).ToNot(HaveOccurred())
+
+			res, err = dpdkClient.GetFirewallRule(ctx, res.InterfaceID, "Rule1")
+			Expect(err).To(HaveOccurred())
+			Expect(res.Status.Code).To(Equal(uint32(errors.NOT_FOUND)))
 		})
 	})
 })
