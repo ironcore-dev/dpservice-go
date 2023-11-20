@@ -307,6 +307,15 @@ var _ = Describe("interface related", func() {
 			Expect(res.Spec.MinPort).To(Equal(uint32(30000)))
 		})
 
+		It("should list localNats successfully", func() {
+			localNats, err := dpdkClient.ListLocalNats(ctx, res.Spec.NatIP)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(len(localNats.Items)).To(Equal(1))
+			Expect(localNats.Items[0].Kind).To(Equal(api.NatKind))
+			Expect(localNats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
+		})
+
 		It("should delete successfully", func() {
 			res, err = dpdkClient.DeleteNat(ctx, res.InterfaceID)
 			Expect(err).ToNot(HaveOccurred())
@@ -357,6 +366,14 @@ var _ = Describe("interface related", func() {
 			// TODO: items kind should be NeighborNat
 			Expect(neighborNats.Items[0].Kind).To(Equal(api.NatKind))
 			Expect(neighborNats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
+		})
+
+		It("should list Nats successfully", func() {
+			nats, err := dpdkClient.ListNats(ctx, res.NatIP, "any")
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(len(nats.Items)).To(Equal(1))
+			Expect(nats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
 		})
 
 		It("should delete successfully", func() {
@@ -630,3 +647,50 @@ var _ = Describe("loadbalancer related", func() {
 		})
 	})
 })
+
+var _ = Describe("init", Label("init"), func() {
+	ctx := context.TODO()
+
+	Context("When using init functions", Ordered, func() {
+		var res *api.Initialized
+		var err error
+
+		It("should initialize successfully", func() {
+			init, err := dpdkClient.Initialize(ctx)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(init.Spec.UUID).ToNot(Equal(""))
+
+			// Initializing again should return same UUID
+			res, err = dpdkClient.Initialize(ctx)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(init.Spec.UUID).To(Equal(res.Spec.UUID))
+		})
+
+		It("should check if initialized successfully", func() {
+			res, err = dpdkClient.CheckInitialized(ctx)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(res.Spec.UUID).ToNot(Equal(""))
+		})
+
+		It("should get version successfully", func() {
+			clientVersion := api.Version{
+				VersionMeta: api.VersionMeta{
+					ClientProtocol: "0.0.1",
+					ClientName:     "testClient",
+					ClientVersion:  "0.0.1"},
+			}
+			version, err := dpdkClient.GetVersion(ctx, &clientVersion)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(version.ClientName).To(Equal("testClient"))
+			Expect(version.Spec.ServiceProtocol).ToNot(Equal(""))
+			Expect(version.Spec.ServiceVersion).ToNot(Equal(""))
+		})
+	})
+})
+
+// TODO: add capture functions tests
+// TODO: add negstive tests
