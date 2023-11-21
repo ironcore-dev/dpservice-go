@@ -147,8 +147,8 @@ func NetIPAddrToProtoIPVersion(addr *netip.Addr) proto.IpVersion {
 	}
 }
 
-func NetIPAddrToProtoIPConfig(addr netip.Addr) *proto.IpConfig {
-	if !addr.IsValid() {
+func NetIPAddrToProtoIPConfig(addr *netip.Addr) *proto.IpConfig {
+	if addr == nil || !addr.IsValid() {
 		return nil
 	}
 

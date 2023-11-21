@@ -345,8 +345,8 @@ func (c *client) CreateInterface(ctx context.Context, iface *api.Interface, igno
 		InterfaceType: dpdkproto.InterfaceType_VIRTUAL,
 		InterfaceId:   []byte(iface.ID),
 		Vni:           iface.Spec.VNI,
-		Ipv4Config:    api.NetIPAddrToProtoIPConfig(*iface.Spec.IPv4),
-		Ipv6Config:    api.NetIPAddrToProtoIPConfig(*iface.Spec.IPv6),
+		Ipv4Config:    api.NetIPAddrToProtoIPConfig(iface.Spec.IPv4),
+		Ipv6Config:    api.NetIPAddrToProtoIPConfig(iface.Spec.IPv6),
 		DeviceName:    iface.Spec.Device,
 	}
 	if iface.Spec.PXE != nil {
