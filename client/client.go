@@ -105,7 +105,7 @@ func (c *client) CreateLoadBalancer(ctx context.Context, lb *api.LoadBalancer, i
 	res, err := c.DPDKironcoreClient.CreateLoadBalancer(ctx, &dpdkproto.CreateLoadBalancerRequest{
 		LoadbalancerId:    []byte(lb.LoadBalancerMeta.ID),
 		Vni:               lb.Spec.VNI,
-		LoadbalancedIp:    api.NetIPAddrToProtoIpAddress(*lb.Spec.LbVipIP),
+		LoadbalancedIp:    api.NetIPAddrToProtoIpAddress(lb.Spec.LbVipIP),
 		LoadbalancedPorts: lbPorts,
 	})
 	if err != nil {
@@ -176,10 +176,11 @@ func (c *client) ListLoadBalancerPrefixes(ctx context.Context, interfaceID strin
 }
 
 func (c *client) CreateLoadBalancerPrefix(ctx context.Context, lbprefix *api.LoadBalancerPrefix, ignoredErrors ...[]uint32) (*api.LoadBalancerPrefix, error) {
+	lbPrefixAddr := lbprefix.Spec.Prefix.Addr()
 	res, err := c.DPDKironcoreClient.CreateLoadBalancerPrefix(ctx, &dpdkproto.CreateLoadBalancerPrefixRequest{
 		InterfaceId: []byte(lbprefix.InterfaceID),
 		Prefix: &dpdkproto.Prefix{
-			Ip:     api.NetIPAddrToProtoIpAddress(lbprefix.Spec.Prefix.Addr()),
+			Ip:     api.NetIPAddrToProtoIpAddress(&lbPrefixAddr),
 			Length: uint32(lbprefix.Spec.Prefix.Bits()),
 		},
 	})
@@ -206,10 +207,11 @@ func (c *client) CreateLoadBalancerPrefix(ctx context.Context, lbprefix *api.Loa
 }
 
 func (c *client) DeleteLoadBalancerPrefix(ctx context.Context, interfaceID string, prefix *netip.Prefix, ignoredErrors ...[]uint32) (*api.LoadBalancerPrefix, error) {
+	lbPrefixAddr := prefix.Addr()
 	res, err := c.DPDKironcoreClient.DeleteLoadBalancerPrefix(ctx, &dpdkproto.DeleteLoadBalancerPrefixRequest{
 		InterfaceId: []byte(interfaceID),
 		Prefix: &dpdkproto.Prefix{
-			Ip:     api.NetIPAddrToProtoIpAddress(prefix.Addr()),
+			Ip:     api.NetIPAddrToProtoIpAddress(&lbPrefixAddr),
 			Length: uint32(prefix.Bits()),
 		},
 	})
@@ -265,7 +267,7 @@ func (c *client) ListLoadBalancerTargets(ctx context.Context, loadBalancerID str
 func (c *client) CreateLoadBalancerTarget(ctx context.Context, lbtarget *api.LoadBalancerTarget, ignoredErrors ...[]uint32) (*api.LoadBalancerTarget, error) {
 	res, err := c.DPDKironcoreClient.CreateLoadBalancerTarget(ctx, &dpdkproto.CreateLoadBalancerTargetRequest{
 		LoadbalancerId: []byte(lbtarget.LoadBalancerTargetMeta.LoadbalancerID),
-		TargetIp:       api.NetIPAddrToProtoIpAddress(*lbtarget.Spec.TargetIP),
+		TargetIp:       api.NetIPAddrToProtoIpAddress(lbtarget.Spec.TargetIP),
 	})
 	if err != nil {
 		return &api.LoadBalancerTarget{}, err
@@ -285,7 +287,7 @@ func (c *client) CreateLoadBalancerTarget(ctx context.Context, lbtarget *api.Loa
 func (c *client) DeleteLoadBalancerTarget(ctx context.Context, lbid string, targetIP *netip.Addr, ignoredErrors ...[]uint32) (*api.LoadBalancerTarget, error) {
 	res, err := c.DPDKironcoreClient.DeleteLoadBalancerTarget(ctx, &dpdkproto.DeleteLoadBalancerTargetRequest{
 		LoadbalancerId: []byte(lbid),
-		TargetIp:       api.NetIPAddrToProtoIpAddress(*targetIP),
+		TargetIp:       api.NetIPAddrToProtoIpAddress(targetIP),
 	})
 	if err != nil {
 		return &api.LoadBalancerTarget{}, err
@@ -422,7 +424,7 @@ func (c *client) GetVirtualIP(ctx context.Context, interfaceID string, ignoredEr
 func (c *client) CreateVirtualIP(ctx context.Context, virtualIP *api.VirtualIP, ignoredErrors ...[]uint32) (*api.VirtualIP, error) {
 	res, err := c.DPDKironcoreClient.CreateVip(ctx, &dpdkproto.CreateVipRequest{
 		InterfaceId: []byte(virtualIP.InterfaceID),
-		VipIp:       api.NetIPAddrToProtoIpAddress(*virtualIP.Spec.IP),
+		VipIp:       api.NetIPAddrToProtoIpAddress(virtualIP.Spec.IP),
 	})
 	if err != nil {
 		return &api.VirtualIP{}, err
@@ -491,10 +493,11 @@ func (c *client) ListPrefixes(ctx context.Context, interfaceID string, ignoredEr
 }
 
 func (c *client) CreatePrefix(ctx context.Context, prefix *api.Prefix, ignoredErrors ...[]uint32) (*api.Prefix, error) {
+	prefixAddr := prefix.Spec.Prefix.Addr()
 	res, err := c.DPDKironcoreClient.CreatePrefix(ctx, &dpdkproto.CreatePrefixRequest{
 		InterfaceId: []byte(prefix.InterfaceID),
 		Prefix: &dpdkproto.Prefix{
-			Ip:     api.NetIPAddrToProtoIpAddress(prefix.Spec.Prefix.Addr()),
+			Ip:     api.NetIPAddrToProtoIpAddress(&prefixAddr),
 			Length: uint32(prefix.Spec.Prefix.Bits()),
 		},
 	})
@@ -520,10 +523,11 @@ func (c *client) CreatePrefix(ctx context.Context, prefix *api.Prefix, ignoredEr
 }
 
 func (c *client) DeletePrefix(ctx context.Context, interfaceID string, prefix *netip.Prefix, ignoredErrors ...[]uint32) (*api.Prefix, error) {
+	prefixAddr := prefix.Addr()
 	res, err := c.DPDKironcoreClient.DeletePrefix(ctx, &dpdkproto.DeletePrefixRequest{
 		InterfaceId: []byte(interfaceID),
 		Prefix: &dpdkproto.Prefix{
-			Ip:     api.NetIPAddrToProtoIpAddress(prefix.Addr()),
+			Ip:     api.NetIPAddrToProtoIpAddress(&prefixAddr),
 			Length: uint32(prefix.Bits()),
 		},
 	})
@@ -543,16 +547,17 @@ func (c *client) DeletePrefix(ctx context.Context, interfaceID string, prefix *n
 }
 
 func (c *client) CreateRoute(ctx context.Context, route *api.Route, ignoredErrors ...[]uint32) (*api.Route, error) {
+	routePrefixAddr := route.Spec.Prefix.Addr()
 	res, err := c.DPDKironcoreClient.CreateRoute(ctx, &dpdkproto.CreateRouteRequest{
 		Vni: route.VNI,
 		Route: &dpdkproto.Route{
 			Weight: 100,
 			Prefix: &dpdkproto.Prefix{
-				Ip:     api.NetIPAddrToProtoIpAddress(route.Spec.Prefix.Addr()),
+				Ip:     api.NetIPAddrToProtoIpAddress(&routePrefixAddr),
 				Length: uint32(route.Spec.Prefix.Bits()),
 			},
 			NexthopVni:     route.Spec.NextHop.VNI,
-			NexthopAddress: api.NetIPAddrToProtoIpAddress(*route.Spec.NextHop.IP),
+			NexthopAddress: api.NetIPAddrToProtoIpAddress(route.Spec.NextHop.IP),
 		},
 	})
 	if err != nil {
@@ -574,12 +579,13 @@ func (c *client) CreateRoute(ctx context.Context, route *api.Route, ignoredError
 }
 
 func (c *client) DeleteRoute(ctx context.Context, vni uint32, prefix *netip.Prefix, ignoredErrors ...[]uint32) (*api.Route, error) {
+	routePrefixAddr := prefix.Addr()
 	res, err := c.DPDKironcoreClient.DeleteRoute(ctx, &dpdkproto.DeleteRouteRequest{
 		Vni: vni,
 		Route: &dpdkproto.Route{
 			Weight: 100,
 			Prefix: &dpdkproto.Prefix{
-				Ip:     api.NetIPAddrToProtoIpAddress(prefix.Addr()),
+				Ip:     api.NetIPAddrToProtoIpAddress(&routePrefixAddr),
 				Length: uint32(prefix.Bits()),
 			},
 		},
@@ -645,7 +651,7 @@ func (c *client) GetNat(ctx context.Context, interfaceID string, ignoredErrors .
 func (c *client) CreateNat(ctx context.Context, nat *api.Nat, ignoredErrors ...[]uint32) (*api.Nat, error) {
 	res, err := c.DPDKironcoreClient.CreateNat(ctx, &dpdkproto.CreateNatRequest{
 		InterfaceId: []byte(nat.NatMeta.InterfaceID),
-		NatIp:       api.NetIPAddrToProtoIpAddress(*nat.Spec.NatIP),
+		NatIp:       api.NetIPAddrToProtoIpAddress(nat.Spec.NatIP),
 		MinPort:     nat.Spec.MinPort,
 		MaxPort:     nat.Spec.MaxPort,
 	})
@@ -696,7 +702,7 @@ func (c *client) ListLocalNats(ctx context.Context, natIP *netip.Addr, ignoredEr
 func (c *client) CreateNeighborNat(ctx context.Context, nNat *api.NeighborNat, ignoredErrors ...[]uint32) (*api.NeighborNat, error) {
 
 	res, err := c.DPDKironcoreClient.CreateNeighborNat(ctx, &dpdkproto.CreateNeighborNatRequest{
-		NatIp:         api.NetIPAddrToProtoIpAddress(*nNat.NatIP),
+		NatIp:         api.NetIPAddrToProtoIpAddress(nNat.NatIP),
 		Vni:           nNat.Spec.Vni,
 		MinPort:       nNat.Spec.MinPort,
 		MaxPort:       nNat.Spec.MaxPort,
@@ -730,7 +736,7 @@ func (c *client) ListNats(ctx context.Context, natIP *netip.Addr, natType string
 		return nil, fmt.Errorf("nat type can be only: Any = 0/Local = 1/Neigh(bor) = 2")
 	}
 
-	req := api.NetIPAddrToProtoIpAddress(*natIP)
+	req := api.NetIPAddrToProtoIpAddress(natIP)
 	// nat type not defined, try both types
 	var natEntries []*dpdkproto.NatEntry
 	var status *dpdkproto.Status
@@ -798,7 +804,7 @@ func (c *client) ListNats(ctx context.Context, natIP *netip.Addr, natType string
 
 func (c *client) DeleteNeighborNat(ctx context.Context, neigbhorNat *api.NeighborNat, ignoredErrors ...[]uint32) (*api.NeighborNat, error) {
 	res, err := c.DPDKironcoreClient.DeleteNeighborNat(ctx, &dpdkproto.DeleteNeighborNatRequest{
-		NatIp:   api.NetIPAddrToProtoIpAddress(*neigbhorNat.NatIP),
+		NatIp:   api.NetIPAddrToProtoIpAddress(neigbhorNat.NatIP),
 		Vni:     neigbhorNat.Spec.Vni,
 		MinPort: neigbhorNat.Spec.MinPort,
 		MaxPort: neigbhorNat.Spec.MaxPort,
@@ -871,6 +877,8 @@ func (c *client) CreateFirewallRule(ctx context.Context, fwRule *api.FirewallRul
 		return &api.FirewallRule{}, fmt.Errorf("traffic direction can be only: Ingress = 0/Egress = 1")
 	}
 
+	fwRuleSrcPrefixAddr := fwRule.Spec.SourcePrefix.Addr()
+	fwRuleDstPrefixAddr := fwRule.Spec.DestinationPrefix.Addr()
 	req := dpdkproto.CreateFirewallRuleRequest{
 		InterfaceId: []byte(fwRule.FirewallRuleMeta.InterfaceID),
 		Rule: &dpdkproto.FirewallRule{
@@ -879,11 +887,11 @@ func (c *client) CreateFirewallRule(ctx context.Context, fwRule *api.FirewallRul
 			Action:    dpdkproto.FirewallAction(action),
 			Priority:  fwRule.Spec.Priority,
 			SourcePrefix: &dpdkproto.Prefix{
-				Ip:     api.NetIPAddrToProtoIpAddress(fwRule.Spec.SourcePrefix.Addr()),
+				Ip:     api.NetIPAddrToProtoIpAddress(&fwRuleSrcPrefixAddr),
 				Length: uint32(fwRule.Spec.SourcePrefix.Bits()),
 			},
 			DestinationPrefix: &dpdkproto.Prefix{
-				Ip:     api.NetIPAddrToProtoIpAddress(fwRule.Spec.DestinationPrefix.Addr()),
+				Ip:     api.NetIPAddrToProtoIpAddress(&fwRuleDstPrefixAddr),
 				Length: uint32(fwRule.Spec.DestinationPrefix.Bits()),
 			},
 			ProtocolFilter: fwRule.Spec.ProtocolFilter,
@@ -1060,7 +1068,7 @@ func (c *client) CaptureStart(ctx context.Context, capture *api.CaptureStart, ig
 
 	res, err := c.DPDKironcoreClient.CaptureStart(ctx, &dpdkproto.CaptureStartRequest{
 		CaptureConfig: &dpdkproto.CaptureConfig{
-			SinkNodeIp: api.NetIPAddrToProtoIpAddress(*capture.CaptureStartMeta.Config.SinkNodeIP),
+			SinkNodeIp: api.NetIPAddrToProtoIpAddress(capture.CaptureStartMeta.Config.SinkNodeIP),
 			UdpSrcPort: capture.CaptureStartMeta.Config.UdpSrcPort,
 			UdpDstPort: capture.CaptureStartMeta.Config.UdpDstPort,
 			Interfaces: interfaces,
