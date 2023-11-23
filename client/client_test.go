@@ -827,12 +827,12 @@ var _ = Describe("negative interface related tests", Label("negative"), func() {
 				Device: "net_tap4",
 			},
 		}
-		_, err := dpdkClient.CreateInterface(ctx, &iface, errors.Ignore(errors.ALREADY_EXISTS))
+		_, err := dpdkClient.CreateInterface(ctx, &iface)
 		Expect(err).ToNot(HaveOccurred())
 
 		// Deletes the network interface after spec is completed
 		DeferCleanup(func(ctx SpecContext) {
-			_, err := dpdkClient.DeleteInterface(ctx, negativeTestIfaceID, errors.Ignore(errors.NOT_FOUND))
+			_, err := dpdkClient.DeleteInterface(ctx, negativeTestIfaceID)
 			Expect(err).ToNot(HaveOccurred())
 		})
 	})
@@ -842,375 +842,341 @@ var _ = Describe("negative interface related tests", Label("negative"), func() {
 		var err error
 
 		It("should not create", func() {
-			By("using non-existent interfaceID")
+			By("not defining IP prefix")
 			prefix := api.Prefix{
 				PrefixMeta: api.PrefixMeta{
-					InterfaceID: "xxx",
+					InterfaceID: negativeTestIfaceID,
 				},
-				Spec: api.PrefixSpec{
-					Prefix: netip.MustParsePrefix("10.20.30.0/24"),
-				},
+				Spec: api.PrefixSpec{},
 			}
 
+			res, err = dpdkClient.CreatePrefix(ctx, &prefix)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid prefix.ip"))
+
+			By("not defining InterfaceID")
+			prefix.InterfaceID = ""
+			prefix.Spec.Prefix = netip.MustParsePrefix("10.20.30.0/24")
+			res, err = dpdkClient.CreatePrefix(ctx, &prefix)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid interface_id"))
+
+			By("using non-existent interfaceID")
+			prefix.InterfaceID = "xxx"
 			res, err = dpdkClient.CreatePrefix(ctx, &prefix)
 			Expect(err).To(HaveOccurred())
 			Expect(res.InterfaceID).To(Equal("xxx"))
 			Expect(res.Status.Code).To(Equal(uint32(errors.NO_VM)))
 		})
+	})
 
-		/*It("should not be created when already existing", func() {
+	Context("When using lbprefix functions", Label("lbprefix"), Ordered, func() {
+		var res *api.LoadBalancerPrefix
+		var err error
 
+		It("should not create", func() {
+			By("not defining IP prefix")
+			lbprefix := api.LoadBalancerPrefix{
+				LoadBalancerPrefixMeta: api.LoadBalancerPrefixMeta{
+					InterfaceID: negativeTestIfaceID,
+				},
+				Spec: api.LoadBalancerPrefixSpec{},
+			}
+
+			_, err = dpdkClient.CreateLoadBalancerPrefix(ctx, &lbprefix)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid prefix.ip"))
+
+			By("not defining InterfaceID")
+			lbprefix.InterfaceID = ""
+			lbprefix.Spec.Prefix = netip.MustParsePrefix("10.10.10.0/24")
+			_, err = dpdkClient.CreateLoadBalancerPrefix(ctx, &lbprefix)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid interface_id"))
+
+			By("using non-existent interfaceID")
+			lbprefix.InterfaceID = "xxx"
+			res, err = dpdkClient.CreateLoadBalancerPrefix(ctx, &lbprefix)
+			Expect(err).To(HaveOccurred())
+			Expect(res.InterfaceID).To(Equal("xxx"))
+			Expect(res.Status.Code).To(Equal(uint32(errors.NO_VM)))
+		})
+	})
+
+	Context("When using virtualIP functions", Label("vip"), Ordered, func() {
+		var res *api.VirtualIP
+		var err error
+
+		It("should not create", func() {
+			By("not defining IP")
+			vip := api.VirtualIP{
+				VirtualIPMeta: api.VirtualIPMeta{
+					InterfaceID: negativeTestIfaceID,
+				},
+				Spec: api.VirtualIPSpec{},
+			}
+			_, err = dpdkClient.CreateVirtualIP(ctx, &vip)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid vip_ip"))
+
+			By("not defining InterfaceID")
+			ip := netip.MustParseAddr("20.20.20.20")
+			vip.Spec.IP = &ip
+			vip.InterfaceID = ""
+			_, err = dpdkClient.CreateVirtualIP(ctx, &vip)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid interface_id"))
+
+			By("using non-existent interfaceID")
+			vip.InterfaceID = "xxx"
+			res, err = dpdkClient.CreateVirtualIP(ctx, &vip)
+			Expect(err).To(HaveOccurred())
+			Expect(res.InterfaceID).To(Equal("xxx"))
+			Expect(res.Status.Code).To(Equal(uint32(errors.NO_VM)))
+		})
+	})
+
+	Context("When using nat functions", Label("nat", "test"), Ordered, func() {
+		var res *api.Nat
+		var err error
+
+		It("should not create", func() {
+			By("not defining port range")
+			ip := netip.MustParseAddr("10.20.30.40")
+			nat := api.Nat{
+				NatMeta: api.NatMeta{
+					InterfaceID: negativeTestIfaceID,
+				},
+				Spec: api.NatSpec{
+					NatIP: &ip,
+				},
+			}
+
+			_, err = dpdkClient.CreateNat(ctx, &nat)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid port range"))
+
+			By("not defining InterfaceID")
+			nat.Spec.MinPort = 30000
+			nat.Spec.MaxPort = 31000
+			nat.NatMeta = api.NatMeta{}
+			_, err = dpdkClient.CreateNat(ctx, &nat)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid interface_id"))
+
+			By("MaxPort out of range")
+			nat.Spec.MaxPort = 75000
+			nat.InterfaceID = negativeTestIfaceID
+			_, err = dpdkClient.CreateNat(ctx, &nat)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid max_port"))
+
+			By("MaxPort < MinPort")
+			nat.Spec.MinPort = 31000
+			nat.Spec.MaxPort = 30000
+			_, err = dpdkClient.CreateNat(ctx, &nat)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid port range"))
+
+			By("not defining IP")
+			nat.Spec.NatIP = nil
+			_, err = dpdkClient.CreateNat(ctx, &nat)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid nat_ip"))
+
+			By("using non-existent interfaceID")
+			nat.Spec.NatIP = &ip
+			nat.InterfaceID = "xxx"
+			nat.Spec.MinPort = 30000
+			nat.Spec.MaxPort = 31000
+			res, err = dpdkClient.CreateNat(ctx, &nat)
+			Expect(err).To(HaveOccurred())
+			Expect(res.InterfaceID).To(Equal("xxx"))
+			Expect(res.Status.Code).To(Equal(uint32(errors.NO_VM)))
+		})
+	})
+	/*
+		Context("When using neighbor nat functions", Label("neighbornat"), Ordered, func() {
+			var res *api.NeighborNat
+			var err error
+
+			It("should create successfully", func() {
+				natIp := netip.MustParseAddr("10.20.30.40")
+				underlayRoute := netip.MustParseAddr("ff80::1")
+				neighborNat := api.NeighborNat{
+					NeighborNatMeta: api.NeighborNatMeta{
+						NatIP: &natIp,
+					},
+					Spec: api.NeighborNatSpec{
+						Vni:           100,
+						MinPort:       30000,
+						MaxPort:       30100,
+						UnderlayRoute: &underlayRoute,
+					},
+				}
+
+				res, err = dpdkClient.CreateNeighborNat(ctx, &neighborNat)
+				Expect(err).ToNot(HaveOccurred())
+
+				Expect(res.NatIP.String()).To(Equal("10.20.30.40"))
+				Expect(res.Spec.Vni).To(Equal(uint32(100)))
+			})
+
+			It("should not be created when already existing", func() {
+				res, err := dpdkClient.CreateNeighborNat(ctx, res)
+				Expect(err).To(HaveOccurred())
+
+				Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
+			})
+
+			It("should list successfully", func() {
+				neighborNats, err := dpdkClient.ListNeighborNats(ctx, res.NatIP)
+				Expect(err).ToNot(HaveOccurred())
+
+				Expect(len(neighborNats.Items)).To(Equal(1))
+				// TODO: items kind should be NeighborNat
+				Expect(neighborNats.Items[0].Kind).To(Equal(api.NatKind))
+				Expect(neighborNats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
+			})
+
+			It("should list Nats successfully", func() {
+				nats, err := dpdkClient.ListNats(ctx, res.NatIP, "any")
+				Expect(err).ToNot(HaveOccurred())
+
+				Expect(len(nats.Items)).To(Equal(1))
+				Expect(nats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
+			})
+
+			It("should delete successfully", func() {
+				res, err = dpdkClient.DeleteNeighborNat(ctx, res)
+				Expect(err).ToNot(HaveOccurred())
+
+				neighborNats, err := dpdkClient.ListNeighborNats(ctx, res.NatIP)
+				Expect(err).ToNot(HaveOccurred())
+				Expect(len(neighborNats.Items)).To(Equal(0))
+			})
 		})
 
-				It("should list successfully", func() {
-					prefixes, err := dpdkClient.ListPrefixes(ctx, negativeTestIfaceID)
-					Expect(err).ToNot(HaveOccurred())
+		Context("When using route functions", Label("route"), Ordered, func() {
+			var res *api.Route
+			var err error
 
-					Expect(len(prefixes.Items)).To(Equal(1))
-					Expect(prefixes.Items[0].Kind).To(Equal("Prefix"))
-				})
+			It("should create successfully", func() {
+				prefix := netip.MustParsePrefix("10.100.3.0/24")
+				nextHopIp := netip.MustParseAddr("fc00:2::64:0:1")
+				route := api.Route{
+					RouteMeta: api.RouteMeta{
+						VNI: 200,
+					},
+					Spec: api.RouteSpec{
+						Prefix: &prefix,
+						NextHop: &api.RouteNextHop{
+							VNI: 0,
+							IP:  &nextHopIp,
+						},
+					},
+				}
+				res, err = dpdkClient.CreateRoute(ctx, &route)
+				Expect(err).ToNot(HaveOccurred())
 
-				It("should delete successfully", func() {
-					res, err = dpdkClient.DeletePrefix(ctx, res.InterfaceID, &res.Spec.Prefix)
-					Expect(err).ToNot(HaveOccurred())
-
-					prefixes, err := dpdkClient.ListPrefixes(ctx, negativeTestIfaceID)
-					Expect(err).ToNot(HaveOccurred())
-					Expect(len(prefixes.Items)).To(Equal(0))
-				})
+				Expect(res.VNI).To(Equal(uint32(200)))
+				Expect(res.Spec.Prefix.String()).To(Equal("10.100.3.0/24"))
 			})
 
-			Context("When using lbprefix functions", Label("lbprefix"), Ordered, func() {
-				var res *api.LoadBalancerPrefix
-				var err error
+			It("should not be created when already existing", func() {
+				res, err := dpdkClient.CreateRoute(ctx, res)
+				Expect(err).To(HaveOccurred())
 
-				It("should create successfully", func() {
-					lbprefix := api.LoadBalancerPrefix{
-						LoadBalancerPrefixMeta: api.LoadBalancerPrefixMeta{
-							InterfaceID: negativeTestIfaceID,
-						},
-						Spec: api.LoadBalancerPrefixSpec{
-							Prefix: netip.MustParsePrefix("10.10.10.0/24"),
-						},
-					}
-
-					res, err = dpdkClient.CreateLoadBalancerPrefix(ctx, &lbprefix)
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(res.InterfaceID).To(Equal(negativeTestIfaceID))
-					Expect(res.Spec.Prefix.String()).To(Equal("10.10.10.0/24"))
-				})
-
-				It("should not be created when already existing", func() {
-					res, err := dpdkClient.CreateLoadBalancerPrefix(ctx, res)
-					Expect(err).To(HaveOccurred())
-
-					Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
-				})
-
-				It("should list successfully", func() {
-					lbprefixes, err := dpdkClient.ListLoadBalancerPrefixes(ctx, negativeTestIfaceID)
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(len(lbprefixes.Items)).To(Equal(1))
-					Expect(lbprefixes.Items[0].Kind).To(Equal("LoadBalancerPrefix"))
-				})
-
-				It("should delete successfully", func() {
-					res, err = dpdkClient.DeleteLoadBalancerPrefix(ctx, res.InterfaceID, &res.Spec.Prefix)
-					Expect(err).ToNot(HaveOccurred())
-
-					lbprefixes, err := dpdkClient.ListLoadBalancerPrefixes(ctx, negativeTestIfaceID)
-					Expect(err).ToNot(HaveOccurred())
-					Expect(len(lbprefixes.Items)).To(Equal(0))
-				})
+				Expect(res.Status.Code).To(Equal(uint32(errors.ROUTE_EXISTS)))
 			})
 
-			Context("When using virtualIP functions", Label("vip"), Ordered, func() {
-				var res *api.VirtualIP
-				var err error
+			It("should list successfully", func() {
+				routes, err := dpdkClient.ListRoutes(ctx, 200)
+				Expect(err).ToNot(HaveOccurred())
 
-				It("should create successfully", func() {
-					ip := netip.MustParseAddr("20.20.20.20")
-					vip := api.VirtualIP{
-						VirtualIPMeta: api.VirtualIPMeta{
-							InterfaceID: negativeTestIfaceID,
-						},
-						Spec: api.VirtualIPSpec{
-							IP: &ip,
-						},
-					}
-
-					res, err = dpdkClient.CreateVirtualIP(ctx, &vip)
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(res.InterfaceID).To(Equal(negativeTestIfaceID))
-					Expect(res.Spec.IP.String()).To(Equal("20.20.20.20"))
-				})
-
-				It("should not be created when already existing", func() {
-					res, err := dpdkClient.CreateVirtualIP(ctx, res)
-					Expect(err).To(HaveOccurred())
-
-					Expect(res.Status.Code).To(Equal(uint32(errors.SNAT_EXISTS)))
-				})
-
-				It("should get successfully", func() {
-					res, err = dpdkClient.GetVirtualIP(ctx, negativeTestIfaceID)
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(res.InterfaceID).To(Equal(negativeTestIfaceID))
-					Expect(res.Spec.UnderlayRoute).ToNot(BeNil())
-				})
-
-				It("should delete successfully", func() {
-					res, err = dpdkClient.DeleteVirtualIP(ctx, res.InterfaceID)
-					Expect(err).ToNot(HaveOccurred())
-
-					res, err = dpdkClient.GetVirtualIP(ctx, negativeTestIfaceID)
-					Expect(err).To(HaveOccurred())
-				})
+				Expect(len(routes.Items)).To(Equal(1))
+				Expect(routes.Items[0].Kind).To(Equal(api.RouteKind))
 			})
 
-			Context("When using nat functions", Label("nat"), Ordered, func() {
-				var res *api.Nat
-				var err error
+			It("should delete successfully", func() {
+				res, err = dpdkClient.DeleteRoute(ctx, res.VNI, res.Spec.Prefix)
+				Expect(err).ToNot(HaveOccurred())
 
-				It("should create successfully", func() {
-					ip := netip.MustParseAddr("10.20.30.40")
-					nat := api.Nat{
-						NatMeta: api.NatMeta{
-							InterfaceID: negativeTestIfaceID,
-						},
-						Spec: api.NatSpec{
-							NatIP:   &ip,
-							MinPort: 30000,
-							MaxPort: 30100,
-						},
-					}
-
-					res, err = dpdkClient.CreateNat(ctx, &nat)
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(res.InterfaceID).To(Equal(negativeTestIfaceID))
-					Expect(res.Spec.NatIP.String()).To(Equal("10.20.30.40"))
-				})
-
-				It("should not be created when already existing", func() {
-					res, err := dpdkClient.CreateNat(ctx, res)
-					Expect(err).To(HaveOccurred())
-
-					Expect(res.Status.Code).To(Equal(uint32(errors.SNAT_EXISTS)))
-				})
-
-				It("should get successfully", func() {
-					res, err = dpdkClient.GetNat(ctx, negativeTestIfaceID)
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(res.InterfaceID).To(Equal(negativeTestIfaceID))
-					Expect(res.Spec.UnderlayRoute).ToNot(BeNil())
-					Expect(res.Spec.MinPort).To(Equal(uint32(30000)))
-				})
-
-				It("should list localNats successfully", func() {
-					localNats, err := dpdkClient.ListLocalNats(ctx, res.Spec.NatIP)
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(len(localNats.Items)).To(Equal(1))
-					Expect(localNats.Items[0].Kind).To(Equal(api.NatKind))
-					Expect(localNats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
-				})
-
-				It("should delete successfully", func() {
-					res, err = dpdkClient.DeleteNat(ctx, res.InterfaceID)
-					Expect(err).ToNot(HaveOccurred())
-
-					res, err = dpdkClient.GetNat(ctx, negativeTestIfaceID)
-					Expect(err).To(HaveOccurred())
-				})
+				routes, err := dpdkClient.ListRoutes(ctx, 200)
+				Expect(err).ToNot(HaveOccurred())
+				Expect(len(routes.Items)).To(Equal(0))
 			})
+		})
 
-			Context("When using neighbor nat functions", Label("neighbornat"), Ordered, func() {
-				var res *api.NeighborNat
-				var err error
+		Context("When using firewall rule functions", Label("fwrule"), Ordered, func() {
+			var res *api.FirewallRule
+			var err error
 
-				It("should create successfully", func() {
-					natIp := netip.MustParseAddr("10.20.30.40")
-					underlayRoute := netip.MustParseAddr("ff80::1")
-					neighborNat := api.NeighborNat{
-						NeighborNatMeta: api.NeighborNatMeta{
-							NatIP: &natIp,
-						},
-						Spec: api.NeighborNatSpec{
-							Vni:           100,
-							MinPort:       30000,
-							MaxPort:       30100,
-							UnderlayRoute: &underlayRoute,
-						},
-					}
-
-					res, err = dpdkClient.CreateNeighborNat(ctx, &neighborNat)
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(res.NatIP.String()).To(Equal("10.20.30.40"))
-					Expect(res.Spec.Vni).To(Equal(uint32(100)))
-				})
-
-				It("should not be created when already existing", func() {
-					res, err := dpdkClient.CreateNeighborNat(ctx, res)
-					Expect(err).To(HaveOccurred())
-
-					Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
-				})
-
-				It("should list successfully", func() {
-					neighborNats, err := dpdkClient.ListNeighborNats(ctx, res.NatIP)
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(len(neighborNats.Items)).To(Equal(1))
-					// TODO: items kind should be NeighborNat
-					Expect(neighborNats.Items[0].Kind).To(Equal(api.NatKind))
-					Expect(neighborNats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
-				})
-
-				It("should list Nats successfully", func() {
-					nats, err := dpdkClient.ListNats(ctx, res.NatIP, "any")
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(len(nats.Items)).To(Equal(1))
-					Expect(nats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
-				})
-
-				It("should delete successfully", func() {
-					res, err = dpdkClient.DeleteNeighborNat(ctx, res)
-					Expect(err).ToNot(HaveOccurred())
-
-					neighborNats, err := dpdkClient.ListNeighborNats(ctx, res.NatIP)
-					Expect(err).ToNot(HaveOccurred())
-					Expect(len(neighborNats.Items)).To(Equal(0))
-				})
-			})
-
-			Context("When using route functions", Label("route"), Ordered, func() {
-				var res *api.Route
-				var err error
-
-				It("should create successfully", func() {
-					prefix := netip.MustParsePrefix("10.100.3.0/24")
-					nextHopIp := netip.MustParseAddr("fc00:2::64:0:1")
-					route := api.Route{
-						RouteMeta: api.RouteMeta{
-							VNI: 200,
-						},
-						Spec: api.RouteSpec{
-							Prefix: &prefix,
-							NextHop: &api.RouteNextHop{
-								VNI: 0,
-								IP:  &nextHopIp,
-							},
-						},
-					}
-					res, err = dpdkClient.CreateRoute(ctx, &route)
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(res.VNI).To(Equal(uint32(200)))
-					Expect(res.Spec.Prefix.String()).To(Equal("10.100.3.0/24"))
-				})
-
-				It("should not be created when already existing", func() {
-					res, err := dpdkClient.CreateRoute(ctx, res)
-					Expect(err).To(HaveOccurred())
-
-					Expect(res.Status.Code).To(Equal(uint32(errors.ROUTE_EXISTS)))
-				})
-
-				It("should list successfully", func() {
-					routes, err := dpdkClient.ListRoutes(ctx, 200)
-					Expect(err).ToNot(HaveOccurred())
-
-					Expect(len(routes.Items)).To(Equal(1))
-					Expect(routes.Items[0].Kind).To(Equal(api.RouteKind))
-				})
-
-				It("should delete successfully", func() {
-					res, err = dpdkClient.DeleteRoute(ctx, res.VNI, res.Spec.Prefix)
-					Expect(err).ToNot(HaveOccurred())
-
-					routes, err := dpdkClient.ListRoutes(ctx, 200)
-					Expect(err).ToNot(HaveOccurred())
-					Expect(len(routes.Items)).To(Equal(0))
-				})
-			})
-
-			Context("When using firewall rule functions", Label("fwrule"), Ordered, func() {
-				var res *api.FirewallRule
-				var err error
-
-				It("should create successfully", func() {
-					src := netip.MustParsePrefix("1.1.1.1/32")
-					dst := netip.MustParsePrefix("5.5.5.0/24")
-					fwRule := api.FirewallRule{
-						FirewallRuleMeta: api.FirewallRuleMeta{
-							InterfaceID: negativeTestIfaceID,
-						},
-						Spec: api.FirewallRuleSpec{
-							RuleID:            "Rule1",
-							TrafficDirection:  "ingress",
-							FirewallAction:    "accept",
-							Priority:          1000,
-							SourcePrefix:      &src,
-							DestinationPrefix: &dst,
-							ProtocolFilter: &dpdkproto.ProtocolFilter{
-								Filter: &dpdkproto.ProtocolFilter_Tcp{
-									Tcp: &dpdkproto.TcpFilter{
-										SrcPortLower: 1,
-										SrcPortUpper: 65535,
-										DstPortLower: 500,
-										DstPortUpper: 600,
-									},
+			It("should create successfully", func() {
+				src := netip.MustParsePrefix("1.1.1.1/32")
+				dst := netip.MustParsePrefix("5.5.5.0/24")
+				fwRule := api.FirewallRule{
+					FirewallRuleMeta: api.FirewallRuleMeta{
+						InterfaceID: negativeTestIfaceID,
+					},
+					Spec: api.FirewallRuleSpec{
+						RuleID:            "Rule1",
+						TrafficDirection:  "ingress",
+						FirewallAction:    "accept",
+						Priority:          1000,
+						SourcePrefix:      &src,
+						DestinationPrefix: &dst,
+						ProtocolFilter: &dpdkproto.ProtocolFilter{
+							Filter: &dpdkproto.ProtocolFilter_Tcp{
+								Tcp: &dpdkproto.TcpFilter{
+									SrcPortLower: 1,
+									SrcPortUpper: 65535,
+									DstPortLower: 500,
+									DstPortUpper: 600,
 								},
 							},
 						},
-					}
+					},
+				}
 
-					res, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
-					Expect(err).ToNot(HaveOccurred())
+				res, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+				Expect(err).ToNot(HaveOccurred())
 
-					Expect(res.InterfaceID).To(Equal(negativeTestIfaceID))
-					Expect(res.Spec.RuleID).To(Equal("Rule1"))
-				})
+				Expect(res.InterfaceID).To(Equal(negativeTestIfaceID))
+				Expect(res.Spec.RuleID).To(Equal("Rule1"))
+			})
 
-				It("should not be created when already existing", func() {
-					res, err := dpdkClient.CreateFirewallRule(ctx, res)
-					Expect(err).To(HaveOccurred())
+			It("should not be created when already existing", func() {
+				res, err := dpdkClient.CreateFirewallRule(ctx, res)
+				Expect(err).To(HaveOccurred())
 
-					Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
-				})
+				Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
+			})
 
-				It("should get successfully", func() {
-					res, err = dpdkClient.GetFirewallRule(ctx, res.InterfaceID, "Rule1")
-					Expect(err).ToNot(HaveOccurred())
+			It("should get successfully", func() {
+				res, err = dpdkClient.GetFirewallRule(ctx, res.InterfaceID, "Rule1")
+				Expect(err).ToNot(HaveOccurred())
 
-					Expect(res.Spec.TrafficDirection).To(Equal("Ingress"))
-					Expect(res.Spec.SourcePrefix.String()).To(Equal("1.1.1.1/32"))
-				})
+				Expect(res.Spec.TrafficDirection).To(Equal("Ingress"))
+				Expect(res.Spec.SourcePrefix.String()).To(Equal("1.1.1.1/32"))
+			})
 
-				It("should list successfully", func() {
-					fwRules, err := dpdkClient.ListFirewallRules(ctx, res.InterfaceID)
-					Expect(err).ToNot(HaveOccurred())
+			It("should list successfully", func() {
+				fwRules, err := dpdkClient.ListFirewallRules(ctx, res.InterfaceID)
+				Expect(err).ToNot(HaveOccurred())
 
-					Expect(len(fwRules.Items)).To(Equal(1))
-					Expect(fwRules.Items[0].Kind).To(Equal(api.FirewallRuleKind))
-					Expect(fwRules.Items[0].Spec.Priority).To(Equal(uint32(1000)))
-				})
+				Expect(len(fwRules.Items)).To(Equal(1))
+				Expect(fwRules.Items[0].Kind).To(Equal(api.FirewallRuleKind))
+				Expect(fwRules.Items[0].Spec.Priority).To(Equal(uint32(1000)))
+			})
 
-				It("should delete successfully", func() {
-					res, err = dpdkClient.DeleteFirewallRule(ctx, res.InterfaceID, "Rule1")
-					Expect(err).ToNot(HaveOccurred())
+			It("should delete successfully", func() {
+				res, err = dpdkClient.DeleteFirewallRule(ctx, res.InterfaceID, "Rule1")
+				Expect(err).ToNot(HaveOccurred())
 
-					res, err = dpdkClient.GetFirewallRule(ctx, res.InterfaceID, "Rule1")
-					Expect(err).To(HaveOccurred())
-					Expect(res.Status.Code).To(Equal(uint32(errors.NOT_FOUND)))
-				})*/
-	})
+				res, err = dpdkClient.GetFirewallRule(ctx, res.InterfaceID, "Rule1")
+				Expect(err).To(HaveOccurred())
+				Expect(res.Status.Code).To(Equal(uint32(errors.NOT_FOUND)))
+			})
+	*/
 })
