@@ -26,7 +26,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	dpdkproto "github.com/onmetal/net-dpservice-go/proto"
+	dpdkproto "github.com/ironcore-dev/dpservice-go/proto"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -37,7 +37,7 @@ var (
 	ctxCancel       context.CancelFunc
 	ctxGrpc         context.Context
 	dpserviceAddr   string = "127.0.0.1:1337"
-	dpdkProtoClient dpdkproto.DPDKonmetalClient
+	dpdkProtoClient dpdkproto.DPDKironcoreClient
 	dpdkClient      Client
 )
 
@@ -59,7 +59,7 @@ var _ = BeforeSuite(func() {
 	conn, err := grpc.DialContext(ctxGrpc, dpserviceAddr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	Expect(err).NotTo(HaveOccurred())
 
-	dpdkProtoClient = dpdkproto.NewDPDKonmetalClient(conn)
+	dpdkProtoClient = dpdkproto.NewDPDKironcoreClient(conn)
 	dpdkClient = NewClient(dpdkProtoClient)
 
 	_, err = dpdkClient.Initialize(context.TODO())
