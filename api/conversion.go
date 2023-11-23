@@ -125,7 +125,11 @@ func ProtoInterfaceToInterface(dpdkIface *proto.Interface) (*Interface, error) {
 	}, nil
 }
 
-func NetIPAddrToProtoIpAddress(addr netip.Addr) *proto.IpAddress {
+func NetIPAddrToProtoIpAddress(addr *netip.Addr) *proto.IpAddress {
+	if addr == nil {
+		return nil
+	}
+
 	var ipver uint8
 	switch {
 	case addr.Is4():
