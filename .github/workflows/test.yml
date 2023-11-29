@@ -1,10 +1,7 @@
 name: test
 
 on:
-  ##push:
-  ##  branches:
-  ##    - feature/automated_testing
-  pull_request:
+  pull_request_target:
     types: [ assigned, opened, synchronize, reopened ]
     paths-ignore:
       - 'docs/**'
