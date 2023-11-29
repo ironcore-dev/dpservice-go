@@ -28,7 +28,9 @@ import (
 )
 
 const positiveTestIfaceID = "vm5"
+const positiveTestVNI = uint32(500)
 const negativeTestIfaceID = "vm4"
+const negativeTestVNI = uint32(400)
 
 var _ = Describe("interface", Label("interface"), func() {
 	ctx := context.TODO()
@@ -48,12 +50,12 @@ var _ = Describe("interface", Label("interface"), func() {
 				Spec: api.InterfaceSpec{
 					IPv4:   &ipv4,
 					IPv6:   &ipv6,
-					VNI:    500,
+					VNI:    positiveTestVNI,
 					Device: "net_tap5",
 				},
 			}
 
-			vni, err := dpdkClient.GetVni(ctx, 500, 0)
+			vni, err := dpdkClient.GetVni(ctx, positiveTestVNI, 0)
 			Expect(err).ToNot(HaveOccurred())
 
 			Expect(vni.Spec.InUse).To(BeFalse())
@@ -62,9 +64,9 @@ var _ = Describe("interface", Label("interface"), func() {
 			Expect(err).ToNot(HaveOccurred())
 
 			Expect(res.ID).To(Equal("vm5"))
-			Expect(res.Spec.VNI).To(Equal(uint32(500)))
+			Expect(res.Spec.VNI).To(Equal(positiveTestVNI))
 
-			vni, err = dpdkClient.GetVni(ctx, 500, 0)
+			vni, err = dpdkClient.GetVni(ctx, positiveTestVNI, 0)
 			Expect(err).ToNot(HaveOccurred())
 
 			Expect(vni.Spec.InUse).To(BeTrue())
@@ -126,7 +128,7 @@ var _ = Describe("interface related", func() {
 			Spec: api.InterfaceSpec{
 				IPv4:   &ipv4,
 				IPv6:   &ipv6,
-				VNI:    500,
+				VNI:    positiveTestVNI,
 				Device: "net_tap5",
 			},
 		}
@@ -432,7 +434,7 @@ var _ = Describe("interface related", func() {
 			nextHopIp := netip.MustParseAddr("fc00:2::64:0:1")
 			route = api.Route{
 				RouteMeta: api.RouteMeta{
-					VNI: 500,
+					VNI: positiveTestVNI,
 				},
 				Spec: api.RouteSpec{
 					Prefix: &prefix,
@@ -445,7 +447,7 @@ var _ = Describe("interface related", func() {
 			res, err = dpdkClient.CreateRoute(ctx, &route)
 			Expect(err).ToNot(HaveOccurred())
 
-			Expect(res.VNI).To(Equal(uint32(500)))
+			Expect(res.VNI).To(Equal(positiveTestVNI))
 			Expect(res.Spec.Prefix.String()).To(Equal("10.100.3.0/24"))
 		})
 
@@ -457,7 +459,7 @@ var _ = Describe("interface related", func() {
 		})
 
 		It("should list successfully", func() {
-			routes, err := dpdkClient.ListRoutes(ctx, 500)
+			routes, err := dpdkClient.ListRoutes(ctx, positiveTestVNI)
 			Expect(err).ToNot(HaveOccurred())
 
 			Expect(len(routes.Items)).To(Equal(1))
@@ -468,7 +470,7 @@ var _ = Describe("interface related", func() {
 			res, err = dpdkClient.DeleteRoute(ctx, route.VNI, route.Spec.Prefix)
 			Expect(err).ToNot(HaveOccurred())
 
-			routes, err := dpdkClient.ListRoutes(ctx, 500)
+			routes, err := dpdkClient.ListRoutes(ctx, positiveTestVNI)
 			Expect(err).ToNot(HaveOccurred())
 			Expect(len(routes.Items)).To(Equal(0))
 
@@ -635,7 +637,7 @@ var _ = Describe("loadbalancer related", func() {
 					ID: "lb2",
 				},
 				Spec: api.LoadBalancerSpec{
-					VNI:     500,
+					VNI:     positiveTestVNI,
 					LbVipIP: &lbVipIp,
 					Lbports: []api.LBPort{
 						{
@@ -765,7 +767,7 @@ var _ = Describe("negative interface tests", Label("negative"), func() {
 			Spec: api.InterfaceSpec{
 				IPv4:   &ipv4,
 				IPv6:   &ipv6,
-				VNI:    400,
+				VNI:    negativeTestVNI,
 				Device: "net_tap4",
 			},
 		}
@@ -823,7 +825,7 @@ var _ = Describe("negative interface related tests", Label("negative"), func() {
 			Spec: api.InterfaceSpec{
 				IPv4:   &ipv4,
 				IPv6:   &ipv6,
-				VNI:    400,
+				VNI:    negativeTestVNI,
 				Device: "net_tap4",
 			},
 		}
@@ -870,7 +872,7 @@ var _ = Describe("negative interface related tests", Label("negative"), func() {
 		})
 	})
 
-	Context("When using lbprefix functions", Label("lbprefix"), Ordered, func() {
+	Context("When using loadbalancerprefix functions", Label("lbprefix"), Ordered, func() {
 		var res *api.LoadBalancerPrefix
 		var err error
 
@@ -936,7 +938,7 @@ var _ = Describe("negative interface related tests", Label("negative"), func() {
 		})
 	})
 
-	Context("When using nat functions", Label("nat", "test"), Ordered, func() {
+	Context("When using nat functions", Label("nat"), Ordered, func() {
 		var res *api.Nat
 		var err error
 
@@ -995,188 +997,224 @@ var _ = Describe("negative interface related tests", Label("negative"), func() {
 			Expect(res.Status.Code).To(Equal(uint32(errors.NO_VM)))
 		})
 	})
-	/*
-		Context("When using neighbor nat functions", Label("neighbornat"), Ordered, func() {
-			var res *api.NeighborNat
-			var err error
 
-			It("should create successfully", func() {
-				natIp := netip.MustParseAddr("10.20.30.40")
-				underlayRoute := netip.MustParseAddr("ff80::1")
-				neighborNat := api.NeighborNat{
-					NeighborNatMeta: api.NeighborNatMeta{
-						NatIP: &natIp,
-					},
-					Spec: api.NeighborNatSpec{
-						Vni:           100,
-						MinPort:       30000,
-						MaxPort:       30100,
-						UnderlayRoute: &underlayRoute,
-					},
-				}
+	Context("When using neighbor nat functions", Label("neighbornat"), Ordered, func() {
+		var neighborNat api.NeighborNat
+		var err error
 
-				res, err = dpdkClient.CreateNeighborNat(ctx, &neighborNat)
-				Expect(err).ToNot(HaveOccurred())
+		It("should not create", func() {
+			By("not defining nat IP")
 
-				Expect(res.NatIP.String()).To(Equal("10.20.30.40"))
-				Expect(res.Spec.Vni).To(Equal(uint32(100)))
-			})
+			underlayRoute := netip.MustParseAddr("ff80::1")
+			neighborNat = api.NeighborNat{
+				NeighborNatMeta: api.NeighborNatMeta{},
+				Spec: api.NeighborNatSpec{
+					Vni:           100,
+					MinPort:       30000,
+					MaxPort:       30100,
+					UnderlayRoute: &underlayRoute,
+				},
+			}
 
-			It("should not be created when already existing", func() {
-				res, err := dpdkClient.CreateNeighborNat(ctx, res)
-				Expect(err).To(HaveOccurred())
+			_, err = dpdkClient.CreateNeighborNat(ctx, &neighborNat)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid nat_ip"))
 
-				Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
-			})
+			By("not defining UnderlayRoute")
+			neighborNat.Spec.UnderlayRoute = nil
+			_, err = dpdkClient.CreateNeighborNat(ctx, &neighborNat)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("underlayRoute needs to be specified"))
 
-			It("should list successfully", func() {
-				neighborNats, err := dpdkClient.ListNeighborNats(ctx, res.NatIP)
-				Expect(err).ToNot(HaveOccurred())
+			By("MaxPort < MinPort")
+			natIp := netip.MustParseAddr("10.20.30.40")
+			neighborNat.NatIP = &natIp
+			neighborNat.Spec.MinPort = 31000
+			neighborNat.Spec.MaxPort = 30000
+			neighborNat.Spec.UnderlayRoute = &underlayRoute
+			_, err = dpdkClient.CreateNeighborNat(ctx, &neighborNat)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid port range"))
 
-				Expect(len(neighborNats.Items)).To(Equal(1))
-				// TODO: items kind should be NeighborNat
-				Expect(neighborNats.Items[0].Kind).To(Equal(api.NatKind))
-				Expect(neighborNats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
-			})
-
-			It("should list Nats successfully", func() {
-				nats, err := dpdkClient.ListNats(ctx, res.NatIP, "any")
-				Expect(err).ToNot(HaveOccurred())
-
-				Expect(len(nats.Items)).To(Equal(1))
-				Expect(nats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
-			})
-
-			It("should delete successfully", func() {
-				res, err = dpdkClient.DeleteNeighborNat(ctx, res)
-				Expect(err).ToNot(HaveOccurred())
-
-				neighborNats, err := dpdkClient.ListNeighborNats(ctx, res.NatIP)
-				Expect(err).ToNot(HaveOccurred())
-				Expect(len(neighborNats.Items)).To(Equal(0))
-			})
+			By("not defining Spec")
+			neighborNat.Spec = api.NeighborNatSpec{}
+			_, err = dpdkClient.CreateNeighborNat(ctx, &neighborNat)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("underlayRoute needs to be specified"))
 		})
+	})
 
-		Context("When using route functions", Label("route"), Ordered, func() {
-			var res *api.Route
-			var err error
+	Context("When using route functions", Label("route"), Ordered, func() {
+		var route api.Route
+		var res *api.Route
+		var err error
 
-			It("should create successfully", func() {
-				prefix := netip.MustParsePrefix("10.100.3.0/24")
-				nextHopIp := netip.MustParseAddr("fc00:2::64:0:1")
-				route := api.Route{
-					RouteMeta: api.RouteMeta{
-						VNI: 200,
+		It("should not create", func() {
+			By("not defining VNI")
+			prefix := netip.MustParsePrefix("10.100.3.0/24")
+			nextHopIp := netip.MustParseAddr("fc00:2::64:0:1")
+			route = api.Route{
+				RouteMeta: api.RouteMeta{},
+				Spec: api.RouteSpec{
+					Prefix: &prefix,
+					NextHop: &api.RouteNextHop{
+						VNI: 0,
+						IP:  &nextHopIp,
 					},
-					Spec: api.RouteSpec{
-						Prefix: &prefix,
-						NextHop: &api.RouteNextHop{
-							VNI: 0,
-							IP:  &nextHopIp,
-						},
-					},
-				}
-				res, err = dpdkClient.CreateRoute(ctx, &route)
-				Expect(err).ToNot(HaveOccurred())
+				},
+			}
+			res, err = dpdkClient.CreateRoute(ctx, &route)
+			Expect(err).To(HaveOccurred())
+			Expect(res.Status.Code).To(Equal(uint32(errors.NO_VNI)))
 
-				Expect(res.VNI).To(Equal(uint32(200)))
-				Expect(res.Spec.Prefix.String()).To(Equal("10.100.3.0/24"))
-			})
+			By("not defining prefix")
+			route.VNI = negativeTestVNI
+			route.Spec.Prefix = nil
+			_, err = dpdkClient.CreateRoute(ctx, &route)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("prefix needs to be specified"))
 
-			It("should not be created when already existing", func() {
-				res, err := dpdkClient.CreateRoute(ctx, res)
-				Expect(err).To(HaveOccurred())
+			By("not defining nexthop ip")
+			route.Spec.Prefix = &prefix
+			route.Spec.NextHop.IP = nil
+			_, err = dpdkClient.CreateRoute(ctx, &route)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid route.nexthop_address"))
 
-				Expect(res.Status.Code).To(Equal(uint32(errors.ROUTE_EXISTS)))
-			})
-
-			It("should list successfully", func() {
-				routes, err := dpdkClient.ListRoutes(ctx, 200)
-				Expect(err).ToNot(HaveOccurred())
-
-				Expect(len(routes.Items)).To(Equal(1))
-				Expect(routes.Items[0].Kind).To(Equal(api.RouteKind))
-			})
-
-			It("should delete successfully", func() {
-				res, err = dpdkClient.DeleteRoute(ctx, res.VNI, res.Spec.Prefix)
-				Expect(err).ToNot(HaveOccurred())
-
-				routes, err := dpdkClient.ListRoutes(ctx, 200)
-				Expect(err).ToNot(HaveOccurred())
-				Expect(len(routes.Items)).To(Equal(0))
-			})
+			By("not defining nexthop")
+			route.Spec.NextHop = nil
+			_, err = dpdkClient.CreateRoute(ctx, &route)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("nextHop needs to be specified"))
 		})
+	})
 
-		Context("When using firewall rule functions", Label("fwrule"), Ordered, func() {
-			var res *api.FirewallRule
-			var err error
+	Context("When using firewall rule functions", Label("fwrule"), Ordered, func() {
+		var fwRule api.FirewallRule
+		var err error
 
-			It("should create successfully", func() {
-				src := netip.MustParsePrefix("1.1.1.1/32")
-				dst := netip.MustParsePrefix("5.5.5.0/24")
-				fwRule := api.FirewallRule{
-					FirewallRuleMeta: api.FirewallRuleMeta{
-						InterfaceID: negativeTestIfaceID,
-					},
-					Spec: api.FirewallRuleSpec{
-						RuleID:            "Rule1",
-						TrafficDirection:  "ingress",
-						FirewallAction:    "accept",
-						Priority:          1000,
-						SourcePrefix:      &src,
-						DestinationPrefix: &dst,
-						ProtocolFilter: &dpdkproto.ProtocolFilter{
-							Filter: &dpdkproto.ProtocolFilter_Tcp{
-								Tcp: &dpdkproto.TcpFilter{
-									SrcPortLower: 1,
-									SrcPortUpper: 65535,
-									DstPortLower: 500,
-									DstPortUpper: 600,
-								},
+		It("should not create", func() {
+			By("not defining InterfaceID")
+			src := netip.MustParsePrefix("1.1.1.1/32")
+			dst := netip.MustParsePrefix("5.5.5.0/24")
+			fwRule = api.FirewallRule{
+				FirewallRuleMeta: api.FirewallRuleMeta{},
+				Spec: api.FirewallRuleSpec{
+					RuleID:            "Rule1",
+					TrafficDirection:  "ingress",
+					FirewallAction:    "accept",
+					Priority:          1000,
+					SourcePrefix:      &src,
+					DestinationPrefix: &dst,
+					ProtocolFilter: &dpdkproto.ProtocolFilter{
+						Filter: &dpdkproto.ProtocolFilter_Tcp{
+							Tcp: &dpdkproto.TcpFilter{
+								SrcPortLower: 1,
+								SrcPortUpper: 65535,
+								DstPortLower: 500,
+								DstPortUpper: 600,
 							},
 						},
 					},
-				}
+				},
+			}
 
-				res, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
-				Expect(err).ToNot(HaveOccurred())
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid interface_id"))
 
-				Expect(res.InterfaceID).To(Equal(negativeTestIfaceID))
-				Expect(res.Spec.RuleID).To(Equal("Rule1"))
-			})
+			By("empty ruleID")
+			fwRule.InterfaceID = negativeTestIfaceID
+			fwRule.Spec.RuleID = ""
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid rule id"))
 
-			It("should not be created when already existing", func() {
-				res, err := dpdkClient.CreateFirewallRule(ctx, res)
-				Expect(err).To(HaveOccurred())
+			By("wrong traffic direction")
+			fwRule.Spec.RuleID = "Rule1"
+			fwRule.Spec.TrafficDirection = "xxx"
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("traffic direction can be only: Ingress = 0/Egress = 1"))
 
-				Expect(res.Status.Code).To(Equal(uint32(errors.ALREADY_EXISTS)))
-			})
+			By("wrong fw action")
+			fwRule.Spec.TrafficDirection = "ingress"
+			fwRule.Spec.FirewallAction = "xxx"
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("firewall action can be only: drop/deny/0|accept/allow/1"))
 
-			It("should get successfully", func() {
-				res, err = dpdkClient.GetFirewallRule(ctx, res.InterfaceID, "Rule1")
-				Expect(err).ToNot(HaveOccurred())
+			By("not defining src prefix")
+			fwRule.Spec.FirewallAction = "accept"
+			fwRule.Spec.SourcePrefix = nil
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("source prefix needs to be specified"))
 
-				Expect(res.Spec.TrafficDirection).To(Equal("Ingress"))
-				Expect(res.Spec.SourcePrefix.String()).To(Equal("1.1.1.1/32"))
-			})
+			By("not defining dst prefix")
+			fwRule.Spec.SourcePrefix = &src
+			fwRule.Spec.DestinationPrefix = nil
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("destination prefix needs to be specified"))
 
-			It("should list successfully", func() {
-				fwRules, err := dpdkClient.ListFirewallRules(ctx, res.InterfaceID)
-				Expect(err).ToNot(HaveOccurred())
+			By("srcportlower out of range")
+			fwRule.Spec.DestinationPrefix = &dst
+			fwRule.Spec.ProtocolFilter.Filter = &dpdkproto.ProtocolFilter_Tcp{
+				Tcp: &dpdkproto.TcpFilter{
+					SrcPortLower: -5,
+				},
+			}
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid tcp.src_port_lower"))
 
-				Expect(len(fwRules.Items)).To(Equal(1))
-				Expect(fwRules.Items[0].Kind).To(Equal(api.FirewallRuleKind))
-				Expect(fwRules.Items[0].Spec.Priority).To(Equal(uint32(1000)))
-			})
+			By("srcportupper out of range")
+			fwRule.Spec.ProtocolFilter.Filter = &dpdkproto.ProtocolFilter_Tcp{
+				Tcp: &dpdkproto.TcpFilter{
+					SrcPortUpper: 75000,
+				},
+			}
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid tcp.src_port_upper"))
 
-			It("should delete successfully", func() {
-				res, err = dpdkClient.DeleteFirewallRule(ctx, res.InterfaceID, "Rule1")
-				Expect(err).ToNot(HaveOccurred())
+			By("dstportupper > dstportlower")
+			fwRule.Spec.ProtocolFilter.Filter = &dpdkproto.ProtocolFilter_Udp{
+				Udp: &dpdkproto.UdpFilter{
+					DstPortLower: 500,
+					DstPortUpper: 400,
+				},
+			}
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid udp.dst_port range"))
 
-				res, err = dpdkClient.GetFirewallRule(ctx, res.InterfaceID, "Rule1")
-				Expect(err).To(HaveOccurred())
-				Expect(res.Status.Code).To(Equal(uint32(errors.NOT_FOUND)))
-			})
-	*/
+			By("icmpType out of range")
+			fwRule.Spec.ProtocolFilter.Filter = &dpdkproto.ProtocolFilter_Icmp{
+				Icmp: &dpdkproto.IcmpFilter{
+					IcmpType: -5,
+				},
+			}
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid icmp.icmp_type"))
+
+			By("icmpCode out of range")
+			fwRule.Spec.ProtocolFilter.Filter = &dpdkproto.ProtocolFilter_Icmp{
+				Icmp: &dpdkproto.IcmpFilter{
+					IcmpCode: 400,
+				},
+			}
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid icmp.icmp_code"))
+
+			By("not defining spec")
+			fwRule.Spec = api.FirewallRuleSpec{}
+			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("firewall action can be only: drop/deny/0|accept/allow/1"))
+		})
+	})
 })
