@@ -1,6 +1,9 @@
 name: Pull Request Code test
 
 on:
+  push:
+    branches:
+      - feature/automated_testing
   pull_request_target:
     types: [ assigned, opened, synchronize, reopened ]
     paths-ignore:
@@ -12,10 +15,18 @@ jobs:
     name: run
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Run dp-service
+        run: docker run --rm --entrypoint ./dp_service.py --privileged -p1337:1337 --mount type=bind,source=/dev/hugepages,target=/dev/hugepages ghcr.io/onmetal/dp-service-tester --no-init &
+     
       - uses: actions/setup-go@v4
         with:
-          go-version: '1.19'
+          go-version-file: go.mod
       - run: make test
+      - name: Cleanup services
+        if: always()
+        run: |
+          for i in $(docker ps -q); do docker stop $i; done
