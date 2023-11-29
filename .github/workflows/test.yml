@@ -19,12 +19,14 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Setup Go Environment
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: 'go.mod'
+
       - name: Run dp-service
         run: docker run --rm --entrypoint ./dp_service.py --privileged -p1337:1337 --mount type=bind,source=/dev/hugepages,target=/dev/hugepages ghcr.io/onmetal/dp-service-tester --no-init &
 
-      - uses: actions/setup-go@v4
-        with:
-          go-version-file: go.mod
       - run: make test
       - name: Cleanup services
         if: always()
