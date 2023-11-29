@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - feature/automated_testing
-  pull_request:
+  pull_request_target:
+
     types: [ assigned, opened, synchronize, reopened ]
     paths-ignore:
       - 'docs/**'
@@ -22,11 +23,14 @@ jobs:
       - name: Run dp-service
         run: docker run --rm --entrypoint ./dp_service.py --privileged -p1337:1337 --mount type=bind,source=/dev/hugepages,target=/dev/hugepages ghcr.io/onmetal/dp-service-tester --no-init &
 
-      - name: Setup Go Environment
-        uses: actions/setup-go@v4
+      - uses: actions/setup-go@v4
         with:
-          go-version-file: 'go.mod'
+          go-version-file: go.mo
       - run: make test
+      - name: Cleanup services
+        if: always()
+        run: |
+          for i in $(docker ps -q); do docker stop $i; done
       - name: Cleanup services
         if: always()
         run: |
