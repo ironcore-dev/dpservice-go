@@ -558,7 +558,14 @@ func (c *client) DeletePrefix(ctx context.Context, interfaceID string, prefix *n
 }
 
 func (c *client) CreateRoute(ctx context.Context, route *api.Route, ignoredErrors ...[]uint32) (*api.Route, error) {
+	if route.Spec.Prefix == nil {
+		return nil, fmt.Errorf("prefix needs to be specified")
+	}
 	routePrefixAddr := route.Spec.Prefix.Addr()
+
+	if route.Spec.NextHop == nil {
+		return nil, fmt.Errorf("nextHop needs to be specified")
+	}
 	res, err := c.DPDKonmetalClient.CreateRoute(ctx, &dpdkproto.CreateRouteRequest{
 		Vni: route.VNI,
 		Route: &dpdkproto.Route{
@@ -711,7 +718,9 @@ func (c *client) ListLocalNats(ctx context.Context, natIP *netip.Addr, ignoredEr
 }
 
 func (c *client) CreateNeighborNat(ctx context.Context, nNat *api.NeighborNat, ignoredErrors ...[]uint32) (*api.NeighborNat, error) {
-
+	if nNat.Spec.UnderlayRoute == nil {
+		return nil, fmt.Errorf("underlayRoute needs to be specified")
+	}
 	res, err := c.DPDKonmetalClient.CreateNeighborNat(ctx, &dpdkproto.CreateNeighborNatRequest{
 		NatIp:         api.NetIPAddrToProtoIpAddress(nNat.NatIP),
 		Vni:           nNat.Spec.Vni,
@@ -888,7 +897,13 @@ func (c *client) CreateFirewallRule(ctx context.Context, fwRule *api.FirewallRul
 		return &api.FirewallRule{}, fmt.Errorf("traffic direction can be only: Ingress = 0/Egress = 1")
 	}
 
+	if fwRule.Spec.SourcePrefix == nil {
+		return nil, fmt.Errorf("source prefix needs to be specified")
+	}
 	fwRuleSrcPrefixAddr := fwRule.Spec.SourcePrefix.Addr()
+	if fwRule.Spec.DestinationPrefix == nil {
+		return nil, fmt.Errorf("destination prefix needs to be specified")
+	}
 	fwRuleDstPrefixAddr := fwRule.Spec.DestinationPrefix.Addr()
 	req := dpdkproto.CreateFirewallRuleRequest{
 		InterfaceId: []byte(fwRule.FirewallRuleMeta.InterfaceID),
