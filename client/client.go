@@ -547,7 +547,6 @@ func (c *client) DeletePrefix(ctx context.Context, interfaceID string, prefix *n
 }
 
 func (c *client) CreateRoute(ctx context.Context, route *api.Route, ignoredErrors ...[]uint32) (*api.Route, error) {
-
 	if route.Spec.Prefix == nil {
 		return nil, fmt.Errorf("prefix needs to be specified")
 	}
