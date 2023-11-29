@@ -32,3 +32,7 @@ jobs:
         if: always()
         run: |
           for i in $(docker ps -q); do docker stop $i; done
+      - name: Cleanup services
+        if: always()
+        run: |
+          for i in $(docker ps -q); do docker stop $i; done
