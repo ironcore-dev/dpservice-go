@@ -457,7 +457,7 @@ type IpAddress struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Ipver   IpVersion `protobuf:"varint,1,opt,name=ipver,proto3,enum=dpdkonmetal.v1.IpVersion" json:"ipver,omitempty"`
+	Ipver   IpVersion `protobuf:"varint,1,opt,name=ipver,proto3,enum=dpdkironcore.v1.IpVersion" json:"ipver,omitempty"`
 	Address []byte    `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"` // holds 4 bytes (IpVersion::IPV4) or 16 bytes (IpVersion::IPV6)
 }
 
@@ -845,7 +845,7 @@ type LbPort struct {
 	unknownFields protoimpl.UnknownFields
 
 	Port     uint32   `protobuf:"varint,1,opt,name=port,proto3" json:"port,omitempty"`
-	Protocol Protocol `protobuf:"varint,2,opt,name=protocol,proto3,enum=dpdkonmetal.v1.Protocol" json:"protocol,omitempty"`
+	Protocol Protocol `protobuf:"varint,2,opt,name=protocol,proto3,enum=dpdkironcore.v1.Protocol" json:"protocol,omitempty"`
 }
 
 func (x *LbPort) Reset() {
@@ -1349,8 +1349,8 @@ type FirewallRule struct {
 	unknownFields protoimpl.UnknownFields
 
 	Id                []byte           `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Direction         TrafficDirection `protobuf:"varint,2,opt,name=direction,proto3,enum=dpdkonmetal.v1.TrafficDirection" json:"direction,omitempty"`
-	Action            FirewallAction   `protobuf:"varint,3,opt,name=action,proto3,enum=dpdkonmetal.v1.FirewallAction" json:"action,omitempty"`            // Can be only "accept" at the moment.
+	Direction         TrafficDirection `protobuf:"varint,2,opt,name=direction,proto3,enum=dpdkironcore.v1.TrafficDirection" json:"direction,omitempty"`
+	Action            FirewallAction   `protobuf:"varint,3,opt,name=action,proto3,enum=dpdkironcore.v1.FirewallAction" json:"action,omitempty"`            // Can be only "accept" at the moment.
 	Priority          uint32           `protobuf:"varint,4,opt,name=priority,proto3" json:"priority,omitempty"`                                           // For future use. No effect at the moment.
 	SourcePrefix      *Prefix          `protobuf:"bytes,5,opt,name=source_prefix,json=sourcePrefix,proto3" json:"source_prefix,omitempty"`                // 0.0.0.0 with prefix length 0 matches all source ips
 	DestinationPrefix *Prefix          `protobuf:"bytes,6,opt,name=destination_prefix,json=destinationPrefix,proto3" json:"destination_prefix,omitempty"` // 0.0.0.0 with prefix length 0 matches all destination ips
@@ -1955,7 +1955,7 @@ type CreateInterfaceRequest struct {
 	// Both instance types cannot be mixed during a session.
 	// Maximum number of instantiated bare metal interfaces is 1.
 	// Maximum number of Virtual Interfaces is not defined.
-	InterfaceType InterfaceType `protobuf:"varint,1,opt,name=interface_type,json=interfaceType,proto3,enum=dpdkonmetal.v1.InterfaceType" json:"interface_type,omitempty"`
+	InterfaceType InterfaceType `protobuf:"varint,1,opt,name=interface_type,json=interfaceType,proto3,enum=dpdkironcore.v1.InterfaceType" json:"interface_type,omitempty"`
 	InterfaceId   []byte        `protobuf:"bytes,2,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
 	Vni           uint32        `protobuf:"varint,3,opt,name=vni,proto3" json:"vni,omitempty"`
 	Ipv4Config    *IpConfig     `protobuf:"bytes,4,opt,name=ipv4_config,json=ipv4Config,proto3" json:"ipv4_config,omitempty"`
@@ -4903,7 +4903,7 @@ type CheckVniInUseRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	Vni  uint32  `protobuf:"varint,1,opt,name=vni,proto3" json:"vni,omitempty"`
-	Type VniType `protobuf:"varint,2,opt,name=type,proto3,enum=dpdkonmetal.v1.VniType" json:"type,omitempty"`
+	Type VniType `protobuf:"varint,2,opt,name=type,proto3,enum=dpdkironcore.v1.VniType" json:"type,omitempty"`
 }
 
 func (x *CheckVniInUseRequest) Reset() {
@@ -5013,7 +5013,7 @@ type ResetVniRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	Vni  uint32  `protobuf:"varint,1,opt,name=vni,proto3" json:"vni,omitempty"`
-	Type VniType `protobuf:"varint,2,opt,name=type,proto3,enum=dpdkonmetal.v1.VniType" json:"type,omitempty"`
+	Type VniType `protobuf:"varint,2,opt,name=type,proto3,enum=dpdkironcore.v1.VniType" json:"type,omitempty"`
 }
 
 func (x *ResetVniRequest) Reset() {
@@ -5538,7 +5538,7 @@ type CapturedInterface struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	InterfaceType CaptureInterfaceType `protobuf:"varint,1,opt,name=interface_type,json=interfaceType,proto3,enum=dpdkonmetal.v1.CaptureInterfaceType" json:"interface_type,omitempty"`
+	InterfaceType CaptureInterfaceType `protobuf:"varint,1,opt,name=interface_type,json=interfaceType,proto3,enum=dpdkironcore.v1.CaptureInterfaceType" json:"interface_type,omitempty"`
 	Filter        []byte               `protobuf:"bytes,2,opt,name=filter,proto3" json:"filter,omitempty"`
 	// Types that are assignable to Spec:
 	//
@@ -6978,295 +6978,295 @@ func file_proto_dpdk_proto_rawDescGZIP() []byte {
 var file_proto_dpdk_proto_enumTypes = make([]protoimpl.EnumInfo, 7)
 var file_proto_dpdk_proto_msgTypes = make([]protoimpl.MessageInfo, 100)
 var file_proto_dpdk_proto_goTypes = []interface{}{
-	(InterfaceType)(0),                       // 0: dpdkonmetal.v1.InterfaceType
-	(IpVersion)(0),                           // 1: dpdkonmetal.v1.IpVersion
-	(Protocol)(0),                            // 2: dpdkonmetal.v1.Protocol
-	(TrafficDirection)(0),                    // 3: dpdkonmetal.v1.TrafficDirection
-	(FirewallAction)(0),                      // 4: dpdkonmetal.v1.FirewallAction
-	(VniType)(0),                             // 5: dpdkonmetal.v1.VniType
-	(CaptureInterfaceType)(0),                // 6: dpdkonmetal.v1.CaptureInterfaceType
-	(*Empty)(nil),                            // 7: dpdkonmetal.v1.Empty
-	(*Status)(nil),                           // 8: dpdkonmetal.v1.Status
-	(*IpAddress)(nil),                        // 9: dpdkonmetal.v1.IpAddress
-	(*Prefix)(nil),                           // 10: dpdkonmetal.v1.Prefix
-	(*Interface)(nil),                        // 11: dpdkonmetal.v1.Interface
-	(*IpConfig)(nil),                         // 12: dpdkonmetal.v1.IpConfig
-	(*PxeConfig)(nil),                        // 13: dpdkonmetal.v1.PxeConfig
-	(*VirtualFunction)(nil),                  // 14: dpdkonmetal.v1.VirtualFunction
-	(*LbPort)(nil),                           // 15: dpdkonmetal.v1.LbPort
-	(*NatEntry)(nil),                         // 16: dpdkonmetal.v1.NatEntry
-	(*Route)(nil),                            // 17: dpdkonmetal.v1.Route
-	(*IcmpFilter)(nil),                       // 18: dpdkonmetal.v1.IcmpFilter
-	(*TcpFilter)(nil),                        // 19: dpdkonmetal.v1.TcpFilter
-	(*UdpFilter)(nil),                        // 20: dpdkonmetal.v1.UdpFilter
-	(*ProtocolFilter)(nil),                   // 21: dpdkonmetal.v1.ProtocolFilter
-	(*FirewallRule)(nil),                     // 22: dpdkonmetal.v1.FirewallRule
-	(*CheckInitializedRequest)(nil),          // 23: dpdkonmetal.v1.CheckInitializedRequest
-	(*CheckInitializedResponse)(nil),         // 24: dpdkonmetal.v1.CheckInitializedResponse
-	(*InitializeRequest)(nil),                // 25: dpdkonmetal.v1.InitializeRequest
-	(*InitializeResponse)(nil),               // 26: dpdkonmetal.v1.InitializeResponse
-	(*GetVersionRequest)(nil),                // 27: dpdkonmetal.v1.GetVersionRequest
-	(*GetVersionResponse)(nil),               // 28: dpdkonmetal.v1.GetVersionResponse
-	(*ListInterfacesRequest)(nil),            // 29: dpdkonmetal.v1.ListInterfacesRequest
-	(*ListInterfacesResponse)(nil),           // 30: dpdkonmetal.v1.ListInterfacesResponse
-	(*GetInterfaceRequest)(nil),              // 31: dpdkonmetal.v1.GetInterfaceRequest
-	(*GetInterfaceResponse)(nil),             // 32: dpdkonmetal.v1.GetInterfaceResponse
-	(*CreateInterfaceRequest)(nil),           // 33: dpdkonmetal.v1.CreateInterfaceRequest
-	(*CreateInterfaceResponse)(nil),          // 34: dpdkonmetal.v1.CreateInterfaceResponse
-	(*DeleteInterfaceRequest)(nil),           // 35: dpdkonmetal.v1.DeleteInterfaceRequest
-	(*DeleteInterfaceResponse)(nil),          // 36: dpdkonmetal.v1.DeleteInterfaceResponse
-	(*ListPrefixesRequest)(nil),              // 37: dpdkonmetal.v1.ListPrefixesRequest
-	(*ListPrefixesResponse)(nil),             // 38: dpdkonmetal.v1.ListPrefixesResponse
-	(*CreatePrefixRequest)(nil),              // 39: dpdkonmetal.v1.CreatePrefixRequest
-	(*CreatePrefixResponse)(nil),             // 40: dpdkonmetal.v1.CreatePrefixResponse
-	(*DeletePrefixRequest)(nil),              // 41: dpdkonmetal.v1.DeletePrefixRequest
-	(*DeletePrefixResponse)(nil),             // 42: dpdkonmetal.v1.DeletePrefixResponse
-	(*ListLoadBalancerPrefixesRequest)(nil),  // 43: dpdkonmetal.v1.ListLoadBalancerPrefixesRequest
-	(*ListLoadBalancerPrefixesResponse)(nil), // 44: dpdkonmetal.v1.ListLoadBalancerPrefixesResponse
-	(*CreateLoadBalancerPrefixRequest)(nil),  // 45: dpdkonmetal.v1.CreateLoadBalancerPrefixRequest
-	(*CreateLoadBalancerPrefixResponse)(nil), // 46: dpdkonmetal.v1.CreateLoadBalancerPrefixResponse
-	(*DeleteLoadBalancerPrefixRequest)(nil),  // 47: dpdkonmetal.v1.DeleteLoadBalancerPrefixRequest
-	(*DeleteLoadBalancerPrefixResponse)(nil), // 48: dpdkonmetal.v1.DeleteLoadBalancerPrefixResponse
-	(*CreateVipRequest)(nil),                 // 49: dpdkonmetal.v1.CreateVipRequest
-	(*CreateVipResponse)(nil),                // 50: dpdkonmetal.v1.CreateVipResponse
-	(*GetVipRequest)(nil),                    // 51: dpdkonmetal.v1.GetVipRequest
-	(*GetVipResponse)(nil),                   // 52: dpdkonmetal.v1.GetVipResponse
-	(*DeleteVipRequest)(nil),                 // 53: dpdkonmetal.v1.DeleteVipRequest
-	(*DeleteVipResponse)(nil),                // 54: dpdkonmetal.v1.DeleteVipResponse
-	(*CreateLoadBalancerRequest)(nil),        // 55: dpdkonmetal.v1.CreateLoadBalancerRequest
-	(*CreateLoadBalancerResponse)(nil),       // 56: dpdkonmetal.v1.CreateLoadBalancerResponse
-	(*GetLoadBalancerRequest)(nil),           // 57: dpdkonmetal.v1.GetLoadBalancerRequest
-	(*GetLoadBalancerResponse)(nil),          // 58: dpdkonmetal.v1.GetLoadBalancerResponse
-	(*DeleteLoadBalancerRequest)(nil),        // 59: dpdkonmetal.v1.DeleteLoadBalancerRequest
-	(*DeleteLoadBalancerResponse)(nil),       // 60: dpdkonmetal.v1.DeleteLoadBalancerResponse
-	(*CreateLoadBalancerTargetRequest)(nil),  // 61: dpdkonmetal.v1.CreateLoadBalancerTargetRequest
-	(*CreateLoadBalancerTargetResponse)(nil), // 62: dpdkonmetal.v1.CreateLoadBalancerTargetResponse
-	(*ListLoadBalancerTargetsRequest)(nil),   // 63: dpdkonmetal.v1.ListLoadBalancerTargetsRequest
-	(*ListLoadBalancerTargetsResponse)(nil),  // 64: dpdkonmetal.v1.ListLoadBalancerTargetsResponse
-	(*DeleteLoadBalancerTargetRequest)(nil),  // 65: dpdkonmetal.v1.DeleteLoadBalancerTargetRequest
-	(*DeleteLoadBalancerTargetResponse)(nil), // 66: dpdkonmetal.v1.DeleteLoadBalancerTargetResponse
-	(*CreateNatRequest)(nil),                 // 67: dpdkonmetal.v1.CreateNatRequest
-	(*CreateNatResponse)(nil),                // 68: dpdkonmetal.v1.CreateNatResponse
-	(*GetNatRequest)(nil),                    // 69: dpdkonmetal.v1.GetNatRequest
-	(*GetNatResponse)(nil),                   // 70: dpdkonmetal.v1.GetNatResponse
-	(*DeleteNatRequest)(nil),                 // 71: dpdkonmetal.v1.DeleteNatRequest
-	(*DeleteNatResponse)(nil),                // 72: dpdkonmetal.v1.DeleteNatResponse
-	(*CreateNeighborNatRequest)(nil),         // 73: dpdkonmetal.v1.CreateNeighborNatRequest
-	(*CreateNeighborNatResponse)(nil),        // 74: dpdkonmetal.v1.CreateNeighborNatResponse
-	(*DeleteNeighborNatRequest)(nil),         // 75: dpdkonmetal.v1.DeleteNeighborNatRequest
-	(*DeleteNeighborNatResponse)(nil),        // 76: dpdkonmetal.v1.DeleteNeighborNatResponse
-	(*ListLocalNatsRequest)(nil),             // 77: dpdkonmetal.v1.ListLocalNatsRequest
-	(*ListLocalNatsResponse)(nil),            // 78: dpdkonmetal.v1.ListLocalNatsResponse
-	(*ListNeighborNatsRequest)(nil),          // 79: dpdkonmetal.v1.ListNeighborNatsRequest
-	(*ListNeighborNatsResponse)(nil),         // 80: dpdkonmetal.v1.ListNeighborNatsResponse
-	(*ListRoutesRequest)(nil),                // 81: dpdkonmetal.v1.ListRoutesRequest
-	(*ListRoutesResponse)(nil),               // 82: dpdkonmetal.v1.ListRoutesResponse
-	(*CreateRouteRequest)(nil),               // 83: dpdkonmetal.v1.CreateRouteRequest
-	(*CreateRouteResponse)(nil),              // 84: dpdkonmetal.v1.CreateRouteResponse
-	(*DeleteRouteRequest)(nil),               // 85: dpdkonmetal.v1.DeleteRouteRequest
-	(*DeleteRouteResponse)(nil),              // 86: dpdkonmetal.v1.DeleteRouteResponse
-	(*CheckVniInUseRequest)(nil),             // 87: dpdkonmetal.v1.CheckVniInUseRequest
-	(*CheckVniInUseResponse)(nil),            // 88: dpdkonmetal.v1.CheckVniInUseResponse
-	(*ResetVniRequest)(nil),                  // 89: dpdkonmetal.v1.ResetVniRequest
-	(*ResetVniResponse)(nil),                 // 90: dpdkonmetal.v1.ResetVniResponse
-	(*ListFirewallRulesRequest)(nil),         // 91: dpdkonmetal.v1.ListFirewallRulesRequest
-	(*ListFirewallRulesResponse)(nil),        // 92: dpdkonmetal.v1.ListFirewallRulesResponse
-	(*CreateFirewallRuleRequest)(nil),        // 93: dpdkonmetal.v1.CreateFirewallRuleRequest
-	(*CreateFirewallRuleResponse)(nil),       // 94: dpdkonmetal.v1.CreateFirewallRuleResponse
-	(*GetFirewallRuleRequest)(nil),           // 95: dpdkonmetal.v1.GetFirewallRuleRequest
-	(*GetFirewallRuleResponse)(nil),          // 96: dpdkonmetal.v1.GetFirewallRuleResponse
-	(*DeleteFirewallRuleRequest)(nil),        // 97: dpdkonmetal.v1.DeleteFirewallRuleRequest
-	(*DeleteFirewallRuleResponse)(nil),       // 98: dpdkonmetal.v1.DeleteFirewallRuleResponse
-	(*CapturedInterface)(nil),                // 99: dpdkonmetal.v1.CapturedInterface
-	(*CaptureConfig)(nil),                    // 100: dpdkonmetal.v1.CaptureConfig
-	(*CaptureStartRequest)(nil),              // 101: dpdkonmetal.v1.CaptureStartRequest
-	(*CaptureStartResponse)(nil),             // 102: dpdkonmetal.v1.CaptureStartResponse
-	(*CaptureStopRequest)(nil),               // 103: dpdkonmetal.v1.CaptureStopRequest
-	(*CaptureStopResponse)(nil),              // 104: dpdkonmetal.v1.CaptureStopResponse
-	(*CaptureStatusRequest)(nil),             // 105: dpdkonmetal.v1.CaptureStatusRequest
-	(*CaptureStatusResponse)(nil),            // 106: dpdkonmetal.v1.CaptureStatusResponse
+	(InterfaceType)(0),                       // 0: dpdkironcore.v1.InterfaceType
+	(IpVersion)(0),                           // 1: dpdkironcore.v1.IpVersion
+	(Protocol)(0),                            // 2: dpdkironcore.v1.Protocol
+	(TrafficDirection)(0),                    // 3: dpdkironcore.v1.TrafficDirection
+	(FirewallAction)(0),                      // 4: dpdkironcore.v1.FirewallAction
+	(VniType)(0),                             // 5: dpdkironcore.v1.VniType
+	(CaptureInterfaceType)(0),                // 6: dpdkironcore.v1.CaptureInterfaceType
+	(*Empty)(nil),                            // 7: dpdkironcore.v1.Empty
+	(*Status)(nil),                           // 8: dpdkironcore.v1.Status
+	(*IpAddress)(nil),                        // 9: dpdkironcore.v1.IpAddress
+	(*Prefix)(nil),                           // 10: dpdkironcore.v1.Prefix
+	(*Interface)(nil),                        // 11: dpdkironcore.v1.Interface
+	(*IpConfig)(nil),                         // 12: dpdkironcore.v1.IpConfig
+	(*PxeConfig)(nil),                        // 13: dpdkironcore.v1.PxeConfig
+	(*VirtualFunction)(nil),                  // 14: dpdkironcore.v1.VirtualFunction
+	(*LbPort)(nil),                           // 15: dpdkironcore.v1.LbPort
+	(*NatEntry)(nil),                         // 16: dpdkironcore.v1.NatEntry
+	(*Route)(nil),                            // 17: dpdkironcore.v1.Route
+	(*IcmpFilter)(nil),                       // 18: dpdkironcore.v1.IcmpFilter
+	(*TcpFilter)(nil),                        // 19: dpdkironcore.v1.TcpFilter
+	(*UdpFilter)(nil),                        // 20: dpdkironcore.v1.UdpFilter
+	(*ProtocolFilter)(nil),                   // 21: dpdkironcore.v1.ProtocolFilter
+	(*FirewallRule)(nil),                     // 22: dpdkironcore.v1.FirewallRule
+	(*CheckInitializedRequest)(nil),          // 23: dpdkironcore.v1.CheckInitializedRequest
+	(*CheckInitializedResponse)(nil),         // 24: dpdkironcore.v1.CheckInitializedResponse
+	(*InitializeRequest)(nil),                // 25: dpdkironcore.v1.InitializeRequest
+	(*InitializeResponse)(nil),               // 26: dpdkironcore.v1.InitializeResponse
+	(*GetVersionRequest)(nil),                // 27: dpdkironcore.v1.GetVersionRequest
+	(*GetVersionResponse)(nil),               // 28: dpdkironcore.v1.GetVersionResponse
+	(*ListInterfacesRequest)(nil),            // 29: dpdkironcore.v1.ListInterfacesRequest
+	(*ListInterfacesResponse)(nil),           // 30: dpdkironcore.v1.ListInterfacesResponse
+	(*GetInterfaceRequest)(nil),              // 31: dpdkironcore.v1.GetInterfaceRequest
+	(*GetInterfaceResponse)(nil),             // 32: dpdkironcore.v1.GetInterfaceResponse
+	(*CreateInterfaceRequest)(nil),           // 33: dpdkironcore.v1.CreateInterfaceRequest
+	(*CreateInterfaceResponse)(nil),          // 34: dpdkironcore.v1.CreateInterfaceResponse
+	(*DeleteInterfaceRequest)(nil),           // 35: dpdkironcore.v1.DeleteInterfaceRequest
+	(*DeleteInterfaceResponse)(nil),          // 36: dpdkironcore.v1.DeleteInterfaceResponse
+	(*ListPrefixesRequest)(nil),              // 37: dpdkironcore.v1.ListPrefixesRequest
+	(*ListPrefixesResponse)(nil),             // 38: dpdkironcore.v1.ListPrefixesResponse
+	(*CreatePrefixRequest)(nil),              // 39: dpdkironcore.v1.CreatePrefixRequest
+	(*CreatePrefixResponse)(nil),             // 40: dpdkironcore.v1.CreatePrefixResponse
+	(*DeletePrefixRequest)(nil),              // 41: dpdkironcore.v1.DeletePrefixRequest
+	(*DeletePrefixResponse)(nil),             // 42: dpdkironcore.v1.DeletePrefixResponse
+	(*ListLoadBalancerPrefixesRequest)(nil),  // 43: dpdkironcore.v1.ListLoadBalancerPrefixesRequest
+	(*ListLoadBalancerPrefixesResponse)(nil), // 44: dpdkironcore.v1.ListLoadBalancerPrefixesResponse
+	(*CreateLoadBalancerPrefixRequest)(nil),  // 45: dpdkironcore.v1.CreateLoadBalancerPrefixRequest
+	(*CreateLoadBalancerPrefixResponse)(nil), // 46: dpdkironcore.v1.CreateLoadBalancerPrefixResponse
+	(*DeleteLoadBalancerPrefixRequest)(nil),  // 47: dpdkironcore.v1.DeleteLoadBalancerPrefixRequest
+	(*DeleteLoadBalancerPrefixResponse)(nil), // 48: dpdkironcore.v1.DeleteLoadBalancerPrefixResponse
+	(*CreateVipRequest)(nil),                 // 49: dpdkironcore.v1.CreateVipRequest
+	(*CreateVipResponse)(nil),                // 50: dpdkironcore.v1.CreateVipResponse
+	(*GetVipRequest)(nil),                    // 51: dpdkironcore.v1.GetVipRequest
+	(*GetVipResponse)(nil),                   // 52: dpdkironcore.v1.GetVipResponse
+	(*DeleteVipRequest)(nil),                 // 53: dpdkironcore.v1.DeleteVipRequest
+	(*DeleteVipResponse)(nil),                // 54: dpdkironcore.v1.DeleteVipResponse
+	(*CreateLoadBalancerRequest)(nil),        // 55: dpdkironcore.v1.CreateLoadBalancerRequest
+	(*CreateLoadBalancerResponse)(nil),       // 56: dpdkironcore.v1.CreateLoadBalancerResponse
+	(*GetLoadBalancerRequest)(nil),           // 57: dpdkironcore.v1.GetLoadBalancerRequest
+	(*GetLoadBalancerResponse)(nil),          // 58: dpdkironcore.v1.GetLoadBalancerResponse
+	(*DeleteLoadBalancerRequest)(nil),        // 59: dpdkironcore.v1.DeleteLoadBalancerRequest
+	(*DeleteLoadBalancerResponse)(nil),       // 60: dpdkironcore.v1.DeleteLoadBalancerResponse
+	(*CreateLoadBalancerTargetRequest)(nil),  // 61: dpdkironcore.v1.CreateLoadBalancerTargetRequest
+	(*CreateLoadBalancerTargetResponse)(nil), // 62: dpdkironcore.v1.CreateLoadBalancerTargetResponse
+	(*ListLoadBalancerTargetsRequest)(nil),   // 63: dpdkironcore.v1.ListLoadBalancerTargetsRequest
+	(*ListLoadBalancerTargetsResponse)(nil),  // 64: dpdkironcore.v1.ListLoadBalancerTargetsResponse
+	(*DeleteLoadBalancerTargetRequest)(nil),  // 65: dpdkironcore.v1.DeleteLoadBalancerTargetRequest
+	(*DeleteLoadBalancerTargetResponse)(nil), // 66: dpdkironcore.v1.DeleteLoadBalancerTargetResponse
+	(*CreateNatRequest)(nil),                 // 67: dpdkironcore.v1.CreateNatRequest
+	(*CreateNatResponse)(nil),                // 68: dpdkironcore.v1.CreateNatResponse
+	(*GetNatRequest)(nil),                    // 69: dpdkironcore.v1.GetNatRequest
+	(*GetNatResponse)(nil),                   // 70: dpdkironcore.v1.GetNatResponse
+	(*DeleteNatRequest)(nil),                 // 71: dpdkironcore.v1.DeleteNatRequest
+	(*DeleteNatResponse)(nil),                // 72: dpdkironcore.v1.DeleteNatResponse
+	(*CreateNeighborNatRequest)(nil),         // 73: dpdkironcore.v1.CreateNeighborNatRequest
+	(*CreateNeighborNatResponse)(nil),        // 74: dpdkironcore.v1.CreateNeighborNatResponse
+	(*DeleteNeighborNatRequest)(nil),         // 75: dpdkironcore.v1.DeleteNeighborNatRequest
+	(*DeleteNeighborNatResponse)(nil),        // 76: dpdkironcore.v1.DeleteNeighborNatResponse
+	(*ListLocalNatsRequest)(nil),             // 77: dpdkironcore.v1.ListLocalNatsRequest
+	(*ListLocalNatsResponse)(nil),            // 78: dpdkironcore.v1.ListLocalNatsResponse
+	(*ListNeighborNatsRequest)(nil),          // 79: dpdkironcore.v1.ListNeighborNatsRequest
+	(*ListNeighborNatsResponse)(nil),         // 80: dpdkironcore.v1.ListNeighborNatsResponse
+	(*ListRoutesRequest)(nil),                // 81: dpdkironcore.v1.ListRoutesRequest
+	(*ListRoutesResponse)(nil),               // 82: dpdkironcore.v1.ListRoutesResponse
+	(*CreateRouteRequest)(nil),               // 83: dpdkironcore.v1.CreateRouteRequest
+	(*CreateRouteResponse)(nil),              // 84: dpdkironcore.v1.CreateRouteResponse
+	(*DeleteRouteRequest)(nil),               // 85: dpdkironcore.v1.DeleteRouteRequest
+	(*DeleteRouteResponse)(nil),              // 86: dpdkironcore.v1.DeleteRouteResponse
+	(*CheckVniInUseRequest)(nil),             // 87: dpdkironcore.v1.CheckVniInUseRequest
+	(*CheckVniInUseResponse)(nil),            // 88: dpdkironcore.v1.CheckVniInUseResponse
+	(*ResetVniRequest)(nil),                  // 89: dpdkironcore.v1.ResetVniRequest
+	(*ResetVniResponse)(nil),                 // 90: dpdkironcore.v1.ResetVniResponse
+	(*ListFirewallRulesRequest)(nil),         // 91: dpdkironcore.v1.ListFirewallRulesRequest
+	(*ListFirewallRulesResponse)(nil),        // 92: dpdkironcore.v1.ListFirewallRulesResponse
+	(*CreateFirewallRuleRequest)(nil),        // 93: dpdkironcore.v1.CreateFirewallRuleRequest
+	(*CreateFirewallRuleResponse)(nil),       // 94: dpdkironcore.v1.CreateFirewallRuleResponse
+	(*GetFirewallRuleRequest)(nil),           // 95: dpdkironcore.v1.GetFirewallRuleRequest
+	(*GetFirewallRuleResponse)(nil),          // 96: dpdkironcore.v1.GetFirewallRuleResponse
+	(*DeleteFirewallRuleRequest)(nil),        // 97: dpdkironcore.v1.DeleteFirewallRuleRequest
+	(*DeleteFirewallRuleResponse)(nil),       // 98: dpdkironcore.v1.DeleteFirewallRuleResponse
+	(*CapturedInterface)(nil),                // 99: dpdkironcore.v1.CapturedInterface
+	(*CaptureConfig)(nil),                    // 100: dpdkironcore.v1.CaptureConfig
+	(*CaptureStartRequest)(nil),              // 101: dpdkironcore.v1.CaptureStartRequest
+	(*CaptureStartResponse)(nil),             // 102: dpdkironcore.v1.CaptureStartResponse
+	(*CaptureStopRequest)(nil),               // 103: dpdkironcore.v1.CaptureStopRequest
+	(*CaptureStopResponse)(nil),              // 104: dpdkironcore.v1.CaptureStopResponse
+	(*CaptureStatusRequest)(nil),             // 105: dpdkironcore.v1.CaptureStatusRequest
+	(*CaptureStatusResponse)(nil),            // 106: dpdkironcore.v1.CaptureStatusResponse
 }
 var file_proto_dpdk_proto_depIdxs = []int32{
-	1,   // 0: dpdkonmetal.v1.IpAddress.ipver:type_name -> dpdkonmetal.v1.IpVersion
-	9,   // 1: dpdkonmetal.v1.Prefix.ip:type_name -> dpdkonmetal.v1.IpAddress
-	2,   // 2: dpdkonmetal.v1.LbPort.protocol:type_name -> dpdkonmetal.v1.Protocol
-	9,   // 3: dpdkonmetal.v1.NatEntry.nat_ip:type_name -> dpdkonmetal.v1.IpAddress
-	10,  // 4: dpdkonmetal.v1.Route.prefix:type_name -> dpdkonmetal.v1.Prefix
-	9,   // 5: dpdkonmetal.v1.Route.nexthop_address:type_name -> dpdkonmetal.v1.IpAddress
-	18,  // 6: dpdkonmetal.v1.ProtocolFilter.icmp:type_name -> dpdkonmetal.v1.IcmpFilter
-	19,  // 7: dpdkonmetal.v1.ProtocolFilter.tcp:type_name -> dpdkonmetal.v1.TcpFilter
-	20,  // 8: dpdkonmetal.v1.ProtocolFilter.udp:type_name -> dpdkonmetal.v1.UdpFilter
-	3,   // 9: dpdkonmetal.v1.FirewallRule.direction:type_name -> dpdkonmetal.v1.TrafficDirection
-	4,   // 10: dpdkonmetal.v1.FirewallRule.action:type_name -> dpdkonmetal.v1.FirewallAction
-	10,  // 11: dpdkonmetal.v1.FirewallRule.source_prefix:type_name -> dpdkonmetal.v1.Prefix
-	10,  // 12: dpdkonmetal.v1.FirewallRule.destination_prefix:type_name -> dpdkonmetal.v1.Prefix
-	21,  // 13: dpdkonmetal.v1.FirewallRule.protocol_filter:type_name -> dpdkonmetal.v1.ProtocolFilter
-	8,   // 14: dpdkonmetal.v1.CheckInitializedResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 15: dpdkonmetal.v1.InitializeResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 16: dpdkonmetal.v1.GetVersionResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 17: dpdkonmetal.v1.ListInterfacesResponse.status:type_name -> dpdkonmetal.v1.Status
-	11,  // 18: dpdkonmetal.v1.ListInterfacesResponse.interfaces:type_name -> dpdkonmetal.v1.Interface
-	8,   // 19: dpdkonmetal.v1.GetInterfaceResponse.status:type_name -> dpdkonmetal.v1.Status
-	11,  // 20: dpdkonmetal.v1.GetInterfaceResponse.interface:type_name -> dpdkonmetal.v1.Interface
-	0,   // 21: dpdkonmetal.v1.CreateInterfaceRequest.interface_type:type_name -> dpdkonmetal.v1.InterfaceType
-	12,  // 22: dpdkonmetal.v1.CreateInterfaceRequest.ipv4_config:type_name -> dpdkonmetal.v1.IpConfig
-	12,  // 23: dpdkonmetal.v1.CreateInterfaceRequest.ipv6_config:type_name -> dpdkonmetal.v1.IpConfig
-	13,  // 24: dpdkonmetal.v1.CreateInterfaceRequest.pxe_config:type_name -> dpdkonmetal.v1.PxeConfig
-	8,   // 25: dpdkonmetal.v1.CreateInterfaceResponse.status:type_name -> dpdkonmetal.v1.Status
-	14,  // 26: dpdkonmetal.v1.CreateInterfaceResponse.vf:type_name -> dpdkonmetal.v1.VirtualFunction
-	8,   // 27: dpdkonmetal.v1.DeleteInterfaceResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 28: dpdkonmetal.v1.ListPrefixesResponse.status:type_name -> dpdkonmetal.v1.Status
-	10,  // 29: dpdkonmetal.v1.ListPrefixesResponse.prefixes:type_name -> dpdkonmetal.v1.Prefix
-	10,  // 30: dpdkonmetal.v1.CreatePrefixRequest.prefix:type_name -> dpdkonmetal.v1.Prefix
-	8,   // 31: dpdkonmetal.v1.CreatePrefixResponse.status:type_name -> dpdkonmetal.v1.Status
-	10,  // 32: dpdkonmetal.v1.DeletePrefixRequest.prefix:type_name -> dpdkonmetal.v1.Prefix
-	8,   // 33: dpdkonmetal.v1.DeletePrefixResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 34: dpdkonmetal.v1.ListLoadBalancerPrefixesResponse.status:type_name -> dpdkonmetal.v1.Status
-	10,  // 35: dpdkonmetal.v1.ListLoadBalancerPrefixesResponse.prefixes:type_name -> dpdkonmetal.v1.Prefix
-	10,  // 36: dpdkonmetal.v1.CreateLoadBalancerPrefixRequest.prefix:type_name -> dpdkonmetal.v1.Prefix
-	8,   // 37: dpdkonmetal.v1.CreateLoadBalancerPrefixResponse.status:type_name -> dpdkonmetal.v1.Status
-	10,  // 38: dpdkonmetal.v1.DeleteLoadBalancerPrefixRequest.prefix:type_name -> dpdkonmetal.v1.Prefix
-	8,   // 39: dpdkonmetal.v1.DeleteLoadBalancerPrefixResponse.status:type_name -> dpdkonmetal.v1.Status
-	9,   // 40: dpdkonmetal.v1.CreateVipRequest.vip_ip:type_name -> dpdkonmetal.v1.IpAddress
-	8,   // 41: dpdkonmetal.v1.CreateVipResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 42: dpdkonmetal.v1.GetVipResponse.status:type_name -> dpdkonmetal.v1.Status
-	9,   // 43: dpdkonmetal.v1.GetVipResponse.vip_ip:type_name -> dpdkonmetal.v1.IpAddress
-	8,   // 44: dpdkonmetal.v1.DeleteVipResponse.status:type_name -> dpdkonmetal.v1.Status
-	9,   // 45: dpdkonmetal.v1.CreateLoadBalancerRequest.loadbalanced_ip:type_name -> dpdkonmetal.v1.IpAddress
-	15,  // 46: dpdkonmetal.v1.CreateLoadBalancerRequest.loadbalanced_ports:type_name -> dpdkonmetal.v1.LbPort
-	8,   // 47: dpdkonmetal.v1.CreateLoadBalancerResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 48: dpdkonmetal.v1.GetLoadBalancerResponse.status:type_name -> dpdkonmetal.v1.Status
-	9,   // 49: dpdkonmetal.v1.GetLoadBalancerResponse.loadbalanced_ip:type_name -> dpdkonmetal.v1.IpAddress
-	15,  // 50: dpdkonmetal.v1.GetLoadBalancerResponse.loadbalanced_ports:type_name -> dpdkonmetal.v1.LbPort
-	8,   // 51: dpdkonmetal.v1.DeleteLoadBalancerResponse.status:type_name -> dpdkonmetal.v1.Status
-	9,   // 52: dpdkonmetal.v1.CreateLoadBalancerTargetRequest.target_ip:type_name -> dpdkonmetal.v1.IpAddress
-	8,   // 53: dpdkonmetal.v1.CreateLoadBalancerTargetResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 54: dpdkonmetal.v1.ListLoadBalancerTargetsResponse.status:type_name -> dpdkonmetal.v1.Status
-	9,   // 55: dpdkonmetal.v1.ListLoadBalancerTargetsResponse.target_ips:type_name -> dpdkonmetal.v1.IpAddress
-	9,   // 56: dpdkonmetal.v1.DeleteLoadBalancerTargetRequest.target_ip:type_name -> dpdkonmetal.v1.IpAddress
-	8,   // 57: dpdkonmetal.v1.DeleteLoadBalancerTargetResponse.status:type_name -> dpdkonmetal.v1.Status
-	9,   // 58: dpdkonmetal.v1.CreateNatRequest.nat_ip:type_name -> dpdkonmetal.v1.IpAddress
-	8,   // 59: dpdkonmetal.v1.CreateNatResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 60: dpdkonmetal.v1.GetNatResponse.status:type_name -> dpdkonmetal.v1.Status
-	9,   // 61: dpdkonmetal.v1.GetNatResponse.nat_ip:type_name -> dpdkonmetal.v1.IpAddress
-	8,   // 62: dpdkonmetal.v1.DeleteNatResponse.status:type_name -> dpdkonmetal.v1.Status
-	9,   // 63: dpdkonmetal.v1.CreateNeighborNatRequest.nat_ip:type_name -> dpdkonmetal.v1.IpAddress
-	8,   // 64: dpdkonmetal.v1.CreateNeighborNatResponse.status:type_name -> dpdkonmetal.v1.Status
-	9,   // 65: dpdkonmetal.v1.DeleteNeighborNatRequest.nat_ip:type_name -> dpdkonmetal.v1.IpAddress
-	8,   // 66: dpdkonmetal.v1.DeleteNeighborNatResponse.status:type_name -> dpdkonmetal.v1.Status
-	9,   // 67: dpdkonmetal.v1.ListLocalNatsRequest.nat_ip:type_name -> dpdkonmetal.v1.IpAddress
-	8,   // 68: dpdkonmetal.v1.ListLocalNatsResponse.status:type_name -> dpdkonmetal.v1.Status
-	16,  // 69: dpdkonmetal.v1.ListLocalNatsResponse.nat_entries:type_name -> dpdkonmetal.v1.NatEntry
-	9,   // 70: dpdkonmetal.v1.ListNeighborNatsRequest.nat_ip:type_name -> dpdkonmetal.v1.IpAddress
-	8,   // 71: dpdkonmetal.v1.ListNeighborNatsResponse.status:type_name -> dpdkonmetal.v1.Status
-	16,  // 72: dpdkonmetal.v1.ListNeighborNatsResponse.nat_entries:type_name -> dpdkonmetal.v1.NatEntry
-	8,   // 73: dpdkonmetal.v1.ListRoutesResponse.status:type_name -> dpdkonmetal.v1.Status
-	17,  // 74: dpdkonmetal.v1.ListRoutesResponse.routes:type_name -> dpdkonmetal.v1.Route
-	17,  // 75: dpdkonmetal.v1.CreateRouteRequest.route:type_name -> dpdkonmetal.v1.Route
-	8,   // 76: dpdkonmetal.v1.CreateRouteResponse.status:type_name -> dpdkonmetal.v1.Status
-	17,  // 77: dpdkonmetal.v1.DeleteRouteRequest.route:type_name -> dpdkonmetal.v1.Route
-	8,   // 78: dpdkonmetal.v1.DeleteRouteResponse.status:type_name -> dpdkonmetal.v1.Status
-	5,   // 79: dpdkonmetal.v1.CheckVniInUseRequest.type:type_name -> dpdkonmetal.v1.VniType
-	8,   // 80: dpdkonmetal.v1.CheckVniInUseResponse.status:type_name -> dpdkonmetal.v1.Status
-	5,   // 81: dpdkonmetal.v1.ResetVniRequest.type:type_name -> dpdkonmetal.v1.VniType
-	8,   // 82: dpdkonmetal.v1.ResetVniResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 83: dpdkonmetal.v1.ListFirewallRulesResponse.status:type_name -> dpdkonmetal.v1.Status
-	22,  // 84: dpdkonmetal.v1.ListFirewallRulesResponse.rules:type_name -> dpdkonmetal.v1.FirewallRule
-	22,  // 85: dpdkonmetal.v1.CreateFirewallRuleRequest.rule:type_name -> dpdkonmetal.v1.FirewallRule
-	8,   // 86: dpdkonmetal.v1.CreateFirewallRuleResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 87: dpdkonmetal.v1.GetFirewallRuleResponse.status:type_name -> dpdkonmetal.v1.Status
-	22,  // 88: dpdkonmetal.v1.GetFirewallRuleResponse.rule:type_name -> dpdkonmetal.v1.FirewallRule
-	8,   // 89: dpdkonmetal.v1.DeleteFirewallRuleResponse.status:type_name -> dpdkonmetal.v1.Status
-	6,   // 90: dpdkonmetal.v1.CapturedInterface.interface_type:type_name -> dpdkonmetal.v1.CaptureInterfaceType
-	9,   // 91: dpdkonmetal.v1.CaptureConfig.sink_node_ip:type_name -> dpdkonmetal.v1.IpAddress
-	99,  // 92: dpdkonmetal.v1.CaptureConfig.interfaces:type_name -> dpdkonmetal.v1.CapturedInterface
-	100, // 93: dpdkonmetal.v1.CaptureStartRequest.capture_config:type_name -> dpdkonmetal.v1.CaptureConfig
-	8,   // 94: dpdkonmetal.v1.CaptureStartResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 95: dpdkonmetal.v1.CaptureStopResponse.status:type_name -> dpdkonmetal.v1.Status
-	8,   // 96: dpdkonmetal.v1.CaptureStatusResponse.status:type_name -> dpdkonmetal.v1.Status
-	100, // 97: dpdkonmetal.v1.CaptureStatusResponse.capture_config:type_name -> dpdkonmetal.v1.CaptureConfig
-	23,  // 98: dpdkonmetal.v1.DPDKonmetal.CheckInitialized:input_type -> dpdkonmetal.v1.CheckInitializedRequest
-	25,  // 99: dpdkonmetal.v1.DPDKonmetal.Initialize:input_type -> dpdkonmetal.v1.InitializeRequest
-	27,  // 100: dpdkonmetal.v1.DPDKonmetal.GetVersion:input_type -> dpdkonmetal.v1.GetVersionRequest
-	29,  // 101: dpdkonmetal.v1.DPDKonmetal.ListInterfaces:input_type -> dpdkonmetal.v1.ListInterfacesRequest
-	31,  // 102: dpdkonmetal.v1.DPDKonmetal.GetInterface:input_type -> dpdkonmetal.v1.GetInterfaceRequest
-	33,  // 103: dpdkonmetal.v1.DPDKonmetal.CreateInterface:input_type -> dpdkonmetal.v1.CreateInterfaceRequest
-	35,  // 104: dpdkonmetal.v1.DPDKonmetal.DeleteInterface:input_type -> dpdkonmetal.v1.DeleteInterfaceRequest
-	37,  // 105: dpdkonmetal.v1.DPDKonmetal.ListPrefixes:input_type -> dpdkonmetal.v1.ListPrefixesRequest
-	39,  // 106: dpdkonmetal.v1.DPDKonmetal.CreatePrefix:input_type -> dpdkonmetal.v1.CreatePrefixRequest
-	41,  // 107: dpdkonmetal.v1.DPDKonmetal.DeletePrefix:input_type -> dpdkonmetal.v1.DeletePrefixRequest
-	43,  // 108: dpdkonmetal.v1.DPDKonmetal.ListLoadBalancerPrefixes:input_type -> dpdkonmetal.v1.ListLoadBalancerPrefixesRequest
-	45,  // 109: dpdkonmetal.v1.DPDKonmetal.CreateLoadBalancerPrefix:input_type -> dpdkonmetal.v1.CreateLoadBalancerPrefixRequest
-	47,  // 110: dpdkonmetal.v1.DPDKonmetal.DeleteLoadBalancerPrefix:input_type -> dpdkonmetal.v1.DeleteLoadBalancerPrefixRequest
-	49,  // 111: dpdkonmetal.v1.DPDKonmetal.CreateVip:input_type -> dpdkonmetal.v1.CreateVipRequest
-	51,  // 112: dpdkonmetal.v1.DPDKonmetal.GetVip:input_type -> dpdkonmetal.v1.GetVipRequest
-	53,  // 113: dpdkonmetal.v1.DPDKonmetal.DeleteVip:input_type -> dpdkonmetal.v1.DeleteVipRequest
-	55,  // 114: dpdkonmetal.v1.DPDKonmetal.CreateLoadBalancer:input_type -> dpdkonmetal.v1.CreateLoadBalancerRequest
-	57,  // 115: dpdkonmetal.v1.DPDKonmetal.GetLoadBalancer:input_type -> dpdkonmetal.v1.GetLoadBalancerRequest
-	59,  // 116: dpdkonmetal.v1.DPDKonmetal.DeleteLoadBalancer:input_type -> dpdkonmetal.v1.DeleteLoadBalancerRequest
-	61,  // 117: dpdkonmetal.v1.DPDKonmetal.CreateLoadBalancerTarget:input_type -> dpdkonmetal.v1.CreateLoadBalancerTargetRequest
-	63,  // 118: dpdkonmetal.v1.DPDKonmetal.ListLoadBalancerTargets:input_type -> dpdkonmetal.v1.ListLoadBalancerTargetsRequest
-	65,  // 119: dpdkonmetal.v1.DPDKonmetal.DeleteLoadBalancerTarget:input_type -> dpdkonmetal.v1.DeleteLoadBalancerTargetRequest
-	67,  // 120: dpdkonmetal.v1.DPDKonmetal.CreateNat:input_type -> dpdkonmetal.v1.CreateNatRequest
-	69,  // 121: dpdkonmetal.v1.DPDKonmetal.GetNat:input_type -> dpdkonmetal.v1.GetNatRequest
-	71,  // 122: dpdkonmetal.v1.DPDKonmetal.DeleteNat:input_type -> dpdkonmetal.v1.DeleteNatRequest
-	77,  // 123: dpdkonmetal.v1.DPDKonmetal.ListLocalNats:input_type -> dpdkonmetal.v1.ListLocalNatsRequest
-	73,  // 124: dpdkonmetal.v1.DPDKonmetal.CreateNeighborNat:input_type -> dpdkonmetal.v1.CreateNeighborNatRequest
-	75,  // 125: dpdkonmetal.v1.DPDKonmetal.DeleteNeighborNat:input_type -> dpdkonmetal.v1.DeleteNeighborNatRequest
-	79,  // 126: dpdkonmetal.v1.DPDKonmetal.ListNeighborNats:input_type -> dpdkonmetal.v1.ListNeighborNatsRequest
-	81,  // 127: dpdkonmetal.v1.DPDKonmetal.ListRoutes:input_type -> dpdkonmetal.v1.ListRoutesRequest
-	83,  // 128: dpdkonmetal.v1.DPDKonmetal.CreateRoute:input_type -> dpdkonmetal.v1.CreateRouteRequest
-	85,  // 129: dpdkonmetal.v1.DPDKonmetal.DeleteRoute:input_type -> dpdkonmetal.v1.DeleteRouteRequest
-	87,  // 130: dpdkonmetal.v1.DPDKonmetal.CheckVniInUse:input_type -> dpdkonmetal.v1.CheckVniInUseRequest
-	89,  // 131: dpdkonmetal.v1.DPDKonmetal.ResetVni:input_type -> dpdkonmetal.v1.ResetVniRequest
-	91,  // 132: dpdkonmetal.v1.DPDKonmetal.ListFirewallRules:input_type -> dpdkonmetal.v1.ListFirewallRulesRequest
-	93,  // 133: dpdkonmetal.v1.DPDKonmetal.CreateFirewallRule:input_type -> dpdkonmetal.v1.CreateFirewallRuleRequest
-	95,  // 134: dpdkonmetal.v1.DPDKonmetal.GetFirewallRule:input_type -> dpdkonmetal.v1.GetFirewallRuleRequest
-	97,  // 135: dpdkonmetal.v1.DPDKonmetal.DeleteFirewallRule:input_type -> dpdkonmetal.v1.DeleteFirewallRuleRequest
-	101, // 136: dpdkonmetal.v1.DPDKonmetal.CaptureStart:input_type -> dpdkonmetal.v1.CaptureStartRequest
-	103, // 137: dpdkonmetal.v1.DPDKonmetal.CaptureStop:input_type -> dpdkonmetal.v1.CaptureStopRequest
-	105, // 138: dpdkonmetal.v1.DPDKonmetal.CaptureStatus:input_type -> dpdkonmetal.v1.CaptureStatusRequest
-	24,  // 139: dpdkonmetal.v1.DPDKonmetal.CheckInitialized:output_type -> dpdkonmetal.v1.CheckInitializedResponse
-	26,  // 140: dpdkonmetal.v1.DPDKonmetal.Initialize:output_type -> dpdkonmetal.v1.InitializeResponse
-	28,  // 141: dpdkonmetal.v1.DPDKonmetal.GetVersion:output_type -> dpdkonmetal.v1.GetVersionResponse
-	30,  // 142: dpdkonmetal.v1.DPDKonmetal.ListInterfaces:output_type -> dpdkonmetal.v1.ListInterfacesResponse
-	32,  // 143: dpdkonmetal.v1.DPDKonmetal.GetInterface:output_type -> dpdkonmetal.v1.GetInterfaceResponse
-	34,  // 144: dpdkonmetal.v1.DPDKonmetal.CreateInterface:output_type -> dpdkonmetal.v1.CreateInterfaceResponse
-	36,  // 145: dpdkonmetal.v1.DPDKonmetal.DeleteInterface:output_type -> dpdkonmetal.v1.DeleteInterfaceResponse
-	38,  // 146: dpdkonmetal.v1.DPDKonmetal.ListPrefixes:output_type -> dpdkonmetal.v1.ListPrefixesResponse
-	40,  // 147: dpdkonmetal.v1.DPDKonmetal.CreatePrefix:output_type -> dpdkonmetal.v1.CreatePrefixResponse
-	42,  // 148: dpdkonmetal.v1.DPDKonmetal.DeletePrefix:output_type -> dpdkonmetal.v1.DeletePrefixResponse
-	44,  // 149: dpdkonmetal.v1.DPDKonmetal.ListLoadBalancerPrefixes:output_type -> dpdkonmetal.v1.ListLoadBalancerPrefixesResponse
-	46,  // 150: dpdkonmetal.v1.DPDKonmetal.CreateLoadBalancerPrefix:output_type -> dpdkonmetal.v1.CreateLoadBalancerPrefixResponse
-	48,  // 151: dpdkonmetal.v1.DPDKonmetal.DeleteLoadBalancerPrefix:output_type -> dpdkonmetal.v1.DeleteLoadBalancerPrefixResponse
-	50,  // 152: dpdkonmetal.v1.DPDKonmetal.CreateVip:output_type -> dpdkonmetal.v1.CreateVipResponse
-	52,  // 153: dpdkonmetal.v1.DPDKonmetal.GetVip:output_type -> dpdkonmetal.v1.GetVipResponse
-	54,  // 154: dpdkonmetal.v1.DPDKonmetal.DeleteVip:output_type -> dpdkonmetal.v1.DeleteVipResponse
-	56,  // 155: dpdkonmetal.v1.DPDKonmetal.CreateLoadBalancer:output_type -> dpdkonmetal.v1.CreateLoadBalancerResponse
-	58,  // 156: dpdkonmetal.v1.DPDKonmetal.GetLoadBalancer:output_type -> dpdkonmetal.v1.GetLoadBalancerResponse
-	60,  // 157: dpdkonmetal.v1.DPDKonmetal.DeleteLoadBalancer:output_type -> dpdkonmetal.v1.DeleteLoadBalancerResponse
-	62,  // 158: dpdkonmetal.v1.DPDKonmetal.CreateLoadBalancerTarget:output_type -> dpdkonmetal.v1.CreateLoadBalancerTargetResponse
-	64,  // 159: dpdkonmetal.v1.DPDKonmetal.ListLoadBalancerTargets:output_type -> dpdkonmetal.v1.ListLoadBalancerTargetsResponse
-	66,  // 160: dpdkonmetal.v1.DPDKonmetal.DeleteLoadBalancerTarget:output_type -> dpdkonmetal.v1.DeleteLoadBalancerTargetResponse
-	68,  // 161: dpdkonmetal.v1.DPDKonmetal.CreateNat:output_type -> dpdkonmetal.v1.CreateNatResponse
-	70,  // 162: dpdkonmetal.v1.DPDKonmetal.GetNat:output_type -> dpdkonmetal.v1.GetNatResponse
-	72,  // 163: dpdkonmetal.v1.DPDKonmetal.DeleteNat:output_type -> dpdkonmetal.v1.DeleteNatResponse
-	78,  // 164: dpdkonmetal.v1.DPDKonmetal.ListLocalNats:output_type -> dpdkonmetal.v1.ListLocalNatsResponse
-	74,  // 165: dpdkonmetal.v1.DPDKonmetal.CreateNeighborNat:output_type -> dpdkonmetal.v1.CreateNeighborNatResponse
-	76,  // 166: dpdkonmetal.v1.DPDKonmetal.DeleteNeighborNat:output_type -> dpdkonmetal.v1.DeleteNeighborNatResponse
-	80,  // 167: dpdkonmetal.v1.DPDKonmetal.ListNeighborNats:output_type -> dpdkonmetal.v1.ListNeighborNatsResponse
-	82,  // 168: dpdkonmetal.v1.DPDKonmetal.ListRoutes:output_type -> dpdkonmetal.v1.ListRoutesResponse
-	84,  // 169: dpdkonmetal.v1.DPDKonmetal.CreateRoute:output_type -> dpdkonmetal.v1.CreateRouteResponse
-	86,  // 170: dpdkonmetal.v1.DPDKonmetal.DeleteRoute:output_type -> dpdkonmetal.v1.DeleteRouteResponse
-	88,  // 171: dpdkonmetal.v1.DPDKonmetal.CheckVniInUse:output_type -> dpdkonmetal.v1.CheckVniInUseResponse
-	90,  // 172: dpdkonmetal.v1.DPDKonmetal.ResetVni:output_type -> dpdkonmetal.v1.ResetVniResponse
-	92,  // 173: dpdkonmetal.v1.DPDKonmetal.ListFirewallRules:output_type -> dpdkonmetal.v1.ListFirewallRulesResponse
-	94,  // 174: dpdkonmetal.v1.DPDKonmetal.CreateFirewallRule:output_type -> dpdkonmetal.v1.CreateFirewallRuleResponse
-	96,  // 175: dpdkonmetal.v1.DPDKonmetal.GetFirewallRule:output_type -> dpdkonmetal.v1.GetFirewallRuleResponse
-	98,  // 176: dpdkonmetal.v1.DPDKonmetal.DeleteFirewallRule:output_type -> dpdkonmetal.v1.DeleteFirewallRuleResponse
-	102, // 177: dpdkonmetal.v1.DPDKonmetal.CaptureStart:output_type -> dpdkonmetal.v1.CaptureStartResponse
-	104, // 178: dpdkonmetal.v1.DPDKonmetal.CaptureStop:output_type -> dpdkonmetal.v1.CaptureStopResponse
-	106, // 179: dpdkonmetal.v1.DPDKonmetal.CaptureStatus:output_type -> dpdkonmetal.v1.CaptureStatusResponse
+	1,   // 0: dpdkironcore.v1.IpAddress.ipver:type_name -> dpdkironcore.v1.IpVersion
+	9,   // 1: dpdkironcore.v1.Prefix.ip:type_name -> dpdkironcore.v1.IpAddress
+	2,   // 2: dpdkironcore.v1.LbPort.protocol:type_name -> dpdkironcore.v1.Protocol
+	9,   // 3: dpdkironcore.v1.NatEntry.nat_ip:type_name -> dpdkironcore.v1.IpAddress
+	10,  // 4: dpdkironcore.v1.Route.prefix:type_name -> dpdkironcore.v1.Prefix
+	9,   // 5: dpdkironcore.v1.Route.nexthop_address:type_name -> dpdkironcore.v1.IpAddress
+	18,  // 6: dpdkironcore.v1.ProtocolFilter.icmp:type_name -> dpdkironcore.v1.IcmpFilter
+	19,  // 7: dpdkironcore.v1.ProtocolFilter.tcp:type_name -> dpdkironcore.v1.TcpFilter
+	20,  // 8: dpdkironcore.v1.ProtocolFilter.udp:type_name -> dpdkironcore.v1.UdpFilter
+	3,   // 9: dpdkironcore.v1.FirewallRule.direction:type_name -> dpdkironcore.v1.TrafficDirection
+	4,   // 10: dpdkironcore.v1.FirewallRule.action:type_name -> dpdkironcore.v1.FirewallAction
+	10,  // 11: dpdkironcore.v1.FirewallRule.source_prefix:type_name -> dpdkironcore.v1.Prefix
+	10,  // 12: dpdkironcore.v1.FirewallRule.destination_prefix:type_name -> dpdkironcore.v1.Prefix
+	21,  // 13: dpdkironcore.v1.FirewallRule.protocol_filter:type_name -> dpdkironcore.v1.ProtocolFilter
+	8,   // 14: dpdkironcore.v1.CheckInitializedResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 15: dpdkironcore.v1.InitializeResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 16: dpdkironcore.v1.GetVersionResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 17: dpdkironcore.v1.ListInterfacesResponse.status:type_name -> dpdkironcore.v1.Status
+	11,  // 18: dpdkironcore.v1.ListInterfacesResponse.interfaces:type_name -> dpdkironcore.v1.Interface
+	8,   // 19: dpdkironcore.v1.GetInterfaceResponse.status:type_name -> dpdkironcore.v1.Status
+	11,  // 20: dpdkironcore.v1.GetInterfaceResponse.interface:type_name -> dpdkironcore.v1.Interface
+	0,   // 21: dpdkironcore.v1.CreateInterfaceRequest.interface_type:type_name -> dpdkironcore.v1.InterfaceType
+	12,  // 22: dpdkironcore.v1.CreateInterfaceRequest.ipv4_config:type_name -> dpdkironcore.v1.IpConfig
+	12,  // 23: dpdkironcore.v1.CreateInterfaceRequest.ipv6_config:type_name -> dpdkironcore.v1.IpConfig
+	13,  // 24: dpdkironcore.v1.CreateInterfaceRequest.pxe_config:type_name -> dpdkironcore.v1.PxeConfig
+	8,   // 25: dpdkironcore.v1.CreateInterfaceResponse.status:type_name -> dpdkironcore.v1.Status
+	14,  // 26: dpdkironcore.v1.CreateInterfaceResponse.vf:type_name -> dpdkironcore.v1.VirtualFunction
+	8,   // 27: dpdkironcore.v1.DeleteInterfaceResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 28: dpdkironcore.v1.ListPrefixesResponse.status:type_name -> dpdkironcore.v1.Status
+	10,  // 29: dpdkironcore.v1.ListPrefixesResponse.prefixes:type_name -> dpdkironcore.v1.Prefix
+	10,  // 30: dpdkironcore.v1.CreatePrefixRequest.prefix:type_name -> dpdkironcore.v1.Prefix
+	8,   // 31: dpdkironcore.v1.CreatePrefixResponse.status:type_name -> dpdkironcore.v1.Status
+	10,  // 32: dpdkironcore.v1.DeletePrefixRequest.prefix:type_name -> dpdkironcore.v1.Prefix
+	8,   // 33: dpdkironcore.v1.DeletePrefixResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 34: dpdkironcore.v1.ListLoadBalancerPrefixesResponse.status:type_name -> dpdkironcore.v1.Status
+	10,  // 35: dpdkironcore.v1.ListLoadBalancerPrefixesResponse.prefixes:type_name -> dpdkironcore.v1.Prefix
+	10,  // 36: dpdkironcore.v1.CreateLoadBalancerPrefixRequest.prefix:type_name -> dpdkironcore.v1.Prefix
+	8,   // 37: dpdkironcore.v1.CreateLoadBalancerPrefixResponse.status:type_name -> dpdkironcore.v1.Status
+	10,  // 38: dpdkironcore.v1.DeleteLoadBalancerPrefixRequest.prefix:type_name -> dpdkironcore.v1.Prefix
+	8,   // 39: dpdkironcore.v1.DeleteLoadBalancerPrefixResponse.status:type_name -> dpdkironcore.v1.Status
+	9,   // 40: dpdkironcore.v1.CreateVipRequest.vip_ip:type_name -> dpdkironcore.v1.IpAddress
+	8,   // 41: dpdkironcore.v1.CreateVipResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 42: dpdkironcore.v1.GetVipResponse.status:type_name -> dpdkironcore.v1.Status
+	9,   // 43: dpdkironcore.v1.GetVipResponse.vip_ip:type_name -> dpdkironcore.v1.IpAddress
+	8,   // 44: dpdkironcore.v1.DeleteVipResponse.status:type_name -> dpdkironcore.v1.Status
+	9,   // 45: dpdkironcore.v1.CreateLoadBalancerRequest.loadbalanced_ip:type_name -> dpdkironcore.v1.IpAddress
+	15,  // 46: dpdkironcore.v1.CreateLoadBalancerRequest.loadbalanced_ports:type_name -> dpdkironcore.v1.LbPort
+	8,   // 47: dpdkironcore.v1.CreateLoadBalancerResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 48: dpdkironcore.v1.GetLoadBalancerResponse.status:type_name -> dpdkironcore.v1.Status
+	9,   // 49: dpdkironcore.v1.GetLoadBalancerResponse.loadbalanced_ip:type_name -> dpdkironcore.v1.IpAddress
+	15,  // 50: dpdkironcore.v1.GetLoadBalancerResponse.loadbalanced_ports:type_name -> dpdkironcore.v1.LbPort
+	8,   // 51: dpdkironcore.v1.DeleteLoadBalancerResponse.status:type_name -> dpdkironcore.v1.Status
+	9,   // 52: dpdkironcore.v1.CreateLoadBalancerTargetRequest.target_ip:type_name -> dpdkironcore.v1.IpAddress
+	8,   // 53: dpdkironcore.v1.CreateLoadBalancerTargetResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 54: dpdkironcore.v1.ListLoadBalancerTargetsResponse.status:type_name -> dpdkironcore.v1.Status
+	9,   // 55: dpdkironcore.v1.ListLoadBalancerTargetsResponse.target_ips:type_name -> dpdkironcore.v1.IpAddress
+	9,   // 56: dpdkironcore.v1.DeleteLoadBalancerTargetRequest.target_ip:type_name -> dpdkironcore.v1.IpAddress
+	8,   // 57: dpdkironcore.v1.DeleteLoadBalancerTargetResponse.status:type_name -> dpdkironcore.v1.Status
+	9,   // 58: dpdkironcore.v1.CreateNatRequest.nat_ip:type_name -> dpdkironcore.v1.IpAddress
+	8,   // 59: dpdkironcore.v1.CreateNatResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 60: dpdkironcore.v1.GetNatResponse.status:type_name -> dpdkironcore.v1.Status
+	9,   // 61: dpdkironcore.v1.GetNatResponse.nat_ip:type_name -> dpdkironcore.v1.IpAddress
+	8,   // 62: dpdkironcore.v1.DeleteNatResponse.status:type_name -> dpdkironcore.v1.Status
+	9,   // 63: dpdkironcore.v1.CreateNeighborNatRequest.nat_ip:type_name -> dpdkironcore.v1.IpAddress
+	8,   // 64: dpdkironcore.v1.CreateNeighborNatResponse.status:type_name -> dpdkironcore.v1.Status
+	9,   // 65: dpdkironcore.v1.DeleteNeighborNatRequest.nat_ip:type_name -> dpdkironcore.v1.IpAddress
+	8,   // 66: dpdkironcore.v1.DeleteNeighborNatResponse.status:type_name -> dpdkironcore.v1.Status
+	9,   // 67: dpdkironcore.v1.ListLocalNatsRequest.nat_ip:type_name -> dpdkironcore.v1.IpAddress
+	8,   // 68: dpdkironcore.v1.ListLocalNatsResponse.status:type_name -> dpdkironcore.v1.Status
+	16,  // 69: dpdkironcore.v1.ListLocalNatsResponse.nat_entries:type_name -> dpdkironcore.v1.NatEntry
+	9,   // 70: dpdkironcore.v1.ListNeighborNatsRequest.nat_ip:type_name -> dpdkironcore.v1.IpAddress
+	8,   // 71: dpdkironcore.v1.ListNeighborNatsResponse.status:type_name -> dpdkironcore.v1.Status
+	16,  // 72: dpdkironcore.v1.ListNeighborNatsResponse.nat_entries:type_name -> dpdkironcore.v1.NatEntry
+	8,   // 73: dpdkironcore.v1.ListRoutesResponse.status:type_name -> dpdkironcore.v1.Status
+	17,  // 74: dpdkironcore.v1.ListRoutesResponse.routes:type_name -> dpdkironcore.v1.Route
+	17,  // 75: dpdkironcore.v1.CreateRouteRequest.route:type_name -> dpdkironcore.v1.Route
+	8,   // 76: dpdkironcore.v1.CreateRouteResponse.status:type_name -> dpdkironcore.v1.Status
+	17,  // 77: dpdkironcore.v1.DeleteRouteRequest.route:type_name -> dpdkironcore.v1.Route
+	8,   // 78: dpdkironcore.v1.DeleteRouteResponse.status:type_name -> dpdkironcore.v1.Status
+	5,   // 79: dpdkironcore.v1.CheckVniInUseRequest.type:type_name -> dpdkironcore.v1.VniType
+	8,   // 80: dpdkironcore.v1.CheckVniInUseResponse.status:type_name -> dpdkironcore.v1.Status
+	5,   // 81: dpdkironcore.v1.ResetVniRequest.type:type_name -> dpdkironcore.v1.VniType
+	8,   // 82: dpdkironcore.v1.ResetVniResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 83: dpdkironcore.v1.ListFirewallRulesResponse.status:type_name -> dpdkironcore.v1.Status
+	22,  // 84: dpdkironcore.v1.ListFirewallRulesResponse.rules:type_name -> dpdkironcore.v1.FirewallRule
+	22,  // 85: dpdkironcore.v1.CreateFirewallRuleRequest.rule:type_name -> dpdkironcore.v1.FirewallRule
+	8,   // 86: dpdkironcore.v1.CreateFirewallRuleResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 87: dpdkironcore.v1.GetFirewallRuleResponse.status:type_name -> dpdkironcore.v1.Status
+	22,  // 88: dpdkironcore.v1.GetFirewallRuleResponse.rule:type_name -> dpdkironcore.v1.FirewallRule
+	8,   // 89: dpdkironcore.v1.DeleteFirewallRuleResponse.status:type_name -> dpdkironcore.v1.Status
+	6,   // 90: dpdkironcore.v1.CapturedInterface.interface_type:type_name -> dpdkironcore.v1.CaptureInterfaceType
+	9,   // 91: dpdkironcore.v1.CaptureConfig.sink_node_ip:type_name -> dpdkironcore.v1.IpAddress
+	99,  // 92: dpdkironcore.v1.CaptureConfig.interfaces:type_name -> dpdkironcore.v1.CapturedInterface
+	100, // 93: dpdkironcore.v1.CaptureStartRequest.capture_config:type_name -> dpdkironcore.v1.CaptureConfig
+	8,   // 94: dpdkironcore.v1.CaptureStartResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 95: dpdkironcore.v1.CaptureStopResponse.status:type_name -> dpdkironcore.v1.Status
+	8,   // 96: dpdkironcore.v1.CaptureStatusResponse.status:type_name -> dpdkironcore.v1.Status
+	100, // 97: dpdkironcore.v1.CaptureStatusResponse.capture_config:type_name -> dpdkironcore.v1.CaptureConfig
+	23,  // 98: dpdkironcore.v1.DPDKironcore.CheckInitialized:input_type -> dpdkironcore.v1.CheckInitializedRequest
+	25,  // 99: dpdkironcore.v1.DPDKironcore.Initialize:input_type -> dpdkironcore.v1.InitializeRequest
+	27,  // 100: dpdkironcore.v1.DPDKironcore.GetVersion:input_type -> dpdkironcore.v1.GetVersionRequest
+	29,  // 101: dpdkironcore.v1.DPDKironcore.ListInterfaces:input_type -> dpdkironcore.v1.ListInterfacesRequest
+	31,  // 102: dpdkironcore.v1.DPDKironcore.GetInterface:input_type -> dpdkironcore.v1.GetInterfaceRequest
+	33,  // 103: dpdkironcore.v1.DPDKironcore.CreateInterface:input_type -> dpdkironcore.v1.CreateInterfaceRequest
+	35,  // 104: dpdkironcore.v1.DPDKironcore.DeleteInterface:input_type -> dpdkironcore.v1.DeleteInterfaceRequest
+	37,  // 105: dpdkironcore.v1.DPDKironcore.ListPrefixes:input_type -> dpdkironcore.v1.ListPrefixesRequest
+	39,  // 106: dpdkironcore.v1.DPDKironcore.CreatePrefix:input_type -> dpdkironcore.v1.CreatePrefixRequest
+	41,  // 107: dpdkironcore.v1.DPDKironcore.DeletePrefix:input_type -> dpdkironcore.v1.DeletePrefixRequest
+	43,  // 108: dpdkironcore.v1.DPDKironcore.ListLoadBalancerPrefixes:input_type -> dpdkironcore.v1.ListLoadBalancerPrefixesRequest
+	45,  // 109: dpdkironcore.v1.DPDKironcore.CreateLoadBalancerPrefix:input_type -> dpdkironcore.v1.CreateLoadBalancerPrefixRequest
+	47,  // 110: dpdkironcore.v1.DPDKironcore.DeleteLoadBalancerPrefix:input_type -> dpdkironcore.v1.DeleteLoadBalancerPrefixRequest
+	49,  // 111: dpdkironcore.v1.DPDKironcore.CreateVip:input_type -> dpdkironcore.v1.CreateVipRequest
+	51,  // 112: dpdkironcore.v1.DPDKironcore.GetVip:input_type -> dpdkironcore.v1.GetVipRequest
+	53,  // 113: dpdkironcore.v1.DPDKironcore.DeleteVip:input_type -> dpdkironcore.v1.DeleteVipRequest
+	55,  // 114: dpdkironcore.v1.DPDKironcore.CreateLoadBalancer:input_type -> dpdkironcore.v1.CreateLoadBalancerRequest
+	57,  // 115: dpdkironcore.v1.DPDKironcore.GetLoadBalancer:input_type -> dpdkironcore.v1.GetLoadBalancerRequest
+	59,  // 116: dpdkironcore.v1.DPDKironcore.DeleteLoadBalancer:input_type -> dpdkironcore.v1.DeleteLoadBalancerRequest
+	61,  // 117: dpdkironcore.v1.DPDKironcore.CreateLoadBalancerTarget:input_type -> dpdkironcore.v1.CreateLoadBalancerTargetRequest
+	63,  // 118: dpdkironcore.v1.DPDKironcore.ListLoadBalancerTargets:input_type -> dpdkironcore.v1.ListLoadBalancerTargetsRequest
+	65,  // 119: dpdkironcore.v1.DPDKironcore.DeleteLoadBalancerTarget:input_type -> dpdkironcore.v1.DeleteLoadBalancerTargetRequest
+	67,  // 120: dpdkironcore.v1.DPDKironcore.CreateNat:input_type -> dpdkironcore.v1.CreateNatRequest
+	69,  // 121: dpdkironcore.v1.DPDKironcore.GetNat:input_type -> dpdkironcore.v1.GetNatRequest
+	71,  // 122: dpdkironcore.v1.DPDKironcore.DeleteNat:input_type -> dpdkironcore.v1.DeleteNatRequest
+	77,  // 123: dpdkironcore.v1.DPDKironcore.ListLocalNats:input_type -> dpdkironcore.v1.ListLocalNatsRequest
+	73,  // 124: dpdkironcore.v1.DPDKironcore.CreateNeighborNat:input_type -> dpdkironcore.v1.CreateNeighborNatRequest
+	75,  // 125: dpdkironcore.v1.DPDKironcore.DeleteNeighborNat:input_type -> dpdkironcore.v1.DeleteNeighborNatRequest
+	79,  // 126: dpdkironcore.v1.DPDKironcore.ListNeighborNats:input_type -> dpdkironcore.v1.ListNeighborNatsRequest
+	81,  // 127: dpdkironcore.v1.DPDKironcore.ListRoutes:input_type -> dpdkironcore.v1.ListRoutesRequest
+	83,  // 128: dpdkironcore.v1.DPDKironcore.CreateRoute:input_type -> dpdkironcore.v1.CreateRouteRequest
+	85,  // 129: dpdkironcore.v1.DPDKironcore.DeleteRoute:input_type -> dpdkironcore.v1.DeleteRouteRequest
+	87,  // 130: dpdkironcore.v1.DPDKironcore.CheckVniInUse:input_type -> dpdkironcore.v1.CheckVniInUseRequest
+	89,  // 131: dpdkironcore.v1.DPDKironcore.ResetVni:input_type -> dpdkironcore.v1.ResetVniRequest
+	91,  // 132: dpdkironcore.v1.DPDKironcore.ListFirewallRules:input_type -> dpdkironcore.v1.ListFirewallRulesRequest
+	93,  // 133: dpdkironcore.v1.DPDKironcore.CreateFirewallRule:input_type -> dpdkironcore.v1.CreateFirewallRuleRequest
+	95,  // 134: dpdkironcore.v1.DPDKironcore.GetFirewallRule:input_type -> dpdkironcore.v1.GetFirewallRuleRequest
+	97,  // 135: dpdkironcore.v1.DPDKironcore.DeleteFirewallRule:input_type -> dpdkironcore.v1.DeleteFirewallRuleRequest
+	101, // 136: dpdkironcore.v1.DPDKironcore.CaptureStart:input_type -> dpdkironcore.v1.CaptureStartRequest
+	103, // 137: dpdkironcore.v1.DPDKironcore.CaptureStop:input_type -> dpdkironcore.v1.CaptureStopRequest
+	105, // 138: dpdkironcore.v1.DPDKironcore.CaptureStatus:input_type -> dpdkironcore.v1.CaptureStatusRequest
+	24,  // 139: dpdkironcore.v1.DPDKironcore.CheckInitialized:output_type -> dpdkironcore.v1.CheckInitializedResponse
+	26,  // 140: dpdkironcore.v1.DPDKironcore.Initialize:output_type -> dpdkironcore.v1.InitializeResponse
+	28,  // 141: dpdkironcore.v1.DPDKironcore.GetVersion:output_type -> dpdkironcore.v1.GetVersionResponse
+	30,  // 142: dpdkironcore.v1.DPDKironcore.ListInterfaces:output_type -> dpdkironcore.v1.ListInterfacesResponse
+	32,  // 143: dpdkironcore.v1.DPDKironcore.GetInterface:output_type -> dpdkironcore.v1.GetInterfaceResponse
+	34,  // 144: dpdkironcore.v1.DPDKironcore.CreateInterface:output_type -> dpdkironcore.v1.CreateInterfaceResponse
+	36,  // 145: dpdkironcore.v1.DPDKironcore.DeleteInterface:output_type -> dpdkironcore.v1.DeleteInterfaceResponse
+	38,  // 146: dpdkironcore.v1.DPDKironcore.ListPrefixes:output_type -> dpdkironcore.v1.ListPrefixesResponse
+	40,  // 147: dpdkironcore.v1.DPDKironcore.CreatePrefix:output_type -> dpdkironcore.v1.CreatePrefixResponse
+	42,  // 148: dpdkironcore.v1.DPDKironcore.DeletePrefix:output_type -> dpdkironcore.v1.DeletePrefixResponse
+	44,  // 149: dpdkironcore.v1.DPDKironcore.ListLoadBalancerPrefixes:output_type -> dpdkironcore.v1.ListLoadBalancerPrefixesResponse
+	46,  // 150: dpdkironcore.v1.DPDKironcore.CreateLoadBalancerPrefix:output_type -> dpdkironcore.v1.CreateLoadBalancerPrefixResponse
+	48,  // 151: dpdkironcore.v1.DPDKironcore.DeleteLoadBalancerPrefix:output_type -> dpdkironcore.v1.DeleteLoadBalancerPrefixResponse
+	50,  // 152: dpdkironcore.v1.DPDKironcore.CreateVip:output_type -> dpdkironcore.v1.CreateVipResponse
+	52,  // 153: dpdkironcore.v1.DPDKironcore.GetVip:output_type -> dpdkironcore.v1.GetVipResponse
+	54,  // 154: dpdkironcore.v1.DPDKironcore.DeleteVip:output_type -> dpdkironcore.v1.DeleteVipResponse
+	56,  // 155: dpdkironcore.v1.DPDKironcore.CreateLoadBalancer:output_type -> dpdkironcore.v1.CreateLoadBalancerResponse
+	58,  // 156: dpdkironcore.v1.DPDKironcore.GetLoadBalancer:output_type -> dpdkironcore.v1.GetLoadBalancerResponse
+	60,  // 157: dpdkironcore.v1.DPDKironcore.DeleteLoadBalancer:output_type -> dpdkironcore.v1.DeleteLoadBalancerResponse
+	62,  // 158: dpdkironcore.v1.DPDKironcore.CreateLoadBalancerTarget:output_type -> dpdkironcore.v1.CreateLoadBalancerTargetResponse
+	64,  // 159: dpdkironcore.v1.DPDKironcore.ListLoadBalancerTargets:output_type -> dpdkironcore.v1.ListLoadBalancerTargetsResponse
+	66,  // 160: dpdkironcore.v1.DPDKironcore.DeleteLoadBalancerTarget:output_type -> dpdkironcore.v1.DeleteLoadBalancerTargetResponse
+	68,  // 161: dpdkironcore.v1.DPDKironcore.CreateNat:output_type -> dpdkironcore.v1.CreateNatResponse
+	70,  // 162: dpdkironcore.v1.DPDKironcore.GetNat:output_type -> dpdkironcore.v1.GetNatResponse
+	72,  // 163: dpdkironcore.v1.DPDKironcore.DeleteNat:output_type -> dpdkironcore.v1.DeleteNatResponse
+	78,  // 164: dpdkironcore.v1.DPDKironcore.ListLocalNats:output_type -> dpdkironcore.v1.ListLocalNatsResponse
+	74,  // 165: dpdkironcore.v1.DPDKironcore.CreateNeighborNat:output_type -> dpdkironcore.v1.CreateNeighborNatResponse
+	76,  // 166: dpdkironcore.v1.DPDKironcore.DeleteNeighborNat:output_type -> dpdkironcore.v1.DeleteNeighborNatResponse
+	80,  // 167: dpdkironcore.v1.DPDKironcore.ListNeighborNats:output_type -> dpdkironcore.v1.ListNeighborNatsResponse
+	82,  // 168: dpdkironcore.v1.DPDKironcore.ListRoutes:output_type -> dpdkironcore.v1.ListRoutesResponse
+	84,  // 169: dpdkironcore.v1.DPDKironcore.CreateRoute:output_type -> dpdkironcore.v1.CreateRouteResponse
+	86,  // 170: dpdkironcore.v1.DPDKironcore.DeleteRoute:output_type -> dpdkironcore.v1.DeleteRouteResponse
+	88,  // 171: dpdkironcore.v1.DPDKironcore.CheckVniInUse:output_type -> dpdkironcore.v1.CheckVniInUseResponse
+	90,  // 172: dpdkironcore.v1.DPDKironcore.ResetVni:output_type -> dpdkironcore.v1.ResetVniResponse
+	92,  // 173: dpdkironcore.v1.DPDKironcore.ListFirewallRules:output_type -> dpdkironcore.v1.ListFirewallRulesResponse
+	94,  // 174: dpdkironcore.v1.DPDKironcore.CreateFirewallRule:output_type -> dpdkironcore.v1.CreateFirewallRuleResponse
+	96,  // 175: dpdkironcore.v1.DPDKironcore.GetFirewallRule:output_type -> dpdkironcore.v1.GetFirewallRuleResponse
+	98,  // 176: dpdkironcore.v1.DPDKironcore.DeleteFirewallRule:output_type -> dpdkironcore.v1.DeleteFirewallRuleResponse
+	102, // 177: dpdkironcore.v1.DPDKironcore.CaptureStart:output_type -> dpdkironcore.v1.CaptureStartResponse
+	104, // 178: dpdkironcore.v1.DPDKironcore.CaptureStop:output_type -> dpdkironcore.v1.CaptureStopResponse
+	106, // 179: dpdkironcore.v1.DPDKironcore.CaptureStatus:output_type -> dpdkironcore.v1.CaptureStatusResponse
 	139, // [139:180] is the sub-list for method output_type
 	98,  // [98:139] is the sub-list for method input_type
 	98,  // [98:98] is the sub-list for extension type_name

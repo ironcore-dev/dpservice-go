@@ -1,4 +1,4 @@
-module github.com/onmetal/net-dpservice-go
+module github.com/ironcore-dev/dpservice-go
 
 go 1.19
 
