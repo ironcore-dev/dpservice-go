@@ -36,7 +36,13 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// // ENUMS
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the proto package it is being compiled against.
+// A compilation error at this line likely means your copy of the
+// proto package needs to be updated.
+const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
+
+//// ENUMS
 type InterfaceType int32
 
 const (
@@ -227,7 +233,7 @@ func (CaptureInterfaceType) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_8a26ffc81af0230d, []int{6}
 }
 
-// // STRUCTURES
+//// STRUCTURES
 type Empty struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -1188,7 +1194,7 @@ func (m *FirewallRule) GetProtocolFilter() *ProtocolFilter {
 	return nil
 }
 
-// / REQUESTS/RESPONSES
+/// REQUESTS/RESPONSES
 type CheckInitializedRequest struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
