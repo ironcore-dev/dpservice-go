@@ -55,11 +55,11 @@ clean: ## Clean any artifacts that can be regenerated.
 
 .PHONY: addlicense
 addlicense: ## Add license headers to all go files.
-	find . -name '*.go' -exec go run github.com/google/addlicense -c 'OnMetal authors' {} +
+	find . -name '*.go' -exec go run github.com/google/addlicense -c 'IronCore authors' {} +
 
 .PHONY: checklicense
 checklicense: ## Check that every file has a license header present.
-	find . -name '*.go' -exec go run github.com/google/addlicense  -check -c 'OnMetal authors' {} +
+	find . -name '*.go' -exec go run github.com/google/addlicense  -check -c 'IronCore authors' {} +
 
 .PHONY: check
 check: generate addlicense lint test # Generate manifests, code, lint, add licenses, test

@@ -12,7 +12,7 @@ trap 'rm -rf $NET_DPSERVICE_DIR' EXIT
 function clone() {
   cd "$NET_DPSERVICE_DIR"
   git init
-  git remote add origin git@github.com:onmetal/net-dpservice.git
+  git remote add origin git@github.com:ironcore-dev/dpservice.git
   git fetch origin "$NET_DPSERVICE_REVISION" --depth=1
   git reset --hard FETCH_HEAD
   git fetch --prune --unshallow

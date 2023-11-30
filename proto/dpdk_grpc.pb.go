@@ -19,53 +19,53 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	DPDKonmetal_CheckInitialized_FullMethodName         = "/dpdkonmetal.v1.DPDKonmetal/CheckInitialized"
-	DPDKonmetal_Initialize_FullMethodName               = "/dpdkonmetal.v1.DPDKonmetal/Initialize"
-	DPDKonmetal_GetVersion_FullMethodName               = "/dpdkonmetal.v1.DPDKonmetal/GetVersion"
-	DPDKonmetal_ListInterfaces_FullMethodName           = "/dpdkonmetal.v1.DPDKonmetal/ListInterfaces"
-	DPDKonmetal_GetInterface_FullMethodName             = "/dpdkonmetal.v1.DPDKonmetal/GetInterface"
-	DPDKonmetal_CreateInterface_FullMethodName          = "/dpdkonmetal.v1.DPDKonmetal/CreateInterface"
-	DPDKonmetal_DeleteInterface_FullMethodName          = "/dpdkonmetal.v1.DPDKonmetal/DeleteInterface"
-	DPDKonmetal_ListPrefixes_FullMethodName             = "/dpdkonmetal.v1.DPDKonmetal/ListPrefixes"
-	DPDKonmetal_CreatePrefix_FullMethodName             = "/dpdkonmetal.v1.DPDKonmetal/CreatePrefix"
-	DPDKonmetal_DeletePrefix_FullMethodName             = "/dpdkonmetal.v1.DPDKonmetal/DeletePrefix"
-	DPDKonmetal_ListLoadBalancerPrefixes_FullMethodName = "/dpdkonmetal.v1.DPDKonmetal/ListLoadBalancerPrefixes"
-	DPDKonmetal_CreateLoadBalancerPrefix_FullMethodName = "/dpdkonmetal.v1.DPDKonmetal/CreateLoadBalancerPrefix"
-	DPDKonmetal_DeleteLoadBalancerPrefix_FullMethodName = "/dpdkonmetal.v1.DPDKonmetal/DeleteLoadBalancerPrefix"
-	DPDKonmetal_CreateVip_FullMethodName                = "/dpdkonmetal.v1.DPDKonmetal/CreateVip"
-	DPDKonmetal_GetVip_FullMethodName                   = "/dpdkonmetal.v1.DPDKonmetal/GetVip"
-	DPDKonmetal_DeleteVip_FullMethodName                = "/dpdkonmetal.v1.DPDKonmetal/DeleteVip"
-	DPDKonmetal_CreateLoadBalancer_FullMethodName       = "/dpdkonmetal.v1.DPDKonmetal/CreateLoadBalancer"
-	DPDKonmetal_GetLoadBalancer_FullMethodName          = "/dpdkonmetal.v1.DPDKonmetal/GetLoadBalancer"
-	DPDKonmetal_DeleteLoadBalancer_FullMethodName       = "/dpdkonmetal.v1.DPDKonmetal/DeleteLoadBalancer"
-	DPDKonmetal_CreateLoadBalancerTarget_FullMethodName = "/dpdkonmetal.v1.DPDKonmetal/CreateLoadBalancerTarget"
-	DPDKonmetal_ListLoadBalancerTargets_FullMethodName  = "/dpdkonmetal.v1.DPDKonmetal/ListLoadBalancerTargets"
-	DPDKonmetal_DeleteLoadBalancerTarget_FullMethodName = "/dpdkonmetal.v1.DPDKonmetal/DeleteLoadBalancerTarget"
-	DPDKonmetal_CreateNat_FullMethodName                = "/dpdkonmetal.v1.DPDKonmetal/CreateNat"
-	DPDKonmetal_GetNat_FullMethodName                   = "/dpdkonmetal.v1.DPDKonmetal/GetNat"
-	DPDKonmetal_DeleteNat_FullMethodName                = "/dpdkonmetal.v1.DPDKonmetal/DeleteNat"
-	DPDKonmetal_ListLocalNats_FullMethodName            = "/dpdkonmetal.v1.DPDKonmetal/ListLocalNats"
-	DPDKonmetal_CreateNeighborNat_FullMethodName        = "/dpdkonmetal.v1.DPDKonmetal/CreateNeighborNat"
-	DPDKonmetal_DeleteNeighborNat_FullMethodName        = "/dpdkonmetal.v1.DPDKonmetal/DeleteNeighborNat"
-	DPDKonmetal_ListNeighborNats_FullMethodName         = "/dpdkonmetal.v1.DPDKonmetal/ListNeighborNats"
-	DPDKonmetal_ListRoutes_FullMethodName               = "/dpdkonmetal.v1.DPDKonmetal/ListRoutes"
-	DPDKonmetal_CreateRoute_FullMethodName              = "/dpdkonmetal.v1.DPDKonmetal/CreateRoute"
-	DPDKonmetal_DeleteRoute_FullMethodName              = "/dpdkonmetal.v1.DPDKonmetal/DeleteRoute"
-	DPDKonmetal_CheckVniInUse_FullMethodName            = "/dpdkonmetal.v1.DPDKonmetal/CheckVniInUse"
-	DPDKonmetal_ResetVni_FullMethodName                 = "/dpdkonmetal.v1.DPDKonmetal/ResetVni"
-	DPDKonmetal_ListFirewallRules_FullMethodName        = "/dpdkonmetal.v1.DPDKonmetal/ListFirewallRules"
-	DPDKonmetal_CreateFirewallRule_FullMethodName       = "/dpdkonmetal.v1.DPDKonmetal/CreateFirewallRule"
-	DPDKonmetal_GetFirewallRule_FullMethodName          = "/dpdkonmetal.v1.DPDKonmetal/GetFirewallRule"
-	DPDKonmetal_DeleteFirewallRule_FullMethodName       = "/dpdkonmetal.v1.DPDKonmetal/DeleteFirewallRule"
-	DPDKonmetal_CaptureStart_FullMethodName             = "/dpdkonmetal.v1.DPDKonmetal/CaptureStart"
-	DPDKonmetal_CaptureStop_FullMethodName              = "/dpdkonmetal.v1.DPDKonmetal/CaptureStop"
-	DPDKonmetal_CaptureStatus_FullMethodName            = "/dpdkonmetal.v1.DPDKonmetal/CaptureStatus"
+	DPDKironcore_CheckInitialized_FullMethodName         = "/dpdkironcore.v1.DPDKironcore/CheckInitialized"
+	DPDKironcore_Initialize_FullMethodName               = "/dpdkironcore.v1.DPDKironcore/Initialize"
+	DPDKironcore_GetVersion_FullMethodName               = "/dpdkironcore.v1.DPDKironcore/GetVersion"
+	DPDKironcore_ListInterfaces_FullMethodName           = "/dpdkironcore.v1.DPDKironcore/ListInterfaces"
+	DPDKironcore_GetInterface_FullMethodName             = "/dpdkironcore.v1.DPDKironcore/GetInterface"
+	DPDKironcore_CreateInterface_FullMethodName          = "/dpdkironcore.v1.DPDKironcore/CreateInterface"
+	DPDKironcore_DeleteInterface_FullMethodName          = "/dpdkironcore.v1.DPDKironcore/DeleteInterface"
+	DPDKironcore_ListPrefixes_FullMethodName             = "/dpdkironcore.v1.DPDKironcore/ListPrefixes"
+	DPDKironcore_CreatePrefix_FullMethodName             = "/dpdkironcore.v1.DPDKironcore/CreatePrefix"
+	DPDKironcore_DeletePrefix_FullMethodName             = "/dpdkironcore.v1.DPDKironcore/DeletePrefix"
+	DPDKironcore_ListLoadBalancerPrefixes_FullMethodName = "/dpdkironcore.v1.DPDKironcore/ListLoadBalancerPrefixes"
+	DPDKironcore_CreateLoadBalancerPrefix_FullMethodName = "/dpdkironcore.v1.DPDKironcore/CreateLoadBalancerPrefix"
+	DPDKironcore_DeleteLoadBalancerPrefix_FullMethodName = "/dpdkironcore.v1.DPDKironcore/DeleteLoadBalancerPrefix"
+	DPDKironcore_CreateVip_FullMethodName                = "/dpdkironcore.v1.DPDKironcore/CreateVip"
+	DPDKironcore_GetVip_FullMethodName                   = "/dpdkironcore.v1.DPDKironcore/GetVip"
+	DPDKironcore_DeleteVip_FullMethodName                = "/dpdkironcore.v1.DPDKironcore/DeleteVip"
+	DPDKironcore_CreateLoadBalancer_FullMethodName       = "/dpdkironcore.v1.DPDKironcore/CreateLoadBalancer"
+	DPDKironcore_GetLoadBalancer_FullMethodName          = "/dpdkironcore.v1.DPDKironcore/GetLoadBalancer"
+	DPDKironcore_DeleteLoadBalancer_FullMethodName       = "/dpdkironcore.v1.DPDKironcore/DeleteLoadBalancer"
+	DPDKironcore_CreateLoadBalancerTarget_FullMethodName = "/dpdkironcore.v1.DPDKironcore/CreateLoadBalancerTarget"
+	DPDKironcore_ListLoadBalancerTargets_FullMethodName  = "/dpdkironcore.v1.DPDKironcore/ListLoadBalancerTargets"
+	DPDKironcore_DeleteLoadBalancerTarget_FullMethodName = "/dpdkironcore.v1.DPDKironcore/DeleteLoadBalancerTarget"
+	DPDKironcore_CreateNat_FullMethodName                = "/dpdkironcore.v1.DPDKironcore/CreateNat"
+	DPDKironcore_GetNat_FullMethodName                   = "/dpdkironcore.v1.DPDKironcore/GetNat"
+	DPDKironcore_DeleteNat_FullMethodName                = "/dpdkironcore.v1.DPDKironcore/DeleteNat"
+	DPDKironcore_ListLocalNats_FullMethodName            = "/dpdkironcore.v1.DPDKironcore/ListLocalNats"
+	DPDKironcore_CreateNeighborNat_FullMethodName        = "/dpdkironcore.v1.DPDKironcore/CreateNeighborNat"
+	DPDKironcore_DeleteNeighborNat_FullMethodName        = "/dpdkironcore.v1.DPDKironcore/DeleteNeighborNat"
+	DPDKironcore_ListNeighborNats_FullMethodName         = "/dpdkironcore.v1.DPDKironcore/ListNeighborNats"
+	DPDKironcore_ListRoutes_FullMethodName               = "/dpdkironcore.v1.DPDKironcore/ListRoutes"
+	DPDKironcore_CreateRoute_FullMethodName              = "/dpdkironcore.v1.DPDKironcore/CreateRoute"
+	DPDKironcore_DeleteRoute_FullMethodName              = "/dpdkironcore.v1.DPDKironcore/DeleteRoute"
+	DPDKironcore_CheckVniInUse_FullMethodName            = "/dpdkironcore.v1.DPDKironcore/CheckVniInUse"
+	DPDKironcore_ResetVni_FullMethodName                 = "/dpdkironcore.v1.DPDKironcore/ResetVni"
+	DPDKironcore_ListFirewallRules_FullMethodName        = "/dpdkironcore.v1.DPDKironcore/ListFirewallRules"
+	DPDKironcore_CreateFirewallRule_FullMethodName       = "/dpdkironcore.v1.DPDKironcore/CreateFirewallRule"
+	DPDKironcore_GetFirewallRule_FullMethodName          = "/dpdkironcore.v1.DPDKironcore/GetFirewallRule"
+	DPDKironcore_DeleteFirewallRule_FullMethodName       = "/dpdkironcore.v1.DPDKironcore/DeleteFirewallRule"
+	DPDKironcore_CaptureStart_FullMethodName             = "/dpdkironcore.v1.DPDKironcore/CaptureStart"
+	DPDKironcore_CaptureStop_FullMethodName              = "/dpdkironcore.v1.DPDKironcore/CaptureStop"
+	DPDKironcore_CaptureStatus_FullMethodName            = "/dpdkironcore.v1.DPDKironcore/CaptureStatus"
 )
 
-// DPDKonmetalClient is the client API for DPDKonmetal service.
+// DPDKironcoreClient is the client API for DPDKironcore service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type DPDKonmetalClient interface {
+type DPDKironcoreClient interface {
 	// // INITIALIZATION
 	// initialized indicates if the DPDK app has been initialized already, if so an UUID is returned.
 	// this UUID gets changed in case the dp-service gets restarted.
@@ -140,387 +140,387 @@ type DPDKonmetalClient interface {
 	CaptureStatus(ctx context.Context, in *CaptureStatusRequest, opts ...grpc.CallOption) (*CaptureStatusResponse, error)
 }
 
-type dPDKonmetalClient struct {
+type dPDKironcoreClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewDPDKonmetalClient(cc grpc.ClientConnInterface) DPDKonmetalClient {
-	return &dPDKonmetalClient{cc}
+func NewDPDKironcoreClient(cc grpc.ClientConnInterface) DPDKironcoreClient {
+	return &dPDKironcoreClient{cc}
 }
 
-func (c *dPDKonmetalClient) CheckInitialized(ctx context.Context, in *CheckInitializedRequest, opts ...grpc.CallOption) (*CheckInitializedResponse, error) {
+func (c *dPDKironcoreClient) CheckInitialized(ctx context.Context, in *CheckInitializedRequest, opts ...grpc.CallOption) (*CheckInitializedResponse, error) {
 	out := new(CheckInitializedResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CheckInitialized_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CheckInitialized_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) Initialize(ctx context.Context, in *InitializeRequest, opts ...grpc.CallOption) (*InitializeResponse, error) {
+func (c *dPDKironcoreClient) Initialize(ctx context.Context, in *InitializeRequest, opts ...grpc.CallOption) (*InitializeResponse, error) {
 	out := new(InitializeResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_Initialize_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_Initialize_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) GetVersion(ctx context.Context, in *GetVersionRequest, opts ...grpc.CallOption) (*GetVersionResponse, error) {
+func (c *dPDKironcoreClient) GetVersion(ctx context.Context, in *GetVersionRequest, opts ...grpc.CallOption) (*GetVersionResponse, error) {
 	out := new(GetVersionResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_GetVersion_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_GetVersion_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListInterfaces(ctx context.Context, in *ListInterfacesRequest, opts ...grpc.CallOption) (*ListInterfacesResponse, error) {
+func (c *dPDKironcoreClient) ListInterfaces(ctx context.Context, in *ListInterfacesRequest, opts ...grpc.CallOption) (*ListInterfacesResponse, error) {
 	out := new(ListInterfacesResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_ListInterfaces_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_ListInterfaces_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) GetInterface(ctx context.Context, in *GetInterfaceRequest, opts ...grpc.CallOption) (*GetInterfaceResponse, error) {
+func (c *dPDKironcoreClient) GetInterface(ctx context.Context, in *GetInterfaceRequest, opts ...grpc.CallOption) (*GetInterfaceResponse, error) {
 	out := new(GetInterfaceResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_GetInterface_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_GetInterface_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CreateInterface(ctx context.Context, in *CreateInterfaceRequest, opts ...grpc.CallOption) (*CreateInterfaceResponse, error) {
+func (c *dPDKironcoreClient) CreateInterface(ctx context.Context, in *CreateInterfaceRequest, opts ...grpc.CallOption) (*CreateInterfaceResponse, error) {
 	out := new(CreateInterfaceResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CreateInterface_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CreateInterface_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteInterface(ctx context.Context, in *DeleteInterfaceRequest, opts ...grpc.CallOption) (*DeleteInterfaceResponse, error) {
+func (c *dPDKironcoreClient) DeleteInterface(ctx context.Context, in *DeleteInterfaceRequest, opts ...grpc.CallOption) (*DeleteInterfaceResponse, error) {
 	out := new(DeleteInterfaceResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteInterface_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_DeleteInterface_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListPrefixes(ctx context.Context, in *ListPrefixesRequest, opts ...grpc.CallOption) (*ListPrefixesResponse, error) {
+func (c *dPDKironcoreClient) ListPrefixes(ctx context.Context, in *ListPrefixesRequest, opts ...grpc.CallOption) (*ListPrefixesResponse, error) {
 	out := new(ListPrefixesResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_ListPrefixes_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_ListPrefixes_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CreatePrefix(ctx context.Context, in *CreatePrefixRequest, opts ...grpc.CallOption) (*CreatePrefixResponse, error) {
+func (c *dPDKironcoreClient) CreatePrefix(ctx context.Context, in *CreatePrefixRequest, opts ...grpc.CallOption) (*CreatePrefixResponse, error) {
 	out := new(CreatePrefixResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CreatePrefix_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CreatePrefix_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeletePrefix(ctx context.Context, in *DeletePrefixRequest, opts ...grpc.CallOption) (*DeletePrefixResponse, error) {
+func (c *dPDKironcoreClient) DeletePrefix(ctx context.Context, in *DeletePrefixRequest, opts ...grpc.CallOption) (*DeletePrefixResponse, error) {
 	out := new(DeletePrefixResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeletePrefix_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_DeletePrefix_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListLoadBalancerPrefixes(ctx context.Context, in *ListLoadBalancerPrefixesRequest, opts ...grpc.CallOption) (*ListLoadBalancerPrefixesResponse, error) {
+func (c *dPDKironcoreClient) ListLoadBalancerPrefixes(ctx context.Context, in *ListLoadBalancerPrefixesRequest, opts ...grpc.CallOption) (*ListLoadBalancerPrefixesResponse, error) {
 	out := new(ListLoadBalancerPrefixesResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_ListLoadBalancerPrefixes_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_ListLoadBalancerPrefixes_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CreateLoadBalancerPrefix(ctx context.Context, in *CreateLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*CreateLoadBalancerPrefixResponse, error) {
+func (c *dPDKironcoreClient) CreateLoadBalancerPrefix(ctx context.Context, in *CreateLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*CreateLoadBalancerPrefixResponse, error) {
 	out := new(CreateLoadBalancerPrefixResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CreateLoadBalancerPrefix_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CreateLoadBalancerPrefix_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteLoadBalancerPrefix(ctx context.Context, in *DeleteLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerPrefixResponse, error) {
+func (c *dPDKironcoreClient) DeleteLoadBalancerPrefix(ctx context.Context, in *DeleteLoadBalancerPrefixRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerPrefixResponse, error) {
 	out := new(DeleteLoadBalancerPrefixResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteLoadBalancerPrefix_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_DeleteLoadBalancerPrefix_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CreateVip(ctx context.Context, in *CreateVipRequest, opts ...grpc.CallOption) (*CreateVipResponse, error) {
+func (c *dPDKironcoreClient) CreateVip(ctx context.Context, in *CreateVipRequest, opts ...grpc.CallOption) (*CreateVipResponse, error) {
 	out := new(CreateVipResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CreateVip_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CreateVip_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) GetVip(ctx context.Context, in *GetVipRequest, opts ...grpc.CallOption) (*GetVipResponse, error) {
+func (c *dPDKironcoreClient) GetVip(ctx context.Context, in *GetVipRequest, opts ...grpc.CallOption) (*GetVipResponse, error) {
 	out := new(GetVipResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_GetVip_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_GetVip_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteVip(ctx context.Context, in *DeleteVipRequest, opts ...grpc.CallOption) (*DeleteVipResponse, error) {
+func (c *dPDKironcoreClient) DeleteVip(ctx context.Context, in *DeleteVipRequest, opts ...grpc.CallOption) (*DeleteVipResponse, error) {
 	out := new(DeleteVipResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteVip_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_DeleteVip_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CreateLoadBalancer(ctx context.Context, in *CreateLoadBalancerRequest, opts ...grpc.CallOption) (*CreateLoadBalancerResponse, error) {
+func (c *dPDKironcoreClient) CreateLoadBalancer(ctx context.Context, in *CreateLoadBalancerRequest, opts ...grpc.CallOption) (*CreateLoadBalancerResponse, error) {
 	out := new(CreateLoadBalancerResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CreateLoadBalancer_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CreateLoadBalancer_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) GetLoadBalancer(ctx context.Context, in *GetLoadBalancerRequest, opts ...grpc.CallOption) (*GetLoadBalancerResponse, error) {
+func (c *dPDKironcoreClient) GetLoadBalancer(ctx context.Context, in *GetLoadBalancerRequest, opts ...grpc.CallOption) (*GetLoadBalancerResponse, error) {
 	out := new(GetLoadBalancerResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_GetLoadBalancer_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_GetLoadBalancer_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteLoadBalancer(ctx context.Context, in *DeleteLoadBalancerRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerResponse, error) {
+func (c *dPDKironcoreClient) DeleteLoadBalancer(ctx context.Context, in *DeleteLoadBalancerRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerResponse, error) {
 	out := new(DeleteLoadBalancerResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteLoadBalancer_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_DeleteLoadBalancer_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CreateLoadBalancerTarget(ctx context.Context, in *CreateLoadBalancerTargetRequest, opts ...grpc.CallOption) (*CreateLoadBalancerTargetResponse, error) {
+func (c *dPDKironcoreClient) CreateLoadBalancerTarget(ctx context.Context, in *CreateLoadBalancerTargetRequest, opts ...grpc.CallOption) (*CreateLoadBalancerTargetResponse, error) {
 	out := new(CreateLoadBalancerTargetResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CreateLoadBalancerTarget_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CreateLoadBalancerTarget_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListLoadBalancerTargets(ctx context.Context, in *ListLoadBalancerTargetsRequest, opts ...grpc.CallOption) (*ListLoadBalancerTargetsResponse, error) {
+func (c *dPDKironcoreClient) ListLoadBalancerTargets(ctx context.Context, in *ListLoadBalancerTargetsRequest, opts ...grpc.CallOption) (*ListLoadBalancerTargetsResponse, error) {
 	out := new(ListLoadBalancerTargetsResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_ListLoadBalancerTargets_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_ListLoadBalancerTargets_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteLoadBalancerTarget(ctx context.Context, in *DeleteLoadBalancerTargetRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerTargetResponse, error) {
+func (c *dPDKironcoreClient) DeleteLoadBalancerTarget(ctx context.Context, in *DeleteLoadBalancerTargetRequest, opts ...grpc.CallOption) (*DeleteLoadBalancerTargetResponse, error) {
 	out := new(DeleteLoadBalancerTargetResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteLoadBalancerTarget_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_DeleteLoadBalancerTarget_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CreateNat(ctx context.Context, in *CreateNatRequest, opts ...grpc.CallOption) (*CreateNatResponse, error) {
+func (c *dPDKironcoreClient) CreateNat(ctx context.Context, in *CreateNatRequest, opts ...grpc.CallOption) (*CreateNatResponse, error) {
 	out := new(CreateNatResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CreateNat_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CreateNat_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) GetNat(ctx context.Context, in *GetNatRequest, opts ...grpc.CallOption) (*GetNatResponse, error) {
+func (c *dPDKironcoreClient) GetNat(ctx context.Context, in *GetNatRequest, opts ...grpc.CallOption) (*GetNatResponse, error) {
 	out := new(GetNatResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_GetNat_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_GetNat_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteNat(ctx context.Context, in *DeleteNatRequest, opts ...grpc.CallOption) (*DeleteNatResponse, error) {
+func (c *dPDKironcoreClient) DeleteNat(ctx context.Context, in *DeleteNatRequest, opts ...grpc.CallOption) (*DeleteNatResponse, error) {
 	out := new(DeleteNatResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteNat_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_DeleteNat_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListLocalNats(ctx context.Context, in *ListLocalNatsRequest, opts ...grpc.CallOption) (*ListLocalNatsResponse, error) {
+func (c *dPDKironcoreClient) ListLocalNats(ctx context.Context, in *ListLocalNatsRequest, opts ...grpc.CallOption) (*ListLocalNatsResponse, error) {
 	out := new(ListLocalNatsResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_ListLocalNats_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_ListLocalNats_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CreateNeighborNat(ctx context.Context, in *CreateNeighborNatRequest, opts ...grpc.CallOption) (*CreateNeighborNatResponse, error) {
+func (c *dPDKironcoreClient) CreateNeighborNat(ctx context.Context, in *CreateNeighborNatRequest, opts ...grpc.CallOption) (*CreateNeighborNatResponse, error) {
 	out := new(CreateNeighborNatResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CreateNeighborNat_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CreateNeighborNat_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteNeighborNat(ctx context.Context, in *DeleteNeighborNatRequest, opts ...grpc.CallOption) (*DeleteNeighborNatResponse, error) {
+func (c *dPDKironcoreClient) DeleteNeighborNat(ctx context.Context, in *DeleteNeighborNatRequest, opts ...grpc.CallOption) (*DeleteNeighborNatResponse, error) {
 	out := new(DeleteNeighborNatResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteNeighborNat_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_DeleteNeighborNat_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListNeighborNats(ctx context.Context, in *ListNeighborNatsRequest, opts ...grpc.CallOption) (*ListNeighborNatsResponse, error) {
+func (c *dPDKironcoreClient) ListNeighborNats(ctx context.Context, in *ListNeighborNatsRequest, opts ...grpc.CallOption) (*ListNeighborNatsResponse, error) {
 	out := new(ListNeighborNatsResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_ListNeighborNats_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_ListNeighborNats_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListRoutes(ctx context.Context, in *ListRoutesRequest, opts ...grpc.CallOption) (*ListRoutesResponse, error) {
+func (c *dPDKironcoreClient) ListRoutes(ctx context.Context, in *ListRoutesRequest, opts ...grpc.CallOption) (*ListRoutesResponse, error) {
 	out := new(ListRoutesResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_ListRoutes_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_ListRoutes_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CreateRoute(ctx context.Context, in *CreateRouteRequest, opts ...grpc.CallOption) (*CreateRouteResponse, error) {
+func (c *dPDKironcoreClient) CreateRoute(ctx context.Context, in *CreateRouteRequest, opts ...grpc.CallOption) (*CreateRouteResponse, error) {
 	out := new(CreateRouteResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CreateRoute_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CreateRoute_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteRoute(ctx context.Context, in *DeleteRouteRequest, opts ...grpc.CallOption) (*DeleteRouteResponse, error) {
+func (c *dPDKironcoreClient) DeleteRoute(ctx context.Context, in *DeleteRouteRequest, opts ...grpc.CallOption) (*DeleteRouteResponse, error) {
 	out := new(DeleteRouteResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteRoute_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_DeleteRoute_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CheckVniInUse(ctx context.Context, in *CheckVniInUseRequest, opts ...grpc.CallOption) (*CheckVniInUseResponse, error) {
+func (c *dPDKironcoreClient) CheckVniInUse(ctx context.Context, in *CheckVniInUseRequest, opts ...grpc.CallOption) (*CheckVniInUseResponse, error) {
 	out := new(CheckVniInUseResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CheckVniInUse_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CheckVniInUse_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ResetVni(ctx context.Context, in *ResetVniRequest, opts ...grpc.CallOption) (*ResetVniResponse, error) {
+func (c *dPDKironcoreClient) ResetVni(ctx context.Context, in *ResetVniRequest, opts ...grpc.CallOption) (*ResetVniResponse, error) {
 	out := new(ResetVniResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_ResetVni_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_ResetVni_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) ListFirewallRules(ctx context.Context, in *ListFirewallRulesRequest, opts ...grpc.CallOption) (*ListFirewallRulesResponse, error) {
+func (c *dPDKironcoreClient) ListFirewallRules(ctx context.Context, in *ListFirewallRulesRequest, opts ...grpc.CallOption) (*ListFirewallRulesResponse, error) {
 	out := new(ListFirewallRulesResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_ListFirewallRules_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_ListFirewallRules_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CreateFirewallRule(ctx context.Context, in *CreateFirewallRuleRequest, opts ...grpc.CallOption) (*CreateFirewallRuleResponse, error) {
+func (c *dPDKironcoreClient) CreateFirewallRule(ctx context.Context, in *CreateFirewallRuleRequest, opts ...grpc.CallOption) (*CreateFirewallRuleResponse, error) {
 	out := new(CreateFirewallRuleResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CreateFirewallRule_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CreateFirewallRule_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) GetFirewallRule(ctx context.Context, in *GetFirewallRuleRequest, opts ...grpc.CallOption) (*GetFirewallRuleResponse, error) {
+func (c *dPDKironcoreClient) GetFirewallRule(ctx context.Context, in *GetFirewallRuleRequest, opts ...grpc.CallOption) (*GetFirewallRuleResponse, error) {
 	out := new(GetFirewallRuleResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_GetFirewallRule_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_GetFirewallRule_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) DeleteFirewallRule(ctx context.Context, in *DeleteFirewallRuleRequest, opts ...grpc.CallOption) (*DeleteFirewallRuleResponse, error) {
+func (c *dPDKironcoreClient) DeleteFirewallRule(ctx context.Context, in *DeleteFirewallRuleRequest, opts ...grpc.CallOption) (*DeleteFirewallRuleResponse, error) {
 	out := new(DeleteFirewallRuleResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_DeleteFirewallRule_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_DeleteFirewallRule_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CaptureStart(ctx context.Context, in *CaptureStartRequest, opts ...grpc.CallOption) (*CaptureStartResponse, error) {
+func (c *dPDKironcoreClient) CaptureStart(ctx context.Context, in *CaptureStartRequest, opts ...grpc.CallOption) (*CaptureStartResponse, error) {
 	out := new(CaptureStartResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CaptureStart_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CaptureStart_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CaptureStop(ctx context.Context, in *CaptureStopRequest, opts ...grpc.CallOption) (*CaptureStopResponse, error) {
+func (c *dPDKironcoreClient) CaptureStop(ctx context.Context, in *CaptureStopRequest, opts ...grpc.CallOption) (*CaptureStopResponse, error) {
 	out := new(CaptureStopResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CaptureStop_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CaptureStop_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dPDKonmetalClient) CaptureStatus(ctx context.Context, in *CaptureStatusRequest, opts ...grpc.CallOption) (*CaptureStatusResponse, error) {
+func (c *dPDKironcoreClient) CaptureStatus(ctx context.Context, in *CaptureStatusRequest, opts ...grpc.CallOption) (*CaptureStatusResponse, error) {
 	out := new(CaptureStatusResponse)
-	err := c.cc.Invoke(ctx, DPDKonmetal_CaptureStatus_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DPDKironcore_CaptureStatus_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// DPDKonmetalServer is the server API for DPDKonmetal service.
-// All implementations must embed UnimplementedDPDKonmetalServer
+// DPDKironcoreServer is the server API for DPDKironcore service.
+// All implementations must embed UnimplementedDPDKironcoreServer
 // for forward compatibility
-type DPDKonmetalServer interface {
+type DPDKironcoreServer interface {
 	// // INITIALIZATION
 	// initialized indicates if the DPDK app has been initialized already, if so an UUID is returned.
 	// this UUID gets changed in case the dp-service gets restarted.
@@ -593,1057 +593,1057 @@ type DPDKonmetalServer interface {
 	CaptureStart(context.Context, *CaptureStartRequest) (*CaptureStartResponse, error)
 	CaptureStop(context.Context, *CaptureStopRequest) (*CaptureStopResponse, error)
 	CaptureStatus(context.Context, *CaptureStatusRequest) (*CaptureStatusResponse, error)
-	mustEmbedUnimplementedDPDKonmetalServer()
+	mustEmbedUnimplementedDPDKironcoreServer()
 }
 
-// UnimplementedDPDKonmetalServer must be embedded to have forward compatible implementations.
-type UnimplementedDPDKonmetalServer struct {
+// UnimplementedDPDKironcoreServer must be embedded to have forward compatible implementations.
+type UnimplementedDPDKironcoreServer struct {
 }
 
-func (UnimplementedDPDKonmetalServer) CheckInitialized(context.Context, *CheckInitializedRequest) (*CheckInitializedResponse, error) {
+func (UnimplementedDPDKironcoreServer) CheckInitialized(context.Context, *CheckInitializedRequest) (*CheckInitializedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckInitialized not implemented")
 }
-func (UnimplementedDPDKonmetalServer) Initialize(context.Context, *InitializeRequest) (*InitializeResponse, error) {
+func (UnimplementedDPDKironcoreServer) Initialize(context.Context, *InitializeRequest) (*InitializeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Initialize not implemented")
 }
-func (UnimplementedDPDKonmetalServer) GetVersion(context.Context, *GetVersionRequest) (*GetVersionResponse, error) {
+func (UnimplementedDPDKironcoreServer) GetVersion(context.Context, *GetVersionRequest) (*GetVersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetVersion not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListInterfaces(context.Context, *ListInterfacesRequest) (*ListInterfacesResponse, error) {
+func (UnimplementedDPDKironcoreServer) ListInterfaces(context.Context, *ListInterfacesRequest) (*ListInterfacesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListInterfaces not implemented")
 }
-func (UnimplementedDPDKonmetalServer) GetInterface(context.Context, *GetInterfaceRequest) (*GetInterfaceResponse, error) {
+func (UnimplementedDPDKironcoreServer) GetInterface(context.Context, *GetInterfaceRequest) (*GetInterfaceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetInterface not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CreateInterface(context.Context, *CreateInterfaceRequest) (*CreateInterfaceResponse, error) {
+func (UnimplementedDPDKironcoreServer) CreateInterface(context.Context, *CreateInterfaceRequest) (*CreateInterfaceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateInterface not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteInterface(context.Context, *DeleteInterfaceRequest) (*DeleteInterfaceResponse, error) {
+func (UnimplementedDPDKironcoreServer) DeleteInterface(context.Context, *DeleteInterfaceRequest) (*DeleteInterfaceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteInterface not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListPrefixes(context.Context, *ListPrefixesRequest) (*ListPrefixesResponse, error) {
+func (UnimplementedDPDKironcoreServer) ListPrefixes(context.Context, *ListPrefixesRequest) (*ListPrefixesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListPrefixes not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CreatePrefix(context.Context, *CreatePrefixRequest) (*CreatePrefixResponse, error) {
+func (UnimplementedDPDKironcoreServer) CreatePrefix(context.Context, *CreatePrefixRequest) (*CreatePrefixResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePrefix not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeletePrefix(context.Context, *DeletePrefixRequest) (*DeletePrefixResponse, error) {
+func (UnimplementedDPDKironcoreServer) DeletePrefix(context.Context, *DeletePrefixRequest) (*DeletePrefixResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePrefix not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListLoadBalancerPrefixes(context.Context, *ListLoadBalancerPrefixesRequest) (*ListLoadBalancerPrefixesResponse, error) {
+func (UnimplementedDPDKironcoreServer) ListLoadBalancerPrefixes(context.Context, *ListLoadBalancerPrefixesRequest) (*ListLoadBalancerPrefixesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListLoadBalancerPrefixes not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CreateLoadBalancerPrefix(context.Context, *CreateLoadBalancerPrefixRequest) (*CreateLoadBalancerPrefixResponse, error) {
+func (UnimplementedDPDKironcoreServer) CreateLoadBalancerPrefix(context.Context, *CreateLoadBalancerPrefixRequest) (*CreateLoadBalancerPrefixResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLoadBalancerPrefix not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteLoadBalancerPrefix(context.Context, *DeleteLoadBalancerPrefixRequest) (*DeleteLoadBalancerPrefixResponse, error) {
+func (UnimplementedDPDKironcoreServer) DeleteLoadBalancerPrefix(context.Context, *DeleteLoadBalancerPrefixRequest) (*DeleteLoadBalancerPrefixResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLoadBalancerPrefix not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CreateVip(context.Context, *CreateVipRequest) (*CreateVipResponse, error) {
+func (UnimplementedDPDKironcoreServer) CreateVip(context.Context, *CreateVipRequest) (*CreateVipResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateVip not implemented")
 }
-func (UnimplementedDPDKonmetalServer) GetVip(context.Context, *GetVipRequest) (*GetVipResponse, error) {
+func (UnimplementedDPDKironcoreServer) GetVip(context.Context, *GetVipRequest) (*GetVipResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetVip not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteVip(context.Context, *DeleteVipRequest) (*DeleteVipResponse, error) {
+func (UnimplementedDPDKironcoreServer) DeleteVip(context.Context, *DeleteVipRequest) (*DeleteVipResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteVip not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CreateLoadBalancer(context.Context, *CreateLoadBalancerRequest) (*CreateLoadBalancerResponse, error) {
+func (UnimplementedDPDKironcoreServer) CreateLoadBalancer(context.Context, *CreateLoadBalancerRequest) (*CreateLoadBalancerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLoadBalancer not implemented")
 }
-func (UnimplementedDPDKonmetalServer) GetLoadBalancer(context.Context, *GetLoadBalancerRequest) (*GetLoadBalancerResponse, error) {
+func (UnimplementedDPDKironcoreServer) GetLoadBalancer(context.Context, *GetLoadBalancerRequest) (*GetLoadBalancerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLoadBalancer not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteLoadBalancer(context.Context, *DeleteLoadBalancerRequest) (*DeleteLoadBalancerResponse, error) {
+func (UnimplementedDPDKironcoreServer) DeleteLoadBalancer(context.Context, *DeleteLoadBalancerRequest) (*DeleteLoadBalancerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLoadBalancer not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CreateLoadBalancerTarget(context.Context, *CreateLoadBalancerTargetRequest) (*CreateLoadBalancerTargetResponse, error) {
+func (UnimplementedDPDKironcoreServer) CreateLoadBalancerTarget(context.Context, *CreateLoadBalancerTargetRequest) (*CreateLoadBalancerTargetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLoadBalancerTarget not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListLoadBalancerTargets(context.Context, *ListLoadBalancerTargetsRequest) (*ListLoadBalancerTargetsResponse, error) {
+func (UnimplementedDPDKironcoreServer) ListLoadBalancerTargets(context.Context, *ListLoadBalancerTargetsRequest) (*ListLoadBalancerTargetsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListLoadBalancerTargets not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteLoadBalancerTarget(context.Context, *DeleteLoadBalancerTargetRequest) (*DeleteLoadBalancerTargetResponse, error) {
+func (UnimplementedDPDKironcoreServer) DeleteLoadBalancerTarget(context.Context, *DeleteLoadBalancerTargetRequest) (*DeleteLoadBalancerTargetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLoadBalancerTarget not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CreateNat(context.Context, *CreateNatRequest) (*CreateNatResponse, error) {
+func (UnimplementedDPDKironcoreServer) CreateNat(context.Context, *CreateNatRequest) (*CreateNatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateNat not implemented")
 }
-func (UnimplementedDPDKonmetalServer) GetNat(context.Context, *GetNatRequest) (*GetNatResponse, error) {
+func (UnimplementedDPDKironcoreServer) GetNat(context.Context, *GetNatRequest) (*GetNatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNat not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteNat(context.Context, *DeleteNatRequest) (*DeleteNatResponse, error) {
+func (UnimplementedDPDKironcoreServer) DeleteNat(context.Context, *DeleteNatRequest) (*DeleteNatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteNat not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListLocalNats(context.Context, *ListLocalNatsRequest) (*ListLocalNatsResponse, error) {
+func (UnimplementedDPDKironcoreServer) ListLocalNats(context.Context, *ListLocalNatsRequest) (*ListLocalNatsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListLocalNats not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CreateNeighborNat(context.Context, *CreateNeighborNatRequest) (*CreateNeighborNatResponse, error) {
+func (UnimplementedDPDKironcoreServer) CreateNeighborNat(context.Context, *CreateNeighborNatRequest) (*CreateNeighborNatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateNeighborNat not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteNeighborNat(context.Context, *DeleteNeighborNatRequest) (*DeleteNeighborNatResponse, error) {
+func (UnimplementedDPDKironcoreServer) DeleteNeighborNat(context.Context, *DeleteNeighborNatRequest) (*DeleteNeighborNatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteNeighborNat not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListNeighborNats(context.Context, *ListNeighborNatsRequest) (*ListNeighborNatsResponse, error) {
+func (UnimplementedDPDKironcoreServer) ListNeighborNats(context.Context, *ListNeighborNatsRequest) (*ListNeighborNatsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListNeighborNats not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListRoutes(context.Context, *ListRoutesRequest) (*ListRoutesResponse, error) {
+func (UnimplementedDPDKironcoreServer) ListRoutes(context.Context, *ListRoutesRequest) (*ListRoutesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRoutes not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CreateRoute(context.Context, *CreateRouteRequest) (*CreateRouteResponse, error) {
+func (UnimplementedDPDKironcoreServer) CreateRoute(context.Context, *CreateRouteRequest) (*CreateRouteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRoute not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteRoute(context.Context, *DeleteRouteRequest) (*DeleteRouteResponse, error) {
+func (UnimplementedDPDKironcoreServer) DeleteRoute(context.Context, *DeleteRouteRequest) (*DeleteRouteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRoute not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CheckVniInUse(context.Context, *CheckVniInUseRequest) (*CheckVniInUseResponse, error) {
+func (UnimplementedDPDKironcoreServer) CheckVniInUse(context.Context, *CheckVniInUseRequest) (*CheckVniInUseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckVniInUse not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ResetVni(context.Context, *ResetVniRequest) (*ResetVniResponse, error) {
+func (UnimplementedDPDKironcoreServer) ResetVni(context.Context, *ResetVniRequest) (*ResetVniResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResetVni not implemented")
 }
-func (UnimplementedDPDKonmetalServer) ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error) {
+func (UnimplementedDPDKironcoreServer) ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListFirewallRules not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CreateFirewallRule(context.Context, *CreateFirewallRuleRequest) (*CreateFirewallRuleResponse, error) {
+func (UnimplementedDPDKironcoreServer) CreateFirewallRule(context.Context, *CreateFirewallRuleRequest) (*CreateFirewallRuleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateFirewallRule not implemented")
 }
-func (UnimplementedDPDKonmetalServer) GetFirewallRule(context.Context, *GetFirewallRuleRequest) (*GetFirewallRuleResponse, error) {
+func (UnimplementedDPDKironcoreServer) GetFirewallRule(context.Context, *GetFirewallRuleRequest) (*GetFirewallRuleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFirewallRule not implemented")
 }
-func (UnimplementedDPDKonmetalServer) DeleteFirewallRule(context.Context, *DeleteFirewallRuleRequest) (*DeleteFirewallRuleResponse, error) {
+func (UnimplementedDPDKironcoreServer) DeleteFirewallRule(context.Context, *DeleteFirewallRuleRequest) (*DeleteFirewallRuleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFirewallRule not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CaptureStart(context.Context, *CaptureStartRequest) (*CaptureStartResponse, error) {
+func (UnimplementedDPDKironcoreServer) CaptureStart(context.Context, *CaptureStartRequest) (*CaptureStartResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CaptureStart not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CaptureStop(context.Context, *CaptureStopRequest) (*CaptureStopResponse, error) {
+func (UnimplementedDPDKironcoreServer) CaptureStop(context.Context, *CaptureStopRequest) (*CaptureStopResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CaptureStop not implemented")
 }
-func (UnimplementedDPDKonmetalServer) CaptureStatus(context.Context, *CaptureStatusRequest) (*CaptureStatusResponse, error) {
+func (UnimplementedDPDKironcoreServer) CaptureStatus(context.Context, *CaptureStatusRequest) (*CaptureStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CaptureStatus not implemented")
 }
-func (UnimplementedDPDKonmetalServer) mustEmbedUnimplementedDPDKonmetalServer() {}
+func (UnimplementedDPDKironcoreServer) mustEmbedUnimplementedDPDKironcoreServer() {}
 
-// UnsafeDPDKonmetalServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to DPDKonmetalServer will
+// UnsafeDPDKironcoreServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to DPDKironcoreServer will
 // result in compilation errors.
-type UnsafeDPDKonmetalServer interface {
-	mustEmbedUnimplementedDPDKonmetalServer()
+type UnsafeDPDKironcoreServer interface {
+	mustEmbedUnimplementedDPDKironcoreServer()
 }
 
-func RegisterDPDKonmetalServer(s grpc.ServiceRegistrar, srv DPDKonmetalServer) {
-	s.RegisterService(&DPDKonmetal_ServiceDesc, srv)
+func RegisterDPDKironcoreServer(s grpc.ServiceRegistrar, srv DPDKironcoreServer) {
+	s.RegisterService(&DPDKironcore_ServiceDesc, srv)
 }
 
-func _DPDKonmetal_CheckInitialized_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CheckInitialized_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CheckInitializedRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CheckInitialized(ctx, in)
+		return srv.(DPDKironcoreServer).CheckInitialized(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CheckInitialized_FullMethodName,
+		FullMethod: DPDKironcore_CheckInitialized_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CheckInitialized(ctx, req.(*CheckInitializedRequest))
+		return srv.(DPDKironcoreServer).CheckInitialized(ctx, req.(*CheckInitializedRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_Initialize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_Initialize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(InitializeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).Initialize(ctx, in)
+		return srv.(DPDKironcoreServer).Initialize(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_Initialize_FullMethodName,
+		FullMethod: DPDKironcore_Initialize_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).Initialize(ctx, req.(*InitializeRequest))
+		return srv.(DPDKironcoreServer).Initialize(ctx, req.(*InitializeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_GetVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_GetVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetVersionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).GetVersion(ctx, in)
+		return srv.(DPDKironcoreServer).GetVersion(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_GetVersion_FullMethodName,
+		FullMethod: DPDKironcore_GetVersion_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).GetVersion(ctx, req.(*GetVersionRequest))
+		return srv.(DPDKironcoreServer).GetVersion(ctx, req.(*GetVersionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_ListInterfaces_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_ListInterfaces_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListInterfacesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).ListInterfaces(ctx, in)
+		return srv.(DPDKironcoreServer).ListInterfaces(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_ListInterfaces_FullMethodName,
+		FullMethod: DPDKironcore_ListInterfaces_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListInterfaces(ctx, req.(*ListInterfacesRequest))
+		return srv.(DPDKironcoreServer).ListInterfaces(ctx, req.(*ListInterfacesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_GetInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_GetInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetInterfaceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).GetInterface(ctx, in)
+		return srv.(DPDKironcoreServer).GetInterface(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_GetInterface_FullMethodName,
+		FullMethod: DPDKironcore_GetInterface_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).GetInterface(ctx, req.(*GetInterfaceRequest))
+		return srv.(DPDKironcoreServer).GetInterface(ctx, req.(*GetInterfaceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CreateInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CreateInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateInterfaceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CreateInterface(ctx, in)
+		return srv.(DPDKironcoreServer).CreateInterface(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CreateInterface_FullMethodName,
+		FullMethod: DPDKironcore_CreateInterface_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CreateInterface(ctx, req.(*CreateInterfaceRequest))
+		return srv.(DPDKironcoreServer).CreateInterface(ctx, req.(*CreateInterfaceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_DeleteInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteInterfaceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteInterface(ctx, in)
+		return srv.(DPDKironcoreServer).DeleteInterface(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteInterface_FullMethodName,
+		FullMethod: DPDKironcore_DeleteInterface_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteInterface(ctx, req.(*DeleteInterfaceRequest))
+		return srv.(DPDKironcoreServer).DeleteInterface(ctx, req.(*DeleteInterfaceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_ListPrefixes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_ListPrefixes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListPrefixesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).ListPrefixes(ctx, in)
+		return srv.(DPDKironcoreServer).ListPrefixes(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_ListPrefixes_FullMethodName,
+		FullMethod: DPDKironcore_ListPrefixes_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListPrefixes(ctx, req.(*ListPrefixesRequest))
+		return srv.(DPDKironcoreServer).ListPrefixes(ctx, req.(*ListPrefixesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CreatePrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CreatePrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreatePrefixRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CreatePrefix(ctx, in)
+		return srv.(DPDKironcoreServer).CreatePrefix(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CreatePrefix_FullMethodName,
+		FullMethod: DPDKironcore_CreatePrefix_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CreatePrefix(ctx, req.(*CreatePrefixRequest))
+		return srv.(DPDKironcoreServer).CreatePrefix(ctx, req.(*CreatePrefixRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeletePrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_DeletePrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeletePrefixRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeletePrefix(ctx, in)
+		return srv.(DPDKironcoreServer).DeletePrefix(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeletePrefix_FullMethodName,
+		FullMethod: DPDKironcore_DeletePrefix_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeletePrefix(ctx, req.(*DeletePrefixRequest))
+		return srv.(DPDKironcoreServer).DeletePrefix(ctx, req.(*DeletePrefixRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_ListLoadBalancerPrefixes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_ListLoadBalancerPrefixes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListLoadBalancerPrefixesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).ListLoadBalancerPrefixes(ctx, in)
+		return srv.(DPDKironcoreServer).ListLoadBalancerPrefixes(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_ListLoadBalancerPrefixes_FullMethodName,
+		FullMethod: DPDKironcore_ListLoadBalancerPrefixes_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListLoadBalancerPrefixes(ctx, req.(*ListLoadBalancerPrefixesRequest))
+		return srv.(DPDKironcoreServer).ListLoadBalancerPrefixes(ctx, req.(*ListLoadBalancerPrefixesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CreateLoadBalancerPrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CreateLoadBalancerPrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateLoadBalancerPrefixRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CreateLoadBalancerPrefix(ctx, in)
+		return srv.(DPDKironcoreServer).CreateLoadBalancerPrefix(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CreateLoadBalancerPrefix_FullMethodName,
+		FullMethod: DPDKironcore_CreateLoadBalancerPrefix_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CreateLoadBalancerPrefix(ctx, req.(*CreateLoadBalancerPrefixRequest))
+		return srv.(DPDKironcoreServer).CreateLoadBalancerPrefix(ctx, req.(*CreateLoadBalancerPrefixRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteLoadBalancerPrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_DeleteLoadBalancerPrefix_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteLoadBalancerPrefixRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteLoadBalancerPrefix(ctx, in)
+		return srv.(DPDKironcoreServer).DeleteLoadBalancerPrefix(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteLoadBalancerPrefix_FullMethodName,
+		FullMethod: DPDKironcore_DeleteLoadBalancerPrefix_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteLoadBalancerPrefix(ctx, req.(*DeleteLoadBalancerPrefixRequest))
+		return srv.(DPDKironcoreServer).DeleteLoadBalancerPrefix(ctx, req.(*DeleteLoadBalancerPrefixRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CreateVip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CreateVip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateVipRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CreateVip(ctx, in)
+		return srv.(DPDKironcoreServer).CreateVip(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CreateVip_FullMethodName,
+		FullMethod: DPDKironcore_CreateVip_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CreateVip(ctx, req.(*CreateVipRequest))
+		return srv.(DPDKironcoreServer).CreateVip(ctx, req.(*CreateVipRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_GetVip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_GetVip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetVipRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).GetVip(ctx, in)
+		return srv.(DPDKironcoreServer).GetVip(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_GetVip_FullMethodName,
+		FullMethod: DPDKironcore_GetVip_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).GetVip(ctx, req.(*GetVipRequest))
+		return srv.(DPDKironcoreServer).GetVip(ctx, req.(*GetVipRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteVip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_DeleteVip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteVipRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteVip(ctx, in)
+		return srv.(DPDKironcoreServer).DeleteVip(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteVip_FullMethodName,
+		FullMethod: DPDKironcore_DeleteVip_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteVip(ctx, req.(*DeleteVipRequest))
+		return srv.(DPDKironcoreServer).DeleteVip(ctx, req.(*DeleteVipRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CreateLoadBalancer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CreateLoadBalancer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateLoadBalancerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CreateLoadBalancer(ctx, in)
+		return srv.(DPDKironcoreServer).CreateLoadBalancer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CreateLoadBalancer_FullMethodName,
+		FullMethod: DPDKironcore_CreateLoadBalancer_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CreateLoadBalancer(ctx, req.(*CreateLoadBalancerRequest))
+		return srv.(DPDKironcoreServer).CreateLoadBalancer(ctx, req.(*CreateLoadBalancerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_GetLoadBalancer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_GetLoadBalancer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetLoadBalancerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).GetLoadBalancer(ctx, in)
+		return srv.(DPDKironcoreServer).GetLoadBalancer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_GetLoadBalancer_FullMethodName,
+		FullMethod: DPDKironcore_GetLoadBalancer_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).GetLoadBalancer(ctx, req.(*GetLoadBalancerRequest))
+		return srv.(DPDKironcoreServer).GetLoadBalancer(ctx, req.(*GetLoadBalancerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteLoadBalancer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_DeleteLoadBalancer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteLoadBalancerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteLoadBalancer(ctx, in)
+		return srv.(DPDKironcoreServer).DeleteLoadBalancer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteLoadBalancer_FullMethodName,
+		FullMethod: DPDKironcore_DeleteLoadBalancer_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteLoadBalancer(ctx, req.(*DeleteLoadBalancerRequest))
+		return srv.(DPDKironcoreServer).DeleteLoadBalancer(ctx, req.(*DeleteLoadBalancerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CreateLoadBalancerTarget_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CreateLoadBalancerTarget_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateLoadBalancerTargetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CreateLoadBalancerTarget(ctx, in)
+		return srv.(DPDKironcoreServer).CreateLoadBalancerTarget(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CreateLoadBalancerTarget_FullMethodName,
+		FullMethod: DPDKironcore_CreateLoadBalancerTarget_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CreateLoadBalancerTarget(ctx, req.(*CreateLoadBalancerTargetRequest))
+		return srv.(DPDKironcoreServer).CreateLoadBalancerTarget(ctx, req.(*CreateLoadBalancerTargetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_ListLoadBalancerTargets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_ListLoadBalancerTargets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListLoadBalancerTargetsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).ListLoadBalancerTargets(ctx, in)
+		return srv.(DPDKironcoreServer).ListLoadBalancerTargets(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_ListLoadBalancerTargets_FullMethodName,
+		FullMethod: DPDKironcore_ListLoadBalancerTargets_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListLoadBalancerTargets(ctx, req.(*ListLoadBalancerTargetsRequest))
+		return srv.(DPDKironcoreServer).ListLoadBalancerTargets(ctx, req.(*ListLoadBalancerTargetsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteLoadBalancerTarget_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_DeleteLoadBalancerTarget_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteLoadBalancerTargetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteLoadBalancerTarget(ctx, in)
+		return srv.(DPDKironcoreServer).DeleteLoadBalancerTarget(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteLoadBalancerTarget_FullMethodName,
+		FullMethod: DPDKironcore_DeleteLoadBalancerTarget_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteLoadBalancerTarget(ctx, req.(*DeleteLoadBalancerTargetRequest))
+		return srv.(DPDKironcoreServer).DeleteLoadBalancerTarget(ctx, req.(*DeleteLoadBalancerTargetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CreateNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CreateNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateNatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CreateNat(ctx, in)
+		return srv.(DPDKironcoreServer).CreateNat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CreateNat_FullMethodName,
+		FullMethod: DPDKironcore_CreateNat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CreateNat(ctx, req.(*CreateNatRequest))
+		return srv.(DPDKironcoreServer).CreateNat(ctx, req.(*CreateNatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_GetNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_GetNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetNatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).GetNat(ctx, in)
+		return srv.(DPDKironcoreServer).GetNat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_GetNat_FullMethodName,
+		FullMethod: DPDKironcore_GetNat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).GetNat(ctx, req.(*GetNatRequest))
+		return srv.(DPDKironcoreServer).GetNat(ctx, req.(*GetNatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_DeleteNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteNatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteNat(ctx, in)
+		return srv.(DPDKironcoreServer).DeleteNat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteNat_FullMethodName,
+		FullMethod: DPDKironcore_DeleteNat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteNat(ctx, req.(*DeleteNatRequest))
+		return srv.(DPDKironcoreServer).DeleteNat(ctx, req.(*DeleteNatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_ListLocalNats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_ListLocalNats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListLocalNatsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).ListLocalNats(ctx, in)
+		return srv.(DPDKironcoreServer).ListLocalNats(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_ListLocalNats_FullMethodName,
+		FullMethod: DPDKironcore_ListLocalNats_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListLocalNats(ctx, req.(*ListLocalNatsRequest))
+		return srv.(DPDKironcoreServer).ListLocalNats(ctx, req.(*ListLocalNatsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CreateNeighborNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CreateNeighborNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateNeighborNatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CreateNeighborNat(ctx, in)
+		return srv.(DPDKironcoreServer).CreateNeighborNat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CreateNeighborNat_FullMethodName,
+		FullMethod: DPDKironcore_CreateNeighborNat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CreateNeighborNat(ctx, req.(*CreateNeighborNatRequest))
+		return srv.(DPDKironcoreServer).CreateNeighborNat(ctx, req.(*CreateNeighborNatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteNeighborNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_DeleteNeighborNat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteNeighborNatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteNeighborNat(ctx, in)
+		return srv.(DPDKironcoreServer).DeleteNeighborNat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteNeighborNat_FullMethodName,
+		FullMethod: DPDKironcore_DeleteNeighborNat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteNeighborNat(ctx, req.(*DeleteNeighborNatRequest))
+		return srv.(DPDKironcoreServer).DeleteNeighborNat(ctx, req.(*DeleteNeighborNatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_ListNeighborNats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_ListNeighborNats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListNeighborNatsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).ListNeighborNats(ctx, in)
+		return srv.(DPDKironcoreServer).ListNeighborNats(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_ListNeighborNats_FullMethodName,
+		FullMethod: DPDKironcore_ListNeighborNats_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListNeighborNats(ctx, req.(*ListNeighborNatsRequest))
+		return srv.(DPDKironcoreServer).ListNeighborNats(ctx, req.(*ListNeighborNatsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_ListRoutes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_ListRoutes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListRoutesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).ListRoutes(ctx, in)
+		return srv.(DPDKironcoreServer).ListRoutes(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_ListRoutes_FullMethodName,
+		FullMethod: DPDKironcore_ListRoutes_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListRoutes(ctx, req.(*ListRoutesRequest))
+		return srv.(DPDKironcoreServer).ListRoutes(ctx, req.(*ListRoutesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CreateRoute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CreateRoute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateRouteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CreateRoute(ctx, in)
+		return srv.(DPDKironcoreServer).CreateRoute(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CreateRoute_FullMethodName,
+		FullMethod: DPDKironcore_CreateRoute_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CreateRoute(ctx, req.(*CreateRouteRequest))
+		return srv.(DPDKironcoreServer).CreateRoute(ctx, req.(*CreateRouteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteRoute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_DeleteRoute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteRouteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteRoute(ctx, in)
+		return srv.(DPDKironcoreServer).DeleteRoute(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteRoute_FullMethodName,
+		FullMethod: DPDKironcore_DeleteRoute_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteRoute(ctx, req.(*DeleteRouteRequest))
+		return srv.(DPDKironcoreServer).DeleteRoute(ctx, req.(*DeleteRouteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CheckVniInUse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CheckVniInUse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CheckVniInUseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CheckVniInUse(ctx, in)
+		return srv.(DPDKironcoreServer).CheckVniInUse(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CheckVniInUse_FullMethodName,
+		FullMethod: DPDKironcore_CheckVniInUse_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CheckVniInUse(ctx, req.(*CheckVniInUseRequest))
+		return srv.(DPDKironcoreServer).CheckVniInUse(ctx, req.(*CheckVniInUseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_ResetVni_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_ResetVni_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ResetVniRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).ResetVni(ctx, in)
+		return srv.(DPDKironcoreServer).ResetVni(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_ResetVni_FullMethodName,
+		FullMethod: DPDKironcore_ResetVni_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ResetVni(ctx, req.(*ResetVniRequest))
+		return srv.(DPDKironcoreServer).ResetVni(ctx, req.(*ResetVniRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_ListFirewallRules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_ListFirewallRules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListFirewallRulesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).ListFirewallRules(ctx, in)
+		return srv.(DPDKironcoreServer).ListFirewallRules(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_ListFirewallRules_FullMethodName,
+		FullMethod: DPDKironcore_ListFirewallRules_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).ListFirewallRules(ctx, req.(*ListFirewallRulesRequest))
+		return srv.(DPDKironcoreServer).ListFirewallRules(ctx, req.(*ListFirewallRulesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CreateFirewallRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CreateFirewallRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateFirewallRuleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CreateFirewallRule(ctx, in)
+		return srv.(DPDKironcoreServer).CreateFirewallRule(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CreateFirewallRule_FullMethodName,
+		FullMethod: DPDKironcore_CreateFirewallRule_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CreateFirewallRule(ctx, req.(*CreateFirewallRuleRequest))
+		return srv.(DPDKironcoreServer).CreateFirewallRule(ctx, req.(*CreateFirewallRuleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_GetFirewallRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_GetFirewallRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetFirewallRuleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).GetFirewallRule(ctx, in)
+		return srv.(DPDKironcoreServer).GetFirewallRule(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_GetFirewallRule_FullMethodName,
+		FullMethod: DPDKironcore_GetFirewallRule_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).GetFirewallRule(ctx, req.(*GetFirewallRuleRequest))
+		return srv.(DPDKironcoreServer).GetFirewallRule(ctx, req.(*GetFirewallRuleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_DeleteFirewallRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_DeleteFirewallRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteFirewallRuleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).DeleteFirewallRule(ctx, in)
+		return srv.(DPDKironcoreServer).DeleteFirewallRule(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_DeleteFirewallRule_FullMethodName,
+		FullMethod: DPDKironcore_DeleteFirewallRule_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).DeleteFirewallRule(ctx, req.(*DeleteFirewallRuleRequest))
+		return srv.(DPDKironcoreServer).DeleteFirewallRule(ctx, req.(*DeleteFirewallRuleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CaptureStart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CaptureStart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CaptureStartRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CaptureStart(ctx, in)
+		return srv.(DPDKironcoreServer).CaptureStart(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CaptureStart_FullMethodName,
+		FullMethod: DPDKironcore_CaptureStart_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CaptureStart(ctx, req.(*CaptureStartRequest))
+		return srv.(DPDKironcoreServer).CaptureStart(ctx, req.(*CaptureStartRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CaptureStop_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CaptureStop_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CaptureStopRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CaptureStop(ctx, in)
+		return srv.(DPDKironcoreServer).CaptureStop(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CaptureStop_FullMethodName,
+		FullMethod: DPDKironcore_CaptureStop_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CaptureStop(ctx, req.(*CaptureStopRequest))
+		return srv.(DPDKironcoreServer).CaptureStop(ctx, req.(*CaptureStopRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DPDKonmetal_CaptureStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DPDKironcore_CaptureStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CaptureStatusRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DPDKonmetalServer).CaptureStatus(ctx, in)
+		return srv.(DPDKironcoreServer).CaptureStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DPDKonmetal_CaptureStatus_FullMethodName,
+		FullMethod: DPDKironcore_CaptureStatus_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DPDKonmetalServer).CaptureStatus(ctx, req.(*CaptureStatusRequest))
+		return srv.(DPDKironcoreServer).CaptureStatus(ctx, req.(*CaptureStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// DPDKonmetal_ServiceDesc is the grpc.ServiceDesc for DPDKonmetal service.
+// DPDKironcore_ServiceDesc is the grpc.ServiceDesc for DPDKironcore service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var DPDKonmetal_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "dpdkonmetal.v1.DPDKonmetal",
-	HandlerType: (*DPDKonmetalServer)(nil),
+var DPDKironcore_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "dpdkironcore.v1.DPDKironcore",
+	HandlerType: (*DPDKironcoreServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CheckInitialized",
-			Handler:    _DPDKonmetal_CheckInitialized_Handler,
+			Handler:    _DPDKironcore_CheckInitialized_Handler,
 		},
 		{
 			MethodName: "Initialize",
-			Handler:    _DPDKonmetal_Initialize_Handler,
+			Handler:    _DPDKironcore_Initialize_Handler,
 		},
 		{
 			MethodName: "GetVersion",
-			Handler:    _DPDKonmetal_GetVersion_Handler,
+			Handler:    _DPDKironcore_GetVersion_Handler,
 		},
 		{
 			MethodName: "ListInterfaces",
-			Handler:    _DPDKonmetal_ListInterfaces_Handler,
+			Handler:    _DPDKironcore_ListInterfaces_Handler,
 		},
 		{
 			MethodName: "GetInterface",
-			Handler:    _DPDKonmetal_GetInterface_Handler,
+			Handler:    _DPDKironcore_GetInterface_Handler,
 		},
 		{
 			MethodName: "CreateInterface",
-			Handler:    _DPDKonmetal_CreateInterface_Handler,
+			Handler:    _DPDKironcore_CreateInterface_Handler,
 		},
 		{
 			MethodName: "DeleteInterface",
-			Handler:    _DPDKonmetal_DeleteInterface_Handler,
+			Handler:    _DPDKironcore_DeleteInterface_Handler,
 		},
 		{
 			MethodName: "ListPrefixes",
-			Handler:    _DPDKonmetal_ListPrefixes_Handler,
+			Handler:    _DPDKironcore_ListPrefixes_Handler,
 		},
 		{
 			MethodName: "CreatePrefix",
-			Handler:    _DPDKonmetal_CreatePrefix_Handler,
+			Handler:    _DPDKironcore_CreatePrefix_Handler,
 		},
 		{
 			MethodName: "DeletePrefix",
-			Handler:    _DPDKonmetal_DeletePrefix_Handler,
+			Handler:    _DPDKironcore_DeletePrefix_Handler,
 		},
 		{
 			MethodName: "ListLoadBalancerPrefixes",
-			Handler:    _DPDKonmetal_ListLoadBalancerPrefixes_Handler,
+			Handler:    _DPDKironcore_ListLoadBalancerPrefixes_Handler,
 		},
 		{
 			MethodName: "CreateLoadBalancerPrefix",
-			Handler:    _DPDKonmetal_CreateLoadBalancerPrefix_Handler,
+			Handler:    _DPDKironcore_CreateLoadBalancerPrefix_Handler,
 		},
 		{
 			MethodName: "DeleteLoadBalancerPrefix",
-			Handler:    _DPDKonmetal_DeleteLoadBalancerPrefix_Handler,
+			Handler:    _DPDKironcore_DeleteLoadBalancerPrefix_Handler,
 		},
 		{
 			MethodName: "CreateVip",
-			Handler:    _DPDKonmetal_CreateVip_Handler,
+			Handler:    _DPDKironcore_CreateVip_Handler,
 		},
 		{
 			MethodName: "GetVip",
-			Handler:    _DPDKonmetal_GetVip_Handler,
+			Handler:    _DPDKironcore_GetVip_Handler,
 		},
 		{
 			MethodName: "DeleteVip",
-			Handler:    _DPDKonmetal_DeleteVip_Handler,
+			Handler:    _DPDKironcore_DeleteVip_Handler,
 		},
 		{
 			MethodName: "CreateLoadBalancer",
-			Handler:    _DPDKonmetal_CreateLoadBalancer_Handler,
+			Handler:    _DPDKironcore_CreateLoadBalancer_Handler,
 		},
 		{
 			MethodName: "GetLoadBalancer",
-			Handler:    _DPDKonmetal_GetLoadBalancer_Handler,
+			Handler:    _DPDKironcore_GetLoadBalancer_Handler,
 		},
 		{
 			MethodName: "DeleteLoadBalancer",
-			Handler:    _DPDKonmetal_DeleteLoadBalancer_Handler,
+			Handler:    _DPDKironcore_DeleteLoadBalancer_Handler,
 		},
 		{
 			MethodName: "CreateLoadBalancerTarget",
-			Handler:    _DPDKonmetal_CreateLoadBalancerTarget_Handler,
+			Handler:    _DPDKironcore_CreateLoadBalancerTarget_Handler,
 		},
 		{
 			MethodName: "ListLoadBalancerTargets",
-			Handler:    _DPDKonmetal_ListLoadBalancerTargets_Handler,
+			Handler:    _DPDKironcore_ListLoadBalancerTargets_Handler,
 		},
 		{
 			MethodName: "DeleteLoadBalancerTarget",
-			Handler:    _DPDKonmetal_DeleteLoadBalancerTarget_Handler,
+			Handler:    _DPDKironcore_DeleteLoadBalancerTarget_Handler,
 		},
 		{
 			MethodName: "CreateNat",
-			Handler:    _DPDKonmetal_CreateNat_Handler,
+			Handler:    _DPDKironcore_CreateNat_Handler,
 		},
 		{
 			MethodName: "GetNat",
-			Handler:    _DPDKonmetal_GetNat_Handler,
+			Handler:    _DPDKironcore_GetNat_Handler,
 		},
 		{
 			MethodName: "DeleteNat",
-			Handler:    _DPDKonmetal_DeleteNat_Handler,
+			Handler:    _DPDKironcore_DeleteNat_Handler,
 		},
 		{
 			MethodName: "ListLocalNats",
-			Handler:    _DPDKonmetal_ListLocalNats_Handler,
+			Handler:    _DPDKironcore_ListLocalNats_Handler,
 		},
 		{
 			MethodName: "CreateNeighborNat",
-			Handler:    _DPDKonmetal_CreateNeighborNat_Handler,
+			Handler:    _DPDKironcore_CreateNeighborNat_Handler,
 		},
 		{
 			MethodName: "DeleteNeighborNat",
-			Handler:    _DPDKonmetal_DeleteNeighborNat_Handler,
+			Handler:    _DPDKironcore_DeleteNeighborNat_Handler,
 		},
 		{
 			MethodName: "ListNeighborNats",
-			Handler:    _DPDKonmetal_ListNeighborNats_Handler,
+			Handler:    _DPDKironcore_ListNeighborNats_Handler,
 		},
 		{
 			MethodName: "ListRoutes",
-			Handler:    _DPDKonmetal_ListRoutes_Handler,
+			Handler:    _DPDKironcore_ListRoutes_Handler,
 		},
 		{
 			MethodName: "CreateRoute",
-			Handler:    _DPDKonmetal_CreateRoute_Handler,
+			Handler:    _DPDKironcore_CreateRoute_Handler,
 		},
 		{
 			MethodName: "DeleteRoute",
-			Handler:    _DPDKonmetal_DeleteRoute_Handler,
+			Handler:    _DPDKironcore_DeleteRoute_Handler,
 		},
 		{
 			MethodName: "CheckVniInUse",
-			Handler:    _DPDKonmetal_CheckVniInUse_Handler,
+			Handler:    _DPDKironcore_CheckVniInUse_Handler,
 		},
 		{
 			MethodName: "ResetVni",
-			Handler:    _DPDKonmetal_ResetVni_Handler,
+			Handler:    _DPDKironcore_ResetVni_Handler,
 		},
 		{
 			MethodName: "ListFirewallRules",
-			Handler:    _DPDKonmetal_ListFirewallRules_Handler,
+			Handler:    _DPDKironcore_ListFirewallRules_Handler,
 		},
 		{
 			MethodName: "CreateFirewallRule",
-			Handler:    _DPDKonmetal_CreateFirewallRule_Handler,
+			Handler:    _DPDKironcore_CreateFirewallRule_Handler,
 		},
 		{
 			MethodName: "GetFirewallRule",
-			Handler:    _DPDKonmetal_GetFirewallRule_Handler,
+			Handler:    _DPDKironcore_GetFirewallRule_Handler,
 		},
 		{
 			MethodName: "DeleteFirewallRule",
-			Handler:    _DPDKonmetal_DeleteFirewallRule_Handler,
+			Handler:    _DPDKironcore_DeleteFirewallRule_Handler,
 		},
 		{
 			MethodName: "CaptureStart",
-			Handler:    _DPDKonmetal_CaptureStart_Handler,
+			Handler:    _DPDKironcore_CaptureStart_Handler,
 		},
 		{
 			MethodName: "CaptureStop",
-			Handler:    _DPDKonmetal_CaptureStop_Handler,
+			Handler:    _DPDKironcore_CaptureStop_Handler,
 		},
 		{
 			MethodName: "CaptureStatus",
-			Handler:    _DPDKonmetal_CaptureStatus_Handler,
+			Handler:    _DPDKironcore_CaptureStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

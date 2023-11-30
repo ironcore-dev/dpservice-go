@@ -1,9 +1,9 @@
-# net-dpservice-go
-[![Pull Request Code test](https://github.com/onmetal/net-dpservice-go/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/onmetal/partitionlet/actions/workflows/test.yml)
+# dpservice-go
+[![Pull Request Code test](https://github.com/ironcore-dev/dpservice-go/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/ironcore-dev/partitionlet/actions/workflows/test.yml)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 [![GitHub License](https://img.shields.io/static/v1?label=License&message=Apache-2.0&color=blue&style=flat-square)](LICENSE)
 
-Golang bindings for the [net-dpservice](https://github.com/onmetal/net-dpservice).
+Golang bindings for the [dpservice](https://github.com/ironcore-dev/dpservice).
 
 ## Development
 
@@ -20,7 +20,7 @@ package main
 
 import (
     "context"
-    dpdkproto "github.com/onmetal/net-dpservice-go/proto"
+    dpdkproto "github.com/ironcore-dev/dpservice-go/proto"
     "google.golang.org/grpc"
     "google.golang.org/grpc/credentials/insecure"
 )
@@ -31,7 +31,7 @@ func main() {
     if err != nil {
     panic("aaaahh")
     }
-    client := dpdkproto.NewDPDKonmetalClient(conn)
+    client := dpdkproto.NewDPDKironcoreClient(conn)
     ...
 }
 ```
