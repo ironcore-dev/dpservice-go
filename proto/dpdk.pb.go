@@ -1365,7 +1365,7 @@ type FirewallRule struct {
 
 	Id                []byte           `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Direction         TrafficDirection `protobuf:"varint,2,opt,name=direction,proto3,enum=dpdkironcore.v1.TrafficDirection" json:"direction,omitempty"`
-	Action            FirewallAction   `protobuf:"varint,3,opt,name=action,proto3,enum=dpdkironcore.v1.FirewallAction" json:"action,omitempty"`           // Can be only "accept" at the moment.
+	Action            FirewallAction   `protobuf:"varint,3,opt,name=action,proto3,enum=dpdkironcore.v1.FirewallAction" json:"action,omitempty"`            // Can be only "accept" at the moment.
 	Priority          uint32           `protobuf:"varint,4,opt,name=priority,proto3" json:"priority,omitempty"`                                           // For future use. No effect at the moment.
 	SourcePrefix      *Prefix          `protobuf:"bytes,5,opt,name=source_prefix,json=sourcePrefix,proto3" json:"source_prefix,omitempty"`                // 0.0.0.0 with prefix length 0 matches all source ips
 	DestinationPrefix *Prefix          `protobuf:"bytes,6,opt,name=destination_prefix,json=destinationPrefix,proto3" json:"destination_prefix,omitempty"` // 0.0.0.0 with prefix length 0 matches all destination ips
