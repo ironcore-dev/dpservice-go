@@ -22,23 +22,20 @@
 package dpdkproto
 
 import (
-	fmt "fmt"
-	proto "github.com/golang/protobuf/proto"
-	math "math"
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	reflect "reflect"
+	sync "sync"
 )
 
-// Reference imports to suppress errors if they are not otherwise used.
-var _ = proto.Marshal
-var _ = fmt.Errorf
-var _ = math.Inf
+const (
+	// Verify that this generated code is sufficiently up-to-date.
+	_ = protoimpl.EnforceVersion(20 - protoimpl.MinVersion)
+	// Verify that runtime/protoimpl is sufficiently up-to-date.
+	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
+)
 
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the proto package it is being compiled against.
-// A compilation error at this line likely means your copy of the
-// proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
-
-//// ENUMS
+// // ENUMS
 type InterfaceType int32
 
 const (
@@ -46,22 +43,43 @@ const (
 	InterfaceType_BAREMETAL InterfaceType = 1
 )
 
-var InterfaceType_name = map[int32]string{
-	0: "VIRTUAL",
-	1: "BAREMETAL",
-}
+// Enum value maps for InterfaceType.
+var (
+	InterfaceType_name = map[int32]string{
+		0: "VIRTUAL",
+		1: "BAREMETAL",
+	}
+	InterfaceType_value = map[string]int32{
+		"VIRTUAL":   0,
+		"BAREMETAL": 1,
+	}
+)
 
-var InterfaceType_value = map[string]int32{
-	"VIRTUAL":   0,
-	"BAREMETAL": 1,
+func (x InterfaceType) Enum() *InterfaceType {
+	p := new(InterfaceType)
+	*p = x
+	return p
 }
 
 func (x InterfaceType) String() string {
-	return proto.EnumName(InterfaceType_name, int32(x))
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
+func (InterfaceType) Descriptor() protoreflect.EnumDescriptor {
+	return file_proto_dpdk_proto_enumTypes[0].Descriptor()
+}
+
+func (InterfaceType) Type() protoreflect.EnumType {
+	return &file_proto_dpdk_proto_enumTypes[0]
+}
+
+func (x InterfaceType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use InterfaceType.Descriptor instead.
 func (InterfaceType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{0}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{0}
 }
 
 type IpVersion int32
@@ -71,28 +89,49 @@ const (
 	IpVersion_IPV6 IpVersion = 1
 )
 
-var IpVersion_name = map[int32]string{
-	0: "IPV4",
-	1: "IPV6",
-}
+// Enum value maps for IpVersion.
+var (
+	IpVersion_name = map[int32]string{
+		0: "IPV4",
+		1: "IPV6",
+	}
+	IpVersion_value = map[string]int32{
+		"IPV4": 0,
+		"IPV6": 1,
+	}
+)
 
-var IpVersion_value = map[string]int32{
-	"IPV4": 0,
-	"IPV6": 1,
+func (x IpVersion) Enum() *IpVersion {
+	p := new(IpVersion)
+	*p = x
+	return p
 }
 
 func (x IpVersion) String() string {
-	return proto.EnumName(IpVersion_name, int32(x))
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
+func (IpVersion) Descriptor() protoreflect.EnumDescriptor {
+	return file_proto_dpdk_proto_enumTypes[1].Descriptor()
+}
+
+func (IpVersion) Type() protoreflect.EnumType {
+	return &file_proto_dpdk_proto_enumTypes[1]
+}
+
+func (x IpVersion) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use IpVersion.Descriptor instead.
 func (IpVersion) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{1}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{1}
 }
 
 type Protocol int32
 
 const (
-	Protocol_UNDEFINED Protocol = 0
+	Protocol_UNDEFINED Protocol = 0 // "Undefined" will set up a layer 3 firewall rule and does not filter on layer 4 protocol details.
 	Protocol_ICMP      Protocol = 1
 	Protocol_TCP       Protocol = 6
 	Protocol_UDP       Protocol = 17
@@ -100,30 +139,51 @@ const (
 	Protocol_SCTP      Protocol = 132
 )
 
-var Protocol_name = map[int32]string{
-	0:   "UNDEFINED",
-	1:   "ICMP",
-	6:   "TCP",
-	17:  "UDP",
-	58:  "ICMPV6",
-	132: "SCTP",
-}
+// Enum value maps for Protocol.
+var (
+	Protocol_name = map[int32]string{
+		0:   "UNDEFINED",
+		1:   "ICMP",
+		6:   "TCP",
+		17:  "UDP",
+		58:  "ICMPV6",
+		132: "SCTP",
+	}
+	Protocol_value = map[string]int32{
+		"UNDEFINED": 0,
+		"ICMP":      1,
+		"TCP":       6,
+		"UDP":       17,
+		"ICMPV6":    58,
+		"SCTP":      132,
+	}
+)
 
-var Protocol_value = map[string]int32{
-	"UNDEFINED": 0,
-	"ICMP":      1,
-	"TCP":       6,
-	"UDP":       17,
-	"ICMPV6":    58,
-	"SCTP":      132,
+func (x Protocol) Enum() *Protocol {
+	p := new(Protocol)
+	*p = x
+	return p
 }
 
 func (x Protocol) String() string {
-	return proto.EnumName(Protocol_name, int32(x))
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
+func (Protocol) Descriptor() protoreflect.EnumDescriptor {
+	return file_proto_dpdk_proto_enumTypes[2].Descriptor()
+}
+
+func (Protocol) Type() protoreflect.EnumType {
+	return &file_proto_dpdk_proto_enumTypes[2]
+}
+
+func (x Protocol) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Protocol.Descriptor instead.
 func (Protocol) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{2}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{2}
 }
 
 type TrafficDirection int32
@@ -133,22 +193,43 @@ const (
 	TrafficDirection_EGRESS  TrafficDirection = 1
 )
 
-var TrafficDirection_name = map[int32]string{
-	0: "INGRESS",
-	1: "EGRESS",
-}
+// Enum value maps for TrafficDirection.
+var (
+	TrafficDirection_name = map[int32]string{
+		0: "INGRESS",
+		1: "EGRESS",
+	}
+	TrafficDirection_value = map[string]int32{
+		"INGRESS": 0,
+		"EGRESS":  1,
+	}
+)
 
-var TrafficDirection_value = map[string]int32{
-	"INGRESS": 0,
-	"EGRESS":  1,
+func (x TrafficDirection) Enum() *TrafficDirection {
+	p := new(TrafficDirection)
+	*p = x
+	return p
 }
 
 func (x TrafficDirection) String() string {
-	return proto.EnumName(TrafficDirection_name, int32(x))
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
+func (TrafficDirection) Descriptor() protoreflect.EnumDescriptor {
+	return file_proto_dpdk_proto_enumTypes[3].Descriptor()
+}
+
+func (TrafficDirection) Type() protoreflect.EnumType {
+	return &file_proto_dpdk_proto_enumTypes[3]
+}
+
+func (x TrafficDirection) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use TrafficDirection.Descriptor instead.
 func (TrafficDirection) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{3}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{3}
 }
 
 type FirewallAction int32
@@ -158,22 +239,43 @@ const (
 	FirewallAction_ACCEPT FirewallAction = 1
 )
 
-var FirewallAction_name = map[int32]string{
-	0: "DROP",
-	1: "ACCEPT",
-}
+// Enum value maps for FirewallAction.
+var (
+	FirewallAction_name = map[int32]string{
+		0: "DROP",
+		1: "ACCEPT",
+	}
+	FirewallAction_value = map[string]int32{
+		"DROP":   0,
+		"ACCEPT": 1,
+	}
+)
 
-var FirewallAction_value = map[string]int32{
-	"DROP":   0,
-	"ACCEPT": 1,
+func (x FirewallAction) Enum() *FirewallAction {
+	p := new(FirewallAction)
+	*p = x
+	return p
 }
 
 func (x FirewallAction) String() string {
-	return proto.EnumName(FirewallAction_name, int32(x))
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
+func (FirewallAction) Descriptor() protoreflect.EnumDescriptor {
+	return file_proto_dpdk_proto_enumTypes[4].Descriptor()
+}
+
+func (FirewallAction) Type() protoreflect.EnumType {
+	return &file_proto_dpdk_proto_enumTypes[4]
+}
+
+func (x FirewallAction) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use FirewallAction.Descriptor instead.
 func (FirewallAction) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{4}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{4}
 }
 
 type VniType int32
@@ -184,24 +286,45 @@ const (
 	VniType_VNI_BOTH VniType = 2
 )
 
-var VniType_name = map[int32]string{
-	0: "VNI_IPV4",
-	1: "VNI_IPV6",
-	2: "VNI_BOTH",
-}
+// Enum value maps for VniType.
+var (
+	VniType_name = map[int32]string{
+		0: "VNI_IPV4",
+		1: "VNI_IPV6",
+		2: "VNI_BOTH",
+	}
+	VniType_value = map[string]int32{
+		"VNI_IPV4": 0,
+		"VNI_IPV6": 1,
+		"VNI_BOTH": 2,
+	}
+)
 
-var VniType_value = map[string]int32{
-	"VNI_IPV4": 0,
-	"VNI_IPV6": 1,
-	"VNI_BOTH": 2,
+func (x VniType) Enum() *VniType {
+	p := new(VniType)
+	*p = x
+	return p
 }
 
 func (x VniType) String() string {
-	return proto.EnumName(VniType_name, int32(x))
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
+func (VniType) Descriptor() protoreflect.EnumDescriptor {
+	return file_proto_dpdk_proto_enumTypes[5].Descriptor()
+}
+
+func (VniType) Type() protoreflect.EnumType {
+	return &file_proto_dpdk_proto_enumTypes[5]
+}
+
+func (x VniType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use VniType.Descriptor instead.
 func (VniType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{5}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{5}
 }
 
 type CaptureInterfaceType int32
@@ -211,99 +334,135 @@ const (
 	CaptureInterfaceType_SINGLE_VF CaptureInterfaceType = 1
 )
 
-var CaptureInterfaceType_name = map[int32]string{
-	0: "SINGLE_PF",
-	1: "SINGLE_VF",
-}
+// Enum value maps for CaptureInterfaceType.
+var (
+	CaptureInterfaceType_name = map[int32]string{
+		0: "SINGLE_PF",
+		1: "SINGLE_VF",
+	}
+	CaptureInterfaceType_value = map[string]int32{
+		"SINGLE_PF": 0,
+		"SINGLE_VF": 1,
+	}
+)
 
-var CaptureInterfaceType_value = map[string]int32{
-	"SINGLE_PF": 0,
-	"SINGLE_VF": 1,
+func (x CaptureInterfaceType) Enum() *CaptureInterfaceType {
+	p := new(CaptureInterfaceType)
+	*p = x
+	return p
 }
 
 func (x CaptureInterfaceType) String() string {
-	return proto.EnumName(CaptureInterfaceType_name, int32(x))
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
+func (CaptureInterfaceType) Descriptor() protoreflect.EnumDescriptor {
+	return file_proto_dpdk_proto_enumTypes[6].Descriptor()
+}
+
+func (CaptureInterfaceType) Type() protoreflect.EnumType {
+	return &file_proto_dpdk_proto_enumTypes[6]
+}
+
+func (x CaptureInterfaceType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use CaptureInterfaceType.Descriptor instead.
 func (CaptureInterfaceType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{6}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{6}
 }
 
-//// STRUCTURES
+// // STRUCTURES
 type Empty struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
 }
 
-func (m *Empty) Reset()         { *m = Empty{} }
-func (m *Empty) String() string { return proto.CompactTextString(m) }
-func (*Empty) ProtoMessage()    {}
+func (x *Empty) Reset() {
+	*x = Empty{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Empty) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Empty) ProtoMessage() {}
+
+func (x *Empty) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Empty.ProtoReflect.Descriptor instead.
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{0}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{0}
 }
-
-func (m *Empty) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Empty.Unmarshal(m, b)
-}
-func (m *Empty) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Empty.Marshal(b, m, deterministic)
-}
-func (m *Empty) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Empty.Merge(m, src)
-}
-func (m *Empty) XXX_Size() int {
-	return xxx_messageInfo_Empty.Size(m)
-}
-func (m *Empty) XXX_DiscardUnknown() {
-	xxx_messageInfo_Empty.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Empty proto.InternalMessageInfo
 
 type Status struct {
-	Code                 uint32   `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
-	Message              string   `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Code    uint32 `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Message string `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 }
 
-func (m *Status) Reset()         { *m = Status{} }
-func (m *Status) String() string { return proto.CompactTextString(m) }
-func (*Status) ProtoMessage()    {}
+func (x *Status) Reset() {
+	*x = Status{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Status) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Status) ProtoMessage() {}
+
+func (x *Status) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Status.ProtoReflect.Descriptor instead.
 func (*Status) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{1}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{1}
 }
 
-func (m *Status) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Status.Unmarshal(m, b)
-}
-func (m *Status) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Status.Marshal(b, m, deterministic)
-}
-func (m *Status) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Status.Merge(m, src)
-}
-func (m *Status) XXX_Size() int {
-	return xxx_messageInfo_Status.Size(m)
-}
-func (m *Status) XXX_DiscardUnknown() {
-	xxx_messageInfo_Status.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Status proto.InternalMessageInfo
-
-func (m *Status) GetCode() uint32 {
-	if m != nil {
-		return m.Code
+func (x *Status) GetCode() uint32 {
+	if x != nil {
+		return x.Code
 	}
 	return 0
 }
 
-func (m *Status) GetMessage() string {
-	if m != nil {
-		return m.Message
+func (x *Status) GetMessage() string {
+	if x != nil {
+		return x.Message
 	}
 	return ""
 }
@@ -317,333 +476,380 @@ type IpAddress struct {
 	Address []byte    `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"` // holds 4 bytes (IpVersion::IPV4) or 16 bytes (IpVersion::IPV6)
 }
 
-func (m *IpAddress) Reset()         { *m = IpAddress{} }
-func (m *IpAddress) String() string { return proto.CompactTextString(m) }
-func (*IpAddress) ProtoMessage()    {}
+func (x *IpAddress) Reset() {
+	*x = IpAddress{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IpAddress) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IpAddress) ProtoMessage() {}
+
+func (x *IpAddress) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IpAddress.ProtoReflect.Descriptor instead.
 func (*IpAddress) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{2}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{2}
 }
 
-func (m *IpAddress) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_IpAddress.Unmarshal(m, b)
-}
-func (m *IpAddress) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_IpAddress.Marshal(b, m, deterministic)
-}
-func (m *IpAddress) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_IpAddress.Merge(m, src)
-}
-func (m *IpAddress) XXX_Size() int {
-	return xxx_messageInfo_IpAddress.Size(m)
-}
-func (m *IpAddress) XXX_DiscardUnknown() {
-	xxx_messageInfo_IpAddress.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_IpAddress proto.InternalMessageInfo
-
-func (m *IpAddress) GetIpver() IpVersion {
-	if m != nil {
-		return m.Ipver
+func (x *IpAddress) GetIpver() IpVersion {
+	if x != nil {
+		return x.Ipver
 	}
 	return IpVersion_IPV4
 }
 
-func (m *IpAddress) GetAddress() []byte {
-	if m != nil {
-		return m.Address
+func (x *IpAddress) GetAddress() []byte {
+	if x != nil {
+		return x.Address
 	}
 	return nil
 }
 
 type Prefix struct {
-	Ip                   *IpAddress `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
-	Length               uint32     `protobuf:"varint,2,opt,name=length,proto3" json:"length,omitempty"`
-	UnderlayRoute        []byte     `protobuf:"bytes,3,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Ip            *IpAddress `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
+	Length        uint32     `protobuf:"varint,2,opt,name=length,proto3" json:"length,omitempty"` // max length is 32 for IPv4 and 128 for IPv6 (based on ip->ipver)
+	UnderlayRoute []byte     `protobuf:"bytes,3,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
 }
 
-func (m *Prefix) Reset()         { *m = Prefix{} }
-func (m *Prefix) String() string { return proto.CompactTextString(m) }
-func (*Prefix) ProtoMessage()    {}
+func (x *Prefix) Reset() {
+	*x = Prefix{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Prefix) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Prefix) ProtoMessage() {}
+
+func (x *Prefix) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Prefix.ProtoReflect.Descriptor instead.
 func (*Prefix) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{3}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{3}
 }
 
-func (m *Prefix) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Prefix.Unmarshal(m, b)
-}
-func (m *Prefix) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Prefix.Marshal(b, m, deterministic)
-}
-func (m *Prefix) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Prefix.Merge(m, src)
-}
-func (m *Prefix) XXX_Size() int {
-	return xxx_messageInfo_Prefix.Size(m)
-}
-func (m *Prefix) XXX_DiscardUnknown() {
-	xxx_messageInfo_Prefix.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Prefix proto.InternalMessageInfo
-
-func (m *Prefix) GetIp() *IpAddress {
-	if m != nil {
-		return m.Ip
+func (x *Prefix) GetIp() *IpAddress {
+	if x != nil {
+		return x.Ip
 	}
 	return nil
 }
 
-func (m *Prefix) GetLength() uint32 {
-	if m != nil {
-		return m.Length
+func (x *Prefix) GetLength() uint32 {
+	if x != nil {
+		return x.Length
 	}
 	return 0
 }
 
-func (m *Prefix) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *Prefix) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
 type Interface struct {
-	Id                   []byte   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Vni                  uint32   `protobuf:"varint,2,opt,name=vni,proto3" json:"vni,omitempty"`
-	PrimaryIpv4          []byte   `protobuf:"bytes,3,opt,name=primary_ipv4,json=primaryIpv4,proto3" json:"primary_ipv4,omitempty"`
-	PrimaryIpv6          []byte   `protobuf:"bytes,4,opt,name=primary_ipv6,json=primaryIpv6,proto3" json:"primary_ipv6,omitempty"`
-	UnderlayRoute        []byte   `protobuf:"bytes,5,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	PciName              string   `protobuf:"bytes,6,opt,name=pci_name,json=pciName,proto3" json:"pci_name,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id            []byte `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Vni           uint32 `protobuf:"varint,2,opt,name=vni,proto3" json:"vni,omitempty"`
+	PrimaryIpv4   []byte `protobuf:"bytes,3,opt,name=primary_ipv4,json=primaryIpv4,proto3" json:"primary_ipv4,omitempty"`
+	PrimaryIpv6   []byte `protobuf:"bytes,4,opt,name=primary_ipv6,json=primaryIpv6,proto3" json:"primary_ipv6,omitempty"`
+	UnderlayRoute []byte `protobuf:"bytes,5,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
+	PciName       string `protobuf:"bytes,6,opt,name=pci_name,json=pciName,proto3" json:"pci_name,omitempty"`
 }
 
-func (m *Interface) Reset()         { *m = Interface{} }
-func (m *Interface) String() string { return proto.CompactTextString(m) }
-func (*Interface) ProtoMessage()    {}
+func (x *Interface) Reset() {
+	*x = Interface{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Interface) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Interface) ProtoMessage() {}
+
+func (x *Interface) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Interface.ProtoReflect.Descriptor instead.
 func (*Interface) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{4}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{4}
 }
 
-func (m *Interface) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Interface.Unmarshal(m, b)
-}
-func (m *Interface) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Interface.Marshal(b, m, deterministic)
-}
-func (m *Interface) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Interface.Merge(m, src)
-}
-func (m *Interface) XXX_Size() int {
-	return xxx_messageInfo_Interface.Size(m)
-}
-func (m *Interface) XXX_DiscardUnknown() {
-	xxx_messageInfo_Interface.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Interface proto.InternalMessageInfo
-
-func (m *Interface) GetId() []byte {
-	if m != nil {
-		return m.Id
+func (x *Interface) GetId() []byte {
+	if x != nil {
+		return x.Id
 	}
 	return nil
 }
 
-func (m *Interface) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *Interface) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
-func (m *Interface) GetPrimaryIpv4() []byte {
-	if m != nil {
-		return m.PrimaryIpv4
+func (x *Interface) GetPrimaryIpv4() []byte {
+	if x != nil {
+		return x.PrimaryIpv4
 	}
 	return nil
 }
 
-func (m *Interface) GetPrimaryIpv6() []byte {
-	if m != nil {
-		return m.PrimaryIpv6
+func (x *Interface) GetPrimaryIpv6() []byte {
+	if x != nil {
+		return x.PrimaryIpv6
 	}
 	return nil
 }
 
-func (m *Interface) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *Interface) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
-func (m *Interface) GetPciName() string {
-	if m != nil {
-		return m.PciName
+func (x *Interface) GetPciName() string {
+	if x != nil {
+		return x.PciName
 	}
 	return ""
 }
 
 type IpConfig struct {
-	PrimaryAddress       []byte   `protobuf:"bytes,1,opt,name=primary_address,json=primaryAddress,proto3" json:"primary_address,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PrimaryAddress []byte `protobuf:"bytes,1,opt,name=primary_address,json=primaryAddress,proto3" json:"primary_address,omitempty"`
 }
 
-func (m *IpConfig) Reset()         { *m = IpConfig{} }
-func (m *IpConfig) String() string { return proto.CompactTextString(m) }
-func (*IpConfig) ProtoMessage()    {}
+func (x *IpConfig) Reset() {
+	*x = IpConfig{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IpConfig) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IpConfig) ProtoMessage() {}
+
+func (x *IpConfig) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IpConfig.ProtoReflect.Descriptor instead.
 func (*IpConfig) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{5}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{5}
 }
 
-func (m *IpConfig) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_IpConfig.Unmarshal(m, b)
-}
-func (m *IpConfig) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_IpConfig.Marshal(b, m, deterministic)
-}
-func (m *IpConfig) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_IpConfig.Merge(m, src)
-}
-func (m *IpConfig) XXX_Size() int {
-	return xxx_messageInfo_IpConfig.Size(m)
-}
-func (m *IpConfig) XXX_DiscardUnknown() {
-	xxx_messageInfo_IpConfig.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_IpConfig proto.InternalMessageInfo
-
-func (m *IpConfig) GetPrimaryAddress() []byte {
-	if m != nil {
-		return m.PrimaryAddress
+func (x *IpConfig) GetPrimaryAddress() []byte {
+	if x != nil {
+		return x.PrimaryAddress
 	}
 	return nil
 }
 
 type PxeConfig struct {
-	NextServer           string   `protobuf:"bytes,1,opt,name=next_server,json=nextServer,proto3" json:"next_server,omitempty"`
-	BootFilename         string   `protobuf:"bytes,2,opt,name=boot_filename,json=bootFilename,proto3" json:"boot_filename,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	NextServer   string `protobuf:"bytes,1,opt,name=next_server,json=nextServer,proto3" json:"next_server,omitempty"`
+	BootFilename string `protobuf:"bytes,2,opt,name=boot_filename,json=bootFilename,proto3" json:"boot_filename,omitempty"`
 }
 
-func (m *PxeConfig) Reset()         { *m = PxeConfig{} }
-func (m *PxeConfig) String() string { return proto.CompactTextString(m) }
-func (*PxeConfig) ProtoMessage()    {}
+func (x *PxeConfig) Reset() {
+	*x = PxeConfig{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PxeConfig) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PxeConfig) ProtoMessage() {}
+
+func (x *PxeConfig) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PxeConfig.ProtoReflect.Descriptor instead.
 func (*PxeConfig) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{6}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{6}
 }
 
-func (m *PxeConfig) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_PxeConfig.Unmarshal(m, b)
-}
-func (m *PxeConfig) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_PxeConfig.Marshal(b, m, deterministic)
-}
-func (m *PxeConfig) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_PxeConfig.Merge(m, src)
-}
-func (m *PxeConfig) XXX_Size() int {
-	return xxx_messageInfo_PxeConfig.Size(m)
-}
-func (m *PxeConfig) XXX_DiscardUnknown() {
-	xxx_messageInfo_PxeConfig.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_PxeConfig proto.InternalMessageInfo
-
-func (m *PxeConfig) GetNextServer() string {
-	if m != nil {
-		return m.NextServer
+func (x *PxeConfig) GetNextServer() string {
+	if x != nil {
+		return x.NextServer
 	}
 	return ""
 }
 
-func (m *PxeConfig) GetBootFilename() string {
-	if m != nil {
-		return m.BootFilename
+func (x *PxeConfig) GetBootFilename() string {
+	if x != nil {
+		return x.BootFilename
 	}
 	return ""
 }
 
 type VirtualFunction struct {
-	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"` // Linux VF NIC device name
 	// TODO: Not available anymore, remove in next breaking change
-	Domain               uint32   `protobuf:"varint,2,opt,name=domain,proto3" json:"domain,omitempty"`
-	Bus                  uint32   `protobuf:"varint,3,opt,name=bus,proto3" json:"bus,omitempty"`
-	Slot                 uint32   `protobuf:"varint,4,opt,name=slot,proto3" json:"slot,omitempty"`
-	Function             uint32   `protobuf:"varint,5,opt,name=function,proto3" json:"function,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Domain   uint32 `protobuf:"varint,2,opt,name=domain,proto3" json:"domain,omitempty"`     // PCIe Domain
+	Bus      uint32 `protobuf:"varint,3,opt,name=bus,proto3" json:"bus,omitempty"`           // PCIe Bus
+	Slot     uint32 `protobuf:"varint,4,opt,name=slot,proto3" json:"slot,omitempty"`         // PCIe Slot
+	Function uint32 `protobuf:"varint,5,opt,name=function,proto3" json:"function,omitempty"` // PCIe Function
 }
 
-func (m *VirtualFunction) Reset()         { *m = VirtualFunction{} }
-func (m *VirtualFunction) String() string { return proto.CompactTextString(m) }
-func (*VirtualFunction) ProtoMessage()    {}
+func (x *VirtualFunction) Reset() {
+	*x = VirtualFunction{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VirtualFunction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VirtualFunction) ProtoMessage() {}
+
+func (x *VirtualFunction) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VirtualFunction.ProtoReflect.Descriptor instead.
 func (*VirtualFunction) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{7}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{7}
 }
 
-func (m *VirtualFunction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_VirtualFunction.Unmarshal(m, b)
-}
-func (m *VirtualFunction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_VirtualFunction.Marshal(b, m, deterministic)
-}
-func (m *VirtualFunction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_VirtualFunction.Merge(m, src)
-}
-func (m *VirtualFunction) XXX_Size() int {
-	return xxx_messageInfo_VirtualFunction.Size(m)
-}
-func (m *VirtualFunction) XXX_DiscardUnknown() {
-	xxx_messageInfo_VirtualFunction.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_VirtualFunction proto.InternalMessageInfo
-
-func (m *VirtualFunction) GetName() string {
-	if m != nil {
-		return m.Name
+func (x *VirtualFunction) GetName() string {
+	if x != nil {
+		return x.Name
 	}
 	return ""
 }
 
-func (m *VirtualFunction) GetDomain() uint32 {
-	if m != nil {
-		return m.Domain
+func (x *VirtualFunction) GetDomain() uint32 {
+	if x != nil {
+		return x.Domain
 	}
 	return 0
 }
 
-func (m *VirtualFunction) GetBus() uint32 {
-	if m != nil {
-		return m.Bus
+func (x *VirtualFunction) GetBus() uint32 {
+	if x != nil {
+		return x.Bus
 	}
 	return 0
 }
 
-func (m *VirtualFunction) GetSlot() uint32 {
-	if m != nil {
-		return m.Slot
+func (x *VirtualFunction) GetSlot() uint32 {
+	if x != nil {
+		return x.Slot
 	}
 	return 0
 }
 
-func (m *VirtualFunction) GetFunction() uint32 {
-	if m != nil {
-		return m.Function
+func (x *VirtualFunction) GetFunction() uint32 {
+	if x != nil {
+		return x.Function
 	}
 	return 0
 }
@@ -657,387 +863,471 @@ type LbPort struct {
 	Protocol Protocol `protobuf:"varint,2,opt,name=protocol,proto3,enum=dpdkironcore.v1.Protocol" json:"protocol,omitempty"`
 }
 
-func (m *LbPort) Reset()         { *m = LbPort{} }
-func (m *LbPort) String() string { return proto.CompactTextString(m) }
-func (*LbPort) ProtoMessage()    {}
+func (x *LbPort) Reset() {
+	*x = LbPort{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LbPort) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LbPort) ProtoMessage() {}
+
+func (x *LbPort) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LbPort.ProtoReflect.Descriptor instead.
 func (*LbPort) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{8}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{8}
 }
 
-func (m *LbPort) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_LbPort.Unmarshal(m, b)
-}
-func (m *LbPort) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_LbPort.Marshal(b, m, deterministic)
-}
-func (m *LbPort) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_LbPort.Merge(m, src)
-}
-func (m *LbPort) XXX_Size() int {
-	return xxx_messageInfo_LbPort.Size(m)
-}
-func (m *LbPort) XXX_DiscardUnknown() {
-	xxx_messageInfo_LbPort.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_LbPort proto.InternalMessageInfo
-
-func (m *LbPort) GetPort() uint32 {
-	if m != nil {
-		return m.Port
+func (x *LbPort) GetPort() uint32 {
+	if x != nil {
+		return x.Port
 	}
 	return 0
 }
 
-func (m *LbPort) GetProtocol() Protocol {
-	if m != nil {
-		return m.Protocol
+func (x *LbPort) GetProtocol() Protocol {
+	if x != nil {
+		return x.Protocol
 	}
 	return Protocol_UNDEFINED
 }
 
 type NatEntry struct {
-	NatIp                *IpAddress `protobuf:"bytes,1,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
-	MinPort              uint32     `protobuf:"varint,2,opt,name=min_port,json=minPort,proto3" json:"min_port,omitempty"`
-	MaxPort              uint32     `protobuf:"varint,3,opt,name=max_port,json=maxPort,proto3" json:"max_port,omitempty"`
-	UnderlayRoute        []byte     `protobuf:"bytes,4,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	Vni                  uint32     `protobuf:"varint,5,opt,name=vni,proto3" json:"vni,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	NatIp         *IpAddress `protobuf:"bytes,1,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
+	MinPort       uint32     `protobuf:"varint,2,opt,name=min_port,json=minPort,proto3" json:"min_port,omitempty"`
+	MaxPort       uint32     `protobuf:"varint,3,opt,name=max_port,json=maxPort,proto3" json:"max_port,omitempty"`
+	UnderlayRoute []byte     `protobuf:"bytes,4,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
+	Vni           uint32     `protobuf:"varint,5,opt,name=vni,proto3" json:"vni,omitempty"`
 }
 
-func (m *NatEntry) Reset()         { *m = NatEntry{} }
-func (m *NatEntry) String() string { return proto.CompactTextString(m) }
-func (*NatEntry) ProtoMessage()    {}
+func (x *NatEntry) Reset() {
+	*x = NatEntry{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NatEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NatEntry) ProtoMessage() {}
+
+func (x *NatEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NatEntry.ProtoReflect.Descriptor instead.
 func (*NatEntry) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{9}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{9}
 }
 
-func (m *NatEntry) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_NatEntry.Unmarshal(m, b)
-}
-func (m *NatEntry) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_NatEntry.Marshal(b, m, deterministic)
-}
-func (m *NatEntry) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_NatEntry.Merge(m, src)
-}
-func (m *NatEntry) XXX_Size() int {
-	return xxx_messageInfo_NatEntry.Size(m)
-}
-func (m *NatEntry) XXX_DiscardUnknown() {
-	xxx_messageInfo_NatEntry.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_NatEntry proto.InternalMessageInfo
-
-func (m *NatEntry) GetNatIp() *IpAddress {
-	if m != nil {
-		return m.NatIp
+func (x *NatEntry) GetNatIp() *IpAddress {
+	if x != nil {
+		return x.NatIp
 	}
 	return nil
 }
 
-func (m *NatEntry) GetMinPort() uint32 {
-	if m != nil {
-		return m.MinPort
+func (x *NatEntry) GetMinPort() uint32 {
+	if x != nil {
+		return x.MinPort
 	}
 	return 0
 }
 
-func (m *NatEntry) GetMaxPort() uint32 {
-	if m != nil {
-		return m.MaxPort
+func (x *NatEntry) GetMaxPort() uint32 {
+	if x != nil {
+		return x.MaxPort
 	}
 	return 0
 }
 
-func (m *NatEntry) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *NatEntry) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
-func (m *NatEntry) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *NatEntry) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
 type Route struct {
-	Prefix               *Prefix    `protobuf:"bytes,1,opt,name=prefix,proto3" json:"prefix,omitempty"`
-	NexthopVni           uint32     `protobuf:"varint,2,opt,name=nexthop_vni,json=nexthopVni,proto3" json:"nexthop_vni,omitempty"`
-	NexthopAddress       *IpAddress `protobuf:"bytes,3,opt,name=nexthop_address,json=nexthopAddress,proto3" json:"nexthop_address,omitempty"`
-	Weight               uint32     `protobuf:"varint,4,opt,name=weight,proto3" json:"weight,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Prefix         *Prefix    `protobuf:"bytes,1,opt,name=prefix,proto3" json:"prefix,omitempty"`
+	NexthopVni     uint32     `protobuf:"varint,2,opt,name=nexthop_vni,json=nexthopVni,proto3" json:"nexthop_vni,omitempty"`
+	NexthopAddress *IpAddress `protobuf:"bytes,3,opt,name=nexthop_address,json=nexthopAddress,proto3" json:"nexthop_address,omitempty"`
+	Weight         uint32     `protobuf:"varint,4,opt,name=weight,proto3" json:"weight,omitempty"`
 }
 
-func (m *Route) Reset()         { *m = Route{} }
-func (m *Route) String() string { return proto.CompactTextString(m) }
-func (*Route) ProtoMessage()    {}
+func (x *Route) Reset() {
+	*x = Route{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Route) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Route) ProtoMessage() {}
+
+func (x *Route) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Route.ProtoReflect.Descriptor instead.
 func (*Route) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{10}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{10}
 }
 
-func (m *Route) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Route.Unmarshal(m, b)
-}
-func (m *Route) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Route.Marshal(b, m, deterministic)
-}
-func (m *Route) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Route.Merge(m, src)
-}
-func (m *Route) XXX_Size() int {
-	return xxx_messageInfo_Route.Size(m)
-}
-func (m *Route) XXX_DiscardUnknown() {
-	xxx_messageInfo_Route.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Route proto.InternalMessageInfo
-
-func (m *Route) GetPrefix() *Prefix {
-	if m != nil {
-		return m.Prefix
+func (x *Route) GetPrefix() *Prefix {
+	if x != nil {
+		return x.Prefix
 	}
 	return nil
 }
 
-func (m *Route) GetNexthopVni() uint32 {
-	if m != nil {
-		return m.NexthopVni
+func (x *Route) GetNexthopVni() uint32 {
+	if x != nil {
+		return x.NexthopVni
 	}
 	return 0
 }
 
-func (m *Route) GetNexthopAddress() *IpAddress {
-	if m != nil {
-		return m.NexthopAddress
+func (x *Route) GetNexthopAddress() *IpAddress {
+	if x != nil {
+		return x.NexthopAddress
 	}
 	return nil
 }
 
-func (m *Route) GetWeight() uint32 {
-	if m != nil {
-		return m.Weight
+func (x *Route) GetWeight() uint32 {
+	if x != nil {
+		return x.Weight
 	}
 	return 0
 }
 
 type IcmpFilter struct {
-	IcmpType             int32    `protobuf:"varint,1,opt,name=icmp_type,json=icmpType,proto3" json:"icmp_type,omitempty"`
-	IcmpCode             int32    `protobuf:"varint,2,opt,name=icmp_code,json=icmpCode,proto3" json:"icmp_code,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	IcmpType int32 `protobuf:"varint,1,opt,name=icmp_type,json=icmpType,proto3" json:"icmp_type,omitempty"` // -1 matches all ICMP Codes
+	IcmpCode int32 `protobuf:"varint,2,opt,name=icmp_code,json=icmpCode,proto3" json:"icmp_code,omitempty"` // -1 matches all ICMP Types
 }
 
-func (m *IcmpFilter) Reset()         { *m = IcmpFilter{} }
-func (m *IcmpFilter) String() string { return proto.CompactTextString(m) }
-func (*IcmpFilter) ProtoMessage()    {}
+func (x *IcmpFilter) Reset() {
+	*x = IcmpFilter{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IcmpFilter) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IcmpFilter) ProtoMessage() {}
+
+func (x *IcmpFilter) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IcmpFilter.ProtoReflect.Descriptor instead.
 func (*IcmpFilter) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{11}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{11}
 }
 
-func (m *IcmpFilter) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_IcmpFilter.Unmarshal(m, b)
-}
-func (m *IcmpFilter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_IcmpFilter.Marshal(b, m, deterministic)
-}
-func (m *IcmpFilter) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_IcmpFilter.Merge(m, src)
-}
-func (m *IcmpFilter) XXX_Size() int {
-	return xxx_messageInfo_IcmpFilter.Size(m)
-}
-func (m *IcmpFilter) XXX_DiscardUnknown() {
-	xxx_messageInfo_IcmpFilter.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_IcmpFilter proto.InternalMessageInfo
-
-func (m *IcmpFilter) GetIcmpType() int32 {
-	if m != nil {
-		return m.IcmpType
+func (x *IcmpFilter) GetIcmpType() int32 {
+	if x != nil {
+		return x.IcmpType
 	}
 	return 0
 }
 
-func (m *IcmpFilter) GetIcmpCode() int32 {
-	if m != nil {
-		return m.IcmpCode
+func (x *IcmpFilter) GetIcmpCode() int32 {
+	if x != nil {
+		return x.IcmpCode
 	}
 	return 0
 }
 
 type TcpFilter struct {
-	SrcPortLower         int32    `protobuf:"varint,1,opt,name=src_port_lower,json=srcPortLower,proto3" json:"src_port_lower,omitempty"`
-	SrcPortUpper         int32    `protobuf:"varint,2,opt,name=src_port_upper,json=srcPortUpper,proto3" json:"src_port_upper,omitempty"`
-	DstPortLower         int32    `protobuf:"varint,3,opt,name=dst_port_lower,json=dstPortLower,proto3" json:"dst_port_lower,omitempty"`
-	DstPortUpper         int32    `protobuf:"varint,4,opt,name=dst_port_upper,json=dstPortUpper,proto3" json:"dst_port_upper,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SrcPortLower int32 `protobuf:"varint,1,opt,name=src_port_lower,json=srcPortLower,proto3" json:"src_port_lower,omitempty"` // -1 matches all source ports
+	SrcPortUpper int32 `protobuf:"varint,2,opt,name=src_port_upper,json=srcPortUpper,proto3" json:"src_port_upper,omitempty"`
+	DstPortLower int32 `protobuf:"varint,3,opt,name=dst_port_lower,json=dstPortLower,proto3" json:"dst_port_lower,omitempty"` // -1 matches all destination ports
+	DstPortUpper int32 `protobuf:"varint,4,opt,name=dst_port_upper,json=dstPortUpper,proto3" json:"dst_port_upper,omitempty"`
 }
 
-func (m *TcpFilter) Reset()         { *m = TcpFilter{} }
-func (m *TcpFilter) String() string { return proto.CompactTextString(m) }
-func (*TcpFilter) ProtoMessage()    {}
+func (x *TcpFilter) Reset() {
+	*x = TcpFilter{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TcpFilter) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TcpFilter) ProtoMessage() {}
+
+func (x *TcpFilter) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TcpFilter.ProtoReflect.Descriptor instead.
 func (*TcpFilter) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{12}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{12}
 }
 
-func (m *TcpFilter) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_TcpFilter.Unmarshal(m, b)
-}
-func (m *TcpFilter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_TcpFilter.Marshal(b, m, deterministic)
-}
-func (m *TcpFilter) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_TcpFilter.Merge(m, src)
-}
-func (m *TcpFilter) XXX_Size() int {
-	return xxx_messageInfo_TcpFilter.Size(m)
-}
-func (m *TcpFilter) XXX_DiscardUnknown() {
-	xxx_messageInfo_TcpFilter.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_TcpFilter proto.InternalMessageInfo
-
-func (m *TcpFilter) GetSrcPortLower() int32 {
-	if m != nil {
-		return m.SrcPortLower
+func (x *TcpFilter) GetSrcPortLower() int32 {
+	if x != nil {
+		return x.SrcPortLower
 	}
 	return 0
 }
 
-func (m *TcpFilter) GetSrcPortUpper() int32 {
-	if m != nil {
-		return m.SrcPortUpper
+func (x *TcpFilter) GetSrcPortUpper() int32 {
+	if x != nil {
+		return x.SrcPortUpper
 	}
 	return 0
 }
 
-func (m *TcpFilter) GetDstPortLower() int32 {
-	if m != nil {
-		return m.DstPortLower
+func (x *TcpFilter) GetDstPortLower() int32 {
+	if x != nil {
+		return x.DstPortLower
 	}
 	return 0
 }
 
-func (m *TcpFilter) GetDstPortUpper() int32 {
-	if m != nil {
-		return m.DstPortUpper
+func (x *TcpFilter) GetDstPortUpper() int32 {
+	if x != nil {
+		return x.DstPortUpper
 	}
 	return 0
 }
 
 type UdpFilter struct {
-	SrcPortLower         int32    `protobuf:"varint,1,opt,name=src_port_lower,json=srcPortLower,proto3" json:"src_port_lower,omitempty"`
-	SrcPortUpper         int32    `protobuf:"varint,2,opt,name=src_port_upper,json=srcPortUpper,proto3" json:"src_port_upper,omitempty"`
-	DstPortLower         int32    `protobuf:"varint,3,opt,name=dst_port_lower,json=dstPortLower,proto3" json:"dst_port_lower,omitempty"`
-	DstPortUpper         int32    `protobuf:"varint,4,opt,name=dst_port_upper,json=dstPortUpper,proto3" json:"dst_port_upper,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SrcPortLower int32 `protobuf:"varint,1,opt,name=src_port_lower,json=srcPortLower,proto3" json:"src_port_lower,omitempty"` // -1 matches all source ports
+	SrcPortUpper int32 `protobuf:"varint,2,opt,name=src_port_upper,json=srcPortUpper,proto3" json:"src_port_upper,omitempty"`
+	DstPortLower int32 `protobuf:"varint,3,opt,name=dst_port_lower,json=dstPortLower,proto3" json:"dst_port_lower,omitempty"` // -1 matches all destination ports
+	DstPortUpper int32 `protobuf:"varint,4,opt,name=dst_port_upper,json=dstPortUpper,proto3" json:"dst_port_upper,omitempty"`
 }
 
-func (m *UdpFilter) Reset()         { *m = UdpFilter{} }
-func (m *UdpFilter) String() string { return proto.CompactTextString(m) }
-func (*UdpFilter) ProtoMessage()    {}
+func (x *UdpFilter) Reset() {
+	*x = UdpFilter{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UdpFilter) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UdpFilter) ProtoMessage() {}
+
+func (x *UdpFilter) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UdpFilter.ProtoReflect.Descriptor instead.
 func (*UdpFilter) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{13}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{13}
 }
 
-func (m *UdpFilter) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UdpFilter.Unmarshal(m, b)
-}
-func (m *UdpFilter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UdpFilter.Marshal(b, m, deterministic)
-}
-func (m *UdpFilter) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UdpFilter.Merge(m, src)
-}
-func (m *UdpFilter) XXX_Size() int {
-	return xxx_messageInfo_UdpFilter.Size(m)
-}
-func (m *UdpFilter) XXX_DiscardUnknown() {
-	xxx_messageInfo_UdpFilter.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UdpFilter proto.InternalMessageInfo
-
-func (m *UdpFilter) GetSrcPortLower() int32 {
-	if m != nil {
-		return m.SrcPortLower
+func (x *UdpFilter) GetSrcPortLower() int32 {
+	if x != nil {
+		return x.SrcPortLower
 	}
 	return 0
 }
 
-func (m *UdpFilter) GetSrcPortUpper() int32 {
-	if m != nil {
-		return m.SrcPortUpper
+func (x *UdpFilter) GetSrcPortUpper() int32 {
+	if x != nil {
+		return x.SrcPortUpper
 	}
 	return 0
 }
 
-func (m *UdpFilter) GetDstPortLower() int32 {
-	if m != nil {
-		return m.DstPortLower
+func (x *UdpFilter) GetDstPortLower() int32 {
+	if x != nil {
+		return x.DstPortLower
 	}
 	return 0
 }
 
-func (m *UdpFilter) GetDstPortUpper() int32 {
-	if m != nil {
-		return m.DstPortUpper
+func (x *UdpFilter) GetDstPortUpper() int32 {
+	if x != nil {
+		return x.DstPortUpper
 	}
 	return 0
 }
 
 type ProtocolFilter struct {
-	// Types that are valid to be assigned to Filter:
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to Filter:
+	//
 	//	*ProtocolFilter_Icmp
 	//	*ProtocolFilter_Tcp
 	//	*ProtocolFilter_Udp
-	Filter               isProtocolFilter_Filter `protobuf_oneof:"filter"`
-	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
-	XXX_unrecognized     []byte                  `json:"-"`
-	XXX_sizecache        int32                   `json:"-"`
+	Filter isProtocolFilter_Filter `protobuf_oneof:"filter"`
 }
 
-func (m *ProtocolFilter) Reset()         { *m = ProtocolFilter{} }
-func (m *ProtocolFilter) String() string { return proto.CompactTextString(m) }
-func (*ProtocolFilter) ProtoMessage()    {}
+func (x *ProtocolFilter) Reset() {
+	*x = ProtocolFilter{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProtocolFilter) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProtocolFilter) ProtoMessage() {}
+
+func (x *ProtocolFilter) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProtocolFilter.ProtoReflect.Descriptor instead.
 func (*ProtocolFilter) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{14}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{14}
 }
 
-func (m *ProtocolFilter) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ProtocolFilter.Unmarshal(m, b)
-}
-func (m *ProtocolFilter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ProtocolFilter.Marshal(b, m, deterministic)
-}
-func (m *ProtocolFilter) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ProtocolFilter.Merge(m, src)
-}
-func (m *ProtocolFilter) XXX_Size() int {
-	return xxx_messageInfo_ProtocolFilter.Size(m)
-}
-func (m *ProtocolFilter) XXX_DiscardUnknown() {
-	xxx_messageInfo_ProtocolFilter.DiscardUnknown(m)
+func (m *ProtocolFilter) GetFilter() isProtocolFilter_Filter {
+	if m != nil {
+		return m.Filter
+	}
+	return nil
 }
 
-var xxx_messageInfo_ProtocolFilter proto.InternalMessageInfo
+func (x *ProtocolFilter) GetIcmp() *IcmpFilter {
+	if x, ok := x.GetFilter().(*ProtocolFilter_Icmp); ok {
+		return x.Icmp
+	}
+	return nil
+}
+
+func (x *ProtocolFilter) GetTcp() *TcpFilter {
+	if x, ok := x.GetFilter().(*ProtocolFilter_Tcp); ok {
+		return x.Tcp
+	}
+	return nil
+}
+
+func (x *ProtocolFilter) GetUdp() *UdpFilter {
+	if x, ok := x.GetFilter().(*ProtocolFilter_Udp); ok {
+		return x.Udp
+	}
+	return nil
+}
 
 type isProtocolFilter_Filter interface {
 	isProtocolFilter_Filter()
@@ -1061,43 +1351,6 @@ func (*ProtocolFilter_Tcp) isProtocolFilter_Filter() {}
 
 func (*ProtocolFilter_Udp) isProtocolFilter_Filter() {}
 
-func (m *ProtocolFilter) GetFilter() isProtocolFilter_Filter {
-	if m != nil {
-		return m.Filter
-	}
-	return nil
-}
-
-func (m *ProtocolFilter) GetIcmp() *IcmpFilter {
-	if x, ok := m.GetFilter().(*ProtocolFilter_Icmp); ok {
-		return x.Icmp
-	}
-	return nil
-}
-
-func (m *ProtocolFilter) GetTcp() *TcpFilter {
-	if x, ok := m.GetFilter().(*ProtocolFilter_Tcp); ok {
-		return x.Tcp
-	}
-	return nil
-}
-
-func (m *ProtocolFilter) GetUdp() *UdpFilter {
-	if x, ok := m.GetFilter().(*ProtocolFilter_Udp); ok {
-		return x.Udp
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*ProtocolFilter) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*ProtocolFilter_Icmp)(nil),
-		(*ProtocolFilter_Tcp)(nil),
-		(*ProtocolFilter_Udp)(nil),
-	}
-}
-
 // Firewall Rules can be inserted and removed while the interface is running. Linked list is used despite O(n) nature, as the list
 // needs to be traversed only once for each packet. (Stateful Firewall and each pass after that is O(1))
 // Firewall rules have a priority. "0" being the highest and "65536" being the lowest. Default is "1000".
@@ -1119,505 +1372,600 @@ type FirewallRule struct {
 	ProtocolFilter    *ProtocolFilter  `protobuf:"bytes,7,opt,name=protocol_filter,json=protocolFilter,proto3" json:"protocol_filter,omitempty"`          // Not defining a protocol filter matches all protocols
 }
 
-func (m *FirewallRule) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_FirewallRule.Unmarshal(m, b)
-}
-func (m *FirewallRule) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_FirewallRule.Marshal(b, m, deterministic)
-}
-func (m *FirewallRule) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_FirewallRule.Merge(m, src)
-}
-func (m *FirewallRule) XXX_Size() int {
-	return xxx_messageInfo_FirewallRule.Size(m)
-}
-func (m *FirewallRule) XXX_DiscardUnknown() {
-	xxx_messageInfo_FirewallRule.DiscardUnknown(m)
+func (x *FirewallRule) Reset() {
+	*x = FirewallRule{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
 }
 
-var xxx_messageInfo_FirewallRule proto.InternalMessageInfo
+func (x *FirewallRule) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
 
-func (m *FirewallRule) GetId() []byte {
-	if m != nil {
-		return m.Id
+func (*FirewallRule) ProtoMessage() {}
+
+func (x *FirewallRule) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FirewallRule.ProtoReflect.Descriptor instead.
+func (*FirewallRule) Descriptor() ([]byte, []int) {
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *FirewallRule) GetId() []byte {
+	if x != nil {
+		return x.Id
 	}
 	return nil
 }
 
-func (m *FirewallRule) GetDirection() TrafficDirection {
-	if m != nil {
-		return m.Direction
+func (x *FirewallRule) GetDirection() TrafficDirection {
+	if x != nil {
+		return x.Direction
 	}
 	return TrafficDirection_INGRESS
 }
 
-func (m *FirewallRule) GetAction() FirewallAction {
-	if m != nil {
-		return m.Action
+func (x *FirewallRule) GetAction() FirewallAction {
+	if x != nil {
+		return x.Action
 	}
 	return FirewallAction_DROP
 }
 
-func (m *FirewallRule) GetPriority() uint32 {
-	if m != nil {
-		return m.Priority
+func (x *FirewallRule) GetPriority() uint32 {
+	if x != nil {
+		return x.Priority
 	}
 	return 0
 }
 
-func (m *FirewallRule) GetSourcePrefix() *Prefix {
-	if m != nil {
-		return m.SourcePrefix
+func (x *FirewallRule) GetSourcePrefix() *Prefix {
+	if x != nil {
+		return x.SourcePrefix
 	}
 	return nil
 }
 
-func (m *FirewallRule) GetDestinationPrefix() *Prefix {
-	if m != nil {
-		return m.DestinationPrefix
+func (x *FirewallRule) GetDestinationPrefix() *Prefix {
+	if x != nil {
+		return x.DestinationPrefix
 	}
 	return nil
 }
 
-func (m *FirewallRule) GetProtocolFilter() *ProtocolFilter {
-	if m != nil {
-		return m.ProtocolFilter
+func (x *FirewallRule) GetProtocolFilter() *ProtocolFilter {
+	if x != nil {
+		return x.ProtocolFilter
 	}
 	return nil
 }
 
-/// REQUESTS/RESPONSES
+// / REQUESTS/RESPONSES
 type CheckInitializedRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
 }
 
-func (m *CheckInitializedRequest) Reset()         { *m = CheckInitializedRequest{} }
-func (m *CheckInitializedRequest) String() string { return proto.CompactTextString(m) }
-func (*CheckInitializedRequest) ProtoMessage()    {}
+func (x *CheckInitializedRequest) Reset() {
+	*x = CheckInitializedRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CheckInitializedRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckInitializedRequest) ProtoMessage() {}
+
+func (x *CheckInitializedRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckInitializedRequest.ProtoReflect.Descriptor instead.
 func (*CheckInitializedRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{16}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{16}
 }
-
-func (m *CheckInitializedRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CheckInitializedRequest.Unmarshal(m, b)
-}
-func (m *CheckInitializedRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CheckInitializedRequest.Marshal(b, m, deterministic)
-}
-func (m *CheckInitializedRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CheckInitializedRequest.Merge(m, src)
-}
-func (m *CheckInitializedRequest) XXX_Size() int {
-	return xxx_messageInfo_CheckInitializedRequest.Size(m)
-}
-func (m *CheckInitializedRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CheckInitializedRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CheckInitializedRequest proto.InternalMessageInfo
 
 type CheckInitializedResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	Uuid                 string   `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Uuid   string  `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
 }
 
-func (m *CheckInitializedResponse) Reset()         { *m = CheckInitializedResponse{} }
-func (m *CheckInitializedResponse) String() string { return proto.CompactTextString(m) }
-func (*CheckInitializedResponse) ProtoMessage()    {}
+func (x *CheckInitializedResponse) Reset() {
+	*x = CheckInitializedResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CheckInitializedResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckInitializedResponse) ProtoMessage() {}
+
+func (x *CheckInitializedResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckInitializedResponse.ProtoReflect.Descriptor instead.
 func (*CheckInitializedResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{17}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{17}
 }
 
-func (m *CheckInitializedResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CheckInitializedResponse.Unmarshal(m, b)
-}
-func (m *CheckInitializedResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CheckInitializedResponse.Marshal(b, m, deterministic)
-}
-func (m *CheckInitializedResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CheckInitializedResponse.Merge(m, src)
-}
-func (m *CheckInitializedResponse) XXX_Size() int {
-	return xxx_messageInfo_CheckInitializedResponse.Size(m)
-}
-func (m *CheckInitializedResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CheckInitializedResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CheckInitializedResponse proto.InternalMessageInfo
-
-func (m *CheckInitializedResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CheckInitializedResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *CheckInitializedResponse) GetUuid() string {
-	if m != nil {
-		return m.Uuid
+func (x *CheckInitializedResponse) GetUuid() string {
+	if x != nil {
+		return x.Uuid
 	}
 	return ""
 }
 
 type InitializeRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
 }
 
-func (m *InitializeRequest) Reset()         { *m = InitializeRequest{} }
-func (m *InitializeRequest) String() string { return proto.CompactTextString(m) }
-func (*InitializeRequest) ProtoMessage()    {}
+func (x *InitializeRequest) Reset() {
+	*x = InitializeRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InitializeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InitializeRequest) ProtoMessage() {}
+
+func (x *InitializeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InitializeRequest.ProtoReflect.Descriptor instead.
 func (*InitializeRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{18}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{18}
 }
-
-func (m *InitializeRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_InitializeRequest.Unmarshal(m, b)
-}
-func (m *InitializeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_InitializeRequest.Marshal(b, m, deterministic)
-}
-func (m *InitializeRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_InitializeRequest.Merge(m, src)
-}
-func (m *InitializeRequest) XXX_Size() int {
-	return xxx_messageInfo_InitializeRequest.Size(m)
-}
-func (m *InitializeRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_InitializeRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_InitializeRequest proto.InternalMessageInfo
 
 type InitializeResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	Uuid                 string   `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Uuid   string  `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
 }
 
-func (m *InitializeResponse) Reset()         { *m = InitializeResponse{} }
-func (m *InitializeResponse) String() string { return proto.CompactTextString(m) }
-func (*InitializeResponse) ProtoMessage()    {}
+func (x *InitializeResponse) Reset() {
+	*x = InitializeResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InitializeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InitializeResponse) ProtoMessage() {}
+
+func (x *InitializeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InitializeResponse.ProtoReflect.Descriptor instead.
 func (*InitializeResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{19}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{19}
 }
 
-func (m *InitializeResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_InitializeResponse.Unmarshal(m, b)
-}
-func (m *InitializeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_InitializeResponse.Marshal(b, m, deterministic)
-}
-func (m *InitializeResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_InitializeResponse.Merge(m, src)
-}
-func (m *InitializeResponse) XXX_Size() int {
-	return xxx_messageInfo_InitializeResponse.Size(m)
-}
-func (m *InitializeResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_InitializeResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_InitializeResponse proto.InternalMessageInfo
-
-func (m *InitializeResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *InitializeResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *InitializeResponse) GetUuid() string {
-	if m != nil {
-		return m.Uuid
+func (x *InitializeResponse) GetUuid() string {
+	if x != nil {
+		return x.Uuid
 	}
 	return ""
 }
 
 type GetVersionRequest struct {
-	ClientProtocol       string   `protobuf:"bytes,1,opt,name=client_protocol,json=clientProtocol,proto3" json:"client_protocol,omitempty"`
-	ClientName           string   `protobuf:"bytes,2,opt,name=client_name,json=clientName,proto3" json:"client_name,omitempty"`
-	ClientVersion        string   `protobuf:"bytes,3,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ClientProtocol string `protobuf:"bytes,1,opt,name=client_protocol,json=clientProtocol,proto3" json:"client_protocol,omitempty"`
+	ClientName     string `protobuf:"bytes,2,opt,name=client_name,json=clientName,proto3" json:"client_name,omitempty"`
+	ClientVersion  string `protobuf:"bytes,3,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
 }
 
-func (m *GetVersionRequest) Reset()         { *m = GetVersionRequest{} }
-func (m *GetVersionRequest) String() string { return proto.CompactTextString(m) }
-func (*GetVersionRequest) ProtoMessage()    {}
+func (x *GetVersionRequest) Reset() {
+	*x = GetVersionRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetVersionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetVersionRequest) ProtoMessage() {}
+
+func (x *GetVersionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetVersionRequest.ProtoReflect.Descriptor instead.
 func (*GetVersionRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{20}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{20}
 }
 
-func (m *GetVersionRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetVersionRequest.Unmarshal(m, b)
-}
-func (m *GetVersionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetVersionRequest.Marshal(b, m, deterministic)
-}
-func (m *GetVersionRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetVersionRequest.Merge(m, src)
-}
-func (m *GetVersionRequest) XXX_Size() int {
-	return xxx_messageInfo_GetVersionRequest.Size(m)
-}
-func (m *GetVersionRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetVersionRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetVersionRequest proto.InternalMessageInfo
-
-func (m *GetVersionRequest) GetClientProtocol() string {
-	if m != nil {
-		return m.ClientProtocol
+func (x *GetVersionRequest) GetClientProtocol() string {
+	if x != nil {
+		return x.ClientProtocol
 	}
 	return ""
 }
 
-func (m *GetVersionRequest) GetClientName() string {
-	if m != nil {
-		return m.ClientName
+func (x *GetVersionRequest) GetClientName() string {
+	if x != nil {
+		return x.ClientName
 	}
 	return ""
 }
 
-func (m *GetVersionRequest) GetClientVersion() string {
-	if m != nil {
-		return m.ClientVersion
+func (x *GetVersionRequest) GetClientVersion() string {
+	if x != nil {
+		return x.ClientVersion
 	}
 	return ""
 }
 
 type GetVersionResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	ServiceProtocol      string   `protobuf:"bytes,2,opt,name=service_protocol,json=serviceProtocol,proto3" json:"service_protocol,omitempty"`
-	ServiceVersion       string   `protobuf:"bytes,3,opt,name=service_version,json=serviceVersion,proto3" json:"service_version,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status          *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	ServiceProtocol string  `protobuf:"bytes,2,opt,name=service_protocol,json=serviceProtocol,proto3" json:"service_protocol,omitempty"`
+	ServiceVersion  string  `protobuf:"bytes,3,opt,name=service_version,json=serviceVersion,proto3" json:"service_version,omitempty"`
 }
 
-func (m *GetVersionResponse) Reset()         { *m = GetVersionResponse{} }
-func (m *GetVersionResponse) String() string { return proto.CompactTextString(m) }
-func (*GetVersionResponse) ProtoMessage()    {}
+func (x *GetVersionResponse) Reset() {
+	*x = GetVersionResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetVersionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetVersionResponse) ProtoMessage() {}
+
+func (x *GetVersionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetVersionResponse.ProtoReflect.Descriptor instead.
 func (*GetVersionResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{21}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{21}
 }
 
-func (m *GetVersionResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetVersionResponse.Unmarshal(m, b)
-}
-func (m *GetVersionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetVersionResponse.Marshal(b, m, deterministic)
-}
-func (m *GetVersionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetVersionResponse.Merge(m, src)
-}
-func (m *GetVersionResponse) XXX_Size() int {
-	return xxx_messageInfo_GetVersionResponse.Size(m)
-}
-func (m *GetVersionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetVersionResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetVersionResponse proto.InternalMessageInfo
-
-func (m *GetVersionResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *GetVersionResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *GetVersionResponse) GetServiceProtocol() string {
-	if m != nil {
-		return m.ServiceProtocol
+func (x *GetVersionResponse) GetServiceProtocol() string {
+	if x != nil {
+		return x.ServiceProtocol
 	}
 	return ""
 }
 
-func (m *GetVersionResponse) GetServiceVersion() string {
-	if m != nil {
-		return m.ServiceVersion
+func (x *GetVersionResponse) GetServiceVersion() string {
+	if x != nil {
+		return x.ServiceVersion
 	}
 	return ""
 }
 
 type ListInterfacesRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
 }
 
-func (m *ListInterfacesRequest) Reset()         { *m = ListInterfacesRequest{} }
-func (m *ListInterfacesRequest) String() string { return proto.CompactTextString(m) }
-func (*ListInterfacesRequest) ProtoMessage()    {}
+func (x *ListInterfacesRequest) Reset() {
+	*x = ListInterfacesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[22]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListInterfacesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListInterfacesRequest) ProtoMessage() {}
+
+func (x *ListInterfacesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[22]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListInterfacesRequest.ProtoReflect.Descriptor instead.
 func (*ListInterfacesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{22}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{22}
 }
-
-func (m *ListInterfacesRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListInterfacesRequest.Unmarshal(m, b)
-}
-func (m *ListInterfacesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListInterfacesRequest.Marshal(b, m, deterministic)
-}
-func (m *ListInterfacesRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListInterfacesRequest.Merge(m, src)
-}
-func (m *ListInterfacesRequest) XXX_Size() int {
-	return xxx_messageInfo_ListInterfacesRequest.Size(m)
-}
-func (m *ListInterfacesRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListInterfacesRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListInterfacesRequest proto.InternalMessageInfo
 
 type ListInterfacesResponse struct {
-	Status               *Status      `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	Interfaces           []*Interface `protobuf:"bytes,2,rep,name=interfaces,proto3" json:"interfaces,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status     *Status      `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Interfaces []*Interface `protobuf:"bytes,2,rep,name=interfaces,proto3" json:"interfaces,omitempty"`
 }
 
-func (m *ListInterfacesResponse) Reset()         { *m = ListInterfacesResponse{} }
-func (m *ListInterfacesResponse) String() string { return proto.CompactTextString(m) }
-func (*ListInterfacesResponse) ProtoMessage()    {}
+func (x *ListInterfacesResponse) Reset() {
+	*x = ListInterfacesResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[23]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListInterfacesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListInterfacesResponse) ProtoMessage() {}
+
+func (x *ListInterfacesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[23]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListInterfacesResponse.ProtoReflect.Descriptor instead.
 func (*ListInterfacesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{23}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{23}
 }
 
-func (m *ListInterfacesResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListInterfacesResponse.Unmarshal(m, b)
-}
-func (m *ListInterfacesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListInterfacesResponse.Marshal(b, m, deterministic)
-}
-func (m *ListInterfacesResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListInterfacesResponse.Merge(m, src)
-}
-func (m *ListInterfacesResponse) XXX_Size() int {
-	return xxx_messageInfo_ListInterfacesResponse.Size(m)
-}
-func (m *ListInterfacesResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListInterfacesResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListInterfacesResponse proto.InternalMessageInfo
-
-func (m *ListInterfacesResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *ListInterfacesResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *ListInterfacesResponse) GetInterfaces() []*Interface {
-	if m != nil {
-		return m.Interfaces
+func (x *ListInterfacesResponse) GetInterfaces() []*Interface {
+	if x != nil {
+		return x.Interfaces
 	}
 	return nil
 }
 
 type GetInterfaceRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
 }
 
-func (m *GetInterfaceRequest) Reset()         { *m = GetInterfaceRequest{} }
-func (m *GetInterfaceRequest) String() string { return proto.CompactTextString(m) }
-func (*GetInterfaceRequest) ProtoMessage()    {}
+func (x *GetInterfaceRequest) Reset() {
+	*x = GetInterfaceRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[24]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetInterfaceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetInterfaceRequest) ProtoMessage() {}
+
+func (x *GetInterfaceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[24]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetInterfaceRequest.ProtoReflect.Descriptor instead.
 func (*GetInterfaceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{24}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{24}
 }
 
-func (m *GetInterfaceRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetInterfaceRequest.Unmarshal(m, b)
-}
-func (m *GetInterfaceRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetInterfaceRequest.Marshal(b, m, deterministic)
-}
-func (m *GetInterfaceRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetInterfaceRequest.Merge(m, src)
-}
-func (m *GetInterfaceRequest) XXX_Size() int {
-	return xxx_messageInfo_GetInterfaceRequest.Size(m)
-}
-func (m *GetInterfaceRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetInterfaceRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetInterfaceRequest proto.InternalMessageInfo
-
-func (m *GetInterfaceRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *GetInterfaceRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
 type GetInterfaceResponse struct {
-	Status               *Status    `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	Interface            *Interface `protobuf:"bytes,2,opt,name=interface,proto3" json:"interface,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status    *Status    `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Interface *Interface `protobuf:"bytes,2,opt,name=interface,proto3" json:"interface,omitempty"`
 }
 
-func (m *GetInterfaceResponse) Reset()         { *m = GetInterfaceResponse{} }
-func (m *GetInterfaceResponse) String() string { return proto.CompactTextString(m) }
-func (*GetInterfaceResponse) ProtoMessage()    {}
+func (x *GetInterfaceResponse) Reset() {
+	*x = GetInterfaceResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[25]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetInterfaceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetInterfaceResponse) ProtoMessage() {}
+
+func (x *GetInterfaceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[25]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetInterfaceResponse.ProtoReflect.Descriptor instead.
 func (*GetInterfaceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{25}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{25}
 }
 
-func (m *GetInterfaceResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetInterfaceResponse.Unmarshal(m, b)
-}
-func (m *GetInterfaceResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetInterfaceResponse.Marshal(b, m, deterministic)
-}
-func (m *GetInterfaceResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetInterfaceResponse.Merge(m, src)
-}
-func (m *GetInterfaceResponse) XXX_Size() int {
-	return xxx_messageInfo_GetInterfaceResponse.Size(m)
-}
-func (m *GetInterfaceResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetInterfaceResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetInterfaceResponse proto.InternalMessageInfo
-
-func (m *GetInterfaceResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *GetInterfaceResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *GetInterfaceResponse) GetInterface() *Interface {
-	if m != nil {
-		return m.Interface
+func (x *GetInterfaceResponse) GetInterface() *Interface {
+	if x != nil {
+		return x.Interface
 	}
 	return nil
 }
 
 type CreateInterfaceRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
 	// Define whether a Bare Metal Interface or a Virtual Interface is created.
 	// Both instance types cannot be mixed during a session.
 	// Maximum number of instantiated bare metal interfaces is 1.
@@ -1629,2509 +1977,2937 @@ type CreateInterfaceRequest struct {
 	Ipv6Config    *IpConfig     `protobuf:"bytes,5,opt,name=ipv6_config,json=ipv6Config,proto3" json:"ipv6_config,omitempty"`
 	PxeConfig     *PxeConfig    `protobuf:"bytes,6,opt,name=pxe_config,json=pxeConfig,proto3" json:"pxe_config,omitempty"`
 	// Device with this name will be assigned if it exists, otherwise error is returned.
-	DeviceName           string   `protobuf:"bytes,7,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	DeviceName string `protobuf:"bytes,7,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
 }
 
-func (m *CreateInterfaceRequest) Reset()         { *m = CreateInterfaceRequest{} }
-func (m *CreateInterfaceRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateInterfaceRequest) ProtoMessage()    {}
+func (x *CreateInterfaceRequest) Reset() {
+	*x = CreateInterfaceRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[26]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateInterfaceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateInterfaceRequest) ProtoMessage() {}
+
+func (x *CreateInterfaceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[26]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateInterfaceRequest.ProtoReflect.Descriptor instead.
 func (*CreateInterfaceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{26}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{26}
 }
 
-func (m *CreateInterfaceRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateInterfaceRequest.Unmarshal(m, b)
-}
-func (m *CreateInterfaceRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateInterfaceRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateInterfaceRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateInterfaceRequest.Merge(m, src)
-}
-func (m *CreateInterfaceRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateInterfaceRequest.Size(m)
-}
-func (m *CreateInterfaceRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateInterfaceRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateInterfaceRequest proto.InternalMessageInfo
-
-func (m *CreateInterfaceRequest) GetInterfaceType() InterfaceType {
-	if m != nil {
-		return m.InterfaceType
+func (x *CreateInterfaceRequest) GetInterfaceType() InterfaceType {
+	if x != nil {
+		return x.InterfaceType
 	}
 	return InterfaceType_VIRTUAL
 }
 
-func (m *CreateInterfaceRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *CreateInterfaceRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
-func (m *CreateInterfaceRequest) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *CreateInterfaceRequest) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
-func (m *CreateInterfaceRequest) GetIpv4Config() *IpConfig {
-	if m != nil {
-		return m.Ipv4Config
+func (x *CreateInterfaceRequest) GetIpv4Config() *IpConfig {
+	if x != nil {
+		return x.Ipv4Config
 	}
 	return nil
 }
 
-func (m *CreateInterfaceRequest) GetIpv6Config() *IpConfig {
-	if m != nil {
-		return m.Ipv6Config
+func (x *CreateInterfaceRequest) GetIpv6Config() *IpConfig {
+	if x != nil {
+		return x.Ipv6Config
 	}
 	return nil
 }
 
-func (m *CreateInterfaceRequest) GetPxeConfig() *PxeConfig {
-	if m != nil {
-		return m.PxeConfig
+func (x *CreateInterfaceRequest) GetPxeConfig() *PxeConfig {
+	if x != nil {
+		return x.PxeConfig
 	}
 	return nil
 }
 
-func (m *CreateInterfaceRequest) GetDeviceName() string {
-	if m != nil {
-		return m.DeviceName
+func (x *CreateInterfaceRequest) GetDeviceName() string {
+	if x != nil {
+		return x.DeviceName
 	}
 	return ""
 }
 
 type CreateInterfaceResponse struct {
-	Status               *Status          `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	UnderlayRoute        []byte           `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	Vf                   *VirtualFunction `protobuf:"bytes,3,opt,name=vf,proto3" json:"vf,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
-	XXX_unrecognized     []byte           `json:"-"`
-	XXX_sizecache        int32            `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status        *Status          `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	UnderlayRoute []byte           `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
+	Vf            *VirtualFunction `protobuf:"bytes,3,opt,name=vf,proto3" json:"vf,omitempty"` // Holds VF information when a VM has been created.
 }
 
-func (m *CreateInterfaceResponse) Reset()         { *m = CreateInterfaceResponse{} }
-func (m *CreateInterfaceResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateInterfaceResponse) ProtoMessage()    {}
+func (x *CreateInterfaceResponse) Reset() {
+	*x = CreateInterfaceResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[27]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateInterfaceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateInterfaceResponse) ProtoMessage() {}
+
+func (x *CreateInterfaceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[27]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateInterfaceResponse.ProtoReflect.Descriptor instead.
 func (*CreateInterfaceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{27}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{27}
 }
 
-func (m *CreateInterfaceResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateInterfaceResponse.Unmarshal(m, b)
-}
-func (m *CreateInterfaceResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateInterfaceResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateInterfaceResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateInterfaceResponse.Merge(m, src)
-}
-func (m *CreateInterfaceResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateInterfaceResponse.Size(m)
-}
-func (m *CreateInterfaceResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateInterfaceResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateInterfaceResponse proto.InternalMessageInfo
-
-func (m *CreateInterfaceResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CreateInterfaceResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *CreateInterfaceResponse) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *CreateInterfaceResponse) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
-func (m *CreateInterfaceResponse) GetVf() *VirtualFunction {
-	if m != nil {
-		return m.Vf
+func (x *CreateInterfaceResponse) GetVf() *VirtualFunction {
+	if x != nil {
+		return x.Vf
 	}
 	return nil
 }
 
 type DeleteInterfaceRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
 }
 
-func (m *DeleteInterfaceRequest) Reset()         { *m = DeleteInterfaceRequest{} }
-func (m *DeleteInterfaceRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteInterfaceRequest) ProtoMessage()    {}
+func (x *DeleteInterfaceRequest) Reset() {
+	*x = DeleteInterfaceRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[28]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteInterfaceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteInterfaceRequest) ProtoMessage() {}
+
+func (x *DeleteInterfaceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[28]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteInterfaceRequest.ProtoReflect.Descriptor instead.
 func (*DeleteInterfaceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{28}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{28}
 }
 
-func (m *DeleteInterfaceRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteInterfaceRequest.Unmarshal(m, b)
-}
-func (m *DeleteInterfaceRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteInterfaceRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteInterfaceRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteInterfaceRequest.Merge(m, src)
-}
-func (m *DeleteInterfaceRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteInterfaceRequest.Size(m)
-}
-func (m *DeleteInterfaceRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteInterfaceRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteInterfaceRequest proto.InternalMessageInfo
-
-func (m *DeleteInterfaceRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *DeleteInterfaceRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
 type DeleteInterfaceResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *DeleteInterfaceResponse) Reset()         { *m = DeleteInterfaceResponse{} }
-func (m *DeleteInterfaceResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteInterfaceResponse) ProtoMessage()    {}
+func (x *DeleteInterfaceResponse) Reset() {
+	*x = DeleteInterfaceResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[29]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteInterfaceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteInterfaceResponse) ProtoMessage() {}
+
+func (x *DeleteInterfaceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[29]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteInterfaceResponse.ProtoReflect.Descriptor instead.
 func (*DeleteInterfaceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{29}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{29}
 }
 
-func (m *DeleteInterfaceResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteInterfaceResponse.Unmarshal(m, b)
-}
-func (m *DeleteInterfaceResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteInterfaceResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteInterfaceResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteInterfaceResponse.Merge(m, src)
-}
-func (m *DeleteInterfaceResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteInterfaceResponse.Size(m)
-}
-func (m *DeleteInterfaceResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteInterfaceResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteInterfaceResponse proto.InternalMessageInfo
-
-func (m *DeleteInterfaceResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *DeleteInterfaceResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type ListPrefixesRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
 }
 
-func (m *ListPrefixesRequest) Reset()         { *m = ListPrefixesRequest{} }
-func (m *ListPrefixesRequest) String() string { return proto.CompactTextString(m) }
-func (*ListPrefixesRequest) ProtoMessage()    {}
+func (x *ListPrefixesRequest) Reset() {
+	*x = ListPrefixesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[30]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListPrefixesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListPrefixesRequest) ProtoMessage() {}
+
+func (x *ListPrefixesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[30]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListPrefixesRequest.ProtoReflect.Descriptor instead.
 func (*ListPrefixesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{30}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{30}
 }
 
-func (m *ListPrefixesRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListPrefixesRequest.Unmarshal(m, b)
-}
-func (m *ListPrefixesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListPrefixesRequest.Marshal(b, m, deterministic)
-}
-func (m *ListPrefixesRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListPrefixesRequest.Merge(m, src)
-}
-func (m *ListPrefixesRequest) XXX_Size() int {
-	return xxx_messageInfo_ListPrefixesRequest.Size(m)
-}
-func (m *ListPrefixesRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListPrefixesRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListPrefixesRequest proto.InternalMessageInfo
-
-func (m *ListPrefixesRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *ListPrefixesRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
 type ListPrefixesResponse struct {
-	Status               *Status   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	Prefixes             []*Prefix `protobuf:"bytes,2,rep,name=prefixes,proto3" json:"prefixes,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
-	XXX_unrecognized     []byte    `json:"-"`
-	XXX_sizecache        int32     `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status   *Status   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Prefixes []*Prefix `protobuf:"bytes,2,rep,name=prefixes,proto3" json:"prefixes,omitempty"`
 }
 
-func (m *ListPrefixesResponse) Reset()         { *m = ListPrefixesResponse{} }
-func (m *ListPrefixesResponse) String() string { return proto.CompactTextString(m) }
-func (*ListPrefixesResponse) ProtoMessage()    {}
+func (x *ListPrefixesResponse) Reset() {
+	*x = ListPrefixesResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[31]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListPrefixesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListPrefixesResponse) ProtoMessage() {}
+
+func (x *ListPrefixesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[31]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListPrefixesResponse.ProtoReflect.Descriptor instead.
 func (*ListPrefixesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{31}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{31}
 }
 
-func (m *ListPrefixesResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListPrefixesResponse.Unmarshal(m, b)
-}
-func (m *ListPrefixesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListPrefixesResponse.Marshal(b, m, deterministic)
-}
-func (m *ListPrefixesResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListPrefixesResponse.Merge(m, src)
-}
-func (m *ListPrefixesResponse) XXX_Size() int {
-	return xxx_messageInfo_ListPrefixesResponse.Size(m)
-}
-func (m *ListPrefixesResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListPrefixesResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListPrefixesResponse proto.InternalMessageInfo
-
-func (m *ListPrefixesResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *ListPrefixesResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *ListPrefixesResponse) GetPrefixes() []*Prefix {
-	if m != nil {
-		return m.Prefixes
+func (x *ListPrefixesResponse) GetPrefixes() []*Prefix {
+	if x != nil {
+		return x.Prefixes
 	}
 	return nil
 }
 
 type CreatePrefixRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	Prefix               *Prefix  `protobuf:"bytes,2,opt,name=prefix,proto3" json:"prefix,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte  `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
+	Prefix      *Prefix `protobuf:"bytes,2,opt,name=prefix,proto3" json:"prefix,omitempty"`
 }
 
-func (m *CreatePrefixRequest) Reset()         { *m = CreatePrefixRequest{} }
-func (m *CreatePrefixRequest) String() string { return proto.CompactTextString(m) }
-func (*CreatePrefixRequest) ProtoMessage()    {}
+func (x *CreatePrefixRequest) Reset() {
+	*x = CreatePrefixRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[32]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreatePrefixRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatePrefixRequest) ProtoMessage() {}
+
+func (x *CreatePrefixRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[32]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatePrefixRequest.ProtoReflect.Descriptor instead.
 func (*CreatePrefixRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{32}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{32}
 }
 
-func (m *CreatePrefixRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreatePrefixRequest.Unmarshal(m, b)
-}
-func (m *CreatePrefixRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreatePrefixRequest.Marshal(b, m, deterministic)
-}
-func (m *CreatePrefixRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreatePrefixRequest.Merge(m, src)
-}
-func (m *CreatePrefixRequest) XXX_Size() int {
-	return xxx_messageInfo_CreatePrefixRequest.Size(m)
-}
-func (m *CreatePrefixRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreatePrefixRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreatePrefixRequest proto.InternalMessageInfo
-
-func (m *CreatePrefixRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *CreatePrefixRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
-func (m *CreatePrefixRequest) GetPrefix() *Prefix {
-	if m != nil {
-		return m.Prefix
+func (x *CreatePrefixRequest) GetPrefix() *Prefix {
+	if x != nil {
+		return x.Prefix
 	}
 	return nil
 }
 
 type CreatePrefixResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	UnderlayRoute        []byte   `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status        *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	UnderlayRoute []byte  `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
 }
 
-func (m *CreatePrefixResponse) Reset()         { *m = CreatePrefixResponse{} }
-func (m *CreatePrefixResponse) String() string { return proto.CompactTextString(m) }
-func (*CreatePrefixResponse) ProtoMessage()    {}
+func (x *CreatePrefixResponse) Reset() {
+	*x = CreatePrefixResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[33]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreatePrefixResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatePrefixResponse) ProtoMessage() {}
+
+func (x *CreatePrefixResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[33]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatePrefixResponse.ProtoReflect.Descriptor instead.
 func (*CreatePrefixResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{33}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{33}
 }
 
-func (m *CreatePrefixResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreatePrefixResponse.Unmarshal(m, b)
-}
-func (m *CreatePrefixResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreatePrefixResponse.Marshal(b, m, deterministic)
-}
-func (m *CreatePrefixResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreatePrefixResponse.Merge(m, src)
-}
-func (m *CreatePrefixResponse) XXX_Size() int {
-	return xxx_messageInfo_CreatePrefixResponse.Size(m)
-}
-func (m *CreatePrefixResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreatePrefixResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreatePrefixResponse proto.InternalMessageInfo
-
-func (m *CreatePrefixResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CreatePrefixResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *CreatePrefixResponse) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *CreatePrefixResponse) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
 type DeletePrefixRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	Prefix               *Prefix  `protobuf:"bytes,2,opt,name=prefix,proto3" json:"prefix,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte  `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
+	Prefix      *Prefix `protobuf:"bytes,2,opt,name=prefix,proto3" json:"prefix,omitempty"`
 }
 
-func (m *DeletePrefixRequest) Reset()         { *m = DeletePrefixRequest{} }
-func (m *DeletePrefixRequest) String() string { return proto.CompactTextString(m) }
-func (*DeletePrefixRequest) ProtoMessage()    {}
+func (x *DeletePrefixRequest) Reset() {
+	*x = DeletePrefixRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[34]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeletePrefixRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeletePrefixRequest) ProtoMessage() {}
+
+func (x *DeletePrefixRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[34]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeletePrefixRequest.ProtoReflect.Descriptor instead.
 func (*DeletePrefixRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{34}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{34}
 }
 
-func (m *DeletePrefixRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeletePrefixRequest.Unmarshal(m, b)
-}
-func (m *DeletePrefixRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeletePrefixRequest.Marshal(b, m, deterministic)
-}
-func (m *DeletePrefixRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeletePrefixRequest.Merge(m, src)
-}
-func (m *DeletePrefixRequest) XXX_Size() int {
-	return xxx_messageInfo_DeletePrefixRequest.Size(m)
-}
-func (m *DeletePrefixRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeletePrefixRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeletePrefixRequest proto.InternalMessageInfo
-
-func (m *DeletePrefixRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *DeletePrefixRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
-func (m *DeletePrefixRequest) GetPrefix() *Prefix {
-	if m != nil {
-		return m.Prefix
+func (x *DeletePrefixRequest) GetPrefix() *Prefix {
+	if x != nil {
+		return x.Prefix
 	}
 	return nil
 }
 
 type DeletePrefixResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *DeletePrefixResponse) Reset()         { *m = DeletePrefixResponse{} }
-func (m *DeletePrefixResponse) String() string { return proto.CompactTextString(m) }
-func (*DeletePrefixResponse) ProtoMessage()    {}
+func (x *DeletePrefixResponse) Reset() {
+	*x = DeletePrefixResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[35]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeletePrefixResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeletePrefixResponse) ProtoMessage() {}
+
+func (x *DeletePrefixResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[35]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeletePrefixResponse.ProtoReflect.Descriptor instead.
 func (*DeletePrefixResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{35}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{35}
 }
 
-func (m *DeletePrefixResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeletePrefixResponse.Unmarshal(m, b)
-}
-func (m *DeletePrefixResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeletePrefixResponse.Marshal(b, m, deterministic)
-}
-func (m *DeletePrefixResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeletePrefixResponse.Merge(m, src)
-}
-func (m *DeletePrefixResponse) XXX_Size() int {
-	return xxx_messageInfo_DeletePrefixResponse.Size(m)
-}
-func (m *DeletePrefixResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeletePrefixResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeletePrefixResponse proto.InternalMessageInfo
-
-func (m *DeletePrefixResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *DeletePrefixResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type ListLoadBalancerPrefixesRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
 }
 
-func (m *ListLoadBalancerPrefixesRequest) Reset()         { *m = ListLoadBalancerPrefixesRequest{} }
-func (m *ListLoadBalancerPrefixesRequest) String() string { return proto.CompactTextString(m) }
-func (*ListLoadBalancerPrefixesRequest) ProtoMessage()    {}
+func (x *ListLoadBalancerPrefixesRequest) Reset() {
+	*x = ListLoadBalancerPrefixesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[36]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListLoadBalancerPrefixesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListLoadBalancerPrefixesRequest) ProtoMessage() {}
+
+func (x *ListLoadBalancerPrefixesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[36]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListLoadBalancerPrefixesRequest.ProtoReflect.Descriptor instead.
 func (*ListLoadBalancerPrefixesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{36}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{36}
 }
 
-func (m *ListLoadBalancerPrefixesRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListLoadBalancerPrefixesRequest.Unmarshal(m, b)
-}
-func (m *ListLoadBalancerPrefixesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListLoadBalancerPrefixesRequest.Marshal(b, m, deterministic)
-}
-func (m *ListLoadBalancerPrefixesRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListLoadBalancerPrefixesRequest.Merge(m, src)
-}
-func (m *ListLoadBalancerPrefixesRequest) XXX_Size() int {
-	return xxx_messageInfo_ListLoadBalancerPrefixesRequest.Size(m)
-}
-func (m *ListLoadBalancerPrefixesRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListLoadBalancerPrefixesRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListLoadBalancerPrefixesRequest proto.InternalMessageInfo
-
-func (m *ListLoadBalancerPrefixesRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *ListLoadBalancerPrefixesRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
 type ListLoadBalancerPrefixesResponse struct {
-	Status               *Status   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	Prefixes             []*Prefix `protobuf:"bytes,2,rep,name=prefixes,proto3" json:"prefixes,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
-	XXX_unrecognized     []byte    `json:"-"`
-	XXX_sizecache        int32     `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status   *Status   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Prefixes []*Prefix `protobuf:"bytes,2,rep,name=prefixes,proto3" json:"prefixes,omitempty"`
 }
 
-func (m *ListLoadBalancerPrefixesResponse) Reset()         { *m = ListLoadBalancerPrefixesResponse{} }
-func (m *ListLoadBalancerPrefixesResponse) String() string { return proto.CompactTextString(m) }
-func (*ListLoadBalancerPrefixesResponse) ProtoMessage()    {}
+func (x *ListLoadBalancerPrefixesResponse) Reset() {
+	*x = ListLoadBalancerPrefixesResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[37]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListLoadBalancerPrefixesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListLoadBalancerPrefixesResponse) ProtoMessage() {}
+
+func (x *ListLoadBalancerPrefixesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[37]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListLoadBalancerPrefixesResponse.ProtoReflect.Descriptor instead.
 func (*ListLoadBalancerPrefixesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{37}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{37}
 }
 
-func (m *ListLoadBalancerPrefixesResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListLoadBalancerPrefixesResponse.Unmarshal(m, b)
-}
-func (m *ListLoadBalancerPrefixesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListLoadBalancerPrefixesResponse.Marshal(b, m, deterministic)
-}
-func (m *ListLoadBalancerPrefixesResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListLoadBalancerPrefixesResponse.Merge(m, src)
-}
-func (m *ListLoadBalancerPrefixesResponse) XXX_Size() int {
-	return xxx_messageInfo_ListLoadBalancerPrefixesResponse.Size(m)
-}
-func (m *ListLoadBalancerPrefixesResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListLoadBalancerPrefixesResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListLoadBalancerPrefixesResponse proto.InternalMessageInfo
-
-func (m *ListLoadBalancerPrefixesResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *ListLoadBalancerPrefixesResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *ListLoadBalancerPrefixesResponse) GetPrefixes() []*Prefix {
-	if m != nil {
-		return m.Prefixes
+func (x *ListLoadBalancerPrefixesResponse) GetPrefixes() []*Prefix {
+	if x != nil {
+		return x.Prefixes
 	}
 	return nil
 }
 
 type CreateLoadBalancerPrefixRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	Prefix               *Prefix  `protobuf:"bytes,2,opt,name=prefix,proto3" json:"prefix,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte  `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
+	Prefix      *Prefix `protobuf:"bytes,2,opt,name=prefix,proto3" json:"prefix,omitempty"`
 }
 
-func (m *CreateLoadBalancerPrefixRequest) Reset()         { *m = CreateLoadBalancerPrefixRequest{} }
-func (m *CreateLoadBalancerPrefixRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateLoadBalancerPrefixRequest) ProtoMessage()    {}
+func (x *CreateLoadBalancerPrefixRequest) Reset() {
+	*x = CreateLoadBalancerPrefixRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[38]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateLoadBalancerPrefixRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateLoadBalancerPrefixRequest) ProtoMessage() {}
+
+func (x *CreateLoadBalancerPrefixRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[38]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateLoadBalancerPrefixRequest.ProtoReflect.Descriptor instead.
 func (*CreateLoadBalancerPrefixRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{38}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{38}
 }
 
-func (m *CreateLoadBalancerPrefixRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateLoadBalancerPrefixRequest.Unmarshal(m, b)
-}
-func (m *CreateLoadBalancerPrefixRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateLoadBalancerPrefixRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateLoadBalancerPrefixRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateLoadBalancerPrefixRequest.Merge(m, src)
-}
-func (m *CreateLoadBalancerPrefixRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateLoadBalancerPrefixRequest.Size(m)
-}
-func (m *CreateLoadBalancerPrefixRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateLoadBalancerPrefixRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateLoadBalancerPrefixRequest proto.InternalMessageInfo
-
-func (m *CreateLoadBalancerPrefixRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *CreateLoadBalancerPrefixRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
-func (m *CreateLoadBalancerPrefixRequest) GetPrefix() *Prefix {
-	if m != nil {
-		return m.Prefix
+func (x *CreateLoadBalancerPrefixRequest) GetPrefix() *Prefix {
+	if x != nil {
+		return x.Prefix
 	}
 	return nil
 }
 
 type CreateLoadBalancerPrefixResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	UnderlayRoute        []byte   `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status        *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	UnderlayRoute []byte  `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
 }
 
-func (m *CreateLoadBalancerPrefixResponse) Reset()         { *m = CreateLoadBalancerPrefixResponse{} }
-func (m *CreateLoadBalancerPrefixResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateLoadBalancerPrefixResponse) ProtoMessage()    {}
+func (x *CreateLoadBalancerPrefixResponse) Reset() {
+	*x = CreateLoadBalancerPrefixResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[39]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateLoadBalancerPrefixResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateLoadBalancerPrefixResponse) ProtoMessage() {}
+
+func (x *CreateLoadBalancerPrefixResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[39]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateLoadBalancerPrefixResponse.ProtoReflect.Descriptor instead.
 func (*CreateLoadBalancerPrefixResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{39}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{39}
 }
 
-func (m *CreateLoadBalancerPrefixResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateLoadBalancerPrefixResponse.Unmarshal(m, b)
-}
-func (m *CreateLoadBalancerPrefixResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateLoadBalancerPrefixResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateLoadBalancerPrefixResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateLoadBalancerPrefixResponse.Merge(m, src)
-}
-func (m *CreateLoadBalancerPrefixResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateLoadBalancerPrefixResponse.Size(m)
-}
-func (m *CreateLoadBalancerPrefixResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateLoadBalancerPrefixResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateLoadBalancerPrefixResponse proto.InternalMessageInfo
-
-func (m *CreateLoadBalancerPrefixResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CreateLoadBalancerPrefixResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *CreateLoadBalancerPrefixResponse) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *CreateLoadBalancerPrefixResponse) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
 type DeleteLoadBalancerPrefixRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	Prefix               *Prefix  `protobuf:"bytes,2,opt,name=prefix,proto3" json:"prefix,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte  `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
+	Prefix      *Prefix `protobuf:"bytes,2,opt,name=prefix,proto3" json:"prefix,omitempty"`
 }
 
-func (m *DeleteLoadBalancerPrefixRequest) Reset()         { *m = DeleteLoadBalancerPrefixRequest{} }
-func (m *DeleteLoadBalancerPrefixRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteLoadBalancerPrefixRequest) ProtoMessage()    {}
+func (x *DeleteLoadBalancerPrefixRequest) Reset() {
+	*x = DeleteLoadBalancerPrefixRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[40]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteLoadBalancerPrefixRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteLoadBalancerPrefixRequest) ProtoMessage() {}
+
+func (x *DeleteLoadBalancerPrefixRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[40]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteLoadBalancerPrefixRequest.ProtoReflect.Descriptor instead.
 func (*DeleteLoadBalancerPrefixRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{40}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{40}
 }
 
-func (m *DeleteLoadBalancerPrefixRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteLoadBalancerPrefixRequest.Unmarshal(m, b)
-}
-func (m *DeleteLoadBalancerPrefixRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteLoadBalancerPrefixRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteLoadBalancerPrefixRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteLoadBalancerPrefixRequest.Merge(m, src)
-}
-func (m *DeleteLoadBalancerPrefixRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteLoadBalancerPrefixRequest.Size(m)
-}
-func (m *DeleteLoadBalancerPrefixRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteLoadBalancerPrefixRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteLoadBalancerPrefixRequest proto.InternalMessageInfo
-
-func (m *DeleteLoadBalancerPrefixRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *DeleteLoadBalancerPrefixRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
-func (m *DeleteLoadBalancerPrefixRequest) GetPrefix() *Prefix {
-	if m != nil {
-		return m.Prefix
+func (x *DeleteLoadBalancerPrefixRequest) GetPrefix() *Prefix {
+	if x != nil {
+		return x.Prefix
 	}
 	return nil
 }
 
 type DeleteLoadBalancerPrefixResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *DeleteLoadBalancerPrefixResponse) Reset()         { *m = DeleteLoadBalancerPrefixResponse{} }
-func (m *DeleteLoadBalancerPrefixResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteLoadBalancerPrefixResponse) ProtoMessage()    {}
+func (x *DeleteLoadBalancerPrefixResponse) Reset() {
+	*x = DeleteLoadBalancerPrefixResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[41]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteLoadBalancerPrefixResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteLoadBalancerPrefixResponse) ProtoMessage() {}
+
+func (x *DeleteLoadBalancerPrefixResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[41]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteLoadBalancerPrefixResponse.ProtoReflect.Descriptor instead.
 func (*DeleteLoadBalancerPrefixResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{41}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{41}
 }
 
-func (m *DeleteLoadBalancerPrefixResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteLoadBalancerPrefixResponse.Unmarshal(m, b)
-}
-func (m *DeleteLoadBalancerPrefixResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteLoadBalancerPrefixResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteLoadBalancerPrefixResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteLoadBalancerPrefixResponse.Merge(m, src)
-}
-func (m *DeleteLoadBalancerPrefixResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteLoadBalancerPrefixResponse.Size(m)
-}
-func (m *DeleteLoadBalancerPrefixResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteLoadBalancerPrefixResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteLoadBalancerPrefixResponse proto.InternalMessageInfo
-
-func (m *DeleteLoadBalancerPrefixResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *DeleteLoadBalancerPrefixResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type CreateVipRequest struct {
-	InterfaceId          []byte     `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	VipIp                *IpAddress `protobuf:"bytes,2,opt,name=vip_ip,json=vipIp,proto3" json:"vip_ip,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte     `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
+	VipIp       *IpAddress `protobuf:"bytes,2,opt,name=vip_ip,json=vipIp,proto3" json:"vip_ip,omitempty"`
 }
 
-func (m *CreateVipRequest) Reset()         { *m = CreateVipRequest{} }
-func (m *CreateVipRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateVipRequest) ProtoMessage()    {}
+func (x *CreateVipRequest) Reset() {
+	*x = CreateVipRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[42]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateVipRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateVipRequest) ProtoMessage() {}
+
+func (x *CreateVipRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[42]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateVipRequest.ProtoReflect.Descriptor instead.
 func (*CreateVipRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{42}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{42}
 }
 
-func (m *CreateVipRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateVipRequest.Unmarshal(m, b)
-}
-func (m *CreateVipRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateVipRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateVipRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateVipRequest.Merge(m, src)
-}
-func (m *CreateVipRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateVipRequest.Size(m)
-}
-func (m *CreateVipRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateVipRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateVipRequest proto.InternalMessageInfo
-
-func (m *CreateVipRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *CreateVipRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
-func (m *CreateVipRequest) GetVipIp() *IpAddress {
-	if m != nil {
-		return m.VipIp
+func (x *CreateVipRequest) GetVipIp() *IpAddress {
+	if x != nil {
+		return x.VipIp
 	}
 	return nil
 }
 
 type CreateVipResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	UnderlayRoute        []byte   `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status        *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	UnderlayRoute []byte  `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
 }
 
-func (m *CreateVipResponse) Reset()         { *m = CreateVipResponse{} }
-func (m *CreateVipResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateVipResponse) ProtoMessage()    {}
+func (x *CreateVipResponse) Reset() {
+	*x = CreateVipResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[43]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateVipResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateVipResponse) ProtoMessage() {}
+
+func (x *CreateVipResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[43]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateVipResponse.ProtoReflect.Descriptor instead.
 func (*CreateVipResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{43}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{43}
 }
 
-func (m *CreateVipResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateVipResponse.Unmarshal(m, b)
-}
-func (m *CreateVipResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateVipResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateVipResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateVipResponse.Merge(m, src)
-}
-func (m *CreateVipResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateVipResponse.Size(m)
-}
-func (m *CreateVipResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateVipResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateVipResponse proto.InternalMessageInfo
-
-func (m *CreateVipResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CreateVipResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *CreateVipResponse) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *CreateVipResponse) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
 type GetVipRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
 }
 
-func (m *GetVipRequest) Reset()         { *m = GetVipRequest{} }
-func (m *GetVipRequest) String() string { return proto.CompactTextString(m) }
-func (*GetVipRequest) ProtoMessage()    {}
+func (x *GetVipRequest) Reset() {
+	*x = GetVipRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[44]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetVipRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetVipRequest) ProtoMessage() {}
+
+func (x *GetVipRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[44]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetVipRequest.ProtoReflect.Descriptor instead.
 func (*GetVipRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{44}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{44}
 }
 
-func (m *GetVipRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetVipRequest.Unmarshal(m, b)
-}
-func (m *GetVipRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetVipRequest.Marshal(b, m, deterministic)
-}
-func (m *GetVipRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetVipRequest.Merge(m, src)
-}
-func (m *GetVipRequest) XXX_Size() int {
-	return xxx_messageInfo_GetVipRequest.Size(m)
-}
-func (m *GetVipRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetVipRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetVipRequest proto.InternalMessageInfo
-
-func (m *GetVipRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *GetVipRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
 type GetVipResponse struct {
-	Status               *Status    `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	VipIp                *IpAddress `protobuf:"bytes,2,opt,name=vip_ip,json=vipIp,proto3" json:"vip_ip,omitempty"`
-	UnderlayRoute        []byte     `protobuf:"bytes,3,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status        *Status    `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	VipIp         *IpAddress `protobuf:"bytes,2,opt,name=vip_ip,json=vipIp,proto3" json:"vip_ip,omitempty"`
+	UnderlayRoute []byte     `protobuf:"bytes,3,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
 }
 
-func (m *GetVipResponse) Reset()         { *m = GetVipResponse{} }
-func (m *GetVipResponse) String() string { return proto.CompactTextString(m) }
-func (*GetVipResponse) ProtoMessage()    {}
+func (x *GetVipResponse) Reset() {
+	*x = GetVipResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[45]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetVipResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetVipResponse) ProtoMessage() {}
+
+func (x *GetVipResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[45]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetVipResponse.ProtoReflect.Descriptor instead.
 func (*GetVipResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{45}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{45}
 }
 
-func (m *GetVipResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetVipResponse.Unmarshal(m, b)
-}
-func (m *GetVipResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetVipResponse.Marshal(b, m, deterministic)
-}
-func (m *GetVipResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetVipResponse.Merge(m, src)
-}
-func (m *GetVipResponse) XXX_Size() int {
-	return xxx_messageInfo_GetVipResponse.Size(m)
-}
-func (m *GetVipResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetVipResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetVipResponse proto.InternalMessageInfo
-
-func (m *GetVipResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *GetVipResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *GetVipResponse) GetVipIp() *IpAddress {
-	if m != nil {
-		return m.VipIp
+func (x *GetVipResponse) GetVipIp() *IpAddress {
+	if x != nil {
+		return x.VipIp
 	}
 	return nil
 }
 
-func (m *GetVipResponse) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *GetVipResponse) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
 type DeleteVipRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
 }
 
-func (m *DeleteVipRequest) Reset()         { *m = DeleteVipRequest{} }
-func (m *DeleteVipRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteVipRequest) ProtoMessage()    {}
+func (x *DeleteVipRequest) Reset() {
+	*x = DeleteVipRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[46]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteVipRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteVipRequest) ProtoMessage() {}
+
+func (x *DeleteVipRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[46]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteVipRequest.ProtoReflect.Descriptor instead.
 func (*DeleteVipRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{46}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{46}
 }
 
-func (m *DeleteVipRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteVipRequest.Unmarshal(m, b)
-}
-func (m *DeleteVipRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteVipRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteVipRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteVipRequest.Merge(m, src)
-}
-func (m *DeleteVipRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteVipRequest.Size(m)
-}
-func (m *DeleteVipRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteVipRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteVipRequest proto.InternalMessageInfo
-
-func (m *DeleteVipRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *DeleteVipRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
 type DeleteVipResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *DeleteVipResponse) Reset()         { *m = DeleteVipResponse{} }
-func (m *DeleteVipResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteVipResponse) ProtoMessage()    {}
+func (x *DeleteVipResponse) Reset() {
+	*x = DeleteVipResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[47]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteVipResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteVipResponse) ProtoMessage() {}
+
+func (x *DeleteVipResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[47]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteVipResponse.ProtoReflect.Descriptor instead.
 func (*DeleteVipResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{47}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{47}
 }
 
-func (m *DeleteVipResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteVipResponse.Unmarshal(m, b)
-}
-func (m *DeleteVipResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteVipResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteVipResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteVipResponse.Merge(m, src)
-}
-func (m *DeleteVipResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteVipResponse.Size(m)
-}
-func (m *DeleteVipResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteVipResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteVipResponse proto.InternalMessageInfo
-
-func (m *DeleteVipResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *DeleteVipResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type CreateLoadBalancerRequest struct {
-	LoadbalancerId       []byte     `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
-	LoadbalancedIp       *IpAddress `protobuf:"bytes,2,opt,name=loadbalanced_ip,json=loadbalancedIp,proto3" json:"loadbalanced_ip,omitempty"`
-	Vni                  uint32     `protobuf:"varint,3,opt,name=vni,proto3" json:"vni,omitempty"`
-	LoadbalancedPorts    []*LbPort  `protobuf:"bytes,4,rep,name=loadbalanced_ports,json=loadbalancedPorts,proto3" json:"loadbalanced_ports,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LoadbalancerId    []byte     `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
+	LoadbalancedIp    *IpAddress `protobuf:"bytes,2,opt,name=loadbalanced_ip,json=loadbalancedIp,proto3" json:"loadbalanced_ip,omitempty"`
+	Vni               uint32     `protobuf:"varint,3,opt,name=vni,proto3" json:"vni,omitempty"`
+	LoadbalancedPorts []*LbPort  `protobuf:"bytes,4,rep,name=loadbalanced_ports,json=loadbalancedPorts,proto3" json:"loadbalanced_ports,omitempty"`
 }
 
-func (m *CreateLoadBalancerRequest) Reset()         { *m = CreateLoadBalancerRequest{} }
-func (m *CreateLoadBalancerRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateLoadBalancerRequest) ProtoMessage()    {}
+func (x *CreateLoadBalancerRequest) Reset() {
+	*x = CreateLoadBalancerRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[48]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateLoadBalancerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateLoadBalancerRequest) ProtoMessage() {}
+
+func (x *CreateLoadBalancerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[48]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateLoadBalancerRequest.ProtoReflect.Descriptor instead.
 func (*CreateLoadBalancerRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{48}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{48}
 }
 
-func (m *CreateLoadBalancerRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateLoadBalancerRequest.Unmarshal(m, b)
-}
-func (m *CreateLoadBalancerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateLoadBalancerRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateLoadBalancerRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateLoadBalancerRequest.Merge(m, src)
-}
-func (m *CreateLoadBalancerRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateLoadBalancerRequest.Size(m)
-}
-func (m *CreateLoadBalancerRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateLoadBalancerRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateLoadBalancerRequest proto.InternalMessageInfo
-
-func (m *CreateLoadBalancerRequest) GetLoadbalancerId() []byte {
-	if m != nil {
-		return m.LoadbalancerId
+func (x *CreateLoadBalancerRequest) GetLoadbalancerId() []byte {
+	if x != nil {
+		return x.LoadbalancerId
 	}
 	return nil
 }
 
-func (m *CreateLoadBalancerRequest) GetLoadbalancedIp() *IpAddress {
-	if m != nil {
-		return m.LoadbalancedIp
+func (x *CreateLoadBalancerRequest) GetLoadbalancedIp() *IpAddress {
+	if x != nil {
+		return x.LoadbalancedIp
 	}
 	return nil
 }
 
-func (m *CreateLoadBalancerRequest) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *CreateLoadBalancerRequest) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
-func (m *CreateLoadBalancerRequest) GetLoadbalancedPorts() []*LbPort {
-	if m != nil {
-		return m.LoadbalancedPorts
+func (x *CreateLoadBalancerRequest) GetLoadbalancedPorts() []*LbPort {
+	if x != nil {
+		return x.LoadbalancedPorts
 	}
 	return nil
 }
 
 type CreateLoadBalancerResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	UnderlayRoute        []byte   `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status        *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	UnderlayRoute []byte  `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
 }
 
-func (m *CreateLoadBalancerResponse) Reset()         { *m = CreateLoadBalancerResponse{} }
-func (m *CreateLoadBalancerResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateLoadBalancerResponse) ProtoMessage()    {}
+func (x *CreateLoadBalancerResponse) Reset() {
+	*x = CreateLoadBalancerResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[49]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateLoadBalancerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateLoadBalancerResponse) ProtoMessage() {}
+
+func (x *CreateLoadBalancerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[49]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateLoadBalancerResponse.ProtoReflect.Descriptor instead.
 func (*CreateLoadBalancerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{49}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{49}
 }
 
-func (m *CreateLoadBalancerResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateLoadBalancerResponse.Unmarshal(m, b)
-}
-func (m *CreateLoadBalancerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateLoadBalancerResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateLoadBalancerResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateLoadBalancerResponse.Merge(m, src)
-}
-func (m *CreateLoadBalancerResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateLoadBalancerResponse.Size(m)
-}
-func (m *CreateLoadBalancerResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateLoadBalancerResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateLoadBalancerResponse proto.InternalMessageInfo
-
-func (m *CreateLoadBalancerResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CreateLoadBalancerResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *CreateLoadBalancerResponse) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *CreateLoadBalancerResponse) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
 type GetLoadBalancerRequest struct {
-	LoadbalancerId       []byte   `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LoadbalancerId []byte `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
 }
 
-func (m *GetLoadBalancerRequest) Reset()         { *m = GetLoadBalancerRequest{} }
-func (m *GetLoadBalancerRequest) String() string { return proto.CompactTextString(m) }
-func (*GetLoadBalancerRequest) ProtoMessage()    {}
+func (x *GetLoadBalancerRequest) Reset() {
+	*x = GetLoadBalancerRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[50]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetLoadBalancerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLoadBalancerRequest) ProtoMessage() {}
+
+func (x *GetLoadBalancerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[50]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLoadBalancerRequest.ProtoReflect.Descriptor instead.
 func (*GetLoadBalancerRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{50}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{50}
 }
 
-func (m *GetLoadBalancerRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetLoadBalancerRequest.Unmarshal(m, b)
-}
-func (m *GetLoadBalancerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetLoadBalancerRequest.Marshal(b, m, deterministic)
-}
-func (m *GetLoadBalancerRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetLoadBalancerRequest.Merge(m, src)
-}
-func (m *GetLoadBalancerRequest) XXX_Size() int {
-	return xxx_messageInfo_GetLoadBalancerRequest.Size(m)
-}
-func (m *GetLoadBalancerRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetLoadBalancerRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetLoadBalancerRequest proto.InternalMessageInfo
-
-func (m *GetLoadBalancerRequest) GetLoadbalancerId() []byte {
-	if m != nil {
-		return m.LoadbalancerId
+func (x *GetLoadBalancerRequest) GetLoadbalancerId() []byte {
+	if x != nil {
+		return x.LoadbalancerId
 	}
 	return nil
 }
 
 type GetLoadBalancerResponse struct {
-	Status               *Status    `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	LoadbalancedIp       *IpAddress `protobuf:"bytes,2,opt,name=loadbalanced_ip,json=loadbalancedIp,proto3" json:"loadbalanced_ip,omitempty"`
-	Vni                  uint32     `protobuf:"varint,3,opt,name=vni,proto3" json:"vni,omitempty"`
-	LoadbalancedPorts    []*LbPort  `protobuf:"bytes,4,rep,name=loadbalanced_ports,json=loadbalancedPorts,proto3" json:"loadbalanced_ports,omitempty"`
-	UnderlayRoute        []byte     `protobuf:"bytes,5,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status            *Status    `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	LoadbalancedIp    *IpAddress `protobuf:"bytes,2,opt,name=loadbalanced_ip,json=loadbalancedIp,proto3" json:"loadbalanced_ip,omitempty"`
+	Vni               uint32     `protobuf:"varint,3,opt,name=vni,proto3" json:"vni,omitempty"`
+	LoadbalancedPorts []*LbPort  `protobuf:"bytes,4,rep,name=loadbalanced_ports,json=loadbalancedPorts,proto3" json:"loadbalanced_ports,omitempty"`
+	UnderlayRoute     []byte     `protobuf:"bytes,5,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
 }
 
-func (m *GetLoadBalancerResponse) Reset()         { *m = GetLoadBalancerResponse{} }
-func (m *GetLoadBalancerResponse) String() string { return proto.CompactTextString(m) }
-func (*GetLoadBalancerResponse) ProtoMessage()    {}
+func (x *GetLoadBalancerResponse) Reset() {
+	*x = GetLoadBalancerResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[51]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetLoadBalancerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLoadBalancerResponse) ProtoMessage() {}
+
+func (x *GetLoadBalancerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[51]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLoadBalancerResponse.ProtoReflect.Descriptor instead.
 func (*GetLoadBalancerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{51}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{51}
 }
 
-func (m *GetLoadBalancerResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetLoadBalancerResponse.Unmarshal(m, b)
-}
-func (m *GetLoadBalancerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetLoadBalancerResponse.Marshal(b, m, deterministic)
-}
-func (m *GetLoadBalancerResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetLoadBalancerResponse.Merge(m, src)
-}
-func (m *GetLoadBalancerResponse) XXX_Size() int {
-	return xxx_messageInfo_GetLoadBalancerResponse.Size(m)
-}
-func (m *GetLoadBalancerResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetLoadBalancerResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetLoadBalancerResponse proto.InternalMessageInfo
-
-func (m *GetLoadBalancerResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *GetLoadBalancerResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *GetLoadBalancerResponse) GetLoadbalancedIp() *IpAddress {
-	if m != nil {
-		return m.LoadbalancedIp
+func (x *GetLoadBalancerResponse) GetLoadbalancedIp() *IpAddress {
+	if x != nil {
+		return x.LoadbalancedIp
 	}
 	return nil
 }
 
-func (m *GetLoadBalancerResponse) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *GetLoadBalancerResponse) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
-func (m *GetLoadBalancerResponse) GetLoadbalancedPorts() []*LbPort {
-	if m != nil {
-		return m.LoadbalancedPorts
+func (x *GetLoadBalancerResponse) GetLoadbalancedPorts() []*LbPort {
+	if x != nil {
+		return x.LoadbalancedPorts
 	}
 	return nil
 }
 
-func (m *GetLoadBalancerResponse) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *GetLoadBalancerResponse) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
 type DeleteLoadBalancerRequest struct {
-	LoadbalancerId       []byte   `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LoadbalancerId []byte `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
 }
 
-func (m *DeleteLoadBalancerRequest) Reset()         { *m = DeleteLoadBalancerRequest{} }
-func (m *DeleteLoadBalancerRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteLoadBalancerRequest) ProtoMessage()    {}
+func (x *DeleteLoadBalancerRequest) Reset() {
+	*x = DeleteLoadBalancerRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[52]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteLoadBalancerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteLoadBalancerRequest) ProtoMessage() {}
+
+func (x *DeleteLoadBalancerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[52]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteLoadBalancerRequest.ProtoReflect.Descriptor instead.
 func (*DeleteLoadBalancerRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{52}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{52}
 }
 
-func (m *DeleteLoadBalancerRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteLoadBalancerRequest.Unmarshal(m, b)
-}
-func (m *DeleteLoadBalancerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteLoadBalancerRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteLoadBalancerRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteLoadBalancerRequest.Merge(m, src)
-}
-func (m *DeleteLoadBalancerRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteLoadBalancerRequest.Size(m)
-}
-func (m *DeleteLoadBalancerRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteLoadBalancerRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteLoadBalancerRequest proto.InternalMessageInfo
-
-func (m *DeleteLoadBalancerRequest) GetLoadbalancerId() []byte {
-	if m != nil {
-		return m.LoadbalancerId
+func (x *DeleteLoadBalancerRequest) GetLoadbalancerId() []byte {
+	if x != nil {
+		return x.LoadbalancerId
 	}
 	return nil
 }
 
 type DeleteLoadBalancerResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *DeleteLoadBalancerResponse) Reset()         { *m = DeleteLoadBalancerResponse{} }
-func (m *DeleteLoadBalancerResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteLoadBalancerResponse) ProtoMessage()    {}
+func (x *DeleteLoadBalancerResponse) Reset() {
+	*x = DeleteLoadBalancerResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[53]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteLoadBalancerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteLoadBalancerResponse) ProtoMessage() {}
+
+func (x *DeleteLoadBalancerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[53]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteLoadBalancerResponse.ProtoReflect.Descriptor instead.
 func (*DeleteLoadBalancerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{53}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{53}
 }
 
-func (m *DeleteLoadBalancerResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteLoadBalancerResponse.Unmarshal(m, b)
-}
-func (m *DeleteLoadBalancerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteLoadBalancerResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteLoadBalancerResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteLoadBalancerResponse.Merge(m, src)
-}
-func (m *DeleteLoadBalancerResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteLoadBalancerResponse.Size(m)
-}
-func (m *DeleteLoadBalancerResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteLoadBalancerResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteLoadBalancerResponse proto.InternalMessageInfo
-
-func (m *DeleteLoadBalancerResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *DeleteLoadBalancerResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type CreateLoadBalancerTargetRequest struct {
-	LoadbalancerId       []byte     `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
-	TargetIp             *IpAddress `protobuf:"bytes,2,opt,name=target_ip,json=targetIp,proto3" json:"target_ip,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LoadbalancerId []byte     `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
+	TargetIp       *IpAddress `protobuf:"bytes,2,opt,name=target_ip,json=targetIp,proto3" json:"target_ip,omitempty"`
 }
 
-func (m *CreateLoadBalancerTargetRequest) Reset()         { *m = CreateLoadBalancerTargetRequest{} }
-func (m *CreateLoadBalancerTargetRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateLoadBalancerTargetRequest) ProtoMessage()    {}
+func (x *CreateLoadBalancerTargetRequest) Reset() {
+	*x = CreateLoadBalancerTargetRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[54]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateLoadBalancerTargetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateLoadBalancerTargetRequest) ProtoMessage() {}
+
+func (x *CreateLoadBalancerTargetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[54]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateLoadBalancerTargetRequest.ProtoReflect.Descriptor instead.
 func (*CreateLoadBalancerTargetRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{54}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{54}
 }
 
-func (m *CreateLoadBalancerTargetRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateLoadBalancerTargetRequest.Unmarshal(m, b)
-}
-func (m *CreateLoadBalancerTargetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateLoadBalancerTargetRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateLoadBalancerTargetRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateLoadBalancerTargetRequest.Merge(m, src)
-}
-func (m *CreateLoadBalancerTargetRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateLoadBalancerTargetRequest.Size(m)
-}
-func (m *CreateLoadBalancerTargetRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateLoadBalancerTargetRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateLoadBalancerTargetRequest proto.InternalMessageInfo
-
-func (m *CreateLoadBalancerTargetRequest) GetLoadbalancerId() []byte {
-	if m != nil {
-		return m.LoadbalancerId
+func (x *CreateLoadBalancerTargetRequest) GetLoadbalancerId() []byte {
+	if x != nil {
+		return x.LoadbalancerId
 	}
 	return nil
 }
 
-func (m *CreateLoadBalancerTargetRequest) GetTargetIp() *IpAddress {
-	if m != nil {
-		return m.TargetIp
+func (x *CreateLoadBalancerTargetRequest) GetTargetIp() *IpAddress {
+	if x != nil {
+		return x.TargetIp
 	}
 	return nil
 }
 
 type CreateLoadBalancerTargetResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *CreateLoadBalancerTargetResponse) Reset()         { *m = CreateLoadBalancerTargetResponse{} }
-func (m *CreateLoadBalancerTargetResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateLoadBalancerTargetResponse) ProtoMessage()    {}
+func (x *CreateLoadBalancerTargetResponse) Reset() {
+	*x = CreateLoadBalancerTargetResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[55]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateLoadBalancerTargetResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateLoadBalancerTargetResponse) ProtoMessage() {}
+
+func (x *CreateLoadBalancerTargetResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[55]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateLoadBalancerTargetResponse.ProtoReflect.Descriptor instead.
 func (*CreateLoadBalancerTargetResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{55}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{55}
 }
 
-func (m *CreateLoadBalancerTargetResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateLoadBalancerTargetResponse.Unmarshal(m, b)
-}
-func (m *CreateLoadBalancerTargetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateLoadBalancerTargetResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateLoadBalancerTargetResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateLoadBalancerTargetResponse.Merge(m, src)
-}
-func (m *CreateLoadBalancerTargetResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateLoadBalancerTargetResponse.Size(m)
-}
-func (m *CreateLoadBalancerTargetResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateLoadBalancerTargetResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateLoadBalancerTargetResponse proto.InternalMessageInfo
-
-func (m *CreateLoadBalancerTargetResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CreateLoadBalancerTargetResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type ListLoadBalancerTargetsRequest struct {
-	LoadbalancerId       []byte   `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LoadbalancerId []byte `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
 }
 
-func (m *ListLoadBalancerTargetsRequest) Reset()         { *m = ListLoadBalancerTargetsRequest{} }
-func (m *ListLoadBalancerTargetsRequest) String() string { return proto.CompactTextString(m) }
-func (*ListLoadBalancerTargetsRequest) ProtoMessage()    {}
+func (x *ListLoadBalancerTargetsRequest) Reset() {
+	*x = ListLoadBalancerTargetsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[56]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListLoadBalancerTargetsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListLoadBalancerTargetsRequest) ProtoMessage() {}
+
+func (x *ListLoadBalancerTargetsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[56]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListLoadBalancerTargetsRequest.ProtoReflect.Descriptor instead.
 func (*ListLoadBalancerTargetsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{56}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{56}
 }
 
-func (m *ListLoadBalancerTargetsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListLoadBalancerTargetsRequest.Unmarshal(m, b)
-}
-func (m *ListLoadBalancerTargetsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListLoadBalancerTargetsRequest.Marshal(b, m, deterministic)
-}
-func (m *ListLoadBalancerTargetsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListLoadBalancerTargetsRequest.Merge(m, src)
-}
-func (m *ListLoadBalancerTargetsRequest) XXX_Size() int {
-	return xxx_messageInfo_ListLoadBalancerTargetsRequest.Size(m)
-}
-func (m *ListLoadBalancerTargetsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListLoadBalancerTargetsRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListLoadBalancerTargetsRequest proto.InternalMessageInfo
-
-func (m *ListLoadBalancerTargetsRequest) GetLoadbalancerId() []byte {
-	if m != nil {
-		return m.LoadbalancerId
+func (x *ListLoadBalancerTargetsRequest) GetLoadbalancerId() []byte {
+	if x != nil {
+		return x.LoadbalancerId
 	}
 	return nil
 }
 
 type ListLoadBalancerTargetsResponse struct {
-	Status               *Status      `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	TargetIps            []*IpAddress `protobuf:"bytes,2,rep,name=target_ips,json=targetIps,proto3" json:"target_ips,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status    *Status      `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	TargetIps []*IpAddress `protobuf:"bytes,2,rep,name=target_ips,json=targetIps,proto3" json:"target_ips,omitempty"`
 }
 
-func (m *ListLoadBalancerTargetsResponse) Reset()         { *m = ListLoadBalancerTargetsResponse{} }
-func (m *ListLoadBalancerTargetsResponse) String() string { return proto.CompactTextString(m) }
-func (*ListLoadBalancerTargetsResponse) ProtoMessage()    {}
+func (x *ListLoadBalancerTargetsResponse) Reset() {
+	*x = ListLoadBalancerTargetsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[57]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListLoadBalancerTargetsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListLoadBalancerTargetsResponse) ProtoMessage() {}
+
+func (x *ListLoadBalancerTargetsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[57]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListLoadBalancerTargetsResponse.ProtoReflect.Descriptor instead.
 func (*ListLoadBalancerTargetsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{57}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{57}
 }
 
-func (m *ListLoadBalancerTargetsResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListLoadBalancerTargetsResponse.Unmarshal(m, b)
-}
-func (m *ListLoadBalancerTargetsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListLoadBalancerTargetsResponse.Marshal(b, m, deterministic)
-}
-func (m *ListLoadBalancerTargetsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListLoadBalancerTargetsResponse.Merge(m, src)
-}
-func (m *ListLoadBalancerTargetsResponse) XXX_Size() int {
-	return xxx_messageInfo_ListLoadBalancerTargetsResponse.Size(m)
-}
-func (m *ListLoadBalancerTargetsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListLoadBalancerTargetsResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListLoadBalancerTargetsResponse proto.InternalMessageInfo
-
-func (m *ListLoadBalancerTargetsResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *ListLoadBalancerTargetsResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *ListLoadBalancerTargetsResponse) GetTargetIps() []*IpAddress {
-	if m != nil {
-		return m.TargetIps
+func (x *ListLoadBalancerTargetsResponse) GetTargetIps() []*IpAddress {
+	if x != nil {
+		return x.TargetIps
 	}
 	return nil
 }
 
 type DeleteLoadBalancerTargetRequest struct {
-	LoadbalancerId       []byte     `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
-	TargetIp             *IpAddress `protobuf:"bytes,2,opt,name=target_ip,json=targetIp,proto3" json:"target_ip,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LoadbalancerId []byte     `protobuf:"bytes,1,opt,name=loadbalancer_id,json=loadbalancerId,proto3" json:"loadbalancer_id,omitempty"`
+	TargetIp       *IpAddress `protobuf:"bytes,2,opt,name=target_ip,json=targetIp,proto3" json:"target_ip,omitempty"`
 }
 
-func (m *DeleteLoadBalancerTargetRequest) Reset()         { *m = DeleteLoadBalancerTargetRequest{} }
-func (m *DeleteLoadBalancerTargetRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteLoadBalancerTargetRequest) ProtoMessage()    {}
+func (x *DeleteLoadBalancerTargetRequest) Reset() {
+	*x = DeleteLoadBalancerTargetRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[58]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteLoadBalancerTargetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteLoadBalancerTargetRequest) ProtoMessage() {}
+
+func (x *DeleteLoadBalancerTargetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[58]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteLoadBalancerTargetRequest.ProtoReflect.Descriptor instead.
 func (*DeleteLoadBalancerTargetRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{58}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{58}
 }
 
-func (m *DeleteLoadBalancerTargetRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteLoadBalancerTargetRequest.Unmarshal(m, b)
-}
-func (m *DeleteLoadBalancerTargetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteLoadBalancerTargetRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteLoadBalancerTargetRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteLoadBalancerTargetRequest.Merge(m, src)
-}
-func (m *DeleteLoadBalancerTargetRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteLoadBalancerTargetRequest.Size(m)
-}
-func (m *DeleteLoadBalancerTargetRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteLoadBalancerTargetRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteLoadBalancerTargetRequest proto.InternalMessageInfo
-
-func (m *DeleteLoadBalancerTargetRequest) GetLoadbalancerId() []byte {
-	if m != nil {
-		return m.LoadbalancerId
+func (x *DeleteLoadBalancerTargetRequest) GetLoadbalancerId() []byte {
+	if x != nil {
+		return x.LoadbalancerId
 	}
 	return nil
 }
 
-func (m *DeleteLoadBalancerTargetRequest) GetTargetIp() *IpAddress {
-	if m != nil {
-		return m.TargetIp
+func (x *DeleteLoadBalancerTargetRequest) GetTargetIp() *IpAddress {
+	if x != nil {
+		return x.TargetIp
 	}
 	return nil
 }
 
 type DeleteLoadBalancerTargetResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *DeleteLoadBalancerTargetResponse) Reset()         { *m = DeleteLoadBalancerTargetResponse{} }
-func (m *DeleteLoadBalancerTargetResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteLoadBalancerTargetResponse) ProtoMessage()    {}
+func (x *DeleteLoadBalancerTargetResponse) Reset() {
+	*x = DeleteLoadBalancerTargetResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[59]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteLoadBalancerTargetResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteLoadBalancerTargetResponse) ProtoMessage() {}
+
+func (x *DeleteLoadBalancerTargetResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[59]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteLoadBalancerTargetResponse.ProtoReflect.Descriptor instead.
 func (*DeleteLoadBalancerTargetResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{59}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{59}
 }
 
-func (m *DeleteLoadBalancerTargetResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteLoadBalancerTargetResponse.Unmarshal(m, b)
-}
-func (m *DeleteLoadBalancerTargetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteLoadBalancerTargetResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteLoadBalancerTargetResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteLoadBalancerTargetResponse.Merge(m, src)
-}
-func (m *DeleteLoadBalancerTargetResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteLoadBalancerTargetResponse.Size(m)
-}
-func (m *DeleteLoadBalancerTargetResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteLoadBalancerTargetResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteLoadBalancerTargetResponse proto.InternalMessageInfo
-
-func (m *DeleteLoadBalancerTargetResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *DeleteLoadBalancerTargetResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type CreateNatRequest struct {
-	InterfaceId          []byte     `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	NatIp                *IpAddress `protobuf:"bytes,2,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
-	MinPort              uint32     `protobuf:"varint,3,opt,name=min_port,json=minPort,proto3" json:"min_port,omitempty"`
-	MaxPort              uint32     `protobuf:"varint,4,opt,name=max_port,json=maxPort,proto3" json:"max_port,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte     `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
+	NatIp       *IpAddress `protobuf:"bytes,2,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
+	MinPort     uint32     `protobuf:"varint,3,opt,name=min_port,json=minPort,proto3" json:"min_port,omitempty"` // port should be uint16 (less than 65536)
+	MaxPort     uint32     `protobuf:"varint,4,opt,name=max_port,json=maxPort,proto3" json:"max_port,omitempty"`
 }
 
-func (m *CreateNatRequest) Reset()         { *m = CreateNatRequest{} }
-func (m *CreateNatRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateNatRequest) ProtoMessage()    {}
+func (x *CreateNatRequest) Reset() {
+	*x = CreateNatRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[60]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateNatRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateNatRequest) ProtoMessage() {}
+
+func (x *CreateNatRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[60]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateNatRequest.ProtoReflect.Descriptor instead.
 func (*CreateNatRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{60}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{60}
 }
 
-func (m *CreateNatRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateNatRequest.Unmarshal(m, b)
-}
-func (m *CreateNatRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateNatRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateNatRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateNatRequest.Merge(m, src)
-}
-func (m *CreateNatRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateNatRequest.Size(m)
-}
-func (m *CreateNatRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateNatRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateNatRequest proto.InternalMessageInfo
-
-func (m *CreateNatRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *CreateNatRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
-func (m *CreateNatRequest) GetNatIp() *IpAddress {
-	if m != nil {
-		return m.NatIp
+func (x *CreateNatRequest) GetNatIp() *IpAddress {
+	if x != nil {
+		return x.NatIp
 	}
 	return nil
 }
 
-func (m *CreateNatRequest) GetMinPort() uint32 {
-	if m != nil {
-		return m.MinPort
+func (x *CreateNatRequest) GetMinPort() uint32 {
+	if x != nil {
+		return x.MinPort
 	}
 	return 0
 }
 
-func (m *CreateNatRequest) GetMaxPort() uint32 {
-	if m != nil {
-		return m.MaxPort
+func (x *CreateNatRequest) GetMaxPort() uint32 {
+	if x != nil {
+		return x.MaxPort
 	}
 	return 0
 }
 
 type CreateNatResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	UnderlayRoute        []byte   `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status        *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	UnderlayRoute []byte  `protobuf:"bytes,2,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
 }
 
-func (m *CreateNatResponse) Reset()         { *m = CreateNatResponse{} }
-func (m *CreateNatResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateNatResponse) ProtoMessage()    {}
+func (x *CreateNatResponse) Reset() {
+	*x = CreateNatResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[61]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateNatResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateNatResponse) ProtoMessage() {}
+
+func (x *CreateNatResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[61]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateNatResponse.ProtoReflect.Descriptor instead.
 func (*CreateNatResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{61}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{61}
 }
 
-func (m *CreateNatResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateNatResponse.Unmarshal(m, b)
-}
-func (m *CreateNatResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateNatResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateNatResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateNatResponse.Merge(m, src)
-}
-func (m *CreateNatResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateNatResponse.Size(m)
-}
-func (m *CreateNatResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateNatResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateNatResponse proto.InternalMessageInfo
-
-func (m *CreateNatResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CreateNatResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *CreateNatResponse) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *CreateNatResponse) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
 type GetNatRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
 }
 
-func (m *GetNatRequest) Reset()         { *m = GetNatRequest{} }
-func (m *GetNatRequest) String() string { return proto.CompactTextString(m) }
-func (*GetNatRequest) ProtoMessage()    {}
+func (x *GetNatRequest) Reset() {
+	*x = GetNatRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[62]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetNatRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetNatRequest) ProtoMessage() {}
+
+func (x *GetNatRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[62]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetNatRequest.ProtoReflect.Descriptor instead.
 func (*GetNatRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{62}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{62}
 }
 
-func (m *GetNatRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetNatRequest.Unmarshal(m, b)
-}
-func (m *GetNatRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetNatRequest.Marshal(b, m, deterministic)
-}
-func (m *GetNatRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetNatRequest.Merge(m, src)
-}
-func (m *GetNatRequest) XXX_Size() int {
-	return xxx_messageInfo_GetNatRequest.Size(m)
-}
-func (m *GetNatRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetNatRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetNatRequest proto.InternalMessageInfo
-
-func (m *GetNatRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *GetNatRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
 type GetNatResponse struct {
-	Status               *Status    `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	NatIp                *IpAddress `protobuf:"bytes,2,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
-	MinPort              uint32     `protobuf:"varint,3,opt,name=min_port,json=minPort,proto3" json:"min_port,omitempty"`
-	MaxPort              uint32     `protobuf:"varint,4,opt,name=max_port,json=maxPort,proto3" json:"max_port,omitempty"`
-	UnderlayRoute        []byte     `protobuf:"bytes,5,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status        *Status    `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	NatIp         *IpAddress `protobuf:"bytes,2,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
+	MinPort       uint32     `protobuf:"varint,3,opt,name=min_port,json=minPort,proto3" json:"min_port,omitempty"` // port should be uint16 (less than 65536)
+	MaxPort       uint32     `protobuf:"varint,4,opt,name=max_port,json=maxPort,proto3" json:"max_port,omitempty"`
+	UnderlayRoute []byte     `protobuf:"bytes,5,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
 }
 
-func (m *GetNatResponse) Reset()         { *m = GetNatResponse{} }
-func (m *GetNatResponse) String() string { return proto.CompactTextString(m) }
-func (*GetNatResponse) ProtoMessage()    {}
+func (x *GetNatResponse) Reset() {
+	*x = GetNatResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[63]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetNatResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetNatResponse) ProtoMessage() {}
+
+func (x *GetNatResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[63]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetNatResponse.ProtoReflect.Descriptor instead.
 func (*GetNatResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{63}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{63}
 }
 
-func (m *GetNatResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetNatResponse.Unmarshal(m, b)
-}
-func (m *GetNatResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetNatResponse.Marshal(b, m, deterministic)
-}
-func (m *GetNatResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetNatResponse.Merge(m, src)
-}
-func (m *GetNatResponse) XXX_Size() int {
-	return xxx_messageInfo_GetNatResponse.Size(m)
-}
-func (m *GetNatResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetNatResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetNatResponse proto.InternalMessageInfo
-
-func (m *GetNatResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *GetNatResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *GetNatResponse) GetNatIp() *IpAddress {
-	if m != nil {
-		return m.NatIp
+func (x *GetNatResponse) GetNatIp() *IpAddress {
+	if x != nil {
+		return x.NatIp
 	}
 	return nil
 }
 
-func (m *GetNatResponse) GetMinPort() uint32 {
-	if m != nil {
-		return m.MinPort
+func (x *GetNatResponse) GetMinPort() uint32 {
+	if x != nil {
+		return x.MinPort
 	}
 	return 0
 }
 
-func (m *GetNatResponse) GetMaxPort() uint32 {
-	if m != nil {
-		return m.MaxPort
+func (x *GetNatResponse) GetMaxPort() uint32 {
+	if x != nil {
+		return x.MaxPort
 	}
 	return 0
 }
 
-func (m *GetNatResponse) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *GetNatResponse) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
 type DeleteNatRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
 }
 
-func (m *DeleteNatRequest) Reset()         { *m = DeleteNatRequest{} }
-func (m *DeleteNatRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteNatRequest) ProtoMessage()    {}
+func (x *DeleteNatRequest) Reset() {
+	*x = DeleteNatRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[64]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteNatRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteNatRequest) ProtoMessage() {}
+
+func (x *DeleteNatRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[64]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteNatRequest.ProtoReflect.Descriptor instead.
 func (*DeleteNatRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{64}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{64}
 }
 
-func (m *DeleteNatRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteNatRequest.Unmarshal(m, b)
-}
-func (m *DeleteNatRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteNatRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteNatRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteNatRequest.Merge(m, src)
-}
-func (m *DeleteNatRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteNatRequest.Size(m)
-}
-func (m *DeleteNatRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteNatRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteNatRequest proto.InternalMessageInfo
-
-func (m *DeleteNatRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *DeleteNatRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
 type DeleteNatResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *DeleteNatResponse) Reset()         { *m = DeleteNatResponse{} }
-func (m *DeleteNatResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteNatResponse) ProtoMessage()    {}
+func (x *DeleteNatResponse) Reset() {
+	*x = DeleteNatResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[65]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteNatResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteNatResponse) ProtoMessage() {}
+
+func (x *DeleteNatResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[65]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteNatResponse.ProtoReflect.Descriptor instead.
 func (*DeleteNatResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{65}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{65}
 }
 
-func (m *DeleteNatResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteNatResponse.Unmarshal(m, b)
-}
-func (m *DeleteNatResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteNatResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteNatResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteNatResponse.Merge(m, src)
-}
-func (m *DeleteNatResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteNatResponse.Size(m)
-}
-func (m *DeleteNatResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteNatResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteNatResponse proto.InternalMessageInfo
-
-func (m *DeleteNatResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *DeleteNatResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type CreateNeighborNatRequest struct {
-	NatIp                *IpAddress `protobuf:"bytes,1,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
-	Vni                  uint32     `protobuf:"varint,2,opt,name=vni,proto3" json:"vni,omitempty"`
-	MinPort              uint32     `protobuf:"varint,3,opt,name=min_port,json=minPort,proto3" json:"min_port,omitempty"`
-	MaxPort              uint32     `protobuf:"varint,4,opt,name=max_port,json=maxPort,proto3" json:"max_port,omitempty"`
-	UnderlayRoute        []byte     `protobuf:"bytes,5,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	NatIp         *IpAddress `protobuf:"bytes,1,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
+	Vni           uint32     `protobuf:"varint,2,opt,name=vni,proto3" json:"vni,omitempty"`
+	MinPort       uint32     `protobuf:"varint,3,opt,name=min_port,json=minPort,proto3" json:"min_port,omitempty"` // port should be uint16 (less than 65536)
+	MaxPort       uint32     `protobuf:"varint,4,opt,name=max_port,json=maxPort,proto3" json:"max_port,omitempty"`
+	UnderlayRoute []byte     `protobuf:"bytes,5,opt,name=underlay_route,json=underlayRoute,proto3" json:"underlay_route,omitempty"`
 }
 
-func (m *CreateNeighborNatRequest) Reset()         { *m = CreateNeighborNatRequest{} }
-func (m *CreateNeighborNatRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateNeighborNatRequest) ProtoMessage()    {}
+func (x *CreateNeighborNatRequest) Reset() {
+	*x = CreateNeighborNatRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[66]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateNeighborNatRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateNeighborNatRequest) ProtoMessage() {}
+
+func (x *CreateNeighborNatRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[66]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateNeighborNatRequest.ProtoReflect.Descriptor instead.
 func (*CreateNeighborNatRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{66}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{66}
 }
 
-func (m *CreateNeighborNatRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateNeighborNatRequest.Unmarshal(m, b)
-}
-func (m *CreateNeighborNatRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateNeighborNatRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateNeighborNatRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateNeighborNatRequest.Merge(m, src)
-}
-func (m *CreateNeighborNatRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateNeighborNatRequest.Size(m)
-}
-func (m *CreateNeighborNatRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateNeighborNatRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateNeighborNatRequest proto.InternalMessageInfo
-
-func (m *CreateNeighborNatRequest) GetNatIp() *IpAddress {
-	if m != nil {
-		return m.NatIp
+func (x *CreateNeighborNatRequest) GetNatIp() *IpAddress {
+	if x != nil {
+		return x.NatIp
 	}
 	return nil
 }
 
-func (m *CreateNeighborNatRequest) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *CreateNeighborNatRequest) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
-func (m *CreateNeighborNatRequest) GetMinPort() uint32 {
-	if m != nil {
-		return m.MinPort
+func (x *CreateNeighborNatRequest) GetMinPort() uint32 {
+	if x != nil {
+		return x.MinPort
 	}
 	return 0
 }
 
-func (m *CreateNeighborNatRequest) GetMaxPort() uint32 {
-	if m != nil {
-		return m.MaxPort
+func (x *CreateNeighborNatRequest) GetMaxPort() uint32 {
+	if x != nil {
+		return x.MaxPort
 	}
 	return 0
 }
 
-func (m *CreateNeighborNatRequest) GetUnderlayRoute() []byte {
-	if m != nil {
-		return m.UnderlayRoute
+func (x *CreateNeighborNatRequest) GetUnderlayRoute() []byte {
+	if x != nil {
+		return x.UnderlayRoute
 	}
 	return nil
 }
 
 type CreateNeighborNatResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *CreateNeighborNatResponse) Reset()         { *m = CreateNeighborNatResponse{} }
-func (m *CreateNeighborNatResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateNeighborNatResponse) ProtoMessage()    {}
+func (x *CreateNeighborNatResponse) Reset() {
+	*x = CreateNeighborNatResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[67]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateNeighborNatResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateNeighborNatResponse) ProtoMessage() {}
+
+func (x *CreateNeighborNatResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[67]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateNeighborNatResponse.ProtoReflect.Descriptor instead.
 func (*CreateNeighborNatResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{67}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{67}
 }
 
-func (m *CreateNeighborNatResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateNeighborNatResponse.Unmarshal(m, b)
-}
-func (m *CreateNeighborNatResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateNeighborNatResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateNeighborNatResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateNeighborNatResponse.Merge(m, src)
-}
-func (m *CreateNeighborNatResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateNeighborNatResponse.Size(m)
-}
-func (m *CreateNeighborNatResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateNeighborNatResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateNeighborNatResponse proto.InternalMessageInfo
-
-func (m *CreateNeighborNatResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CreateNeighborNatResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type DeleteNeighborNatRequest struct {
-	NatIp                *IpAddress `protobuf:"bytes,1,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
-	Vni                  uint32     `protobuf:"varint,2,opt,name=vni,proto3" json:"vni,omitempty"`
-	MinPort              uint32     `protobuf:"varint,3,opt,name=min_port,json=minPort,proto3" json:"min_port,omitempty"`
-	MaxPort              uint32     `protobuf:"varint,4,opt,name=max_port,json=maxPort,proto3" json:"max_port,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	NatIp   *IpAddress `protobuf:"bytes,1,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
+	Vni     uint32     `protobuf:"varint,2,opt,name=vni,proto3" json:"vni,omitempty"`
+	MinPort uint32     `protobuf:"varint,3,opt,name=min_port,json=minPort,proto3" json:"min_port,omitempty"` // port should be uint16 (less than 65536)
+	MaxPort uint32     `protobuf:"varint,4,opt,name=max_port,json=maxPort,proto3" json:"max_port,omitempty"`
 }
 
-func (m *DeleteNeighborNatRequest) Reset()         { *m = DeleteNeighborNatRequest{} }
-func (m *DeleteNeighborNatRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteNeighborNatRequest) ProtoMessage()    {}
+func (x *DeleteNeighborNatRequest) Reset() {
+	*x = DeleteNeighborNatRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[68]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteNeighborNatRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteNeighborNatRequest) ProtoMessage() {}
+
+func (x *DeleteNeighborNatRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[68]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteNeighborNatRequest.ProtoReflect.Descriptor instead.
 func (*DeleteNeighborNatRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{68}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{68}
 }
 
-func (m *DeleteNeighborNatRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteNeighborNatRequest.Unmarshal(m, b)
-}
-func (m *DeleteNeighborNatRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteNeighborNatRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteNeighborNatRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteNeighborNatRequest.Merge(m, src)
-}
-func (m *DeleteNeighborNatRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteNeighborNatRequest.Size(m)
-}
-func (m *DeleteNeighborNatRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteNeighborNatRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteNeighborNatRequest proto.InternalMessageInfo
-
-func (m *DeleteNeighborNatRequest) GetNatIp() *IpAddress {
-	if m != nil {
-		return m.NatIp
+func (x *DeleteNeighborNatRequest) GetNatIp() *IpAddress {
+	if x != nil {
+		return x.NatIp
 	}
 	return nil
 }
 
-func (m *DeleteNeighborNatRequest) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *DeleteNeighborNatRequest) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
-func (m *DeleteNeighborNatRequest) GetMinPort() uint32 {
-	if m != nil {
-		return m.MinPort
+func (x *DeleteNeighborNatRequest) GetMinPort() uint32 {
+	if x != nil {
+		return x.MinPort
 	}
 	return 0
 }
 
-func (m *DeleteNeighborNatRequest) GetMaxPort() uint32 {
-	if m != nil {
-		return m.MaxPort
+func (x *DeleteNeighborNatRequest) GetMaxPort() uint32 {
+	if x != nil {
+		return x.MaxPort
 	}
 	return 0
 }
 
 type DeleteNeighborNatResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *DeleteNeighborNatResponse) Reset()         { *m = DeleteNeighborNatResponse{} }
-func (m *DeleteNeighborNatResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteNeighborNatResponse) ProtoMessage()    {}
+func (x *DeleteNeighborNatResponse) Reset() {
+	*x = DeleteNeighborNatResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[69]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteNeighborNatResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteNeighborNatResponse) ProtoMessage() {}
+
+func (x *DeleteNeighborNatResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[69]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteNeighborNatResponse.ProtoReflect.Descriptor instead.
 func (*DeleteNeighborNatResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{69}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{69}
 }
 
-func (m *DeleteNeighborNatResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteNeighborNatResponse.Unmarshal(m, b)
-}
-func (m *DeleteNeighborNatResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteNeighborNatResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteNeighborNatResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteNeighborNatResponse.Merge(m, src)
-}
-func (m *DeleteNeighborNatResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteNeighborNatResponse.Size(m)
-}
-func (m *DeleteNeighborNatResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteNeighborNatResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteNeighborNatResponse proto.InternalMessageInfo
-
-func (m *DeleteNeighborNatResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *DeleteNeighborNatResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type ListLocalNatsRequest struct {
-	NatIp                *IpAddress `protobuf:"bytes,1,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	NatIp *IpAddress `protobuf:"bytes,1,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
 }
 
-func (m *ListLocalNatsRequest) Reset()         { *m = ListLocalNatsRequest{} }
-func (m *ListLocalNatsRequest) String() string { return proto.CompactTextString(m) }
-func (*ListLocalNatsRequest) ProtoMessage()    {}
+func (x *ListLocalNatsRequest) Reset() {
+	*x = ListLocalNatsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[70]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListLocalNatsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListLocalNatsRequest) ProtoMessage() {}
+
+func (x *ListLocalNatsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[70]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListLocalNatsRequest.ProtoReflect.Descriptor instead.
 func (*ListLocalNatsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{70}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{70}
 }
 
-func (m *ListLocalNatsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListLocalNatsRequest.Unmarshal(m, b)
-}
-func (m *ListLocalNatsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListLocalNatsRequest.Marshal(b, m, deterministic)
-}
-func (m *ListLocalNatsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListLocalNatsRequest.Merge(m, src)
-}
-func (m *ListLocalNatsRequest) XXX_Size() int {
-	return xxx_messageInfo_ListLocalNatsRequest.Size(m)
-}
-func (m *ListLocalNatsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListLocalNatsRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListLocalNatsRequest proto.InternalMessageInfo
-
-func (m *ListLocalNatsRequest) GetNatIp() *IpAddress {
-	if m != nil {
-		return m.NatIp
+func (x *ListLocalNatsRequest) GetNatIp() *IpAddress {
+	if x != nil {
+		return x.NatIp
 	}
 	return nil
 }
 
 type ListLocalNatsResponse struct {
-	Status               *Status     `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	NatEntries           []*NatEntry `protobuf:"bytes,2,rep,name=nat_entries,json=natEntries,proto3" json:"nat_entries,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
-	XXX_unrecognized     []byte      `json:"-"`
-	XXX_sizecache        int32       `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status     *Status     `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	NatEntries []*NatEntry `protobuf:"bytes,2,rep,name=nat_entries,json=natEntries,proto3" json:"nat_entries,omitempty"`
 }
 
-func (m *ListLocalNatsResponse) Reset()         { *m = ListLocalNatsResponse{} }
-func (m *ListLocalNatsResponse) String() string { return proto.CompactTextString(m) }
-func (*ListLocalNatsResponse) ProtoMessage()    {}
+func (x *ListLocalNatsResponse) Reset() {
+	*x = ListLocalNatsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[71]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListLocalNatsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListLocalNatsResponse) ProtoMessage() {}
+
+func (x *ListLocalNatsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[71]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListLocalNatsResponse.ProtoReflect.Descriptor instead.
 func (*ListLocalNatsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{71}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{71}
 }
 
-func (m *ListLocalNatsResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListLocalNatsResponse.Unmarshal(m, b)
-}
-func (m *ListLocalNatsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListLocalNatsResponse.Marshal(b, m, deterministic)
-}
-func (m *ListLocalNatsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListLocalNatsResponse.Merge(m, src)
-}
-func (m *ListLocalNatsResponse) XXX_Size() int {
-	return xxx_messageInfo_ListLocalNatsResponse.Size(m)
-}
-func (m *ListLocalNatsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListLocalNatsResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListLocalNatsResponse proto.InternalMessageInfo
-
-func (m *ListLocalNatsResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *ListLocalNatsResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *ListLocalNatsResponse) GetNatEntries() []*NatEntry {
-	if m != nil {
-		return m.NatEntries
+func (x *ListLocalNatsResponse) GetNatEntries() []*NatEntry {
+	if x != nil {
+		return x.NatEntries
 	}
 	return nil
 }
 
 type ListNeighborNatsRequest struct {
-	NatIp                *IpAddress `protobuf:"bytes,1,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	NatIp *IpAddress `protobuf:"bytes,1,opt,name=nat_ip,json=natIp,proto3" json:"nat_ip,omitempty"`
 }
 
-func (m *ListNeighborNatsRequest) Reset()         { *m = ListNeighborNatsRequest{} }
-func (m *ListNeighborNatsRequest) String() string { return proto.CompactTextString(m) }
-func (*ListNeighborNatsRequest) ProtoMessage()    {}
+func (x *ListNeighborNatsRequest) Reset() {
+	*x = ListNeighborNatsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[72]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListNeighborNatsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListNeighborNatsRequest) ProtoMessage() {}
+
+func (x *ListNeighborNatsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[72]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListNeighborNatsRequest.ProtoReflect.Descriptor instead.
 func (*ListNeighborNatsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{72}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{72}
 }
 
-func (m *ListNeighborNatsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListNeighborNatsRequest.Unmarshal(m, b)
-}
-func (m *ListNeighborNatsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListNeighborNatsRequest.Marshal(b, m, deterministic)
-}
-func (m *ListNeighborNatsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListNeighborNatsRequest.Merge(m, src)
-}
-func (m *ListNeighborNatsRequest) XXX_Size() int {
-	return xxx_messageInfo_ListNeighborNatsRequest.Size(m)
-}
-func (m *ListNeighborNatsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListNeighborNatsRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListNeighborNatsRequest proto.InternalMessageInfo
-
-func (m *ListNeighborNatsRequest) GetNatIp() *IpAddress {
-	if m != nil {
-		return m.NatIp
+func (x *ListNeighborNatsRequest) GetNatIp() *IpAddress {
+	if x != nil {
+		return x.NatIp
 	}
 	return nil
 }
 
 type ListNeighborNatsResponse struct {
-	Status               *Status     `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	NatEntries           []*NatEntry `protobuf:"bytes,2,rep,name=nat_entries,json=natEntries,proto3" json:"nat_entries,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
-	XXX_unrecognized     []byte      `json:"-"`
-	XXX_sizecache        int32       `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status     *Status     `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	NatEntries []*NatEntry `protobuf:"bytes,2,rep,name=nat_entries,json=natEntries,proto3" json:"nat_entries,omitempty"`
 }
 
-func (m *ListNeighborNatsResponse) Reset()         { *m = ListNeighborNatsResponse{} }
-func (m *ListNeighborNatsResponse) String() string { return proto.CompactTextString(m) }
-func (*ListNeighborNatsResponse) ProtoMessage()    {}
+func (x *ListNeighborNatsResponse) Reset() {
+	*x = ListNeighborNatsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[73]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListNeighborNatsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListNeighborNatsResponse) ProtoMessage() {}
+
+func (x *ListNeighborNatsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[73]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListNeighborNatsResponse.ProtoReflect.Descriptor instead.
 func (*ListNeighborNatsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{73}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{73}
 }
 
-func (m *ListNeighborNatsResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListNeighborNatsResponse.Unmarshal(m, b)
-}
-func (m *ListNeighborNatsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListNeighborNatsResponse.Marshal(b, m, deterministic)
-}
-func (m *ListNeighborNatsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListNeighborNatsResponse.Merge(m, src)
-}
-func (m *ListNeighborNatsResponse) XXX_Size() int {
-	return xxx_messageInfo_ListNeighborNatsResponse.Size(m)
-}
-func (m *ListNeighborNatsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListNeighborNatsResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListNeighborNatsResponse proto.InternalMessageInfo
-
-func (m *ListNeighborNatsResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *ListNeighborNatsResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *ListNeighborNatsResponse) GetNatEntries() []*NatEntry {
-	if m != nil {
-		return m.NatEntries
+func (x *ListNeighborNatsResponse) GetNatEntries() []*NatEntry {
+	if x != nil {
+		return x.NatEntries
 	}
 	return nil
 }
 
 type ListRoutesRequest struct {
-	Vni                  uint32   `protobuf:"varint,1,opt,name=vni,proto3" json:"vni,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Vni uint32 `protobuf:"varint,1,opt,name=vni,proto3" json:"vni,omitempty"`
 }
 
-func (m *ListRoutesRequest) Reset()         { *m = ListRoutesRequest{} }
-func (m *ListRoutesRequest) String() string { return proto.CompactTextString(m) }
-func (*ListRoutesRequest) ProtoMessage()    {}
+func (x *ListRoutesRequest) Reset() {
+	*x = ListRoutesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[74]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListRoutesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListRoutesRequest) ProtoMessage() {}
+
+func (x *ListRoutesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[74]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListRoutesRequest.ProtoReflect.Descriptor instead.
 func (*ListRoutesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{74}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{74}
 }
 
-func (m *ListRoutesRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListRoutesRequest.Unmarshal(m, b)
-}
-func (m *ListRoutesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListRoutesRequest.Marshal(b, m, deterministic)
-}
-func (m *ListRoutesRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListRoutesRequest.Merge(m, src)
-}
-func (m *ListRoutesRequest) XXX_Size() int {
-	return xxx_messageInfo_ListRoutesRequest.Size(m)
-}
-func (m *ListRoutesRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListRoutesRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListRoutesRequest proto.InternalMessageInfo
-
-func (m *ListRoutesRequest) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *ListRoutesRequest) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
 type ListRoutesResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	Routes               []*Route `protobuf:"bytes,2,rep,name=routes,proto3" json:"routes,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Routes []*Route `protobuf:"bytes,2,rep,name=routes,proto3" json:"routes,omitempty"`
 }
 
-func (m *ListRoutesResponse) Reset()         { *m = ListRoutesResponse{} }
-func (m *ListRoutesResponse) String() string { return proto.CompactTextString(m) }
-func (*ListRoutesResponse) ProtoMessage()    {}
+func (x *ListRoutesResponse) Reset() {
+	*x = ListRoutesResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[75]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListRoutesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListRoutesResponse) ProtoMessage() {}
+
+func (x *ListRoutesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[75]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListRoutesResponse.ProtoReflect.Descriptor instead.
 func (*ListRoutesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{75}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{75}
 }
 
-func (m *ListRoutesResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListRoutesResponse.Unmarshal(m, b)
-}
-func (m *ListRoutesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListRoutesResponse.Marshal(b, m, deterministic)
-}
-func (m *ListRoutesResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListRoutesResponse.Merge(m, src)
-}
-func (m *ListRoutesResponse) XXX_Size() int {
-	return xxx_messageInfo_ListRoutesResponse.Size(m)
-}
-func (m *ListRoutesResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListRoutesResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListRoutesResponse proto.InternalMessageInfo
-
-func (m *ListRoutesResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *ListRoutesResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *ListRoutesResponse) GetRoutes() []*Route {
-	if m != nil {
-		return m.Routes
+func (x *ListRoutesResponse) GetRoutes() []*Route {
+	if x != nil {
+		return x.Routes
 	}
 	return nil
 }
 
 type CreateRouteRequest struct {
-	Vni                  uint32   `protobuf:"varint,1,opt,name=vni,proto3" json:"vni,omitempty"`
-	Route                *Route   `protobuf:"bytes,2,opt,name=route,proto3" json:"route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Vni   uint32 `protobuf:"varint,1,opt,name=vni,proto3" json:"vni,omitempty"`
+	Route *Route `protobuf:"bytes,2,opt,name=route,proto3" json:"route,omitempty"`
 }
 
-func (m *CreateRouteRequest) Reset()         { *m = CreateRouteRequest{} }
-func (m *CreateRouteRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateRouteRequest) ProtoMessage()    {}
+func (x *CreateRouteRequest) Reset() {
+	*x = CreateRouteRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[76]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateRouteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateRouteRequest) ProtoMessage() {}
+
+func (x *CreateRouteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[76]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateRouteRequest.ProtoReflect.Descriptor instead.
 func (*CreateRouteRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{76}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{76}
 }
 
-func (m *CreateRouteRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateRouteRequest.Unmarshal(m, b)
-}
-func (m *CreateRouteRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateRouteRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateRouteRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateRouteRequest.Merge(m, src)
-}
-func (m *CreateRouteRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateRouteRequest.Size(m)
-}
-func (m *CreateRouteRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateRouteRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateRouteRequest proto.InternalMessageInfo
-
-func (m *CreateRouteRequest) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *CreateRouteRequest) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
-func (m *CreateRouteRequest) GetRoute() *Route {
-	if m != nil {
-		return m.Route
+func (x *CreateRouteRequest) GetRoute() *Route {
+	if x != nil {
+		return x.Route
 	}
 	return nil
 }
 
 type CreateRouteResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *CreateRouteResponse) Reset()         { *m = CreateRouteResponse{} }
-func (m *CreateRouteResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateRouteResponse) ProtoMessage()    {}
+func (x *CreateRouteResponse) Reset() {
+	*x = CreateRouteResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[77]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateRouteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateRouteResponse) ProtoMessage() {}
+
+func (x *CreateRouteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[77]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateRouteResponse.ProtoReflect.Descriptor instead.
 func (*CreateRouteResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{77}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{77}
 }
 
-func (m *CreateRouteResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateRouteResponse.Unmarshal(m, b)
-}
-func (m *CreateRouteResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateRouteResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateRouteResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateRouteResponse.Merge(m, src)
-}
-func (m *CreateRouteResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateRouteResponse.Size(m)
-}
-func (m *CreateRouteResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateRouteResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateRouteResponse proto.InternalMessageInfo
-
-func (m *CreateRouteResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CreateRouteResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type DeleteRouteRequest struct {
-	Vni                  uint32   `protobuf:"varint,1,opt,name=vni,proto3" json:"vni,omitempty"`
-	Route                *Route   `protobuf:"bytes,2,opt,name=route,proto3" json:"route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Vni   uint32 `protobuf:"varint,1,opt,name=vni,proto3" json:"vni,omitempty"`
+	Route *Route `protobuf:"bytes,2,opt,name=route,proto3" json:"route,omitempty"`
 }
 
-func (m *DeleteRouteRequest) Reset()         { *m = DeleteRouteRequest{} }
-func (m *DeleteRouteRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteRouteRequest) ProtoMessage()    {}
+func (x *DeleteRouteRequest) Reset() {
+	*x = DeleteRouteRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[78]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteRouteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteRouteRequest) ProtoMessage() {}
+
+func (x *DeleteRouteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[78]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteRouteRequest.ProtoReflect.Descriptor instead.
 func (*DeleteRouteRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{78}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{78}
 }
 
-func (m *DeleteRouteRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteRouteRequest.Unmarshal(m, b)
-}
-func (m *DeleteRouteRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteRouteRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteRouteRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteRouteRequest.Merge(m, src)
-}
-func (m *DeleteRouteRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteRouteRequest.Size(m)
-}
-func (m *DeleteRouteRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteRouteRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteRouteRequest proto.InternalMessageInfo
-
-func (m *DeleteRouteRequest) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *DeleteRouteRequest) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
-func (m *DeleteRouteRequest) GetRoute() *Route {
-	if m != nil {
-		return m.Route
+func (x *DeleteRouteRequest) GetRoute() *Route {
+	if x != nil {
+		return x.Route
 	}
 	return nil
 }
 
 type DeleteRouteResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *DeleteRouteResponse) Reset()         { *m = DeleteRouteResponse{} }
-func (m *DeleteRouteResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteRouteResponse) ProtoMessage()    {}
+func (x *DeleteRouteResponse) Reset() {
+	*x = DeleteRouteResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[79]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteRouteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteRouteResponse) ProtoMessage() {}
+
+func (x *DeleteRouteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[79]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteRouteResponse.ProtoReflect.Descriptor instead.
 func (*DeleteRouteResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{79}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{79}
 }
 
-func (m *DeleteRouteResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteRouteResponse.Unmarshal(m, b)
-}
-func (m *DeleteRouteResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteRouteResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteRouteResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteRouteResponse.Merge(m, src)
-}
-func (m *DeleteRouteResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteRouteResponse.Size(m)
-}
-func (m *DeleteRouteResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteRouteResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteRouteResponse proto.InternalMessageInfo
-
-func (m *DeleteRouteResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *DeleteRouteResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
@@ -4145,88 +4921,103 @@ type CheckVniInUseRequest struct {
 	Type VniType `protobuf:"varint,2,opt,name=type,proto3,enum=dpdkironcore.v1.VniType" json:"type,omitempty"`
 }
 
-func (m *CheckVniInUseRequest) Reset()         { *m = CheckVniInUseRequest{} }
-func (m *CheckVniInUseRequest) String() string { return proto.CompactTextString(m) }
-func (*CheckVniInUseRequest) ProtoMessage()    {}
+func (x *CheckVniInUseRequest) Reset() {
+	*x = CheckVniInUseRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[80]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CheckVniInUseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckVniInUseRequest) ProtoMessage() {}
+
+func (x *CheckVniInUseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[80]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckVniInUseRequest.ProtoReflect.Descriptor instead.
 func (*CheckVniInUseRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{80}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{80}
 }
 
-func (m *CheckVniInUseRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CheckVniInUseRequest.Unmarshal(m, b)
-}
-func (m *CheckVniInUseRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CheckVniInUseRequest.Marshal(b, m, deterministic)
-}
-func (m *CheckVniInUseRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CheckVniInUseRequest.Merge(m, src)
-}
-func (m *CheckVniInUseRequest) XXX_Size() int {
-	return xxx_messageInfo_CheckVniInUseRequest.Size(m)
-}
-func (m *CheckVniInUseRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CheckVniInUseRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CheckVniInUseRequest proto.InternalMessageInfo
-
-func (m *CheckVniInUseRequest) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *CheckVniInUseRequest) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
-func (m *CheckVniInUseRequest) GetType() VniType {
-	if m != nil {
-		return m.Type
+func (x *CheckVniInUseRequest) GetType() VniType {
+	if x != nil {
+		return x.Type
 	}
 	return VniType_VNI_IPV4
 }
 
 type CheckVniInUseResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	InUse                bool     `protobuf:"varint,2,opt,name=in_use,json=inUse,proto3" json:"in_use,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	InUse  bool    `protobuf:"varint,2,opt,name=in_use,json=inUse,proto3" json:"in_use,omitempty"`
 }
 
-func (m *CheckVniInUseResponse) Reset()         { *m = CheckVniInUseResponse{} }
-func (m *CheckVniInUseResponse) String() string { return proto.CompactTextString(m) }
-func (*CheckVniInUseResponse) ProtoMessage()    {}
+func (x *CheckVniInUseResponse) Reset() {
+	*x = CheckVniInUseResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[81]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CheckVniInUseResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckVniInUseResponse) ProtoMessage() {}
+
+func (x *CheckVniInUseResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[81]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckVniInUseResponse.ProtoReflect.Descriptor instead.
 func (*CheckVniInUseResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{81}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{81}
 }
 
-func (m *CheckVniInUseResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CheckVniInUseResponse.Unmarshal(m, b)
-}
-func (m *CheckVniInUseResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CheckVniInUseResponse.Marshal(b, m, deterministic)
-}
-func (m *CheckVniInUseResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CheckVniInUseResponse.Merge(m, src)
-}
-func (m *CheckVniInUseResponse) XXX_Size() int {
-	return xxx_messageInfo_CheckVniInUseResponse.Size(m)
-}
-func (m *CheckVniInUseResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CheckVniInUseResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CheckVniInUseResponse proto.InternalMessageInfo
-
-func (m *CheckVniInUseResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CheckVniInUseResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *CheckVniInUseResponse) GetInUse() bool {
-	if m != nil {
-		return m.InUse
+func (x *CheckVniInUseResponse) GetInUse() bool {
+	if x != nil {
+		return x.InUse
 	}
 	return false
 }
@@ -4240,440 +5031,519 @@ type ResetVniRequest struct {
 	Type VniType `protobuf:"varint,2,opt,name=type,proto3,enum=dpdkironcore.v1.VniType" json:"type,omitempty"`
 }
 
-func (m *ResetVniRequest) Reset()         { *m = ResetVniRequest{} }
-func (m *ResetVniRequest) String() string { return proto.CompactTextString(m) }
-func (*ResetVniRequest) ProtoMessage()    {}
+func (x *ResetVniRequest) Reset() {
+	*x = ResetVniRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[82]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ResetVniRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ResetVniRequest) ProtoMessage() {}
+
+func (x *ResetVniRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[82]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ResetVniRequest.ProtoReflect.Descriptor instead.
 func (*ResetVniRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{82}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{82}
 }
 
-func (m *ResetVniRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ResetVniRequest.Unmarshal(m, b)
-}
-func (m *ResetVniRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ResetVniRequest.Marshal(b, m, deterministic)
-}
-func (m *ResetVniRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ResetVniRequest.Merge(m, src)
-}
-func (m *ResetVniRequest) XXX_Size() int {
-	return xxx_messageInfo_ResetVniRequest.Size(m)
-}
-func (m *ResetVniRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ResetVniRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ResetVniRequest proto.InternalMessageInfo
-
-func (m *ResetVniRequest) GetVni() uint32 {
-	if m != nil {
-		return m.Vni
+func (x *ResetVniRequest) GetVni() uint32 {
+	if x != nil {
+		return x.Vni
 	}
 	return 0
 }
 
-func (m *ResetVniRequest) GetType() VniType {
-	if m != nil {
-		return m.Type
+func (x *ResetVniRequest) GetType() VniType {
+	if x != nil {
+		return x.Type
 	}
 	return VniType_VNI_IPV4
 }
 
 type ResetVniResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *ResetVniResponse) Reset()         { *m = ResetVniResponse{} }
-func (m *ResetVniResponse) String() string { return proto.CompactTextString(m) }
-func (*ResetVniResponse) ProtoMessage()    {}
+func (x *ResetVniResponse) Reset() {
+	*x = ResetVniResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[83]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ResetVniResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ResetVniResponse) ProtoMessage() {}
+
+func (x *ResetVniResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[83]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ResetVniResponse.ProtoReflect.Descriptor instead.
 func (*ResetVniResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{83}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{83}
 }
 
-func (m *ResetVniResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ResetVniResponse.Unmarshal(m, b)
-}
-func (m *ResetVniResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ResetVniResponse.Marshal(b, m, deterministic)
-}
-func (m *ResetVniResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ResetVniResponse.Merge(m, src)
-}
-func (m *ResetVniResponse) XXX_Size() int {
-	return xxx_messageInfo_ResetVniResponse.Size(m)
-}
-func (m *ResetVniResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ResetVniResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ResetVniResponse proto.InternalMessageInfo
-
-func (m *ResetVniResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *ResetVniResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type ListFirewallRulesRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
 }
 
-func (m *ListFirewallRulesRequest) Reset()         { *m = ListFirewallRulesRequest{} }
-func (m *ListFirewallRulesRequest) String() string { return proto.CompactTextString(m) }
-func (*ListFirewallRulesRequest) ProtoMessage()    {}
+func (x *ListFirewallRulesRequest) Reset() {
+	*x = ListFirewallRulesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[84]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListFirewallRulesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListFirewallRulesRequest) ProtoMessage() {}
+
+func (x *ListFirewallRulesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[84]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListFirewallRulesRequest.ProtoReflect.Descriptor instead.
 func (*ListFirewallRulesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{84}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{84}
 }
 
-func (m *ListFirewallRulesRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListFirewallRulesRequest.Unmarshal(m, b)
-}
-func (m *ListFirewallRulesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListFirewallRulesRequest.Marshal(b, m, deterministic)
-}
-func (m *ListFirewallRulesRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListFirewallRulesRequest.Merge(m, src)
-}
-func (m *ListFirewallRulesRequest) XXX_Size() int {
-	return xxx_messageInfo_ListFirewallRulesRequest.Size(m)
-}
-func (m *ListFirewallRulesRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListFirewallRulesRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListFirewallRulesRequest proto.InternalMessageInfo
-
-func (m *ListFirewallRulesRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *ListFirewallRulesRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
 type ListFirewallRulesResponse struct {
-	Status               *Status         `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	Rules                []*FirewallRule `protobuf:"bytes,2,rep,name=rules,proto3" json:"rules,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
-	XXX_unrecognized     []byte          `json:"-"`
-	XXX_sizecache        int32           `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status         `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Rules  []*FirewallRule `protobuf:"bytes,2,rep,name=rules,proto3" json:"rules,omitempty"`
 }
 
-func (m *ListFirewallRulesResponse) Reset()         { *m = ListFirewallRulesResponse{} }
-func (m *ListFirewallRulesResponse) String() string { return proto.CompactTextString(m) }
-func (*ListFirewallRulesResponse) ProtoMessage()    {}
+func (x *ListFirewallRulesResponse) Reset() {
+	*x = ListFirewallRulesResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[85]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListFirewallRulesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListFirewallRulesResponse) ProtoMessage() {}
+
+func (x *ListFirewallRulesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[85]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListFirewallRulesResponse.ProtoReflect.Descriptor instead.
 func (*ListFirewallRulesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{85}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{85}
 }
 
-func (m *ListFirewallRulesResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListFirewallRulesResponse.Unmarshal(m, b)
-}
-func (m *ListFirewallRulesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListFirewallRulesResponse.Marshal(b, m, deterministic)
-}
-func (m *ListFirewallRulesResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListFirewallRulesResponse.Merge(m, src)
-}
-func (m *ListFirewallRulesResponse) XXX_Size() int {
-	return xxx_messageInfo_ListFirewallRulesResponse.Size(m)
-}
-func (m *ListFirewallRulesResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListFirewallRulesResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListFirewallRulesResponse proto.InternalMessageInfo
-
-func (m *ListFirewallRulesResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *ListFirewallRulesResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *ListFirewallRulesResponse) GetRules() []*FirewallRule {
-	if m != nil {
-		return m.Rules
+func (x *ListFirewallRulesResponse) GetRules() []*FirewallRule {
+	if x != nil {
+		return x.Rules
 	}
 	return nil
 }
 
 type CreateFirewallRuleRequest struct {
-	InterfaceId          []byte        `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	Rule                 *FirewallRule `protobuf:"bytes,2,opt,name=rule,proto3" json:"rule,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte        `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
+	Rule        *FirewallRule `protobuf:"bytes,2,opt,name=rule,proto3" json:"rule,omitempty"`
 }
 
-func (m *CreateFirewallRuleRequest) Reset()         { *m = CreateFirewallRuleRequest{} }
-func (m *CreateFirewallRuleRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateFirewallRuleRequest) ProtoMessage()    {}
+func (x *CreateFirewallRuleRequest) Reset() {
+	*x = CreateFirewallRuleRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[86]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateFirewallRuleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateFirewallRuleRequest) ProtoMessage() {}
+
+func (x *CreateFirewallRuleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[86]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateFirewallRuleRequest.ProtoReflect.Descriptor instead.
 func (*CreateFirewallRuleRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{86}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{86}
 }
 
-func (m *CreateFirewallRuleRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateFirewallRuleRequest.Unmarshal(m, b)
-}
-func (m *CreateFirewallRuleRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateFirewallRuleRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateFirewallRuleRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateFirewallRuleRequest.Merge(m, src)
-}
-func (m *CreateFirewallRuleRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateFirewallRuleRequest.Size(m)
-}
-func (m *CreateFirewallRuleRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateFirewallRuleRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateFirewallRuleRequest proto.InternalMessageInfo
-
-func (m *CreateFirewallRuleRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *CreateFirewallRuleRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
-func (m *CreateFirewallRuleRequest) GetRule() *FirewallRule {
-	if m != nil {
-		return m.Rule
+func (x *CreateFirewallRuleRequest) GetRule() *FirewallRule {
+	if x != nil {
+		return x.Rule
 	}
 	return nil
 }
 
 type CreateFirewallRuleResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	RuleId               []byte   `protobuf:"bytes,2,opt,name=rule_id,json=ruleId,proto3" json:"rule_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	RuleId []byte  `protobuf:"bytes,2,opt,name=rule_id,json=ruleId,proto3" json:"rule_id,omitempty"`
 }
 
-func (m *CreateFirewallRuleResponse) Reset()         { *m = CreateFirewallRuleResponse{} }
-func (m *CreateFirewallRuleResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateFirewallRuleResponse) ProtoMessage()    {}
+func (x *CreateFirewallRuleResponse) Reset() {
+	*x = CreateFirewallRuleResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[87]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateFirewallRuleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateFirewallRuleResponse) ProtoMessage() {}
+
+func (x *CreateFirewallRuleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[87]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateFirewallRuleResponse.ProtoReflect.Descriptor instead.
 func (*CreateFirewallRuleResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{87}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{87}
 }
 
-func (m *CreateFirewallRuleResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateFirewallRuleResponse.Unmarshal(m, b)
-}
-func (m *CreateFirewallRuleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateFirewallRuleResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateFirewallRuleResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateFirewallRuleResponse.Merge(m, src)
-}
-func (m *CreateFirewallRuleResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateFirewallRuleResponse.Size(m)
-}
-func (m *CreateFirewallRuleResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateFirewallRuleResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateFirewallRuleResponse proto.InternalMessageInfo
-
-func (m *CreateFirewallRuleResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CreateFirewallRuleResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *CreateFirewallRuleResponse) GetRuleId() []byte {
-	if m != nil {
-		return m.RuleId
+func (x *CreateFirewallRuleResponse) GetRuleId() []byte {
+	if x != nil {
+		return x.RuleId
 	}
 	return nil
 }
 
 type GetFirewallRuleRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	RuleId               []byte   `protobuf:"bytes,2,opt,name=rule_id,json=ruleId,proto3" json:"rule_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
+	RuleId      []byte `protobuf:"bytes,2,opt,name=rule_id,json=ruleId,proto3" json:"rule_id,omitempty"`
 }
 
-func (m *GetFirewallRuleRequest) Reset()         { *m = GetFirewallRuleRequest{} }
-func (m *GetFirewallRuleRequest) String() string { return proto.CompactTextString(m) }
-func (*GetFirewallRuleRequest) ProtoMessage()    {}
+func (x *GetFirewallRuleRequest) Reset() {
+	*x = GetFirewallRuleRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[88]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetFirewallRuleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetFirewallRuleRequest) ProtoMessage() {}
+
+func (x *GetFirewallRuleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[88]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetFirewallRuleRequest.ProtoReflect.Descriptor instead.
 func (*GetFirewallRuleRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{88}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{88}
 }
 
-func (m *GetFirewallRuleRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetFirewallRuleRequest.Unmarshal(m, b)
-}
-func (m *GetFirewallRuleRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetFirewallRuleRequest.Marshal(b, m, deterministic)
-}
-func (m *GetFirewallRuleRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetFirewallRuleRequest.Merge(m, src)
-}
-func (m *GetFirewallRuleRequest) XXX_Size() int {
-	return xxx_messageInfo_GetFirewallRuleRequest.Size(m)
-}
-func (m *GetFirewallRuleRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetFirewallRuleRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetFirewallRuleRequest proto.InternalMessageInfo
-
-func (m *GetFirewallRuleRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *GetFirewallRuleRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
-func (m *GetFirewallRuleRequest) GetRuleId() []byte {
-	if m != nil {
-		return m.RuleId
+func (x *GetFirewallRuleRequest) GetRuleId() []byte {
+	if x != nil {
+		return x.RuleId
 	}
 	return nil
 }
 
 type GetFirewallRuleResponse struct {
-	Status               *Status       `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	Rule                 *FirewallRule `protobuf:"bytes,2,opt,name=rule,proto3" json:"rule,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status       `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Rule   *FirewallRule `protobuf:"bytes,2,opt,name=rule,proto3" json:"rule,omitempty"`
 }
 
-func (m *GetFirewallRuleResponse) Reset()         { *m = GetFirewallRuleResponse{} }
-func (m *GetFirewallRuleResponse) String() string { return proto.CompactTextString(m) }
-func (*GetFirewallRuleResponse) ProtoMessage()    {}
+func (x *GetFirewallRuleResponse) Reset() {
+	*x = GetFirewallRuleResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[89]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetFirewallRuleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetFirewallRuleResponse) ProtoMessage() {}
+
+func (x *GetFirewallRuleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[89]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetFirewallRuleResponse.ProtoReflect.Descriptor instead.
 func (*GetFirewallRuleResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{89}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{89}
 }
 
-func (m *GetFirewallRuleResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetFirewallRuleResponse.Unmarshal(m, b)
-}
-func (m *GetFirewallRuleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetFirewallRuleResponse.Marshal(b, m, deterministic)
-}
-func (m *GetFirewallRuleResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetFirewallRuleResponse.Merge(m, src)
-}
-func (m *GetFirewallRuleResponse) XXX_Size() int {
-	return xxx_messageInfo_GetFirewallRuleResponse.Size(m)
-}
-func (m *GetFirewallRuleResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetFirewallRuleResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetFirewallRuleResponse proto.InternalMessageInfo
-
-func (m *GetFirewallRuleResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *GetFirewallRuleResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *GetFirewallRuleResponse) GetRule() *FirewallRule {
-	if m != nil {
-		return m.Rule
+func (x *GetFirewallRuleResponse) GetRule() *FirewallRule {
+	if x != nil {
+		return x.Rule
 	}
 	return nil
 }
 
 type DeleteFirewallRuleRequest struct {
-	InterfaceId          []byte   `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
-	RuleId               []byte   `protobuf:"bytes,2,opt,name=rule_id,json=ruleId,proto3" json:"rule_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InterfaceId []byte `protobuf:"bytes,1,opt,name=interface_id,json=interfaceId,proto3" json:"interface_id,omitempty"`
+	RuleId      []byte `protobuf:"bytes,2,opt,name=rule_id,json=ruleId,proto3" json:"rule_id,omitempty"`
 }
 
-func (m *DeleteFirewallRuleRequest) Reset()         { *m = DeleteFirewallRuleRequest{} }
-func (m *DeleteFirewallRuleRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteFirewallRuleRequest) ProtoMessage()    {}
+func (x *DeleteFirewallRuleRequest) Reset() {
+	*x = DeleteFirewallRuleRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[90]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteFirewallRuleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteFirewallRuleRequest) ProtoMessage() {}
+
+func (x *DeleteFirewallRuleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[90]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteFirewallRuleRequest.ProtoReflect.Descriptor instead.
 func (*DeleteFirewallRuleRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{90}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{90}
 }
 
-func (m *DeleteFirewallRuleRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteFirewallRuleRequest.Unmarshal(m, b)
-}
-func (m *DeleteFirewallRuleRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteFirewallRuleRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteFirewallRuleRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteFirewallRuleRequest.Merge(m, src)
-}
-func (m *DeleteFirewallRuleRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteFirewallRuleRequest.Size(m)
-}
-func (m *DeleteFirewallRuleRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteFirewallRuleRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteFirewallRuleRequest proto.InternalMessageInfo
-
-func (m *DeleteFirewallRuleRequest) GetInterfaceId() []byte {
-	if m != nil {
-		return m.InterfaceId
+func (x *DeleteFirewallRuleRequest) GetInterfaceId() []byte {
+	if x != nil {
+		return x.InterfaceId
 	}
 	return nil
 }
 
-func (m *DeleteFirewallRuleRequest) GetRuleId() []byte {
-	if m != nil {
-		return m.RuleId
+func (x *DeleteFirewallRuleRequest) GetRuleId() []byte {
+	if x != nil {
+		return x.RuleId
 	}
 	return nil
 }
 
 type DeleteFirewallRuleResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *DeleteFirewallRuleResponse) Reset()         { *m = DeleteFirewallRuleResponse{} }
-func (m *DeleteFirewallRuleResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteFirewallRuleResponse) ProtoMessage()    {}
+func (x *DeleteFirewallRuleResponse) Reset() {
+	*x = DeleteFirewallRuleResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[91]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteFirewallRuleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteFirewallRuleResponse) ProtoMessage() {}
+
+func (x *DeleteFirewallRuleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[91]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteFirewallRuleResponse.ProtoReflect.Descriptor instead.
 func (*DeleteFirewallRuleResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{91}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{91}
 }
 
-func (m *DeleteFirewallRuleResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteFirewallRuleResponse.Unmarshal(m, b)
-}
-func (m *DeleteFirewallRuleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteFirewallRuleResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteFirewallRuleResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteFirewallRuleResponse.Merge(m, src)
-}
-func (m *DeleteFirewallRuleResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteFirewallRuleResponse.Size(m)
-}
-func (m *DeleteFirewallRuleResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteFirewallRuleResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteFirewallRuleResponse proto.InternalMessageInfo
-
-func (m *DeleteFirewallRuleResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *DeleteFirewallRuleResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
@@ -4685,52 +5555,78 @@ type CapturedInterface struct {
 
 	InterfaceType CaptureInterfaceType `protobuf:"varint,1,opt,name=interface_type,json=interfaceType,proto3,enum=dpdkironcore.v1.CaptureInterfaceType" json:"interface_type,omitempty"`
 	Filter        []byte               `protobuf:"bytes,2,opt,name=filter,proto3" json:"filter,omitempty"`
-	// Types that are valid to be assigned to Spec:
+	// Types that are assignable to Spec:
+	//
 	//	*CapturedInterface_VfName
 	//	*CapturedInterface_PfIndex
-	Spec                 isCapturedInterface_Spec `protobuf_oneof:"spec"`
-	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
-	XXX_unrecognized     []byte                   `json:"-"`
-	XXX_sizecache        int32                    `json:"-"`
+	Spec isCapturedInterface_Spec `protobuf_oneof:"spec"`
 }
 
-func (m *CapturedInterface) Reset()         { *m = CapturedInterface{} }
-func (m *CapturedInterface) String() string { return proto.CompactTextString(m) }
-func (*CapturedInterface) ProtoMessage()    {}
+func (x *CapturedInterface) Reset() {
+	*x = CapturedInterface{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[92]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CapturedInterface) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CapturedInterface) ProtoMessage() {}
+
+func (x *CapturedInterface) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[92]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CapturedInterface.ProtoReflect.Descriptor instead.
 func (*CapturedInterface) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{92}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{92}
 }
 
-func (m *CapturedInterface) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CapturedInterface.Unmarshal(m, b)
-}
-func (m *CapturedInterface) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CapturedInterface.Marshal(b, m, deterministic)
-}
-func (m *CapturedInterface) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CapturedInterface.Merge(m, src)
-}
-func (m *CapturedInterface) XXX_Size() int {
-	return xxx_messageInfo_CapturedInterface.Size(m)
-}
-func (m *CapturedInterface) XXX_DiscardUnknown() {
-	xxx_messageInfo_CapturedInterface.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CapturedInterface proto.InternalMessageInfo
-
-func (m *CapturedInterface) GetInterfaceType() CaptureInterfaceType {
-	if m != nil {
-		return m.InterfaceType
+func (x *CapturedInterface) GetInterfaceType() CaptureInterfaceType {
+	if x != nil {
+		return x.InterfaceType
 	}
 	return CaptureInterfaceType_SINGLE_PF
 }
 
-func (m *CapturedInterface) GetFilter() []byte {
-	if m != nil {
-		return m.Filter
+func (x *CapturedInterface) GetFilter() []byte {
+	if x != nil {
+		return x.Filter
 	}
 	return nil
+}
+
+func (m *CapturedInterface) GetSpec() isCapturedInterface_Spec {
+	if m != nil {
+		return m.Spec
+	}
+	return nil
+}
+
+func (x *CapturedInterface) GetVfName() []byte {
+	if x, ok := x.GetSpec().(*CapturedInterface_VfName); ok {
+		return x.VfName
+	}
+	return nil
+}
+
+func (x *CapturedInterface) GetPfIndex() uint32 {
+	if x, ok := x.GetSpec().(*CapturedInterface_PfIndex); ok {
+		return x.PfIndex
+	}
+	return 0
 }
 
 type isCapturedInterface_Spec interface {
@@ -4749,333 +5645,357 @@ func (*CapturedInterface_VfName) isCapturedInterface_Spec() {}
 
 func (*CapturedInterface_PfIndex) isCapturedInterface_Spec() {}
 
-func (m *CapturedInterface) GetSpec() isCapturedInterface_Spec {
-	if m != nil {
-		return m.Spec
-	}
-	return nil
-}
-
-func (m *CapturedInterface) GetVfName() []byte {
-	if x, ok := m.GetSpec().(*CapturedInterface_VfName); ok {
-		return x.VfName
-	}
-	return nil
-}
-
-func (m *CapturedInterface) GetPfIndex() uint32 {
-	if x, ok := m.GetSpec().(*CapturedInterface_PfIndex); ok {
-		return x.PfIndex
-	}
-	return 0
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*CapturedInterface) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*CapturedInterface_VfName)(nil),
-		(*CapturedInterface_PfIndex)(nil),
-	}
-}
-
 type CaptureConfig struct {
-	SinkNodeIp           *IpAddress           `protobuf:"bytes,1,opt,name=sink_node_ip,json=sinkNodeIp,proto3" json:"sink_node_ip,omitempty"`
-	UdpSrcPort           uint32               `protobuf:"varint,2,opt,name=udp_src_port,json=udpSrcPort,proto3" json:"udp_src_port,omitempty"`
-	UdpDstPort           uint32               `protobuf:"varint,3,opt,name=udp_dst_port,json=udpDstPort,proto3" json:"udp_dst_port,omitempty"`
-	Interfaces           []*CapturedInterface `protobuf:"bytes,4,rep,name=interfaces,proto3" json:"interfaces,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SinkNodeIp *IpAddress           `protobuf:"bytes,1,opt,name=sink_node_ip,json=sinkNodeIp,proto3" json:"sink_node_ip,omitempty"`
+	UdpSrcPort uint32               `protobuf:"varint,2,opt,name=udp_src_port,json=udpSrcPort,proto3" json:"udp_src_port,omitempty"`
+	UdpDstPort uint32               `protobuf:"varint,3,opt,name=udp_dst_port,json=udpDstPort,proto3" json:"udp_dst_port,omitempty"`
+	Interfaces []*CapturedInterface `protobuf:"bytes,4,rep,name=interfaces,proto3" json:"interfaces,omitempty"`
 }
 
-func (m *CaptureConfig) Reset()         { *m = CaptureConfig{} }
-func (m *CaptureConfig) String() string { return proto.CompactTextString(m) }
-func (*CaptureConfig) ProtoMessage()    {}
+func (x *CaptureConfig) Reset() {
+	*x = CaptureConfig{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[93]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CaptureConfig) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CaptureConfig) ProtoMessage() {}
+
+func (x *CaptureConfig) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[93]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CaptureConfig.ProtoReflect.Descriptor instead.
 func (*CaptureConfig) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{93}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{93}
 }
 
-func (m *CaptureConfig) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CaptureConfig.Unmarshal(m, b)
-}
-func (m *CaptureConfig) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CaptureConfig.Marshal(b, m, deterministic)
-}
-func (m *CaptureConfig) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CaptureConfig.Merge(m, src)
-}
-func (m *CaptureConfig) XXX_Size() int {
-	return xxx_messageInfo_CaptureConfig.Size(m)
-}
-func (m *CaptureConfig) XXX_DiscardUnknown() {
-	xxx_messageInfo_CaptureConfig.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CaptureConfig proto.InternalMessageInfo
-
-func (m *CaptureConfig) GetSinkNodeIp() *IpAddress {
-	if m != nil {
-		return m.SinkNodeIp
+func (x *CaptureConfig) GetSinkNodeIp() *IpAddress {
+	if x != nil {
+		return x.SinkNodeIp
 	}
 	return nil
 }
 
-func (m *CaptureConfig) GetUdpSrcPort() uint32 {
-	if m != nil {
-		return m.UdpSrcPort
+func (x *CaptureConfig) GetUdpSrcPort() uint32 {
+	if x != nil {
+		return x.UdpSrcPort
 	}
 	return 0
 }
 
-func (m *CaptureConfig) GetUdpDstPort() uint32 {
-	if m != nil {
-		return m.UdpDstPort
+func (x *CaptureConfig) GetUdpDstPort() uint32 {
+	if x != nil {
+		return x.UdpDstPort
 	}
 	return 0
 }
 
-func (m *CaptureConfig) GetInterfaces() []*CapturedInterface {
-	if m != nil {
-		return m.Interfaces
+func (x *CaptureConfig) GetInterfaces() []*CapturedInterface {
+	if x != nil {
+		return x.Interfaces
 	}
 	return nil
 }
 
 type CaptureStartRequest struct {
-	CaptureConfig        *CaptureConfig `protobuf:"bytes,1,opt,name=capture_config,json=captureConfig,proto3" json:"capture_config,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
-	XXX_unrecognized     []byte         `json:"-"`
-	XXX_sizecache        int32          `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	CaptureConfig *CaptureConfig `protobuf:"bytes,1,opt,name=capture_config,json=captureConfig,proto3" json:"capture_config,omitempty"`
 }
 
-func (m *CaptureStartRequest) Reset()         { *m = CaptureStartRequest{} }
-func (m *CaptureStartRequest) String() string { return proto.CompactTextString(m) }
-func (*CaptureStartRequest) ProtoMessage()    {}
+func (x *CaptureStartRequest) Reset() {
+	*x = CaptureStartRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[94]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CaptureStartRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CaptureStartRequest) ProtoMessage() {}
+
+func (x *CaptureStartRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[94]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CaptureStartRequest.ProtoReflect.Descriptor instead.
 func (*CaptureStartRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{94}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{94}
 }
 
-func (m *CaptureStartRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CaptureStartRequest.Unmarshal(m, b)
-}
-func (m *CaptureStartRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CaptureStartRequest.Marshal(b, m, deterministic)
-}
-func (m *CaptureStartRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CaptureStartRequest.Merge(m, src)
-}
-func (m *CaptureStartRequest) XXX_Size() int {
-	return xxx_messageInfo_CaptureStartRequest.Size(m)
-}
-func (m *CaptureStartRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CaptureStartRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CaptureStartRequest proto.InternalMessageInfo
-
-func (m *CaptureStartRequest) GetCaptureConfig() *CaptureConfig {
-	if m != nil {
-		return m.CaptureConfig
+func (x *CaptureStartRequest) GetCaptureConfig() *CaptureConfig {
+	if x != nil {
+		return x.CaptureConfig
 	}
 	return nil
 }
 
 type CaptureStartResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (m *CaptureStartResponse) Reset()         { *m = CaptureStartResponse{} }
-func (m *CaptureStartResponse) String() string { return proto.CompactTextString(m) }
-func (*CaptureStartResponse) ProtoMessage()    {}
+func (x *CaptureStartResponse) Reset() {
+	*x = CaptureStartResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[95]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CaptureStartResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CaptureStartResponse) ProtoMessage() {}
+
+func (x *CaptureStartResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[95]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CaptureStartResponse.ProtoReflect.Descriptor instead.
 func (*CaptureStartResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{95}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{95}
 }
 
-func (m *CaptureStartResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CaptureStartResponse.Unmarshal(m, b)
-}
-func (m *CaptureStartResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CaptureStartResponse.Marshal(b, m, deterministic)
-}
-func (m *CaptureStartResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CaptureStartResponse.Merge(m, src)
-}
-func (m *CaptureStartResponse) XXX_Size() int {
-	return xxx_messageInfo_CaptureStartResponse.Size(m)
-}
-func (m *CaptureStartResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CaptureStartResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CaptureStartResponse proto.InternalMessageInfo
-
-func (m *CaptureStartResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CaptureStartResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
 type CaptureStopRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
 }
 
-func (m *CaptureStopRequest) Reset()         { *m = CaptureStopRequest{} }
-func (m *CaptureStopRequest) String() string { return proto.CompactTextString(m) }
-func (*CaptureStopRequest) ProtoMessage()    {}
+func (x *CaptureStopRequest) Reset() {
+	*x = CaptureStopRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[96]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CaptureStopRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CaptureStopRequest) ProtoMessage() {}
+
+func (x *CaptureStopRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[96]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CaptureStopRequest.ProtoReflect.Descriptor instead.
 func (*CaptureStopRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{96}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{96}
 }
-
-func (m *CaptureStopRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CaptureStopRequest.Unmarshal(m, b)
-}
-func (m *CaptureStopRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CaptureStopRequest.Marshal(b, m, deterministic)
-}
-func (m *CaptureStopRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CaptureStopRequest.Merge(m, src)
-}
-func (m *CaptureStopRequest) XXX_Size() int {
-	return xxx_messageInfo_CaptureStopRequest.Size(m)
-}
-func (m *CaptureStopRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CaptureStopRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CaptureStopRequest proto.InternalMessageInfo
 
 type CaptureStopResponse struct {
-	Status               *Status  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	StoppedInterfaceCnt  uint32   `protobuf:"varint,2,opt,name=stopped_interface_cnt,json=stoppedInterfaceCnt,proto3" json:"stopped_interface_cnt,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status              *Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	StoppedInterfaceCnt uint32  `protobuf:"varint,2,opt,name=stopped_interface_cnt,json=stoppedInterfaceCnt,proto3" json:"stopped_interface_cnt,omitempty"`
 }
 
-func (m *CaptureStopResponse) Reset()         { *m = CaptureStopResponse{} }
-func (m *CaptureStopResponse) String() string { return proto.CompactTextString(m) }
-func (*CaptureStopResponse) ProtoMessage()    {}
+func (x *CaptureStopResponse) Reset() {
+	*x = CaptureStopResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[97]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CaptureStopResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CaptureStopResponse) ProtoMessage() {}
+
+func (x *CaptureStopResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[97]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CaptureStopResponse.ProtoReflect.Descriptor instead.
 func (*CaptureStopResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{97}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{97}
 }
 
-func (m *CaptureStopResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CaptureStopResponse.Unmarshal(m, b)
-}
-func (m *CaptureStopResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CaptureStopResponse.Marshal(b, m, deterministic)
-}
-func (m *CaptureStopResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CaptureStopResponse.Merge(m, src)
-}
-func (m *CaptureStopResponse) XXX_Size() int {
-	return xxx_messageInfo_CaptureStopResponse.Size(m)
-}
-func (m *CaptureStopResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CaptureStopResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CaptureStopResponse proto.InternalMessageInfo
-
-func (m *CaptureStopResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CaptureStopResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *CaptureStopResponse) GetStoppedInterfaceCnt() uint32 {
-	if m != nil {
-		return m.StoppedInterfaceCnt
+func (x *CaptureStopResponse) GetStoppedInterfaceCnt() uint32 {
+	if x != nil {
+		return x.StoppedInterfaceCnt
 	}
 	return 0
 }
 
 type CaptureStatusRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
 }
 
-func (m *CaptureStatusRequest) Reset()         { *m = CaptureStatusRequest{} }
-func (m *CaptureStatusRequest) String() string { return proto.CompactTextString(m) }
-func (*CaptureStatusRequest) ProtoMessage()    {}
+func (x *CaptureStatusRequest) Reset() {
+	*x = CaptureStatusRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[98]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CaptureStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CaptureStatusRequest) ProtoMessage() {}
+
+func (x *CaptureStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[98]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CaptureStatusRequest.ProtoReflect.Descriptor instead.
 func (*CaptureStatusRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{98}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{98}
 }
-
-func (m *CaptureStatusRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CaptureStatusRequest.Unmarshal(m, b)
-}
-func (m *CaptureStatusRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CaptureStatusRequest.Marshal(b, m, deterministic)
-}
-func (m *CaptureStatusRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CaptureStatusRequest.Merge(m, src)
-}
-func (m *CaptureStatusRequest) XXX_Size() int {
-	return xxx_messageInfo_CaptureStatusRequest.Size(m)
-}
-func (m *CaptureStatusRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CaptureStatusRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CaptureStatusRequest proto.InternalMessageInfo
 
 type CaptureStatusResponse struct {
-	Status               *Status        `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	IsActive             bool           `protobuf:"varint,2,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
-	CaptureConfig        *CaptureConfig `protobuf:"bytes,3,opt,name=capture_config,json=captureConfig,proto3" json:"capture_config,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
-	XXX_unrecognized     []byte         `json:"-"`
-	XXX_sizecache        int32          `json:"-"`
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status        *Status        `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	IsActive      bool           `protobuf:"varint,2,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	CaptureConfig *CaptureConfig `protobuf:"bytes,3,opt,name=capture_config,json=captureConfig,proto3" json:"capture_config,omitempty"`
 }
 
-func (m *CaptureStatusResponse) Reset()         { *m = CaptureStatusResponse{} }
-func (m *CaptureStatusResponse) String() string { return proto.CompactTextString(m) }
-func (*CaptureStatusResponse) ProtoMessage()    {}
+func (x *CaptureStatusResponse) Reset() {
+	*x = CaptureStatusResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_dpdk_proto_msgTypes[99]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CaptureStatusResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CaptureStatusResponse) ProtoMessage() {}
+
+func (x *CaptureStatusResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_dpdk_proto_msgTypes[99]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CaptureStatusResponse.ProtoReflect.Descriptor instead.
 func (*CaptureStatusResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8a26ffc81af0230d, []int{99}
+	return file_proto_dpdk_proto_rawDescGZIP(), []int{99}
 }
 
-func (m *CaptureStatusResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CaptureStatusResponse.Unmarshal(m, b)
-}
-func (m *CaptureStatusResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CaptureStatusResponse.Marshal(b, m, deterministic)
-}
-func (m *CaptureStatusResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CaptureStatusResponse.Merge(m, src)
-}
-func (m *CaptureStatusResponse) XXX_Size() int {
-	return xxx_messageInfo_CaptureStatusResponse.Size(m)
-}
-func (m *CaptureStatusResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CaptureStatusResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CaptureStatusResponse proto.InternalMessageInfo
-
-func (m *CaptureStatusResponse) GetStatus() *Status {
-	if m != nil {
-		return m.Status
+func (x *CaptureStatusResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
 	}
 	return nil
 }
 
-func (m *CaptureStatusResponse) GetIsActive() bool {
-	if m != nil {
-		return m.IsActive
+func (x *CaptureStatusResponse) GetIsActive() bool {
+	if x != nil {
+		return x.IsActive
 	}
 	return false
 }
-
 
 func (x *CaptureStatusResponse) GetCaptureConfig() *CaptureConfig {
 	if x != nil {
