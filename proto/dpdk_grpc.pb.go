@@ -88,10 +88,10 @@ type DPDKironcoreClient interface {
 	// init will be called once for initial set up of the DPDK app.
 	// init returns an error if the DPDK app has been initialized already. So check if it got initialized before calling init.
 	Initialize(ctx context.Context, in *InitializeRequest, opts ...grpc.CallOption) (*InitializeResponse, error)
-	// // VERSIONING
+	//// VERSIONING
 	// Exchange protocol/app versions to establish communication
 	GetVersion(ctx context.Context, in *GetVersionRequest, opts ...grpc.CallOption) (*GetVersionResponse, error)
-	// // INTERFACES
+	//// INTERFACES
 	ListInterfaces(ctx context.Context, in *ListInterfacesRequest, opts ...grpc.CallOption) (*ListInterfacesResponse, error)
 	GetInterface(ctx context.Context, in *GetInterfaceRequest, opts ...grpc.CallOption) (*GetInterfaceResponse, error)
 	// CreateInterface creates and configures a VF (hypervisor case) or PF (bare metal) for the new interface.
@@ -131,7 +131,7 @@ type DPDKironcoreClient interface {
 	CreateNeighborNat(ctx context.Context, in *CreateNeighborNatRequest, opts ...grpc.CallOption) (*CreateNeighborNatResponse, error)
 	DeleteNeighborNat(ctx context.Context, in *DeleteNeighborNatRequest, opts ...grpc.CallOption) (*DeleteNeighborNatResponse, error)
 	ListNeighborNats(ctx context.Context, in *ListNeighborNatsRequest, opts ...grpc.CallOption) (*ListNeighborNatsResponse, error)
-	// // ROUTES
+	//// ROUTES
 	ListRoutes(ctx context.Context, in *ListRoutesRequest, opts ...grpc.CallOption) (*ListRoutesResponse, error)
 	// CreateRoute adds a new route to a VNet's routing table (identified by VNI).
 	// If the DPDK application does not hold any interface in the specified VNet, an error will be returned.
@@ -144,12 +144,12 @@ type DPDKironcoreClient interface {
 	// whether the VNI in question is in use or not.
 	CheckVniInUse(ctx context.Context, in *CheckVniInUseRequest, opts ...grpc.CallOption) (*CheckVniInUseResponse, error)
 	ResetVni(ctx context.Context, in *ResetVniRequest, opts ...grpc.CallOption) (*ResetVniResponse, error)
-	// // FIREWALL
+	//// FIREWALL
 	ListFirewallRules(ctx context.Context, in *ListFirewallRulesRequest, opts ...grpc.CallOption) (*ListFirewallRulesResponse, error)
 	CreateFirewallRule(ctx context.Context, in *CreateFirewallRuleRequest, opts ...grpc.CallOption) (*CreateFirewallRuleResponse, error)
 	GetFirewallRule(ctx context.Context, in *GetFirewallRuleRequest, opts ...grpc.CallOption) (*GetFirewallRuleResponse, error)
 	DeleteFirewallRule(ctx context.Context, in *DeleteFirewallRuleRequest, opts ...grpc.CallOption) (*DeleteFirewallRuleResponse, error)
-	// // PACKET CAPTURE
+	//// PACKET CAPTURE
 	CaptureStart(ctx context.Context, in *CaptureStartRequest, opts ...grpc.CallOption) (*CaptureStartResponse, error)
 	CaptureStop(ctx context.Context, in *CaptureStopRequest, opts ...grpc.CallOption) (*CaptureStopResponse, error)
 	CaptureStatus(ctx context.Context, in *CaptureStatusRequest, opts ...grpc.CallOption) (*CaptureStatusResponse, error)
@@ -543,10 +543,10 @@ type DPDKironcoreServer interface {
 	// init will be called once for initial set up of the DPDK app.
 	// init returns an error if the DPDK app has been initialized already. So check if it got initialized before calling init.
 	Initialize(context.Context, *InitializeRequest) (*InitializeResponse, error)
-	// // VERSIONING
+	//// VERSIONING
 	// Exchange protocol/app versions to establish communication
 	GetVersion(context.Context, *GetVersionRequest) (*GetVersionResponse, error)
-	// // INTERFACES
+	//// INTERFACES
 	ListInterfaces(context.Context, *ListInterfacesRequest) (*ListInterfacesResponse, error)
 	GetInterface(context.Context, *GetInterfaceRequest) (*GetInterfaceResponse, error)
 	// CreateInterface creates and configures a VF (hypervisor case) or PF (bare metal) for the new interface.
@@ -586,7 +586,7 @@ type DPDKironcoreServer interface {
 	CreateNeighborNat(context.Context, *CreateNeighborNatRequest) (*CreateNeighborNatResponse, error)
 	DeleteNeighborNat(context.Context, *DeleteNeighborNatRequest) (*DeleteNeighborNatResponse, error)
 	ListNeighborNats(context.Context, *ListNeighborNatsRequest) (*ListNeighborNatsResponse, error)
-	// // ROUTES
+	//// ROUTES
 	ListRoutes(context.Context, *ListRoutesRequest) (*ListRoutesResponse, error)
 	// CreateRoute adds a new route to a VNet's routing table (identified by VNI).
 	// If the DPDK application does not hold any interface in the specified VNet, an error will be returned.
@@ -599,12 +599,12 @@ type DPDKironcoreServer interface {
 	// whether the VNI in question is in use or not.
 	CheckVniInUse(context.Context, *CheckVniInUseRequest) (*CheckVniInUseResponse, error)
 	ResetVni(context.Context, *ResetVniRequest) (*ResetVniResponse, error)
-	// // FIREWALL
+	//// FIREWALL
 	ListFirewallRules(context.Context, *ListFirewallRulesRequest) (*ListFirewallRulesResponse, error)
 	CreateFirewallRule(context.Context, *CreateFirewallRuleRequest) (*CreateFirewallRuleResponse, error)
 	GetFirewallRule(context.Context, *GetFirewallRuleRequest) (*GetFirewallRuleResponse, error)
 	DeleteFirewallRule(context.Context, *DeleteFirewallRuleRequest) (*DeleteFirewallRuleResponse, error)
-	// // PACKET CAPTURE
+	//// PACKET CAPTURE
 	CaptureStart(context.Context, *CaptureStartRequest) (*CaptureStartResponse, error)
 	CaptureStop(context.Context, *CaptureStopRequest) (*CaptureStopResponse, error)
 	CaptureStatus(context.Context, *CaptureStatusRequest) (*CaptureStatusResponse, error)
