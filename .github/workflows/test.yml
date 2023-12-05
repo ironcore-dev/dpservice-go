@@ -1,11 +1,10 @@
 name: test
 
 on:
-  push:
-    branches:
-      - feature/automated_testing
-  pull_request_target:
-
+  ##push:
+  ##  branches:
+  ##    - feature/automated_testing
+  pull_request:
     types: [ assigned, opened, synchronize, reopened ]
     paths-ignore:
       - 'docs/**'
@@ -14,7 +13,7 @@ on:
 jobs:
   checks:
     name: run
-    runs-on: [ ubuntu-latest, dpdk ]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,12 +24,8 @@ jobs:
 
       - uses: actions/setup-go@v4
         with:
-          go-version-file: go.mo
+          go-version-file: go.mod
       - run: make test
-      - name: Cleanup services
-        if: always()
-        run: |
-          for i in $(docker ps -q); do docker stop $i; done
       - name: Cleanup services
         if: always()
         run: |
