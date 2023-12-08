@@ -1,45 +1,26 @@
+<img src="https://github.com/ironcore-dev/ironcore/blob/main/docs/assets/logo.svg" alt="IronCore Logo" width="200" />
+
 # dpservice-go
-[![Pull Request Code test](https://github.com/ironcore-dev/dpservice-go/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/ironcore-dev/partitionlet/actions/workflows/test.yml)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
-[![GitHub License](https://img.shields.io/static/v1?label=License&message=Apache-2.0&color=blue&style=flat-square)](LICENSE)
 
-Golang bindings for the [dpservice](https://github.com/ironcore-dev/dpservice).
+[![REUSE status](https://api.reuse.software/badge/github.com/ironcore-dev/dpservice-go)](https://api.reuse.software/info/github.com/ironcore-dev/dpservice-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ironcore-dev/dpservice-go)](https://goreportcard.com/report/github.com/ironcore-dev/dpservice-go)
+[![GitHub License](https://img.shields.io/static/v1?label=License&message=Apache-2.0&color=blue)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
 
-## Development
+dpservice-go is the golang bindings for the [dpservice](https://github.com/ironcore-dev/dpservice).
 
-To regenerate the golang bindings run
-
-```shell
-make clean generate
-```
-
-## Usage
-
-```go
-package main
-
-import (
-    "context"
-    dpdkproto "github.com/ironcore-dev/dpservice-go/proto"
-    "google.golang.org/grpc"
-    "google.golang.org/grpc/credentials/insecure"
-)
-
-func main() {
-    ctx := context.Background()
-    conn, err := grpc.DialContext(ctx, "127.0.0.1", grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
-    if err != nil {
-    panic("aaaahh")
-    }
-    client := dpdkproto.NewDPDKironcoreClient(conn)
-    ...
-}
-```
-
-## Contributing
-
-We'd love to get feedback from you. Please report bugs, suggestions or post questions by opening a GitHub issue.
+## Use and develop dpservice-go
+Please see the documentation in the [`/docs`](./docs) folder for more details.
 
 ## License
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-[Apache-2.0](LICENSE)
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
