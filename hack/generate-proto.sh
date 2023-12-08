@@ -4,6 +4,9 @@ NET_DPSERVICE_REVISION="main"
 
 set -e
 
+PROTOC_GEN_GO="$PROTOC_GEN_GO"
+PROTOC_GEN_GO_GRPC="$PROTOC_GEN_GO_PROTOC_GEN_GO_GRPC"
+
 BASEDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 NET_DPSERVICE_DIR="$(mktemp -d)"
@@ -28,6 +31,8 @@ fi
 cp $NET_DPSERVICE_DIR/version.txt ./proto/generated_from.txt
 
 echo "Generating protobuf"
+export PATH="$PATH:$(dirname "$PROTOC_GEN_GO")"
+export PATH="$PATH:$(dirname "$PROTOC_GEN_GO_GRPC")"
 protoc --proto_path="$NET_DPSERVICE_DIR" \
   --go_out="$BASEDIR"/.. \
   --go_opt=paths=source_relative \
