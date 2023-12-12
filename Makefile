@@ -69,7 +69,7 @@ check: generate check-license lint test # Generate manifests, code, lint, check 
 
 .PHONY: test
 test: ## Tests the code in this repository.
-	go test -v ./...
+	go test -v ./... -coverprofile cover.out -ginkgo.label-filter=$(labels) -ginkgo.randomize-all
 
 ##@ Tools
 
