@@ -10,7 +10,7 @@ on:
 jobs:
   checks:
     name: run
-    runs-on: self-hosted
+    runs-on: [ self-hosted, dpdk ]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -20,7 +20,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
       - name: Run dpservice
-        run: docker run --rm --entrypoint ./dp_service.py --privileged -p1337:1337 --mount type=bind,source=/dev/hugepages,target=/dev/hugepages ghcr.io/ironcore-dev/dpservice-tester --no-init &
+        run: docker run --rm --entrypoint ./dp_service.py --privileged -p1337:1337 --mount type=bind,source=/dev/hugepages,target=/dev/hugepages ghcr.io/ironcore-dev/dpservice-tester:main --no-init &
 
       - run: make test
       - name: Cleanup services
