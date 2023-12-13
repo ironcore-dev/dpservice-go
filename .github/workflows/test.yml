@@ -17,6 +17,8 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Run dpservice
         run: docker run --rm --entrypoint ./dp_service.py --privileged -p1337:1337 --mount type=bind,source=/dev/hugepages,target=/dev/hugepages ghcr.io/ironcore-dev/dpservice-tester:main --no-init &
+      - name: Run wait for tcp port
+        run: timeout 10 bash -c 'until echo > /dev/tcp/localhost/1337 2>/dev/null; do sleep 1; done' 2>/dev/null
       - name: Setup Go Environment
         uses: actions/setup-go@v5
         with:
