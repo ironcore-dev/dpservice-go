@@ -377,11 +377,7 @@ func (c *client) CreateInterface(ctx context.Context, iface *api.Interface, igno
 	retInterface.Spec = iface.Spec
 	retInterface.Spec.UnderlayRoute = &underlayRoute
 	retInterface.Spec.VirtualFunction = &api.VirtualFunction{
-		Name:     res.Vf.Name,
-		Domain:   res.Vf.Domain,
-		Bus:      res.Vf.Bus,
-		Slot:     res.Vf.Slot,
-		Function: res.Vf.Function,
+		Name: res.Vf.Name,
 	}
 
 	return retInterface, nil

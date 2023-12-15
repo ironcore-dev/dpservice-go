@@ -308,15 +308,7 @@ type InterfaceSpec struct {
 }
 
 type VirtualFunction struct {
-	Name     string `json:"name"`
-	Domain   uint32 `json:"domain"`
-	Bus      uint32 `json:"bus"`
-	Slot     uint32 `json:"slot"`
-	Function uint32 `json:"function"`
-}
-
-func (vf *VirtualFunction) String() string {
-	return fmt.Sprintf("Name: %s, Domain: %d, Bus: %d, Slot: %d, Function: %d", vf.Name, vf.Domain, vf.Bus, vf.Slot, vf.Function)
+	Name string `json:"name"`
 }
 
 type InterfaceList struct {
