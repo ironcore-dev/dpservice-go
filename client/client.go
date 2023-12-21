@@ -344,12 +344,13 @@ func (c *client) ListInterfaces(ctx context.Context, ignoredErrors ...[]uint32) 
 
 func (c *client) CreateInterface(ctx context.Context, iface *api.Interface, ignoredErrors ...[]uint32) (*api.Interface, error) {
 	req := dpdkproto.CreateInterfaceRequest{
-		InterfaceType: dpdkproto.InterfaceType_VIRTUAL,
-		InterfaceId:   []byte(iface.ID),
-		Vni:           iface.Spec.VNI,
-		Ipv4Config:    api.NetIPAddrToProtoIPConfig(iface.Spec.IPv4),
-		Ipv6Config:    api.NetIPAddrToProtoIPConfig(iface.Spec.IPv6),
-		DeviceName:    iface.Spec.Device,
+		InterfaceType:      dpdkproto.InterfaceType_VIRTUAL,
+		InterfaceId:        []byte(iface.ID),
+		Vni:                iface.Spec.VNI,
+		Ipv4Config:         api.NetIPAddrToProtoIPConfig(iface.Spec.IPv4),
+		Ipv6Config:         api.NetIPAddrToProtoIPConfig(iface.Spec.IPv6),
+		DeviceName:         iface.Spec.Device,
+		MeteringParameters: api.InterfaceMeteringParamsToProtoMeteringParams(iface.Spec.Metering),
 	}
 	if iface.Spec.PXE != nil {
 		if iface.Spec.PXE.FileName != "" && iface.Spec.PXE.Server != "" {

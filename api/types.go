@@ -287,6 +287,11 @@ type PXE struct {
 	FileName string `json:"boot_filename,omitempty"`
 }
 
+type MeteringParams struct {
+	TotalRate  uint64 `json:"total_rate,omitempty"`
+	PublicRate uint64 `json:"public_rate,omitempty"`
+}
+
 func (m *InterfaceMeta) GetName() string {
 	return m.ID
 }
@@ -305,6 +310,7 @@ type InterfaceSpec struct {
 	PXE             *PXE             `json:"pxe,omitempty"`
 	Nat             *Nat             `json:"-"`
 	VIP             *VirtualIP       `json:"-"`
+	Metering        *MeteringParams  `json:"metering,omitempty"`
 }
 
 type VirtualFunction struct {
