@@ -39,6 +39,10 @@ var _ = Describe("interface", Label("interface"), func() {
 					IPv6:   &ipv6,
 					VNI:    positiveTestVNI,
 					Device: "net_tap5",
+					Metering: &api.MeteringParams{
+						TotalRate:  100,
+						PublicRate: 50,
+					},
 				},
 			}
 
@@ -72,6 +76,8 @@ var _ = Describe("interface", Label("interface"), func() {
 
 			Expect(res.Spec.IPv4.String()).To(Equal("10.200.1.5"))
 			Expect(res.Spec.IPv6.String()).To(Equal("2000:200:1::5"))
+			Expect(res.Spec.Metering.TotalRate).To(Equal(uint64(0))) //MeteringRarams shouldn't take any effect on tap devices
+			Expect(res.Spec.Metering.PublicRate).To(Equal(uint64(0)))
 		})
 
 		It("should list successfully", func() {

@@ -110,6 +110,7 @@ func ProtoInterfaceToInterface(dpdkIface *proto.Interface) (*Interface, error) {
 			IPv4:          &primaryIpv4,
 			IPv6:          &primaryIpv6,
 			UnderlayRoute: &underlayRoute,
+			Metering:      ProtoMeteringParamsToInterfaceMeteringParams(dpdkIface.GetMeteringParams()),
 		},
 	}, nil
 }
@@ -385,5 +386,28 @@ func ProtoIfaceInfoToCaptureIfaceInfo(request *proto.CapturedInterface) (string,
 		return string(request.GetVfName()), nil
 	default:
 		return "", fmt.Errorf("unsupported interface type")
+	}
+}
+
+func InterfaceMeteringParamsToProtoMeteringParams(meteringParams *MeteringParams) *proto.MeteringParams {
+
+	if meteringParams == nil {
+		return &proto.MeteringParams{
+			TotalRate:  0,
+			PublicRate: 0,
+		}
+	}
+
+	return &proto.MeteringParams{
+		TotalRate:  meteringParams.TotalRate,
+		PublicRate: meteringParams.PublicRate,
+	}
+}
+
+func ProtoMeteringParamsToInterfaceMeteringParams(meteringParams *proto.MeteringParams) *MeteringParams {
+
+	return &MeteringParams{
+		TotalRate:  meteringParams.TotalRate,
+		PublicRate: meteringParams.PublicRate,
 	}
 }
