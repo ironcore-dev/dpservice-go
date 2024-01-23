@@ -61,6 +61,11 @@ var _ = Describe("interface", Label("interface"), func() {
 			Expect(err).ToNot(HaveOccurred())
 
 			Expect(vni.Spec.InUse).To(BeTrue())
+
+			vni, err = dpdkClient.ResetVni(ctx, positiveTestVNI, 2)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(vni.Spec.InUse).To(BeFalse())
 		})
 
 		It("should not be created when already existing", func() {
@@ -390,8 +395,7 @@ var _ = Describe("interface related", func() {
 			Expect(err).ToNot(HaveOccurred())
 
 			Expect(len(neighborNats.Items)).To(Equal(1))
-			// TODO: items kind should be NeighborNat
-			Expect(neighborNats.Items[0].Kind).To(Equal(api.NatKind))
+			Expect(neighborNats.Items[0].Kind).To(Equal(api.NeighborNatKind))
 			Expect(neighborNats.Items[0].Spec.MinPort).To(Equal(uint32(30000)))
 		})
 
@@ -744,8 +748,6 @@ var _ = Describe("init", Label("init"), func() {
 	})
 })
 
-// TODO: add capture functions tests
-// TODO: add negative tests
 var _ = Describe("negative interface tests", Label("negative"), func() {
 	ctx := context.TODO()
 	var iface api.Interface
@@ -1208,6 +1210,84 @@ var _ = Describe("negative interface related tests", Label("negative"), func() {
 			_, err = dpdkClient.CreateFirewallRule(ctx, &fwRule)
 			Expect(err).To(HaveOccurred())
 			Expect(err.Error()).To(Equal("firewall action can be only: drop/deny/0|accept/allow/1"))
+		})
+	})
+
+	Context("When using capture functions", Label("capture"), Ordered, func() {
+		var res *api.CaptureStatus
+		var err error
+		sinkNode := netip.MustParseAddr("fc00:2::64:0:1")
+		captureStart := api.CaptureStart{
+			CaptureStartMeta: api.CaptureStartMeta{
+				Config: &api.CaptureConfig{
+					UdpSrcPort: 500,
+					UdpDstPort: 1000,
+				},
+			},
+			Spec: api.CaptureStartSpec{
+				Interfaces: []api.CaptureInterface{
+					{
+						InterfaceType: "vf",
+						InterfaceInfo: negativeTestIfaceID,
+					},
+				},
+			},
+		}
+
+		It("should return empty capture", func() {
+			By("no running capture")
+			res, err = dpdkClient.CaptureStatus(ctx)
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(res.Spec.OperationStatus).To(Equal(false))
+			Expect(res.Spec.Config.SinkNodeIP).To(BeNil())
+		})
+
+		It("should return error", func() {
+			By("not defining sink node")
+			_, err := dpdkClient.CaptureStart(ctx, &captureStart)
+
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid sink_node_ip"))
+
+			By("using ipv4 sink node")
+			addr := netip.MustParseAddr("10.0.0.1")
+			captureStart.Config.SinkNodeIP = &addr
+			_, err = dpdkClient.CaptureStart(ctx, &captureStart)
+
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid sink_node_ip"))
+
+			By("not defining capture config")
+			captureStart.Config = &api.CaptureConfig{}
+			_, err = dpdkClient.CaptureStart(ctx, &captureStart)
+
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid sink_node_ip"))
+
+			By("src port out of range")
+			captureStart.Config.SinkNodeIP = &sinkNode
+			captureStart.CaptureStartMeta.Config.UdpSrcPort = 70000
+
+			_, err = dpdkClient.CaptureStart(ctx, &captureStart)
+
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid udp_src_port"))
+
+			By("dst port out of range")
+			captureStart.CaptureStartMeta.Config.UdpSrcPort = 500
+			captureStart.CaptureStartMeta.Config.UdpDstPort = 70000
+
+			_, err = dpdkClient.CaptureStart(ctx, &captureStart)
+
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("rpc error: code = InvalidArgument desc = Invalid udp_dst_port"))
+
+			By("stopping when no capture is running")
+			_, err = dpdkClient.CaptureStop(ctx)
+
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(Equal("[error code 211] NOT_ACTIVE"))
 		})
 	})
 })

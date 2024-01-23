@@ -787,14 +787,15 @@ func (c *client) ListNats(ctx context.Context, natIP *netip.Addr, natType string
 			}
 			nat.Spec.UnderlayRoute = &underlayRoute
 			nat.Spec.NatIP = nil
+			nat.Kind = api.NeighborNatKind
 		} else if natEntry.GetNatIp() != nil {
 			vipIP, err = netip.ParseAddr(string(natEntry.GetNatIp().GetAddress()))
 			if err != nil {
 				return nil, fmt.Errorf("error parsing nat ip: %w", err)
 			}
 			nat.Spec.NatIP = &vipIP
+			nat.Kind = api.NatKind
 		}
-		nat.Kind = api.NatKind
 		nat.Spec.MinPort = natEntry.MinPort
 		nat.Spec.MaxPort = natEntry.MaxPort
 		nat.Spec.Vni = natEntry.Vni
